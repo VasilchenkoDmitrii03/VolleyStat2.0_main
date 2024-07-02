@@ -1,0 +1,36 @@
+﻿<Window x:Class="PlayerEditMessageBox.PlayerEditMsgBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PlayerEditMessageBox"
+        mc:Ignorable="d"
+        Title="Player Edit" Height="200" Width="300" MinHeight="200" MaxHeight="200" MinWidth="300" MaxWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Grid.Column="0">Number</Label>
+        <Label Grid.Row="1" Grid.Column="0">Amplua</Label>
+        <Label Grid.Row="2" Grid.Column="0">Name</Label>
+        <Label Grid.Row="3" Grid.Column="0">Surname</Label>
+        <Label Grid.Row="4" Grid.Column="0">Height</Label>
+
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Number}"></TextBox>
+        <ComboBox Name="AmpluaCombobox" Grid.Row="1" Grid.Column="1" SelectedValue="{Binding Amplua}"> </ComboBox>
+        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding PName}"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Surname}"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding PHeight}"></TextBox>
+        <Button Grid.Row="5" Grid.Column="1" Name="OkButton" Click="OkButton_Click">Ok</Button>
+        <Button Grid.Row="5" Grid.Column="0" Name="CancelButton" Click="CancelButton_Click">Cancel</Button>
+    </Grid>
+</Window>

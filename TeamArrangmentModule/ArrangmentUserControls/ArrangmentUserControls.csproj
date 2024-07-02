@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PlayerEditMessageBox\PlayerEditMessageBox.csproj" />
+    <ProjectReference Include="..\TeamArrangmentModule\TeamArrangmentModule.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ActionsLib">
+      <HintPath>..\..\..\..\..\..\Dmitrii\Programming\VolleyStat2.0\ActionsModule\ActionsLib\bin\Debug\net8.0\ActionsLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

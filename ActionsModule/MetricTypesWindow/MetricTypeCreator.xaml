@@ -1,0 +1,58 @@
+﻿<Window x:Class="MetricTypesWindow.MetricTypeCreator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MetricTypesWindow"
+        xmlns:c ="clr-namespace:MetricTypesWindow.Converters"
+        mc:Ignorable="d"
+        Title="MetricTypeCreator" Height="230" Width="400" MaxWidth="400" MinWidth="400" MaxHeight="230" MinHeight="200" >
+    <Window.Resources>
+        <c:MyConverter x:Key="MyConverter"></c:MyConverter>
+        <c:ShortNamesArrayConverter x:Key="ShortConverter"></c:ShortNamesArrayConverter>
+    </Window.Resources>
+    <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Grid.Row="0"> Metric type name: </Label>
+            <Label Grid.Column="0" Grid.Row="1">Metric type description:</Label>
+            <TextBox Name="NameTextBox" Grid.Column="1" Grid.Row="0" Text="{Binding MetricName}"></TextBox>
+            <TextBox Name="DescriptionTextBox" Grid.Column="1" Grid.Row="1" Text="{Binding MetricDescription}" ></TextBox>
+            <Label Grid.Column="0" Grid.Row="3">Metric values type</Label>
+            <TextBox Name="ShortNameTextBox" Grid.Column="1" Grid.Row="2" Text="{Binding MetricShortName}" ></TextBox>
+            <Label Grid.Column="0" Grid.Row="2">Short Name</Label>
+            <ComboBox Name="TypeComboBox" Grid.Column="1" Grid.Row="3" SelectedIndex="0">
+                <ComboBoxItem>A finite number of options</ComboBoxItem>
+                <ComboBoxItem>Point (position on the playground)</ComboBoxItem>
+                <ComboBoxItem>Integer value</ComboBoxItem>
+                <ComboBoxItem>Non integer value</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label>Options between commas</Label>
+            <TextBox Name="OptionsTextBox" Grid.Column="1" Text="{Binding Dict, Converter={StaticResource MyConverter} }"></TextBox>
+            <Label Grid.Row="1">Short names</Label>
+            <TextBox Name="ShortNamesListTextBox" Grid.Column="1" Grid.Row="1" Text="{Binding ShortNamesList, Converter={StaticResource ShortConverter} }"></TextBox>
+        </Grid>
+        <Button Click="Button_Click">OK</Button>
+    </StackPanel>
+</Window>

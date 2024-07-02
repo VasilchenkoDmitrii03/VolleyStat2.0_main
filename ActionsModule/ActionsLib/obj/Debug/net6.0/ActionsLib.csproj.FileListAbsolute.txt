@@ -1,0 +1,12 @@
+C:\Users\User\source\repos\ActionsLib\ActionsLib\bin\Debug\net6.0\ActionsLib.deps.json
+C:\Users\User\source\repos\ActionsLib\ActionsLib\bin\Debug\net6.0\ActionsLib.dll
+C:\Users\User\source\repos\ActionsLib\ActionsLib\bin\Debug\net6.0\ActionsLib.pdb
+C:\Users\User\source\repos\ActionsLib\ActionsLib\obj\Debug\net6.0\ActionsLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\source\repos\ActionsLib\ActionsLib\obj\Debug\net6.0\ActionsLib.AssemblyInfoInputs.cache
+C:\Users\User\source\repos\ActionsLib\ActionsLib\obj\Debug\net6.0\ActionsLib.AssemblyInfo.cs
+C:\Users\User\source\repos\ActionsLib\ActionsLib\obj\Debug\net6.0\ActionsLib.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\ActionsLib\ActionsLib\obj\Debug\net6.0\ActionsLib.dll
+C:\Users\User\source\repos\ActionsLib\ActionsLib\obj\Debug\net6.0\refint\ActionsLib.dll
+C:\Users\User\source\repos\ActionsLib\ActionsLib\obj\Debug\net6.0\ActionsLib.pdb
+C:\Users\User\source\repos\ActionsLib\ActionsLib\obj\Debug\net6.0\ref\ActionsLib.dll
+C:\Users\User\source\repos\ActionsLib\ActionsLib\obj\Debug\net6.0\ActionsLib.csproj.AssemblyReference.cache
