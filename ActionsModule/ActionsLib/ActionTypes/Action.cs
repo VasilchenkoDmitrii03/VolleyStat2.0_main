@@ -63,6 +63,13 @@ namespace ActionsLib
         {
             get { return _player; }
         }
+        public VolleyActionType VolleyActionType
+        {
+            get
+            {
+                return _volleyActionType;
+            }
+        }
 
     }
     public class OpponentAction : Action

@@ -9,6 +9,11 @@ class Program
 
     public static void Main(string[] args)
     {
+        ActionSequence tmp = new ActionsLib.ActionSequence();
+        tmp.Add(new ActionsLib.Action("0"));
+        tmp.Add(new ActionsLib.Action("1"));
+
+
         ActionsMetricTypes actionMetricTYpes = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0\BasicActionsMetrics");
         foreach(var mt in actionMetricTYpes[VolleyActionType.Serve].MetricTypes)
         {

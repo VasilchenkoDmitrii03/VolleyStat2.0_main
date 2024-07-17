@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <Reference Include="ActionsLib">
-      <HintPath>..\..\..\..\..\..\Dmitrii\Programming\VolleyStat2.0\ActionsModule\ActionsLib\bin\Debug\net8.0\ActionsLib.dll</HintPath>
+      <HintPath>..\..\ActionsModule\ActionsLib\bin\Debug\net8.0\ActionsLib.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "h5mUZ9gNZuTra/GBceyGXeKuQey0iN95SHjiDJ5O/EfXkAqG5aRnH6+Bu+PrF9Hu9QYtbhtM95I3dvMAt4ARyw==",
+  "dgSpecHash": "/Ds/QFocsU8=",
   "success": true,
-  "projectFilePath": "C:\\Dmitrii\\Programming\\VolleyStat2.0\\TeamArrangmentModule\\PlayerEditMessageBox\\PlayerEditMessageBox.csproj",
+  "projectFilePath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\PlayerEditMessageBox\\PlayerEditMessageBox.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

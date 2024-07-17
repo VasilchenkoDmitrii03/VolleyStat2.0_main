@@ -4,7 +4,7 @@
 library
 C#
 .cs
-C:\Dmitrii\Programming\VolleyStat2.0\ActionsModule\WPFMetricTypeSelectorControl\obj\Debug\net8.0-windows\
+C:\Dmitrii\Programming\VolleyStat2.0_main\ActionsModule\WPFMetricTypeSelectorControl\obj\Debug\net8.0-windows\
 WPFMetricTypeSelectorControl
 none
 false
@@ -13,7 +13,7 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 1-39517732
 
 5-1455008955
-200-2070313853
+200-165510364
 UserControl1.xaml;
 
 True

@@ -1,10 +1,10 @@
 ﻿ArrangmentUserControls
-
+1.0.0.0
 
 library
 C#
 .cs
-C:\Dmitrii\Programming\VolleyStat2.0\TeamArrangmentModule\ArrangmentUserControls\obj\Debug\net8.0-windows\
+C:\Dmitrii\Programming\VolleyStat2.0_main\TeamArrangmentModule\ArrangmentUserControls\obj\Debug\net8.0-windows\
 ArrangmentUserControls
 none
 false
@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 
 31692598867
 
-51405265064
-2011379020717
+7333238787
+201-819553725
 StartArrangmentSetterControl.xaml;TeamRepresentationControl.xaml;test.xaml;
 
-False
+True
 

@@ -1,20 +1,20 @@
 ﻿PlayerEditMessageBox
-
+1.0.0.0
 
 winexe
 C#
 .cs
-C:\Dmitrii\Programming\VolleyStat2.0\TeamArrangmentModule\PlayerEditMessageBox\obj\Debug\net8.0-windows\
+C:\Dmitrii\Programming\VolleyStat2.0_main\TeamArrangmentModule\PlayerEditMessageBox\obj\Debug\net8.0-windows\
 PlayerEditMessageBox
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Dmitrii\Programming\VolleyStat2.0\TeamArrangmentModule\PlayerEditMessageBox\App.xaml
+C:\Dmitrii\Programming\VolleyStat2.0_main\TeamArrangmentModule\PlayerEditMessageBox\App.xaml
 11407045341
 
-4265023221
-199400565127
+6288588653
+199890428916
 MainWindow.xaml;
 
-False
+True
 
