@@ -8,4 +8,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="ActionsLib">
+      <HintPath>..\ActionsModule\ActionsLib\bin\Debug\net8.0\ActionsLib.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\actionsmodule\\actionslib\\actiontypes\\action.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|solutionrelative:actionslib\\actiontypes\\action.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\actionsmodule\\actionslib\\actioncollections\\actionsequence.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|solutionrelative:actionslib\\actioncollections\\actionsequence.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +17,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{60EDA02B-6433-4BF2-A785-D06C3F242CDD}|ActionTesting\\ActionTesting.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\actionsmodule\\actiontesting\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{60EDA02B-6433-4BF2-A785-D06C3F242CDD}|ActionTesting\\ActionTesting.csproj|solutionrelative:actiontesting\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\actionsmodule\\actionslib\\actiontypes\\action.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|solutionrelative:actionslib\\actiontypes\\action.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1987F4A2-BC39-4F9B-82B6-3C8BB5568E76}|MetricTypesWindow\\MetricTypesWindow.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\actionsmodule\\metrictypeswindow\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,24 +58,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ActionTesting",
+              "DocumentIndex": 2,
+              "Title": "ActionTesting.csproj",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionTesting\\ActionTesting.csproj",
               "RelativeDocumentMoniker": "ActionTesting\\ActionTesting.csproj",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionTesting\\ActionTesting.csproj",
               "RelativeToolTip": "ActionTesting\\ActionTesting.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-07-17T19:04:02.539Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-17T19:04:02.539Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ActionSequence.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionCollections\\ActionSequence.cs",
               "RelativeDocumentMoniker": "ActionsLib\\ActionCollections\\ActionSequence.cs",
@@ -83,8 +82,7 @@
               "RelativeToolTip": "ActionsLib\\ActionCollections\\ActionSequence.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-17T19:02:54.102Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-17T19:02:54.102Z"
             },
             {
               "$type": "Document",
@@ -100,7 +98,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionTesting\\Program.cs",
               "RelativeDocumentMoniker": "ActionTesting\\Program.cs",
@@ -108,8 +106,7 @@
               "RelativeToolTip": "ActionTesting\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAADwvw8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-25T19:24:21.382Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-25T19:24:21.382Z"
             },
             {
               "$type": "Document",
@@ -137,13 +134,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "Action.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\Action.cs",
               "RelativeDocumentMoniker": "ActionsLib\\ActionTypes\\Action.cs",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\Action.cs",
               "RelativeToolTip": "ActionsLib\\ActionTypes\\Action.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAIwEUAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAAAHEAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-20T17:38:27.978Z",
               "EditorCaption": ""
@@ -158,8 +155,7 @@
               "RelativeToolTip": "MetricTypesWindow\\MainWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T17:07:11.567Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-20T17:07:11.567Z"
             },
             {
               "$type": "Document",

@@ -105,6 +105,10 @@ namespace ActionsLib
         Attack = 3,
         Block = 4,
         Defence = 5,
+        Transfer = 6,
+        FreeBall = 7,
+        OpponentError = 8, 
+        OpponentPoint = 9,
         Undefined = -1
     }
     public enum OpponentTeamActionType
