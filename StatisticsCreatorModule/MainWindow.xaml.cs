@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ActionsLib;
+using ActionsLib.ActionTypes;
 
 namespace StatisticsCreatorModule
 {
@@ -19,6 +22,14 @@ namespace StatisticsCreatorModule
         public MainWindow()
         {
             InitializeComponent();
+            ActionsMetricTypes atl = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\BasicActionsMetrics");
+            MetricTypeList mtl = atl[VolleyActionType.Attack];
+            ButtonController.getPlayerAction(mtl);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            List<Metric> tmp = ButtonController.MetricListResult;
         }
     }
 }

@@ -124,4 +124,21 @@ namespace ActionsLib
         CardGift = 2,
         Undefined = -1
     }
+    public enum NotVolleyballActionsInRally 
+    {
+        Undefined = -1,
+        DisputedBall = 0,
+        Won = 1,
+        Lost = 2
+    }
+    public enum NotVolleyballActions
+    {
+        Undefined = -1,
+        DisputedBall = 0,
+        Won = 1,
+        Lost = 2,
+        JudgeError =3,
+        Timeout = 4,
+        Change = 5
+    }
 }

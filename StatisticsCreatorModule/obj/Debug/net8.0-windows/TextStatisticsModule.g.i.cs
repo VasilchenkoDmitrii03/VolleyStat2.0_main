@@ -61,7 +61,7 @@ namespace StatisticsCreatorModule {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/StatisticsCreatorModule;V1.0.0.0;component/textstatisticsmodule.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/StatisticsCreatorModule;component/textstatisticsmodule.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\TextStatisticsModule.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

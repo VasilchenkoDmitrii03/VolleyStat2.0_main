@@ -128,7 +128,12 @@ namespace ActionsLib
             if (index == -1) throw new Exception($"No '{shortString}' short string in metric type {_name}");
             return _acceptableValuesNames.Keys.ToArray()[index];
         }
-      
+        public object getObjectByLargeName(string largeName)
+        {
+            int index = _acceptableValuesNames.Values.ToList().IndexOf(largeName);
+            if(index == -1) throw new Exception($"No '{largeName}' name in metric type {_name}");
+            return _acceptableValuesNames.Keys.ToArray()[index];
+        }
 
         public void Save(string filename)
         {

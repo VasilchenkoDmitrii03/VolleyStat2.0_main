@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Dmitrii\Programming\VolleyStat2.0\StatisticsCreatorModule\obj\Debug\net8.0-windows\
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\
 StatisticsCreatorModule
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\Dmitrii\Programming\VolleyStat2.0\StatisticsCreatorModule\App.xaml
-2-1970536107
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\App.xaml
+31902417781
 
-5582822091
-1981451641563
-MainWindow.xaml;TextStatisticsModule.xaml;
+71516292659
+199890428916
+ButtonControllerControl.xaml;MainWindow.xaml;TextStatisticsModule.xaml;
 
 False
 

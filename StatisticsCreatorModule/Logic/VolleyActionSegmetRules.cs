@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.DirectoryServices;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
 using ActionsLib;
 
 namespace StatisticsCreatorModule.Logic
@@ -121,6 +123,40 @@ namespace StatisticsCreatorModule.Logic
     //this class contains logic about when you can make changes take timeouts and etc
     class SetLogic 
     {
+        List<NotVolleyballActions> _inRallyActions;
+        List<NotVolleyballActions> _afterRallyActions;
 
+        public SetLogic()
+        {
+            _inRallyActions = new List<NotVolleyballActions>();
+            _afterRallyActions = new List<NotVolleyballActions>();
+        }
+        public void defaultSetting()
+        {
+            _inRallyActions.Add(NotVolleyballActions.DisputedBall);
+            _inRallyActions.Add(NotVolleyballActions.Won);
+            _inRallyActions.Add(NotVolleyballActions.Lost);
+            _inRallyActions.Add(NotVolleyballActions.JudgeError);
+            _afterRallyActions.Add(NotVolleyballActions.Timeout);
+            _afterRallyActions.Add(NotVolleyballActions.Change);
+        }
+        public RallyResult getRallyResult(NotVolleyballActions action)
+        {
+            switch (action)
+            {
+                case NotVolleyballActions.Won:
+                case NotVolleyballActions.JudgeError:
+                    return RallyResult.Won;
+                case NotVolleyballActions.Lost:
+                    return RallyResult.Lost;
+                case NotVolleyballActions.Change:
+                case NotVolleyballActions.Timeout:
+                    return RallyResult.Undefined;
+                case NotVolleyballActions.DisputedBall:
+                    return RallyResult.Disputable;
+            }
+            return RallyResult.Undefined;
+        }
     }
+    //scheme: Rally -> NotVolleyActoin -> Rally -> ... etc
 }
