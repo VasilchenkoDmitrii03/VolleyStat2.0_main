@@ -10,6 +10,11 @@ namespace ActionsLib
     {
         MetricType _metricType;
         object _value;
+        public Metric()
+        {
+            _metricType = new MetricType();
+            _value = -1;
+        }
         public Metric(MetricType mType, object value)
         {
             //if (mType == null || value == null) throw new ArgumentNullException();
@@ -38,6 +43,7 @@ namespace ActionsLib
             if (lhs._metricType != rhs._metricType) return false;
             return lhs._value == rhs._value;
         }
+        
         public static bool operator !=(Metric lhs, Metric rhs)
         {
             if (lhs._metricType != rhs._metricType) return true;

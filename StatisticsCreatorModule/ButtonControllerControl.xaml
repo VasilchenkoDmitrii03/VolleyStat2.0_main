@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:StatisticsCreatorModule"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
+    <StackPanel Name="MainStackPanel">
         <Label Name="MainLabel" FontSize="25">Test1</Label>
         <Label Name="SupportLabel" FontSize="20">Test2</Label>
         <WrapPanel Name="MainPanel">
