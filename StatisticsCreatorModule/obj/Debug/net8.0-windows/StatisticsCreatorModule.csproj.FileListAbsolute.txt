@@ -52,3 +52,7 @@ C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsCreatorModule.pdb
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsCreatorModule.genruntimeconfig.cache
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\ref\StatisticsCreatorModule.dll
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\ActionTextRepresentationLineControl.g.cs
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\UserControl1.g.cs
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\ActionTextRepresentationLineControl.baml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\UserControl1.baml

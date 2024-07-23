@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ActionsLib.ActionTypes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace StatisticsCreatorModule
         public TextStatisticsModule()
         {
             InitializeComponent();
+            ActionsMetricTypes amt = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\BasicActionsMetrics");
+            Test.LoadActionMetricsTypes(amt);
         }
     }
 }

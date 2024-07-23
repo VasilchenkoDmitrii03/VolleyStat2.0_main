@@ -7,14 +7,23 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="ActionTextRepresentationLineControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="ButtonControllerControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="TextStatisticsModule.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="UserControl1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="ActionTextRepresentationLineControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="ButtonControllerControl.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -22,6 +31,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="TextStatisticsModule.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="UserControl1.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

@@ -61,7 +61,7 @@ namespace MetricTypesWindow {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/MetricTypesWindow;component/metrictypelisteditor.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/MetricTypesWindow;V1.0.0.0;component/metrictypelisteditor.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\MetricTypeListEditor.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

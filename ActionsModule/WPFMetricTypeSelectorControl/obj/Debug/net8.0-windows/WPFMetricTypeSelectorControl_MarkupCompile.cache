@@ -1,5 +1,5 @@
 ﻿WPFMetricTypeSelectorControl
-
+1.0.0.0
 
 library
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 
 1-39517732
 
-3-242940014
+5-1455008955
 200-165510364
 UserControl1.xaml;
 
-False
+True
 

@@ -58,6 +58,10 @@ namespace StatisticsCreatorModule
             return _selectedObject;
         }
 
+        public Object SelectedObject
+        {
+            get { return _selectedObject; }
+        }
 
         /*
                 #region MetricTypeList 

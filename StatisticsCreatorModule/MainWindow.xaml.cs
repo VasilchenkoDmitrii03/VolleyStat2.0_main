@@ -19,17 +19,28 @@ namespace StatisticsCreatorModule
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+       /* public MainWindow()
         {
             InitializeComponent();
             ActionsMetricTypes atl = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\BasicActionsMetrics");
             MetricTypeList mtl = atl[VolleyActionType.Attack];
-            ButtonController.getPlayerAction(mtl);
+            //ButtonController.getPlayerAction(mtl);
+            ButtonController.updateButtons(new List<Object> { VolleyActionType.Serve, JudgeActionType.CardGift });
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            List<Metric> tmp = ButtonController.MetricListResult;
+            //List<Metric> tmp = ButtonController.MetricListResult;
+            Object o = ButtonController.SelectedObject;
+            Type t = o.GetType();
+        }*/
+
+        public MainWindow()
+        {
+            InitializeComponent();
+           
+            
         }
     }
+
 }
