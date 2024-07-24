@@ -6,7 +6,17 @@
         xmlns:local="clr-namespace:StatisticsCreatorModule"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <local:TextStatisticsModule></local:TextStatisticsModule>
-    </StackPanel>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <local:TextStatisticsModule Grid.Column="0" Grid.Row="1"></local:TextStatisticsModule>
+        <local:ButtonControllerControl  Grid.Column="1" Grid.Row="0"></local:ButtonControllerControl>
+    </Grid>
+    
 </Window>

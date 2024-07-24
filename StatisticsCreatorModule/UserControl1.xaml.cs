@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ActionsLib.TextRepresentation;
+using System.Globalization;
 
 namespace StatisticsCreatorModule
 {
@@ -30,6 +31,12 @@ namespace StatisticsCreatorModule
         {
             InitializeComponent();
         }
+
+        public PlayerActionTextRepresentation PlayerActionTextRepresentation
+        {
+            get;set;
+        }
+
         public void LoadActionMetricsTypes(ActionsMetricTypes actionsMetricTypes)
         {
             _actionsMetricTypes = actionsMetricTypes;
@@ -43,6 +50,14 @@ namespace StatisticsCreatorModule
 
         private void ActionTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (!MyValidationForActTypeComboBox((ComboBox)sender)) return;
+            VolleyActionType aType = (VolleyActionType)ActionTypeComboBox.SelectedItem;
+            _playerActionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
+            updateComboBoxes(aType);
+        }
+        private void ActionTypeComboBox_SelectionChanged(object sender, KeyEventArgs e)
+        {
+            if (!MyValidationForActTypeComboBox((ComboBox)sender)) return;
             VolleyActionType aType = (VolleyActionType)ActionTypeComboBox.SelectedItem;
             _playerActionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
             updateComboBoxes(aType);
@@ -57,13 +72,27 @@ namespace StatisticsCreatorModule
             {
                 MainGrid.ColumnDefinitions.Add(new ColumnDefinition());
                 Label lab = new Label() { Content = a.Name };
-                ComboBox comb = new ComboBox();
-                comb.SelectionChanged += (o, e) =>
+                ComboBox comb = new ComboBox() { Margin = new Thickness(1)};
+                comb.Background = new SolidColorBrush(Colors.Purple);
+                comb.KeyDown += (o, e) =>
                 {
-                    MetricType type = a;
-                    string shrtString =(string) ((ComboBox)o).SelectedItem;
-                    _playerActionTextRepresentation.SetMetricByShortString(type, shrtString);
+                    if (MyValidationForMetricComboBoxes((comb)))
+                    {
+                        MetricType type = a;
+                        string shrtString = (string)((ComboBox)o).SelectedItem;
+                        _playerActionTextRepresentation.SetMetricByShortString(type, shrtString);
+                    }
                 };
+                comb.SelectionChanged +=
+                    (o, e) =>
+                    {
+                        if (MyValidationForMetricComboBoxes((comb)))
+                        {
+                            MetricType type = a;
+                            string shrtString = (string)((ComboBox)o).SelectedItem;
+                            _playerActionTextRepresentation.SetMetricByShortString(type, shrtString);
+                        }
+                    };
                 comb.IsEditable = true;
                 fillComboBoxItems(comb, a.ShortValuesNames);
                 MainGrid.Children.Add(lab);
@@ -87,5 +116,48 @@ namespace StatisticsCreatorModule
                 comboBox.Items.Add(str);
             }
         }
+        #region Validation
+        private bool MyValidationForMetricComboBoxes(ComboBox comb)
+        {
+            bool result = false;
+            string selected = (string)comb.SelectedItem;
+            foreach (string str in comb.Items)
+            {
+                if (str == selected) { result = true; break; }
+            }
+
+            if (result)
+            {
+                comb.BorderThickness = new Thickness(1);
+                comb.Foreground = new SolidColorBrush(Colors.Black);
+            }
+            else
+            {
+                comb.BorderThickness = new Thickness(1);
+                comb.Foreground = new SolidColorBrush(Colors.Red);
+            }
+            return result;
+        }
+        private bool MyValidationForActTypeComboBox(ComboBox comb) 
+        {
+            bool result = false;
+            string selected = (string)comb.Text;
+            foreach (VolleyActionType at in comb.Items)
+            {
+                if (selected == at.ToString()) { result = true; break; }
+            }
+            if (result)
+            {
+                comb.BorderThickness = new Thickness(1);
+                comb.Foreground = new SolidColorBrush(Colors.Black);
+            }
+            else
+            {
+                comb.BorderThickness = new Thickness(1);
+                comb.Foreground = new SolidColorBrush(Colors.Red);
+            }
+            return result;
+        }
+        #endregion
     }
 }
