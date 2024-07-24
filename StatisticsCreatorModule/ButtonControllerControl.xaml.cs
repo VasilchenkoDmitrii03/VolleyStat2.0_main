@@ -1,4 +1,5 @@
 ﻿using ActionsLib;
+using ActionsLib.ActionTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,12 +20,20 @@ namespace StatisticsCreatorModule
     /// <summary>
     /// Interaction logic for ButtonControllerControl.xaml
     /// </summary>
+
+    public delegate void MetricValueChanged(object sender, MetricValueEventArgs e);
     public partial class ButtonControllerControl : UserControl
     {
+
+        public ActionsMetricTypes _actionMetricTypes;
         public ButtonControllerControl()
         {
             InitializeComponent();
             _currentObjectsList = new List<object>();
+        }
+        public void setActionMetricTypes(ActionsMetricTypes actionMetricTypes)
+        {
+            _actionMetricTypes = actionMetricTypes;
         }
 
         object _selectedObject = null;
@@ -62,6 +71,19 @@ namespace StatisticsCreatorModule
         {
             get { return _selectedObject; }
         }
+
+        #region Event module
+        public event MetricValueChanged MetricValueChangedInButtonModule;
+        public void ActionTypeChangedInTextModule(object sender, ActionTypeEventArgs e)
+        {
+            getPlayerAction(_actionMetricTypes[e.VolleyActionType]);
+        }
+        public void MetricTypeChangedInTextModule(object sender, MetricTypeEventArgs e) 
+        {
+            MetricTypeComboBox.SelectedIndex = e.MetricIndex;
+        }
+        #endregion
+
 
         /*
                 #region MetricTypeList 
@@ -135,13 +157,14 @@ namespace StatisticsCreatorModule
             _metricTypeList = mtl.MetricTypes;
             _metricResultArray = new Metric[_metricTypeList.Count];
             for (int i = 0; i < _metricTypeList.Count; i++) { _metricResultArray[i] = null; } //filling with nulls
-            _metricsComboBox = new ComboBox() { Width = 500, Height=33};
-            _metricsComboBox.SelectionChanged += ComboBoxUpdated;
+            _metricsComboBox = MetricTypeComboBox;
+            _metricsComboBox.Items.Clear();
+            //_metricsComboBox.SelectionChanged += ComboBoxUpdated;
             foreach (MetricType metric in _metricTypeList)
             {
                 _metricsComboBox.Items.Add(metric.Name);
             }
-            MainStackPanel.Children.Add(_metricsComboBox);
+            //MainStackPanel.Children.Add(_metricsComboBox);
             _currentMetricIndex = 0;
             _metricsComboBox.SelectedIndex = _currentMetricIndex;
         }
@@ -162,7 +185,7 @@ namespace StatisticsCreatorModule
         }*/
         private void ComboBoxUpdated(object sender, EventArgs e)
         {
-            MainPanel.Children.Clear();
+           MainPanel.Children.Clear();
 
             if (_metricsComboBox.SelectedIndex < _metricTypeList.Count && _metricsComboBox.SelectedIndex >= 0)
             {
@@ -187,13 +210,16 @@ namespace StatisticsCreatorModule
                 button.Click += (o, e) =>
                 {
                     _isClicked = true;
+                    MetricValueChangedInButtonModule(this, new MetricValueEventArgs(getMetricByString(obj), MetricTypeComboBox.SelectedIndex));
                     addNewMetric(obj);
                     _currentMetricIndex = nextNullIndex();
                     if(_currentMetricIndex == -1)
                     {
                         //exit and job is done
                     }
+                   
                     this._metricsComboBox.SelectedIndex = _currentMetricIndex;
+
                 };
                 MainPanel.Children.Add(button);
                 if (_isClicked) return;
@@ -201,9 +227,13 @@ namespace StatisticsCreatorModule
         }
         private void addNewMetric(string valueName)
         {
+            _metricResultArray[_metricsComboBox.SelectedIndex]  = getMetricByString(valueName);
+        }
+        private Metric getMetricByString(string valueName)
+        {
             MetricType metricType = _metricTypeList[_metricsComboBox.SelectedIndex];
             object val = metricType.getObjectByLargeName(valueName);
-            _metricResultArray[_metricsComboBox.SelectedIndex]  = new Metric(metricType, val);
+            return new Metric(metricType, val);
         }
         private int nextNullIndex()
         {
@@ -219,4 +249,15 @@ namespace StatisticsCreatorModule
         }
         #endregion
     }
+    public class MetricValueEventArgs : EventArgs
+    {
+        public Metric Metric { get; set; }
+        public int MetricTypeIndex { get; set; }
+        public MetricValueEventArgs(Metric vat, int metricTypeIndex)
+        {
+            Metric = vat;
+            MetricTypeIndex = metricTypeIndex;
+        }
+    }
 }
+

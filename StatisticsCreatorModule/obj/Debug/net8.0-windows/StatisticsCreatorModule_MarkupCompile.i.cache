@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\App.xaml
-51973722298
+4-363516172
 
-11170515999
+10372412228
 199890428916
-ActionTextRepresentationLineControl.xaml;ButtonControllerControl.xaml;MainWindow.xaml;TextStatisticsModule.xaml;UserControl1.xaml;
+ActionTextRepresentationControl.xaml;ButtonControllerControl.xaml;MainWindow.xaml;TextStatisticsModule.xaml;
 
-True
+False
 

@@ -24,8 +24,14 @@ namespace StatisticsCreatorModule
         public TextStatisticsModule()
         {
             InitializeComponent();
-            ActionsMetricTypes amt = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\BasicActionsMetrics");
-            Test.LoadActionMetricsTypes(amt);
+        }
+        public void setActionMetricsTypes(ActionsMetricTypes amt)
+        {
+            Test.setActionMetricsTypes(amt);
+        }
+        public ActionTextRepresentationControl LineRepresentationControl
+        {
+            get { return Test; }
         }
     }
 }

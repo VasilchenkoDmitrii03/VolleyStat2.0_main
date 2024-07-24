@@ -26,7 +26,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <local:UserControl1 x:Name="Test"></local:UserControl1>
+            <local:ActionTextRepresentationControl x:Name="Test"></local:ActionTextRepresentationControl>
             <Button Width="200"> Add</Button>
         </StackPanel>
         
