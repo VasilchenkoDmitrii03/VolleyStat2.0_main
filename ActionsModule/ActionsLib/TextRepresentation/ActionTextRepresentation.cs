@@ -54,5 +54,14 @@ namespace ActionsLib.TextRepresentation
             }
             return res;
         }
+
+        public VolleyActionType ActionType
+        {
+            get { return _actionType; }
+        }
+        public Metric[] Metrics
+        {
+            get { return _metrics; }
+        }
     }
 }

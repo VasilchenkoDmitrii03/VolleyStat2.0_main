@@ -14,20 +14,11 @@
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
         <Label>Actions</Label>
-        <ListBox Grid.Row="1">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Background="AliceBlue">
-                        <Label Content="{Binding Player}"></Label>
-                        <Label Content="{Binding AType}"></Label>
-                        <Label Content="{Binding Quality}"></Label>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
+        <ListBox Grid.Row="1" Name="MainListBox">
         </ListBox>
         <StackPanel Orientation="Horizontal" Grid.Row="2">
             <local:ActionTextRepresentationControl x:Name="Test"></local:ActionTextRepresentationControl>
-            <Button Width="200"> Add</Button>
+            <Button Width="200" Click="AddButton_Click"> Add</Button>
         </StackPanel>
         
     </Grid>

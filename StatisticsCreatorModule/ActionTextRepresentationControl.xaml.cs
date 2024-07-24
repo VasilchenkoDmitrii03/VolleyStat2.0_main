@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ActionsLib.TextRepresentation;
 using System.Globalization;
+using System.Printing;
 
 namespace StatisticsCreatorModule
 {
@@ -52,7 +53,10 @@ namespace StatisticsCreatorModule
 
         public PlayerActionTextRepresentation PlayerActionTextRepresentation
         {
-            get;set;
+            get
+            {
+                return _playerActionTextRepresentation;
+            }
         }
 
         public void setActionMetricsTypes(ActionsMetricTypes actionsMetricTypes)
@@ -65,11 +69,18 @@ namespace StatisticsCreatorModule
                 ActionTypeComboBox.Items.Add(a);
             }
         }
+        public void clear()
+        {
+            this.ActionTypeComboBox.Text = "";
+            MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
+            MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
+        }
 
+        #region ComboBoxes
         private List<ComboBox> _currentComboBoxes  = new List<ComboBox>();
         private void ActionTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!MyValidationForActTypeComboBox((ComboBox)sender)) return;
+            if (!MyValidationForActTypeComboBox((ComboBox)sender, true)) return;
             VolleyActionType aType = (VolleyActionType)ActionTypeComboBox.SelectedItem;
             _playerActionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
             updateComboBoxes(aType);
@@ -77,7 +88,7 @@ namespace StatisticsCreatorModule
         }
         private void ActionTypeComboBox_SelectionChanged(object sender, KeyEventArgs e)
         {
-            if (!MyValidationForActTypeComboBox((ComboBox)sender)) return;
+            if (!MyValidationForActTypeComboBox((ComboBox)sender, false)) return;
             VolleyActionType aType = (VolleyActionType)ActionTypeComboBox.SelectedItem;
             _playerActionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
             updateComboBoxes(aType);
@@ -146,6 +157,7 @@ namespace StatisticsCreatorModule
                 comboBox.Items.Add(str);
             }
         }
+        #endregion
         #region Validation
         private bool MyValidationForMetricComboBoxes(ComboBox comb)
         {
@@ -168,10 +180,12 @@ namespace StatisticsCreatorModule
             }
             return result;
         }
-        private bool MyValidationForActTypeComboBox(ComboBox comb) 
+        private bool MyValidationForActTypeComboBox(ComboBox comb, bool isChanged) 
         {
             bool result = false;
+
             string selected = (string)comb.Text;
+            //if(selected == "" && comb.SelectedItem != null) selected = comb.SelectedItem.ToString();
             foreach (VolleyActionType at in comb.Items)
             {
                 if (selected == at.ToString()) { result = true; break; }
@@ -187,6 +201,17 @@ namespace StatisticsCreatorModule
                 comb.Foreground = new SolidColorBrush(Colors.Red);
             }
             return result;
+        }
+
+        public bool Ready()
+        {
+            bool actType = MyValidationForActTypeComboBox(ActionTypeComboBox, false) || MyValidationForActTypeComboBox(ActionTypeComboBox, true);
+            bool other = true;
+            foreach(ComboBox comb in _currentComboBoxes)
+            {
+                other = other && MyValidationForMetricComboBoxes(comb);
+            }
+            return actType && other;
         }
         #endregion
     }

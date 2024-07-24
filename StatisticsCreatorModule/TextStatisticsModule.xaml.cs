@@ -1,6 +1,8 @@
-﻿using ActionsLib.ActionTypes;
+﻿using ActionsLib;
+using ActionsLib.ActionTypes;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,9 +23,17 @@ namespace StatisticsCreatorModule
     /// </summary>
     public partial class TextStatisticsModule : UserControl
     {
+        List<ActionsLib.Action> actions = new List<ActionsLib.Action>();
+        Random rand =new Random();
         public TextStatisticsModule()
         {
             InitializeComponent();
+            updateListVisual();
+        }
+        private void updateListVisual()
+        {
+            MainListBox.ItemsSource = null;
+            MainListBox.ItemsSource = actions;
         }
         public void setActionMetricsTypes(ActionsMetricTypes amt)
         {
@@ -32,6 +42,21 @@ namespace StatisticsCreatorModule
         public ActionTextRepresentationControl LineRepresentationControl
         {
             get { return Test; }
+        }
+
+        private void AddButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (!LineRepresentationControl.Ready())
+            {
+                MessageBox.Show("Fill Data correctly");
+                return;
+            }
+            VolleyActionType actType = LineRepresentationControl.PlayerActionTextRepresentation.ActionType;
+            Metric[] met = LineRepresentationControl.PlayerActionTextRepresentation.Metrics;
+            PlayerAction act = new PlayerAction(new Player("", "", 1, rand.Next(), Amplua.Undefined), actType, met );
+            actions.Add(act);
+            updateListVisual();
+            LineRepresentationControl.clear();
         }
     }
 }
