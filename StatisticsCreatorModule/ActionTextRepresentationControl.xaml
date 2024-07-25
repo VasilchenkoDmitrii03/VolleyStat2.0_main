@@ -16,9 +16,9 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="1">Player number</Label>
-        <ComboBox Name="PlayerComboBox" IsEditable ="True" Grid.Row="1" Grid.Column="1"></ComboBox>
-        <Label >Action type</Label>
-        <ComboBox Name="ActionTypeComboBox" Grid.Row="1"  IsEditable="True" SelectionChanged="ActionTypeComboBox_SelectionChanged" KeyDown="ActionTypeComboBox_SelectionChanged"></ComboBox>
+        <Label Grid.Column="0">Player number</Label>
+        <ComboBox Name="PlayerComboBox" IsEditable ="True" Grid.Row="1" Grid.Column="0" SelectionChanged="PlayerComboBox_SelectionChanged" KeyDown="PlayerComboBox_KeyDown" ></ComboBox>
+        <Label Grid.Column="1">Action type</Label>
+        <ComboBox Name="ActionTypeComboBox" Grid.Row="1" Grid.Column="1"  IsEditable="True" SelectionChanged="ActionTypeComboBox_SelectionChanged" KeyDown="ActionTypeComboBox_SelectionChanged"></ComboBox>
     </Grid>
 </UserControl>

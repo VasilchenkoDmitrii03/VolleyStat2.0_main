@@ -32,6 +32,7 @@ namespace StatisticsCreatorModule
         ActionsMetricTypes _actionsMetricTypes;
         List<VolleyActionType> _volleyActionTypes;
         PlayerActionTextRepresentation _playerActionTextRepresentation;
+        Team _team;
 
 
         #region Events
@@ -64,10 +65,19 @@ namespace StatisticsCreatorModule
             _actionsMetricTypes = actionsMetricTypes;
             _volleyActionTypes = new List<VolleyActionType>() { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.OpponentError, VolleyActionType.OpponentPoint };
             ActionTypeComboBox.Items.Clear();
-            foreach (VolleyActionType a in _volleyActionTypes)
+            
+        }
+        public void setTeam(Team team)
+        {
+            _team = team;
+            PlayerComboBox.Items.Clear();
+            foreach (Player p in _team.Players)
             {
-                ActionTypeComboBox.Items.Add(a);
+                PlayerComboBox.Items.Add($"#{p.Number}");
             }
+            PlayerComboBox.Items.Add(ActionAuthorType.OpponentTeam);
+            PlayerComboBox.Items.Add(ActionAuthorType.Coach);
+            PlayerComboBox.Items.Add(ActionAuthorType.Judge);
         }
         public void clear()
         {
@@ -76,28 +86,80 @@ namespace StatisticsCreatorModule
             MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
         }
 
-        #region ComboBoxes
+        //Module for statistics creation
+
+        ActionAuthorType _currentAuthorType;
+        private void PlayerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!MyValidationForPlayerTypeComboBox(PlayerComboBox, true)) return;
+            ActionAuthorType aat = ActionAuthorType.Undefined;
+            if (PlayerComboBox.SelectedItem != null  && PlayerComboBox.SelectedItem.ToString().Length > 0 && PlayerComboBox.SelectedItem.ToString().StartsWith("#")) aat = ActionAuthorType.Player;
+            foreach (ActionAuthorType a in new List<ActionAuthorType>() { ActionAuthorType.Judge, ActionAuthorType.OpponentTeam, ActionAuthorType.Coach })
+            {
+                if (a.ToString() == PlayerComboBox.SelectedItem.ToString()) aat = a;
+            }
+            _currentAuthorType = aat;
+            UpdateActionTypeComboBoxItems(ActionTypeConverter.getActionTypesByAuthor(aat));
+        }
+
+        private void PlayerComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!MyValidationForPlayerTypeComboBox(PlayerComboBox, true)) return;
+            ActionAuthorType aat = ActionAuthorType.Undefined;
+            if (PlayerComboBox.SelectedItem.ToString().StartsWith("#")) aat = ActionAuthorType.Player;
+            foreach (ActionAuthorType a in new List<ActionAuthorType>() { ActionAuthorType.Judge, ActionAuthorType.OpponentTeam, ActionAuthorType.Coach })
+            {
+                if (a.ToString() == PlayerComboBox.SelectedItem.ToString()) aat = a;
+            }
+            _currentAuthorType = aat;
+            UpdateActionTypeComboBoxItems(ActionTypeConverter.getActionTypesByAuthor(aat));
+        }
+
+        private void UpdateActionTypeComboBoxItems(List<VolleyActionType> vats)
+        {
+            ActionTypeComboBox.Items.Clear();
+            foreach (VolleyActionType a in vats)
+            {
+                ActionTypeComboBox.Items.Add(a);
+            }
+        }
+        #region ComboBoxes for Players Action
         private List<ComboBox> _currentComboBoxes  = new List<ComboBox>();
         private void ActionTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!MyValidationForActTypeComboBox((ComboBox)sender, true)) return;
             VolleyActionType aType = (VolleyActionType)ActionTypeComboBox.SelectedItem;
-            _playerActionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
+            if (_currentAuthorType == ActionAuthorType.Player) _playerActionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
             updateComboBoxes(aType);
-            ActionTypeChangedInTextModule?.Invoke(this, new ActionTypeEventArgs(aType));
+            if(_currentAuthorType == ActionAuthorType.Player)ActionTypeChangedInTextModule?.Invoke(this, new ActionTypeEventArgs(aType));
         }
         private void ActionTypeComboBox_SelectionChanged(object sender, KeyEventArgs e)
         {
             if (!MyValidationForActTypeComboBox((ComboBox)sender, false)) return;
             VolleyActionType aType = (VolleyActionType)ActionTypeComboBox.SelectedItem;
-            _playerActionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
+            if (_currentAuthorType == ActionAuthorType.Player) _playerActionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
             updateComboBoxes(aType);
-            ActionTypeChangedInTextModule?.Invoke(this, new ActionTypeEventArgs(aType));
+            if (_currentAuthorType == ActionAuthorType.Player) ActionTypeChangedInTextModule?.Invoke(this, new ActionTypeEventArgs(aType));
         }
         public void updateComboBoxes(VolleyActionType aType)
         {
-            MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
-            MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
+            switch (_currentAuthorType)
+            {
+                case ActionAuthorType.Player:
+                    updateComboBoxesPlayerMode(aType);break;
+                case ActionAuthorType.OpponentTeam:
+                    updateComboBoxesOpponentMode(aType);break;
+                case ActionAuthorType.Judge:
+                    updateComboBoxesJudgeMode(aType);break;
+                case ActionAuthorType.Coach:
+                    updateComboBoxesCoachMode(aType); break;
+            }
+        }
+        public void updateComboBoxesPlayerMode(VolleyActionType aType)
+        {
+            if (_currentAuthorType != ActionAuthorType.Player) return;
+            if(MainGrid.ColumnDefinitions.Count > 2)MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
+            if (MainGrid.Children.Count > 4)  MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
             MetricTypeList mtl = _actionsMetricTypes[aType];
             _currentComboBoxes.Clear();
             int index = 2;
@@ -105,8 +167,7 @@ namespace StatisticsCreatorModule
             {
                 MainGrid.ColumnDefinitions.Add(new ColumnDefinition());
                 Label lab = new Label() { Content = a.Name };
-                ComboBox comb = new ComboBox() { Margin = new Thickness(1)};
-                comb.Background = new SolidColorBrush(Colors.Purple);
+                ComboBox comb = new ComboBox() {};
                 comb.KeyDown += (o, e) =>
                 {
                     if (MyValidationForMetricComboBoxes((comb)))
@@ -131,7 +192,7 @@ namespace StatisticsCreatorModule
                 {
                     MetricType mt = a;
                     int ind = mtl.IndexOf(mt);
-                    MetricTypeChangedInTextModule(this, new MetricTypeEventArgs(mt, ind));
+                    MetricTypeChangedInTextModule(this, new MetricTypeEventArgs(mt, ind, _playerActionTextRepresentation));
                 };
                 comb.IsEditable = true;
                 fillComboBoxItems(comb, a.ShortValuesNames);
@@ -146,6 +207,9 @@ namespace StatisticsCreatorModule
             }
 
         }
+        public void updateComboBoxesJudgeMode(VolleyActionType aType) { }
+        public void updateComboBoxesCoachMode(VolleyActionType aType) { }
+        public void updateComboBoxesOpponentMode(VolleyActionType aType) { }
         private void MetricComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -202,6 +266,28 @@ namespace StatisticsCreatorModule
             }
             return result;
         }
+        private bool MyValidationForPlayerTypeComboBox(ComboBox comb, bool isChanged)
+        {
+            bool result = false;
+
+            string selected = (string)comb.Text;
+            //if(selected == "" && comb.SelectedItem != null) selected = comb.SelectedItem.ToString();
+            foreach (object at in comb.Items)
+            {
+                if (selected == at.ToString()) { result = true; break; }
+            }
+            if (result)
+            {
+                comb.BorderThickness = new Thickness(1);
+                comb.Foreground = new SolidColorBrush(Colors.Black);
+            }
+            else
+            {
+                comb.BorderThickness = new Thickness(1);
+                comb.Foreground = new SolidColorBrush(Colors.Red);
+            }
+            return result;
+        }
 
         public bool Ready()
         {
@@ -214,6 +300,13 @@ namespace StatisticsCreatorModule
             return actType && other;
         }
         #endregion
+
+        #region Not Players Actions
+
+
+        #endregion
+
+
     }
     public class ActionTypeEventArgs : EventArgs
     {
@@ -228,10 +321,17 @@ namespace StatisticsCreatorModule
     {
         public MetricType MetricType { get; set; }
         public int MetricIndex {  get; set; }
-        public MetricTypeEventArgs(MetricType vat, int index)
+        public Metric[] AllMetrics { get; set; }
+        public MetricTypeEventArgs(MetricType vat, int index, PlayerActionTextRepresentation patr)
         {
             MetricType = vat;
             MetricIndex = index;
+            convert(patr);
         }
+        private void convert(PlayerActionTextRepresentation patr)
+        {
+            AllMetrics = patr.Metrics;
+        }
+
     }
 }

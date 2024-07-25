@@ -39,6 +39,10 @@ namespace StatisticsCreatorModule
         {
             Test.setActionMetricsTypes(amt);
         }
+        public void setTeam(Team team)
+        {
+            this.LineRepresentationControl.setTeam(team);
+        }
         public ActionTextRepresentationControl LineRepresentationControl
         {
             get { return Test; }
@@ -53,7 +57,7 @@ namespace StatisticsCreatorModule
             }
             VolleyActionType actType = LineRepresentationControl.PlayerActionTextRepresentation.ActionType;
             Metric[] met = LineRepresentationControl.PlayerActionTextRepresentation.Metrics;
-            PlayerAction act = new PlayerAction(new Player("", "", 1, rand.Next(), Amplua.Undefined), actType, met );
+            PlayerAction act = new PlayerAction(new Player("", "", 1, rand.Next(1, 20), Amplua.Undefined), actType, met );
             actions.Add(act);
             updateListVisual();
             LineRepresentationControl.clear();

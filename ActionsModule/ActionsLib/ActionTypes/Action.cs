@@ -1,4 +1,6 @@
 ﻿
+using System.Net.Http.Metrics;
+
 namespace ActionsLib
 {
     public class Action
@@ -11,6 +13,7 @@ namespace ActionsLib
             _authorType = authorType;
             _name = name;
             if (metrics == null) _metrics = new Metric[0];
+            else _metrics = metrics;
         }
 
         public ActionAuthorType AuthorType
@@ -48,6 +51,16 @@ namespace ActionsLib
                 throw new Exception($"Action {_name} does not contains metric type {metricType.Name}");
             }
         }
+        public virtual string ExtendedString
+        {
+            get { string res =  _authorType.ToString();
+                foreach(Metric metric in _metrics)
+                {
+                    res += " " + metric.getShortString();
+                }
+                return res;
+            }
+        }
     }
     public class PlayerAction : Action
     {
@@ -70,12 +83,23 @@ namespace ActionsLib
                 return _volleyActionType;
             }
         }
-
+        public override string ExtendedString
+        {
+            get
+            {
+                    string res = "#" + Player.Number + " " + _volleyActionType.ToString();
+                    foreach (Metric metric in _metrics)
+                    {
+                        res += " " + metric.getShortString();
+                    }
+                    return res;
+            }
+        }
     }
     public class OpponentAction : Action
     {
-        OpponentTeamActionType _actionType;
-        public OpponentAction(OpponentTeamActionType actionType) : base(actionType.ToString(), ActionAuthorType.OpponentTeam, null)
+        VolleyActionType _actionType;
+        public OpponentAction(VolleyActionType actionType) : base(actionType.ToString(), ActionAuthorType.OpponentTeam, null)
         {
             _actionType = actionType;
         }
@@ -88,13 +112,40 @@ namespace ActionsLib
             _actionType = actionType;
         }
     }
-
+    
+    public static class ActionTypeConverter
+    {
+        public static List<VolleyActionType> getActionTypesByAuthor(ActionAuthorType actionAuthorType)
+        {
+            switch (actionAuthorType)
+            {
+                case ActionAuthorType.Judge:
+                    return new List<VolleyActionType>() {VolleyActionType.JudgeMistakeWon, VolleyActionType.JudgeMistakeLost, VolleyActionType.DisputableBall };
+                case ActionAuthorType.Coach:
+                    return new List<VolleyActionType>() {VolleyActionType.TimeOut, VolleyActionType.Change };
+                case ActionAuthorType.OpponentTeam:
+                    return new List<VolleyActionType>() { VolleyActionType.OpponentError, VolleyActionType.OpponentPoint };
+                default:
+                    return new List<VolleyActionType>() { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Transfer, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall };
+            }
+        }
+        public static ActionAuthorType getActionAuthor(VolleyActionType vat)
+        {
+            List<ActionAuthorType> types = new List<ActionAuthorType>() { ActionAuthorType.Player, ActionAuthorType.Coach, ActionAuthorType.Judge, ActionAuthorType.OpponentTeam };
+            foreach(ActionAuthorType aat in types)
+            {
+                if (getActionTypesByAuthor(aat).Contains(vat)) return aat;
+            }
+            return ActionAuthorType.Undefined;
+        }
+    }
 
     public enum ActionAuthorType
     {
         Player = 0,
         OpponentTeam = 1,
         Judge = 2,
+        Coach = 3,
         Undefined = -1
     }
     public enum VolleyActionType
@@ -109,12 +160,11 @@ namespace ActionsLib
         FreeBall = 7,
         OpponentError = 8, 
         OpponentPoint = 9,
-        Undefined = -1
-    }
-    public enum OpponentTeamActionType
-    {
-        WonPoint = 0,
-        LostPoint = 1,
+        JudgeMistakeWon = 10,
+        JudgeMistakeLost = 11,
+        DisputableBall = 12,
+        TimeOut = 13,
+        Change = 14,
         Undefined = -1
     }
     public enum JudgeActionType
@@ -123,22 +173,5 @@ namespace ActionsLib
         MistakeInFavorOfOpponent = 1,
         CardGift = 2,
         Undefined = -1
-    }
-    public enum NotVolleyballActionsInRally 
-    {
-        Undefined = -1,
-        DisputedBall = 0,
-        Won = 1,
-        Lost = 2
-    }
-    public enum NotVolleyballActions
-    {
-        Undefined = -1,
-        DisputedBall = 0,
-        Won = 1,
-        Lost = 2,
-        JudgeError =3,
-        Timeout = 4,
-        Change = 5
     }
 }

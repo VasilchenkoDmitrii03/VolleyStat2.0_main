@@ -121,7 +121,7 @@ namespace StatisticsCreatorModule.Logic
 
     }
     //this class contains logic about when you can make changes take timeouts and etc
-    class SetLogic 
+    /* class SetLogic 
     {
         List<NotVolleyballActions> _inRallyActions;
         List<NotVolleyballActions> _afterRallyActions;
@@ -157,6 +157,6 @@ namespace StatisticsCreatorModule.Logic
             }
             return RallyResult.Undefined;
         }
-    }
+    }*/
     //scheme: Rally -> NotVolleyActoin -> Rally -> ... etc
 }

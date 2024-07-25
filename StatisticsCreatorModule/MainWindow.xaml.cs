@@ -37,10 +37,17 @@ namespace StatisticsCreatorModule
          }*/
         PlayerActionTextRepresentation _currentAction;
         ActionsMetricTypes _actionMetricTypes;
+        Team _team;
         public MainWindow()
         {
             InitializeComponent();
             _actionMetricTypes = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\BasicActionsMetrics");
+            
+            _team = new Team();
+            for(int  i = 1; i < 7; i++)
+            {
+                _team.AddPlayer(new Player("", "", 1, i, (Amplua)(i % 4)));
+            }
             InitializeModules();
         }
         private void InitializeModules()
@@ -50,6 +57,7 @@ namespace StatisticsCreatorModule
             TextModule.LineRepresentationControl.ActionTypeChangedInTextModule += ButtonModule.ActionTypeChangedInTextModule;
             TextModule.LineRepresentationControl.MetricTypeChangedInTextModule += ButtonModule.MetricTypeChangedInTextModule;
             ButtonModule.MetricValueChangedInButtonModule += TextModule.LineRepresentationControl.MetricValueChangedInButtonModule;
+            TextModule.setTeam(_team);
             //TextModule.LineRepresentationControl.ActionTypeChangedInTextModule += test;
         }
         private void test(object sender, ActionTypeEventArgs e)

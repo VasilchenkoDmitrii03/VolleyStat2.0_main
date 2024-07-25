@@ -81,6 +81,7 @@ namespace StatisticsCreatorModule
         public void MetricTypeChangedInTextModule(object sender, MetricTypeEventArgs e) 
         {
             MetricTypeComboBox.SelectedIndex = e.MetricIndex;
+            _metricResultArray = e.AllMetrics;
         }
         #endregion
 
@@ -210,7 +211,7 @@ namespace StatisticsCreatorModule
                 button.Click += (o, e) =>
                 {
                     _isClicked = true;
-                    MetricValueChangedInButtonModule(this, new MetricValueEventArgs(getMetricByString(obj), MetricTypeComboBox.SelectedIndex));
+                    MetricValueChangedInButtonModule(this, new MetricValueEventArgs(getMetricByString(obj), MetricTypeComboBox.SelectedIndex, _metricResultArray));
                     addNewMetric(obj);
                     _currentMetricIndex = nextNullIndex();
                     if(_currentMetricIndex == -1)
@@ -253,10 +254,12 @@ namespace StatisticsCreatorModule
     {
         public Metric Metric { get; set; }
         public int MetricTypeIndex { get; set; }
-        public MetricValueEventArgs(Metric vat, int metricTypeIndex)
+        public Metric[] AllMetrics { get; set; }
+        public MetricValueEventArgs(Metric vat, int metricTypeIndex, Metric[] allMetrics)
         {
             Metric = vat;
             MetricTypeIndex = metricTypeIndex;
+            AllMetrics = allMetrics;
         }
     }
 }
