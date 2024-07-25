@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="StatisticsCreatorModule.VideoModule"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StatisticsCreatorModule"
+             xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <wv2:WebView2 x:Name="YouTubeWebView" Grid.Row="0" Margin="20"/>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Background="LightGray" Grid.Row="1">
+            <Button Content="Go to 10s" Click="Button_Click_10s" />
+            <Button Content="Go to 30s" Click="Button_Click_30s" />
+        </StackPanel>
+    </Grid>
+</UserControl>

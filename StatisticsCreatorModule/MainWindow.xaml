@@ -17,6 +17,7 @@
         </Grid.RowDefinitions>
         <local:TextStatisticsModule x:Name="TextModule" Grid.Column="0" Grid.Row="1"></local:TextStatisticsModule>
         <local:ButtonControllerControl  x:Name="ButtonModule" Grid.Column="1" Grid.Row="0"></local:ButtonControllerControl>
+        <local:VideoModule x:Name="VideoModule"></local:VideoModule>
     </Grid>
     
 </Window>

@@ -91,7 +91,7 @@ namespace StatisticsCreatorModule
         ActionAuthorType _currentAuthorType;
         private void PlayerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!MyValidationForPlayerTypeComboBox(PlayerComboBox, true)) return;
+            if (!MyValidationForPlayerTypeComboBox(PlayerComboBox, true) || PlayerComboBox.SelectedItem == null) return;
             ActionAuthorType aat = ActionAuthorType.Undefined;
             if (PlayerComboBox.SelectedItem != null  && PlayerComboBox.SelectedItem.ToString().Length > 0 && PlayerComboBox.SelectedItem.ToString().StartsWith("#")) aat = ActionAuthorType.Player;
             foreach (ActionAuthorType a in new List<ActionAuthorType>() { ActionAuthorType.Judge, ActionAuthorType.OpponentTeam, ActionAuthorType.Coach })
@@ -104,7 +104,7 @@ namespace StatisticsCreatorModule
 
         private void PlayerComboBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!MyValidationForPlayerTypeComboBox(PlayerComboBox, true)) return;
+            if (!MyValidationForPlayerTypeComboBox(PlayerComboBox, false)) return;
             ActionAuthorType aat = ActionAuthorType.Undefined;
             if (PlayerComboBox.SelectedItem.ToString().StartsWith("#")) aat = ActionAuthorType.Player;
             foreach (ActionAuthorType a in new List<ActionAuthorType>() { ActionAuthorType.Judge, ActionAuthorType.OpponentTeam, ActionAuthorType.Coach })
