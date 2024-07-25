@@ -7,6 +7,7 @@ namespace ActionsLib
     {
         string _name;
         ActionAuthorType _authorType;
+        protected VolleyActionType _actionType;
         protected Metric[] _metrics;
         public Action(string name, ActionAuthorType authorType = ActionAuthorType.Undefined, Metric[] metrics = null)
         {
@@ -65,10 +66,9 @@ namespace ActionsLib
     public class PlayerAction : Action
     {
         Player _player;
-        VolleyActionType _volleyActionType;
         public PlayerAction(Player player, VolleyActionType actType, Metric[] metrics = null) : base(actType.ToString(), ActionAuthorType.Player, metrics)
         {
-            _volleyActionType = actType;
+            _actionType = actType;
             _player = player;
         }
 
@@ -80,14 +80,14 @@ namespace ActionsLib
         {
             get
             {
-                return _volleyActionType;
+                return _actionType;
             }
         }
         public override string ExtendedString
         {
             get
             {
-                    string res = "#" + Player.Number + " " + _volleyActionType.ToString();
+                    string res = "#" + Player.Number + " " + _actionType.ToString();
                     foreach (Metric metric in _metrics)
                     {
                         res += " " + metric.getShortString();
@@ -98,18 +98,49 @@ namespace ActionsLib
     }
     public class OpponentAction : Action
     {
-        VolleyActionType _actionType;
         public OpponentAction(VolleyActionType actionType) : base(actionType.ToString(), ActionAuthorType.OpponentTeam, null)
         {
             _actionType = actionType;
         }
+        public override string ExtendedString
+        {
+            get
+            {
+                return "Opponent " +  _actionType.ToString();
+            }
+        }
     }
     public class JudgeAction : Action
     {
-        JudgeActionType _actionType;
-        public JudgeAction(JudgeActionType actionType, Metric[] metrics = null) : base(actionType.ToString(), ActionAuthorType.Judge, metrics)
+        public JudgeAction(VolleyActionType actionType) : base(actionType.ToString(), ActionAuthorType.Judge)
         {
             _actionType = actionType;
+        }
+        public override string ExtendedString
+        {
+            get
+            {
+                return "Judge " + _actionType.ToString();
+            }
+        }
+    }
+    public class CoachAction : Action
+    {
+        Player p1, p2;
+        public CoachAction(VolleyActionType actionType, Player p1 = null, Player p2 = null) : base(actionType.ToString(), ActionAuthorType.Coach)
+        {
+            _actionType = actionType;
+            this.p1 = p1;
+            this.p2 = p2;
+        }
+        public override string ExtendedString
+        {
+            get
+            {
+                string res = "Coach " + _actionType.ToString();
+                if (!(p1 == null || p2 == null)) res += $"#{p1.Number} #{p2.Number}";
+                return res;
+            }
         }
     }
     

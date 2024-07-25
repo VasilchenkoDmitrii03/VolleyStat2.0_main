@@ -55,9 +55,7 @@ namespace StatisticsCreatorModule
                 MessageBox.Show("Fill Data correctly");
                 return;
             }
-            VolleyActionType actType = LineRepresentationControl.PlayerActionTextRepresentation.ActionType;
-            Metric[] met = LineRepresentationControl.PlayerActionTextRepresentation.Metrics;
-            PlayerAction act = new PlayerAction(new Player("", "", 1, rand.Next(1, 20), Amplua.Undefined), actType, met );
+            ActionsLib.Action act = LineRepresentationControl.ActionTextRepresentation.GenerateAction();
             actions.Add(act);
             updateListVisual();
             LineRepresentationControl.clear();

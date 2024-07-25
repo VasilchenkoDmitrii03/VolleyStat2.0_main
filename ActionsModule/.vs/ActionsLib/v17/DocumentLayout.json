@@ -7,6 +7,14 @@
       "RelativeMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|solutionrelative:actionslib\\actiontypes\\action.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\actionsmodule\\actionslib\\textrepresentation\\actiontextrepresentation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|solutionrelative:actionslib\\textrepresentation\\actiontextrepresentation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\actionsmodule\\actionslib\\team\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|solutionrelative:actionslib\\team\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\actionsmodule\\actionslib\\team\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|solutionrelative:actionslib\\team\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -17,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\actionsmodule\\actionslib\\actiontypes\\metric.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|solutionrelative:actionslib\\actiontypes\\metric.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\actionsmodule\\actionslib\\textrepresentation\\actiontextrepresentation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{32CAFA82-935A-4402-8D95-737769587511}|ActionsLib\\ActionsLib.csproj|solutionrelative:actionslib\\textrepresentation\\actiontextrepresentation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{60EDA02B-6433-4BF2-A785-D06C3F242CDD}|ActionTesting\\ActionTesting.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\actionsmodule\\actiontesting\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -70,11 +74,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\Team\\Player.cs",
+              "RelativeDocumentMoniker": "ActionsLib\\Team\\Player.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\Team\\Player.cs",
+              "RelativeToolTip": "ActionsLib\\Team\\Player.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAADMAAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-25T19:03:06.935Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Team.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\Team\\Team.cs",
               "RelativeDocumentMoniker": "ActionsLib\\Team\\Team.cs",
@@ -82,12 +99,11 @@
               "RelativeToolTip": "ActionsLib\\Team\\Team.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-25T11:40:07.643Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-25T11:40:07.643Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "MetricTypeList.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\MetricTypeList.cs",
               "RelativeDocumentMoniker": "ActionsLib\\ActionTypes\\MetricTypeList.cs",
@@ -99,7 +115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ActionsMetricTypes.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\ActionsMetricTypes.cs",
               "RelativeDocumentMoniker": "ActionsLib\\ActionTypes\\ActionsMetricTypes.cs",
@@ -107,12 +123,11 @@
               "RelativeToolTip": "ActionsLib\\ActionTypes\\ActionsMetricTypes.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAAA4AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-20T11:47:31.414Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-20T11:47:31.414Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "ActionTesting.csproj",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionTesting\\ActionTesting.csproj",
               "RelativeDocumentMoniker": "ActionTesting\\ActionTesting.csproj",
@@ -124,7 +139,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "ActionSequence.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionCollections\\ActionSequence.cs",
               "RelativeDocumentMoniker": "ActionsLib\\ActionCollections\\ActionSequence.cs",
@@ -136,7 +151,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "MetricType.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\MetricType.cs",
               "RelativeDocumentMoniker": "ActionsLib\\ActionTypes\\MetricType.cs",
@@ -148,7 +163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionTesting\\Program.cs",
               "RelativeDocumentMoniker": "ActionTesting\\Program.cs",
@@ -160,7 +175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "Metric.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\Metric.cs",
               "RelativeDocumentMoniker": "ActionsLib\\ActionTypes\\Metric.cs",
@@ -172,15 +187,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "ActionTextRepresentation.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\TextRepresentation\\ActionTextRepresentation.cs",
               "RelativeDocumentMoniker": "ActionsLib\\TextRepresentation\\ActionTextRepresentation.cs",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\TextRepresentation\\ActionTextRepresentation.cs",
               "RelativeToolTip": "ActionsLib\\TextRepresentation\\ActionTextRepresentation.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEAAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-25T19:07:41.815Z"
+              "WhenOpened": "2024-06-25T19:07:41.815Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -190,14 +206,14 @@
               "RelativeDocumentMoniker": "ActionsLib\\ActionTypes\\Action.cs",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\Action.cs",
               "RelativeToolTip": "ActionsLib\\ActionTypes\\Action.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGIAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAAAIwAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-20T17:38:27.978Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\MetricTypesWindow\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MetricTypesWindow\\MainWindow.xaml.cs",
@@ -209,7 +225,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\MetricTypesWindow\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MetricTypesWindow\\MainWindow.xaml",
@@ -220,7 +236,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "ShortNamesArrayConverter.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\MetricTypesWindow\\Converters\\ShortNamesArrayConverter.cs",
               "RelativeDocumentMoniker": "MetricTypesWindow\\Converters\\ShortNamesArrayConverter.cs",
@@ -232,7 +248,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "MetricTypeCreator.xaml",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\MetricTypesWindow\\MetricTypeCreator.xaml",
               "RelativeDocumentMoniker": "MetricTypesWindow\\MetricTypeCreator.xaml",
@@ -243,7 +259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "MetricTypeCreator.xaml.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\MetricTypesWindow\\MetricTypeCreator.xaml.cs",
               "RelativeDocumentMoniker": "MetricTypesWindow\\MetricTypeCreator.xaml.cs",

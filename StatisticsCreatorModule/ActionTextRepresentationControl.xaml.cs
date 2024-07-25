@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using ActionsLib.TextRepresentation;
 using System.Globalization;
 using System.Printing;
+using System.Diagnostics;
 
 namespace StatisticsCreatorModule
 {
@@ -31,7 +32,7 @@ namespace StatisticsCreatorModule
     {
         ActionsMetricTypes _actionsMetricTypes;
         List<VolleyActionType> _volleyActionTypes;
-        PlayerActionTextRepresentation _playerActionTextRepresentation;
+        ActionTextRepresentation _actionTextRepresentation;
         Team _team;
 
 
@@ -52,11 +53,11 @@ namespace StatisticsCreatorModule
             InitializeComponent();
         }
 
-        public PlayerActionTextRepresentation PlayerActionTextRepresentation
+        public ActionTextRepresentation ActionTextRepresentation
         {
             get
             {
-                return _playerActionTextRepresentation;
+                return _actionTextRepresentation;
             }
         }
 
@@ -82,8 +83,8 @@ namespace StatisticsCreatorModule
         public void clear()
         {
             this.ActionTypeComboBox.Text = "";
-            MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
-            MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
+            if(MainGrid.ColumnDefinitions.Count > 2)MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
+            if(MainGrid.Children.Count > 4) MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
         }
 
         //Module for statistics creation
@@ -129,7 +130,8 @@ namespace StatisticsCreatorModule
         {
             if (!MyValidationForActTypeComboBox((ComboBox)sender, true)) return;
             VolleyActionType aType = (VolleyActionType)ActionTypeComboBox.SelectedItem;
-            if (_currentAuthorType == ActionAuthorType.Player) _playerActionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
+            //
+            if (_currentAuthorType == ActionAuthorType.Player) _actionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
             updateComboBoxes(aType);
             if(_currentAuthorType == ActionAuthorType.Player)ActionTypeChangedInTextModule?.Invoke(this, new ActionTypeEventArgs(aType));
         }
@@ -137,10 +139,29 @@ namespace StatisticsCreatorModule
         {
             if (!MyValidationForActTypeComboBox((ComboBox)sender, false)) return;
             VolleyActionType aType = (VolleyActionType)ActionTypeComboBox.SelectedItem;
-            if (_currentAuthorType == ActionAuthorType.Player) _playerActionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
+            _actionTextRepresentation = createActionTextRepresentation(_currentAuthorType, aType);
             updateComboBoxes(aType);
             if (_currentAuthorType == ActionAuthorType.Player) ActionTypeChangedInTextModule?.Invoke(this, new ActionTypeEventArgs(aType));
         }
+
+        private ActionTextRepresentation createActionTextRepresentation(ActionAuthorType aat, VolleyActionType vat)
+        {
+            switch (aat)
+            {
+                case ActionAuthorType.Player:
+                    PlayerActionTextRepresentation patr =  new PlayerActionTextRepresentation(vat, _actionsMetricTypes[vat]);
+                    patr.SetPlayer(_team.Players[PlayerComboBox.SelectedIndex]);
+                    return patr;
+                case ActionAuthorType.Coach:
+                    return new CoachActionTextRepresentation(vat);
+                case ActionAuthorType.Judge:
+                    return new JudgeActionTextRepresentation(vat);
+                case ActionAuthorType.OpponentTeam:
+                    return new OpponentActionTextRepresentation(vat);
+            }
+            return null;
+        }
+
         public void updateComboBoxes(VolleyActionType aType)
         {
             switch (_currentAuthorType)
@@ -174,7 +195,7 @@ namespace StatisticsCreatorModule
                     {
                         MetricType type = a;
                         string shrtString = (string)((ComboBox)o).SelectedItem;
-                        _playerActionTextRepresentation.SetMetricByShortString(type, shrtString);
+                        ((PlayerActionTextRepresentation)_actionTextRepresentation).SetMetricByShortString(type, shrtString);
                     }
                 };
                 comb.SelectionChanged +=
@@ -184,7 +205,7 @@ namespace StatisticsCreatorModule
                         {
                             MetricType type = a;
                             string shrtString = (string)((ComboBox)o).SelectedItem;
-                            _playerActionTextRepresentation.SetMetricByShortString(type, shrtString);
+                            ((PlayerActionTextRepresentation)_actionTextRepresentation).SetMetricByShortString(type, shrtString);
                         }
                     };
 
@@ -192,7 +213,7 @@ namespace StatisticsCreatorModule
                 {
                     MetricType mt = a;
                     int ind = mtl.IndexOf(mt);
-                    MetricTypeChangedInTextModule(this, new MetricTypeEventArgs(mt, ind, _playerActionTextRepresentation));
+                    MetricTypeChangedInTextModule(this, new MetricTypeEventArgs(mt, ind, ((PlayerActionTextRepresentation)_actionTextRepresentation)));
                 };
                 comb.IsEditable = true;
                 fillComboBoxItems(comb, a.ShortValuesNames);
@@ -208,7 +229,15 @@ namespace StatisticsCreatorModule
 
         }
         public void updateComboBoxesJudgeMode(VolleyActionType aType) { }
-        public void updateComboBoxesCoachMode(VolleyActionType aType) { }
+        public void updateComboBoxesCoachMode(VolleyActionType aType) 
+        {
+            if (aType != VolleyActionType.Change) return;
+            _currentComboBoxes.Clear();
+            ComboBox combP1 = new ComboBox();
+            ComboBox combP2 = new ComboBox();
+
+
+        }
         public void updateComboBoxesOpponentMode(VolleyActionType aType) { }
         private void MetricComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {

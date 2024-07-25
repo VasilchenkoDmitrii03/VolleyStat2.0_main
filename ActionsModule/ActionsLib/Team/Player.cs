@@ -47,10 +47,18 @@ namespace ActionsLib
         }
         public static bool operator ==(Player left, Player right)
         {
+            if (ReferenceEquals(left, null) && ReferenceEquals(right, null))
+                return true;
+            if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
+                return false;
             return left.Number == right.Number;
         }
         public static bool operator !=(Player left, Player right)
         {
+            if (ReferenceEquals(left, null) && ReferenceEquals(right, null))
+                return false;
+            if (ReferenceEquals(left, null) || ReferenceEquals(right, null))
+                return true;
             return left.Number != right.Number;
         }
 
