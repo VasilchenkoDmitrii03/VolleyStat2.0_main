@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WPFMetricTypeSelectorControl")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+133bf88b3860a0317513ea388cfebc57db80b490")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6908e937459cfcddc16e948a73609034e182ad8d")]
 [assembly: System.Reflection.AssemblyProductAttribute("WPFMetricTypeSelectorControl")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WPFMetricTypeSelectorControl")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
