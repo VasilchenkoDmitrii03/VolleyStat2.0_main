@@ -10,8 +10,8 @@
     <Grid>
         <wv2:WebView2 x:Name="YouTubeWebView" Grid.Row="0" Margin="20"/>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Background="LightGray" Grid.Row="1">
-            <Button Content="Go to 10s" Click="Button_Click_10s" />
-            <Button Content="Go to 30s" Click="Button_Click_30s" />
+            <Button Content="Go to 10s" Click="Button_Click_1" />
+            <Button Content="Go to 30s" Click="Button_Click" />
         </StackPanel>
     </Grid>
 </UserControl>

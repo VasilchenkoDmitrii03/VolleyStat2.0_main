@@ -99,25 +99,26 @@ namespace ActionsLib.TextRepresentation
     public class CoachActionTextRepresentation : ActionTextRepresentation
     {
         VolleyActionType _actionType;
-        Player p1, p2; //for changes
+        List<Player> _players; //for changes
+        public List<Player> Players
+        {
+            get { return _players; }
+            set { _players = value; }
+        }
         public CoachActionTextRepresentation(VolleyActionType actionType) : base(ActionAuthorType.Coach)
         {
             _actionType = actionType;
-            p1 = p2 = null;
+            _players = new List<Player>();
         }
-        public CoachActionTextRepresentation(VolleyActionType actionType, Player p1, Player p2) : base(ActionAuthorType.Coach)
+        public CoachActionTextRepresentation(VolleyActionType actionType,List<Player> players) : base(ActionAuthorType.Coach)
         {
             _actionType = actionType;
-            if (actionType == VolleyActionType.Change)
-            {
-                this.p1 = p1;
-                this.p2 = p2;
-            }
+            _players=players;
         }
 
         public override Action GenerateAction()
         {
-            return new CoachAction(_actionType, p1, p2);
+            return new CoachAction(_actionType, _players);
         }
 
     }

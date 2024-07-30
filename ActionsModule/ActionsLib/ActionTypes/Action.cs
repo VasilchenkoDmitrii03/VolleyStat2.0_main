@@ -126,19 +126,22 @@ namespace ActionsLib
     }
     public class CoachAction : Action
     {
-        Player p1, p2;
-        public CoachAction(VolleyActionType actionType, Player p1 = null, Player p2 = null) : base(actionType.ToString(), ActionAuthorType.Coach)
+        List<Player> _players;
+        public CoachAction(VolleyActionType actionType, List<Player> players = null) : base(actionType.ToString(), ActionAuthorType.Coach)
         {
             _actionType = actionType;
-            this.p1 = p1;
-            this.p2 = p2;
+            if(players == null) _players = new List<Player>();
+            else _players = players; ;
         }
         public override string ExtendedString
         {
             get
             {
                 string res = "Coach " + _actionType.ToString();
-                if (!(p1 == null || p2 == null)) res += $"#{p1.Number} #{p2.Number}";
+                for(int i = 0;i < _players.Count; i++)
+                {
+                    res += $" #{_players[i].Number}";
+                }
                 return res;
             }
         }
@@ -153,7 +156,7 @@ namespace ActionsLib
                 case ActionAuthorType.Judge:
                     return new List<VolleyActionType>() {VolleyActionType.JudgeMistakeWon, VolleyActionType.JudgeMistakeLost, VolleyActionType.DisputableBall };
                 case ActionAuthorType.Coach:
-                    return new List<VolleyActionType>() {VolleyActionType.TimeOut, VolleyActionType.Change };
+                    return new List<VolleyActionType>() {VolleyActionType.TimeOut, VolleyActionType.Change, VolleyActionType.StartArrangment };
                 case ActionAuthorType.OpponentTeam:
                     return new List<VolleyActionType>() { VolleyActionType.OpponentError, VolleyActionType.OpponentPoint };
                 default:
@@ -196,6 +199,7 @@ namespace ActionsLib
         DisputableBall = 12,
         TimeOut = 13,
         Change = 14,
+        StartArrangment = 15,
         Undefined = -1
     }
     public enum JudgeActionType

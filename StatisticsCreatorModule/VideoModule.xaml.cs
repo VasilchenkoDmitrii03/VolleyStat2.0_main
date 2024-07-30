@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Web.WebView2.Core;
+using System.Text.Json;
 
 namespace StatisticsCreatorModule
 {
@@ -26,92 +28,90 @@ namespace StatisticsCreatorModule
             InitializeComponent();
             InitializeWebView();
         }
+
         private async void InitializeWebView()
         {
             await YouTubeWebView.EnsureCoreWebView2Async(null);
             YouTubeWebView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
-            LoadYouTubeVideo("oG0e7xVufZk"); // Замените на ваш видео ID
+
+            string htmlString = @"
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <script src=""https://www.youtube.com/iframe_api""></script>
+                    <script>
+                        var player;
+                        function onYouTubeIframeAPIReady() {
+                            player = new YT.Player('player', {
+                                height: '390',
+                                width: '640',
+                                videoId: 'M7lc1UVf-VE',
+                                events: {
+                                    'onReady': onPlayerReady,
+                                    'onStateChange': onPlayerStateChange
+                                }
+                            });
+                        }
+
+                        function onPlayerReady(event) {
+                            // Видео готово к воспроизведению
+                        }
+
+                        function onPlayerStateChange(event) {
+                            if (event.data == YT.PlayerState.PLAYING) {
+                                setInterval(() => {
+                                    window.chrome.webview.postMessage({ type: 'currentTime', time: player.getCurrentTime() });
+                                }, 250);
+                            }
+                        }
+
+                        function getCurrentTime() {
+                            return player.getCurrentTime();
+                        }
+
+                        function seekTo(time) {
+                            player.seekTo(time, true);
+                        }
+                    </script>
+                </head>
+                <body>
+                    <div id=""player""></div>
+                </body>
+                </html>";
+            YouTubeWebView.NavigateToString(htmlString);
         }
 
         private void CoreWebView2_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
         {
-            if (e.TryGetWebMessageAsString() == "playerReady")
-            {
-                // Плеер готов, можно управлять видео
-            }
-        }
+            var message = e.WebMessageAsJson;
+            using JsonDocument doc = JsonDocument.Parse(message);
+            JsonElement root = doc.RootElement;
 
-        private void LoadYouTubeVideo(string videoId)
-        {
-            string embedHtml = $@"
-                <html>
-                <head>
-                    <meta http-equiv='X-UA-Compatible' content='IE=11' />
-                    <script src='https://www.youtube.com/iframe_api'></script>
-                    <script>
-                        var player;
-                        function onYouTubeIframeAPIReady() {{
-                            player = new YT.Player('player', {{
-                                height: '100%',
-                                width: '100%',
-                                videoId: '{videoId}',
-                                events: {{
-                                    'onReady': onPlayerReady
-                                }}
-                            }});
-                        }}
-                        function onPlayerReady(event) {{
-                            window.chrome.webview.postMessage('playerReady');
-                        }}
-                        function seekTo(seconds) {{
-                            if (player) {{
-                                player.seekTo(seconds, true);
-                            }}
-                        }}
-                        function getCurrentTime() {{
-                            return player.getCurrentTime();
-                        }}
-                    </script>
-                </head>
-                <body style='margin:0px;padding:0px;overflow:hidden'>
-                    <div id='player'></div>
-                </body>
-                </html>";
-
-            YouTubeWebView.NavigateToString(embedHtml);
-        }
-
-        private void SeekTo(int seconds)
-        {
-            YouTubeWebView.CoreWebView2.ExecuteScriptAsync($"seekTo({seconds});");
-        }
-
-        private async void getCurrentTimeCode()
-        {
-            string currentTime = await YouTubeWebView.CoreWebView2.ExecuteScriptAsync($"getCurrentTime()");
-            currentTime = currentTime.Trim('"'); // Remove quotes from the JSON response
-            timeCode = Convert.ToDouble(currentTime);
+            var time = root.GetProperty("time");
             
-        }
-        double timeCode = -1;
-        private double getTimeCode()
-        {
-            getCurrentTimeCode();
-            while (timeCode == -1)
+            
+
+            if (message != null)
             {
-                Thread.Sleep(10);
+                var data = JsonSerializer.Deserialize<WebMessage>(message);
+                CurrentTime = (double)time.GetDouble();
             }
-            return timeCode;
         }
-        private void Button_Click_10s(object sender, RoutedEventArgs e)
+        double CurrentTime = 0;
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(getTimeCode().ToString());
-            //SeekTo(10); // Перейти к 10 секунде видео
+
         }
 
-        private void Button_Click_30s(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            SeekTo(30); // Перейти к 30 секунде видео
+            MessageBox.Show(CurrentTime.ToString());
         }
+    }
+
+    public class WebMessage
+    {
+        public string Type { get; set; }
+        public double Time { get; set; }
     }
 }

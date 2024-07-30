@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Text.Json;
 namespace ActionsLib
 {
     public class Team
@@ -58,6 +58,14 @@ namespace ActionsLib
         {
             if (!_players.Contains(player)) _players.Add(player);
             else throw new Exception($"Team {_name} also contains Player {player.ToTableString()}");
+        }
+        public Player GetPlayerByNumber(int number)
+        {
+            foreach (Player player in _players)
+            {
+                if(player.Number == number) return player;
+            }
+            return null;
         }
     }
 }
