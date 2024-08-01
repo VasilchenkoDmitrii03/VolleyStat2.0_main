@@ -58,7 +58,7 @@ namespace StatisticsCreatorModule
             ActionsLib.Action act = LineRepresentationControl.ActionTextRepresentation.GenerateAction();
             actions.Add(act);
             updateListVisual();
-            LineRepresentationControl.clear();
+            LineRepresentationControl.setDefaultfocus();
         }
     }
 }

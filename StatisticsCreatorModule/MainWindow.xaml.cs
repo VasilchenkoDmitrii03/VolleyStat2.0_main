@@ -52,17 +52,11 @@ namespace StatisticsCreatorModule
         }
         private void InitializeModules()
         {
-            ButtonModule.setActionMetricTypes(_actionMetricTypes);
             TextModule.setActionMetricsTypes(_actionMetricTypes);
-            TextModule.LineRepresentationControl.ActionTypeChangedInTextModule += ButtonModule.ActionTypeChangedInTextModule;
-            TextModule.LineRepresentationControl.MetricTypeChangedInTextModule += ButtonModule.MetricTypeChangedInTextModule;
-            ButtonModule.MetricValueChangedInButtonModule += TextModule.LineRepresentationControl.MetricValueChangedInButtonModule;
             TextModule.setTeam(_team);
+            TextModule.LineRepresentationControl.ComboBoxSelectionChanged += ButtonModule.ComboBoxUpdated;
+            ButtonModule.ButtonSelectionChanged += TextModule.LineRepresentationControl.GetButtonIndex;
             //TextModule.LineRepresentationControl.ActionTypeChangedInTextModule += test;
-        }
-        private void test(object sender, ActionTypeEventArgs e)
-        {
-            MessageBox.Show(e.VolleyActionType.ToString());
         }
     }
 

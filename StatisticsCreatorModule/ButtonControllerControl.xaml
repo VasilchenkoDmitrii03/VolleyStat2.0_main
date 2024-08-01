@@ -9,7 +9,6 @@
     <StackPanel Name="MainStackPanel">
         <Label Name="MainLabel" FontSize="25">Test1</Label>
         <Label Name="SupportLabel" FontSize="20">Test2</Label>
-        <ComboBox Name="MetricTypeComboBox" SelectionChanged="ComboBoxUpdated"></ComboBox>
         <WrapPanel Name="MainPanel">
         </WrapPanel>
     </StackPanel>

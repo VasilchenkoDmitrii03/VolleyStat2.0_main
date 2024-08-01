@@ -28,8 +28,7 @@ namespace StatisticsCreatorModule
     /// </summary>
     /// 
     
-    public delegate void ActionTypeChanged(object sender, ActionTypeEventArgs e);
-    public delegate void MetricTypeChanged(object sender, MetricTypeEventArgs e);
+    public delegate void ComboBoxSelectedChanged(object sender, ComboBoxEventArgs e);
     public partial class ActionTextRepresentationControl : UserControl
     {
         ActionsMetricTypes _actionsMetricTypes;
@@ -39,22 +38,46 @@ namespace StatisticsCreatorModule
 
 
         #region Events
-        public event ActionTypeChanged ActionTypeChangedInTextModule;
-        public event MetricTypeChanged MetricTypeChangedInTextModule;
-        
-        public void MetricValueChangedInButtonModule(object sender, MetricValueEventArgs e)
+        public event ComboBoxSelectedChanged ComboBoxSelectionChanged;
+        public void GetButtonIndex(object sender, ButtonSelectedChangedEventArgs e)
         {
-           Metric m =  e.Metric;
-            ComboBox comb = _currentComboBoxes[e.MetricTypeIndex];
-            comb.SelectedValue = m.getShortString();
+            _focusedComboBox.SelectedIndex = e.index;
+            ComboBox comb = getNextComboBox(_focusedComboBox);
+            if (comb == null) return;
+            comb.Focus();
+        }
+        private ComboBox getNextComboBox(ComboBox comboBox)
+        {
+            if (comboBox == PlayerComboBox) return ActionTypeComboBox;
+            if (comboBox == ActionTypeComboBox && _currentComboBoxes.Count > 0) return _currentComboBoxes[0];
+            if (comboBox == ActionTypeComboBox && _currentComboBoxes.Count == 0) return null;
+            int index = _currentComboBoxes.IndexOf(comboBox);
+            if (index + 1 == _currentComboBoxes.Count) return null;
+            return _currentComboBoxes[index + 1];
         }
         #endregion
 
+        #region Startup settings
         public ActionTextRepresentationControl()
         {
             InitializeComponent();
             ActionTypeComboBox.AddHandler(System.Windows.Controls.Primitives.TextBoxBase.TextChangedEvent,
                       new System.Windows.Controls.TextChangedEventHandler(ActionTypeComboBox_SelectionChanged));
+            fixedComboBoxesSettings();
+        }
+
+        private void fixedComboBoxesSettings()
+        {
+            ActionTypeComboBox.GotFocus += (o, e) =>
+            {
+                ComboBoxSelectionChanged(o, new ComboBoxEventArgs((ComboBox)o, _currentAuthorType.ToString(), "Select action type"));
+                _focusedComboBox = (ComboBox)o;
+            };
+            PlayerComboBox.GotFocus += (o, e) =>
+            {
+                ComboBoxSelectionChanged(o, new ComboBoxEventArgs((ComboBox)o, "", "Select action author"));
+                _focusedComboBox = (ComboBox)o;
+            };
         }
 
         public ActionTextRepresentation ActionTextRepresentation
@@ -70,7 +93,7 @@ namespace StatisticsCreatorModule
             _actionsMetricTypes = actionsMetricTypes;
             _volleyActionTypes = new List<VolleyActionType>() { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.OpponentError, VolleyActionType.OpponentPoint };
             ActionTypeComboBox.Items.Clear();
-            
+
         }
         public void setTeam(Team team)
         {
@@ -87,13 +110,38 @@ namespace StatisticsCreatorModule
         public void clear()
         {
             this.ActionTypeComboBox.Text = "";
-            if(MainGrid.ColumnDefinitions.Count > 2)MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
-            if(MainGrid.Children.Count > 4) MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
+            if (MainGrid.ColumnDefinitions.Count > 2) MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
+            if (MainGrid.Children.Count > 4) MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
         }
 
+        #endregion
+
+        #region interface
+        public void setDefaultfocus()
+        {
+            clear();
+            updatePlayersComboBox();
+            PlayerComboBox.Focus();
+
+        }
+
+        #endregion
+
+        private void updatePlayersComboBox()
+        {
+            PlayerComboBox.Items.Clear();
+            foreach (Player p in _team.Players)
+            {
+                PlayerComboBox.Items.Add($"#{p.Number}");
+            }
+            PlayerComboBox.Items.Add(ActionAuthorType.OpponentTeam);
+            PlayerComboBox.Items.Add(ActionAuthorType.Coach);
+            PlayerComboBox.Items.Add(ActionAuthorType.Judge);
+        }
         //Module for statistics creation
 
-        ActionAuthorType _currentAuthorType;
+        ActionAuthorType _currentAuthorType = ActionAuthorType.Undefined;
+        VolleyActionType _currentActionType = VolleyActionType.Undefined;
         private void PlayerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!MyValidationForPlayerTypeComboBox(PlayerComboBox, true) || PlayerComboBox.SelectedItem == null) return;
@@ -130,12 +178,13 @@ namespace StatisticsCreatorModule
         }
         #region ComboBoxes for Players Action
         private List<ComboBox> _currentComboBoxes  = new List<ComboBox>();
+        private ComboBox _focusedComboBox;
         private void ActionTypeComboBox_SelectionChanged(object sender, EventArgs e)
         {
             if (!MyValidationForActTypeComboBox((ComboBox)sender, true)) return;
             VolleyActionType aType = (VolleyActionType)ActionTypeComboBox.SelectedItem;
             _actionTextRepresentation = createActionTextRepresentation(_currentAuthorType, aType);
-            //
+            _currentActionType = aType;
             //if (_currentAuthorType == ActionAuthorType.Player) _actionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
             updateComboBoxes(aType);
             //if(_currentAuthorType == ActionAuthorType.Player)ActionTypeChangedInTextModule?.Invoke(this, new ActionTypeEventArgs(aType));
@@ -145,6 +194,7 @@ namespace StatisticsCreatorModule
             if (!MyValidationForActTypeComboBox((ComboBox)sender, false)) return;
             VolleyActionType aType = (VolleyActionType)ActionTypeComboBox.SelectedItem;
             _actionTextRepresentation = createActionTextRepresentation(_currentAuthorType, aType);
+            _currentActionType = aType;
             updateComboBoxes(aType);
             //if (_currentAuthorType == ActionAuthorType.Player) ActionTypeChangedInTextModule?.Invoke(this, new ActionTypeEventArgs(aType));
         }
@@ -194,6 +244,7 @@ namespace StatisticsCreatorModule
                 MainGrid.ColumnDefinitions.Add(new ColumnDefinition());
                 Label lab = new Label() { Content = a.Name };
                 ComboBox comb = new ComboBox() {};
+                comb.TabIndex = index;
                 comb.AddHandler(System.Windows.Controls.Primitives.TextBoxBase.TextChangedEvent,
                       new System.Windows.Controls.TextChangedEventHandler((o, e) =>
                       {
@@ -208,7 +259,8 @@ namespace StatisticsCreatorModule
                 {
                     MetricType mt = a;
                     int ind = mtl.IndexOf(mt);
-                    MetricTypeChangedInTextModule(this, new MetricTypeEventArgs(mt, ind, ((PlayerActionTextRepresentation)_actionTextRepresentation)));
+                    _focusedComboBox = (ComboBox)o;
+                    ComboBoxSelectionChanged(o, new ComboBoxEventArgs((ComboBox)o, _currentActionType.ToString(), mt.Name));
                 };
                 comb.IsEditable = true;
                 fillComboBoxItems(comb, a.ShortValuesNames);
@@ -267,7 +319,7 @@ namespace StatisticsCreatorModule
                 ComboBox comboBox = new ComboBox();
                 comboBox.IsEditable = true;
                 comboBox.IsTextSearchCaseSensitive = true;
-                comboBox.TabIndex = i;
+                comboBox.TabIndex = i+2;
                 foreach (Player p in team.Players)
                 {
                     comboBox.Items.Add($"#{p.Number}");
@@ -277,9 +329,13 @@ namespace StatisticsCreatorModule
                           if (!MyValidationForPlayerTypeComboBox((ComboBox)o, true)) return;
                           string txt = ((ComboBox)o).Text;
                           txt = txt.Remove(0, 1);
-                          ((CoachActionTextRepresentation)_actionTextRepresentation).Players[((ComboBox)o).TabIndex] = team.GetPlayerByNumber(Convert.ToInt32(txt));
+                          ((CoachActionTextRepresentation)_actionTextRepresentation).Players[((ComboBox)o).TabIndex-2] = team.GetPlayerByNumber(Convert.ToInt32(txt));
                       } ));
-
+                comboBox.GotFocus += (o, e) =>
+                {
+                    _focusedComboBox = (ComboBox)o;
+                    ComboBoxSelectionChanged(o, new ComboBoxEventArgs((ComboBox)o, _currentActionType.ToString(), lab.Content.ToString()));
+                };
                 MainGrid.Children.Add(lab);
                 MainGrid.Children.Add(comboBox);
                 Grid.SetColumn(lab, i+2);
@@ -377,30 +433,19 @@ namespace StatisticsCreatorModule
 
 
     }
-    public class ActionTypeEventArgs : EventArgs
+    public class ComboBoxEventArgs : EventArgs
     {
-        public VolleyActionType VolleyActionType { get; set; }
-
-        public ActionTypeEventArgs(VolleyActionType vat)
+        public  ComboBox _comboBox;
+        public string _actionType;
+        public string _metric;
+        public ComboBoxEventArgs(ComboBox comboBox, string actionType, string metric)
         {
-            VolleyActionType = vat;
+            _comboBox = comboBox;
+            _actionType = actionType;
+            _metric = metric;
         }
     }
-    public class MetricTypeEventArgs : EventArgs
-    {
-        public MetricType MetricType { get; set; }
-        public int MetricIndex {  get; set; }
-        public Metric[] AllMetrics { get; set; }
-        public MetricTypeEventArgs(MetricType vat, int index, PlayerActionTextRepresentation patr)
-        {
-            MetricType = vat;
-            MetricIndex = index;
-            convert(patr);
-        }
-        private void convert(PlayerActionTextRepresentation patr)
-        {
-            AllMetrics = patr.Metrics;
-        }
 
-    }
+
+
 }
