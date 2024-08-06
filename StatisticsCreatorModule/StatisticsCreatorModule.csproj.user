@@ -10,6 +10,9 @@
     <Compile Update="ButtonControllerControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="FIeldVisualisationControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="TextStatisticsModule.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -22,6 +25,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="ButtonControllerControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="FIeldVisualisationControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

@@ -63,3 +63,5 @@ C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\VideoModule.g.cs
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsCreatorModule_Content.g.cs
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\VideoModule.baml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\FIeldVisualisationControl.g.cs
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\FIeldVisualisationControl.baml

@@ -1,5 +1,5 @@
 ﻿ArrangmentUserControls
-1.0.0.0
+
 
 library
 C#
@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 
 31692598867
 
-7333238787
-201-819553725
+51405265064
+2012141266713
 StartArrangmentSetterControl.xaml;TeamRepresentationControl.xaml;test.xaml;
 
-True
+False
 

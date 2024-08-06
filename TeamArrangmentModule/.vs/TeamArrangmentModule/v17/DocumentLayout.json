@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{689380FF-3EAD-44CA-9B1C-130BCCC64962}|ArrangmentUserControls\\ArrangmentUserControls.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\teamarrangmentmodule\\arrangmentusercontrols\\startarrangmentsettercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{689380FF-3EAD-44CA-9B1C-130BCCC64962}|ArrangmentUserControls\\ArrangmentUserControls.csproj|solutionrelative:arrangmentusercontrols\\startarrangmentsettercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{621ED11E-8A10-47E2-93C2-BA6A710613D2}|TeamArrangmentModule\\TeamArrangmentModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\teamarrangmentmodule\\teamarrangmentmodule\\arrangment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{621ED11E-8A10-47E2-93C2-BA6A710613D2}|TeamArrangmentModule\\TeamArrangmentModule.csproj|solutionrelative:teamarrangmentmodule\\arrangment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -21,8 +25,24 @@
           "SelectedChildIndex": 1,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "StartArrangmentSetterControl.xaml",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\ArrangmentUserControls\\StartArrangmentSetterControl.xaml",
+              "RelativeDocumentMoniker": "ArrangmentUserControls\\StartArrangmentSetterControl.xaml",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\ArrangmentUserControls\\StartArrangmentSetterControl.xaml",
+              "RelativeToolTip": "ArrangmentUserControls\\StartArrangmentSetterControl.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-08-06T09:14:52.509Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "PlayerTextBlock.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\ArrangmentUserControls\\PlayerTextBlock.cs",
               "RelativeDocumentMoniker": "ArrangmentUserControls\\PlayerTextBlock.cs",
@@ -34,13 +54,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Arrangment.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\TeamArrangmentModule\\Arrangment.cs",
               "RelativeDocumentMoniker": "TeamArrangmentModule\\Arrangment.cs",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\TeamArrangmentModule\\Arrangment.cs",
               "RelativeToolTip": "TeamArrangmentModule\\Arrangment.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAA==",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABUAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-02T09:03:10.483Z",
               "EditorCaption": ""

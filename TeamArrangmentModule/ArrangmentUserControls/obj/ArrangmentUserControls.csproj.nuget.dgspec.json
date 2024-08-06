@@ -10,14 +10,14 @@
         "projectUniqueName": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\ArrangmentUserControls\\ArrangmentUserControls.csproj",
         "projectName": "ArrangmentUserControls",
         "projectPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\ArrangmentUserControls\\ArrangmentUserControls.csproj",
-        "packagesPath": "C:\\Users\\progr\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
         "outputPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\ArrangmentUserControls\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\progr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -74,7 +74,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -84,14 +84,14 @@
         "projectUniqueName": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\PlayerEditMessageBox\\PlayerEditMessageBox.csproj",
         "projectName": "PlayerEditMessageBox",
         "projectPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\PlayerEditMessageBox\\PlayerEditMessageBox.csproj",
-        "packagesPath": "C:\\Users\\progr\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
         "outputPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\PlayerEditMessageBox\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\progr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -141,7 +141,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
@@ -151,14 +151,14 @@
         "projectUniqueName": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\TeamArrangmentModule\\TeamArrangmentModule.csproj",
         "projectName": "TeamArrangmentModule",
         "projectPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\TeamArrangmentModule\\TeamArrangmentModule.csproj",
-        "packagesPath": "C:\\Users\\progr\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
         "outputPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\TeamArrangmentModule\\TeamArrangmentModule\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\progr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -205,7 +205,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
