@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,7 +51,7 @@ namespace ActionsLib
 
     }
 
-    public class VolleyActionSequence : ObservableCollection<PlayerAction>
+    public class VolleyActionSequence : ObservableCollection<Action>
     {
 
         public VolleyActionSequence()
@@ -71,7 +72,6 @@ namespace ActionsLib
                 this.Add(act);
             }
         }
-
         public static VolleyActionSequence operator+(VolleyActionSequence left,  VolleyActionSequence right)
         {
             VolleyActionSequence res = new VolleyActionSequence(left);
@@ -113,25 +113,33 @@ namespace ActionsLib
                 Actions.Add(action);
             }
         }
-        public void Add(PlayerAction action)
+        public void Add(Action action)
         {
             Actions.Add(action);
         }
         public bool ContainsActionType(VolleyActionType type)
         {
-            var req = Actions.Where(act => act.VolleyActionType == type);
+            var req = Actions.Where(act => act.ActionType == type);
             return req.Count() != 0;
         }
         public List<VolleyActionType> VolleyActionTypes()
         {
-            var req = from act in Actions select act.VolleyActionType;
+            var req = from act in Actions select act.ActionType;
             return req.ToList();
         }
         public VolleyActionSequence ConvertToSequence()
         {
             return Actions;
         }
+        public Action Last()
+        {
+            return Actions.Last();
+        }
 
+        public int Count
+        {
+            get { return Actions.Count; }
+        }
     }
 
     public class VolleyActionSegmentSequence : ObservableCollection<VolleyActionSegment>
@@ -145,7 +153,10 @@ namespace ActionsLib
         {
             throw new NotImplementedException();
         }
-
+        public int Length
+        {
+            get { return this.Count; }
+        }
         public void Add(VolleyActionSegmentSequence seq)
         {
             foreach(VolleyActionSegment seg in seq)
@@ -172,6 +183,7 @@ namespace ActionsLib
     }
     public class Rally
     {
+        public RallyResult RallyResult { get; set; }
         public VolleyActionSegmentSequence Segments
         {
             get; set;
@@ -183,7 +195,15 @@ namespace ActionsLib
                 return Segments.Count;
             }
         }
+        public Rally()
+        {
+            Segments = new VolleyActionSegmentSequence();   
 
+        }
+        public void Add(VolleyActionSegment seg)
+        {
+            Segments.Add(seg);
+        }
         public VolleyActionSegmentSequence ConvertToSegmentSequence()
         {
             VolleyActionSegmentSequence res = new VolleyActionSegmentSequence();
@@ -196,6 +216,21 @@ namespace ActionsLib
         public VolleyActionSequence ConvertToActionSequence()
         {
             return ConvertToSegmentSequence().ConvertToActionSequence();
+        }
+        public void UpdateRallyResult()
+        {
+           switch(Segments.Last().SegmentResult)
+            {
+                case ActionSegmentResult.Lost:
+                    RallyResult = RallyResult.Lost; break;
+                case ActionSegmentResult.Won:
+                    RallyResult = RallyResult.Won;  break;
+                case ActionSegmentResult.Undefined:
+                    RallyResult = RallyResult.Undefined; break;
+                case ActionSegmentResult.Disputable:
+                    RallyResult = RallyResult.Disputable; break;
+            }
+
         }
     }
     public class RallySequence : ObservableCollection<Rally>
@@ -244,9 +279,16 @@ namespace ActionsLib
         Won = 1,
         Lost = 2
     }
+    public enum SegmentPhase
+    {
+        Recep_1, 
+        Recep, 
+        Break
+    }
     public class Set
     {
         public RallySequence Rallies { get; set; }
+        public SegmentPhase CurrentPhase { get; set; } = SegmentPhase.Recep;
         int _setLength;
         SetResult _setResult;
         Score _currentScore;
@@ -255,6 +297,8 @@ namespace ActionsLib
         {
             _setLength = setLength;
             _setResult = SetResult.Undefined;
+            Rallies = new RallySequence();
+            _currentScore = new Score(setLength);
         }
 
         public int SetLength { get { return _setLength; } }
@@ -267,9 +311,47 @@ namespace ActionsLib
             get { return _currentScore; }
         }
 
+        public void updateScore(Rally rally)
+        {
+            switch (rally.RallyResult)
+            {
+                case RallyResult.Won:
+                    _currentScore.Left++;
+                    break;
+                case RallyResult.Lost:
+                    _currentScore.Right++;
+                    break;
+                case RallyResult.Disputable:
+                    break;
+                case RallyResult.Undefined:
+                    break;
+            }
+        }
+        public void updatePhase(SegmentPhase phase)
+        {
+            CurrentPhase = phase;
+        }
+        private void setStartPhase()
+        {
+            if (CurrentPhase != SegmentPhase.Recep) return;
+            int index = 0;
+            for(int i = 0;i < Rallies.Count; i++)
+            {
+                if (Rallies[i].Segments[0].Actions[0].AuthorType == ActionAuthorType.Player || Rallies[i].Segments[0].Actions[0].AuthorType == ActionAuthorType.OpponentTeam)
+                {
+                    if (Rallies[i].Segments[0].Actions[0].AuthorType == ActionAuthorType.OpponentTeam || Rallies[i].Segments[0].Actions[0].ActionType == VolleyActionType.Reception)
+                    {
+                        CurrentPhase = SegmentPhase.Recep_1;
+                    }
+                    else CurrentPhase = SegmentPhase.Break;
+                }
+            }
+        }
         public void Add(Rally rally)
         {
             Rallies.Add(rally);
+            setStartPhase();
+            updateScore(rally);
         }
         public SetResult isFinished()
         {

@@ -34,6 +34,7 @@ namespace StatisticsCreatorModule.Logic
             else
             {
                 _sequenceLogic.Add(actType, new List<VolleyActionType>[6]);
+                setRuleForActionAndQuality(actType, quality, types);
             }
         }
         public void setRuleForActionAndQuality(VolleyActionType actType, int[] qualities, params VolleyActionType[] types)
@@ -47,30 +48,30 @@ namespace StatisticsCreatorModule.Logic
         {
             //serve
             setRuleForActionAndQuality(VolleyActionType.Serve, 6, VolleyActionType.Serve);
-            setRuleForActionAndQuality(VolleyActionType.Serve, new int[] { 5, 4, 3, 2 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.OpponentError, VolleyActionType.OpponentPoint);
+            setRuleForActionAndQuality(VolleyActionType.Serve, new int[] { 5, 4, 3, 2 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack);
             setRuleForActionAndQuality(VolleyActionType.Serve, 1, VolleyActionType.Reception);
             //reception
-            setRuleForActionAndQuality(VolleyActionType.Reception, new int[] {6, 5, 4, 3, 2 },VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.OpponentError, VolleyActionType.OpponentPoint);
+            setRuleForActionAndQuality(VolleyActionType.Reception, new int[] {6, 5, 4, 3, 2 }, VolleyActionType.Set,  VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall);
             setRuleForActionAndQuality(VolleyActionType.Reception, 1, VolleyActionType.Reception);
             //set
-            setRuleForActionAndQuality(VolleyActionType.Reception, new int[] { 6, 5, 4, 3, 2 }, VolleyActionType.Attack, VolleyActionType.Transfer, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.OpponentError, VolleyActionType.OpponentPoint);
+            setRuleForActionAndQuality(VolleyActionType.Set, new int[] { 6, 5, 4, 3, 2 }, VolleyActionType.Attack, VolleyActionType.Transfer, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall);
             setRuleForActionAndQuality(VolleyActionType.Set, 1, VolleyActionType.Reception);
             //attack
             setRuleForActionAndQuality(VolleyActionType.Attack, 6, VolleyActionType.Serve);
-            setRuleForActionAndQuality(VolleyActionType.Attack, new int[] { 5, 4, 3 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.OpponentError, VolleyActionType.OpponentPoint);
-            setRuleForActionAndQuality(VolleyActionType.Set, new int[] { 2, 1 }, VolleyActionType.Reception);
+            setRuleForActionAndQuality(VolleyActionType.Attack, new int[] { 5, 4, 3 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack);
+            setRuleForActionAndQuality(VolleyActionType.Attack, new int[] { 2, 1 }, VolleyActionType.Reception);
             //block
             setRuleForActionAndQuality(VolleyActionType.Block, 6, VolleyActionType.Serve);
-            setRuleForActionAndQuality(VolleyActionType.Block, new int[] { 5, 4, 3, 2 }, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.OpponentError, VolleyActionType.OpponentPoint);
+            setRuleForActionAndQuality(VolleyActionType.Block, new int[] { 5, 4, 3, 2 }, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack);
             setRuleForActionAndQuality(VolleyActionType.Block, 1, VolleyActionType.Reception);
             //defence
-            setRuleForActionAndQuality(VolleyActionType.Defence, new int[] {6, 5, 4, 3, 2 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Transfer, VolleyActionType.OpponentError, VolleyActionType.OpponentPoint);
+            setRuleForActionAndQuality(VolleyActionType.Defence, new int[] {6, 5, 4, 3, 2 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Transfer);
             setRuleForActionAndQuality(VolleyActionType.Defence, 1, VolleyActionType.Reception);
             //freeBall
-            setRuleForActionAndQuality(VolleyActionType.FreeBall, new int[] { 6, 5, 4, 3, 2 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Transfer, VolleyActionType.OpponentError, VolleyActionType.OpponentPoint);
+            setRuleForActionAndQuality(VolleyActionType.FreeBall, new int[] { 6, 5, 4, 3, 2 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Transfer);
             setRuleForActionAndQuality(VolleyActionType.FreeBall, 1, VolleyActionType.Reception);
             //Transfer
-            setRuleForActionAndQuality(VolleyActionType.Transfer, new int[] { 6, 5, 4, 3, 2 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.OpponentError, VolleyActionType.OpponentPoint);
+            setRuleForActionAndQuality(VolleyActionType.Transfer, new int[] { 6, 5, 4, 3, 2 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack);
             setRuleForActionAndQuality(VolleyActionType.Transfer, 1, VolleyActionType.Reception);
 
 
@@ -111,52 +112,35 @@ namespace StatisticsCreatorModule.Logic
         //interface
         public List<VolleyActionType> getPossibleActions(VolleyActionType type, int quality)
         {
-            return _sequenceLogic[type][quality];
+            return _sequenceLogic[type][quality-1];
+        }
+        public List<VolleyActionType> getPossibleActionsForOpponent(VolleyActionType type)
+        {
+            return _sequenceLogic[type][1];
         }
         public ActionSegmentResult getActionResult(VolleyActionType type, int quality)
         {
-            return _winLossLogic[type][quality];
+            return _winLossLogic[type][quality-1];
         }
-
-
+        public ActionSegmentResult getActionResultForOpponent(VolleyActionType type)
+        {
+            if (type == VolleyActionType.OpponentError) return ActionSegmentResult.Won;
+            else return ActionSegmentResult.Lost;
+        }
+        public ActionSegmentResult getActionResultForJudge(VolleyActionType type)
+        {
+            if (type == VolleyActionType.DisputableBall) return ActionSegmentResult.Disputable;
+            if (type == VolleyActionType.JudgeMistakeLost) return ActionSegmentResult.Lost;
+            else return ActionSegmentResult.Won;
+        }
+        public List<VolleyActionType> getSetStartPlayersActions()
+        {
+            return new List<VolleyActionType>() { VolleyActionType.Serve, VolleyActionType.Reception};
+        }
+        public List<VolleyActionType> getReceptionPlayersActions()
+        {
+            return new List<VolleyActionType>()  {VolleyActionType.Reception };
+        }
     }
-    //this class contains logic about when you can make changes take timeouts and etc
-    /* class SetLogic 
-    {
-        List<NotVolleyballActions> _inRallyActions;
-        List<NotVolleyballActions> _afterRallyActions;
-
-        public SetLogic()
-        {
-            _inRallyActions = new List<NotVolleyballActions>();
-            _afterRallyActions = new List<NotVolleyballActions>();
-        }
-        public void defaultSetting()
-        {
-            _inRallyActions.Add(NotVolleyballActions.DisputedBall);
-            _inRallyActions.Add(NotVolleyballActions.Won);
-            _inRallyActions.Add(NotVolleyballActions.Lost);
-            _inRallyActions.Add(NotVolleyballActions.JudgeError);
-            _afterRallyActions.Add(NotVolleyballActions.Timeout);
-            _afterRallyActions.Add(NotVolleyballActions.Change);
-        }
-        public RallyResult getRallyResult(NotVolleyballActions action)
-        {
-            switch (action)
-            {
-                case NotVolleyballActions.Won:
-                case NotVolleyballActions.JudgeError:
-                    return RallyResult.Won;
-                case NotVolleyballActions.Lost:
-                    return RallyResult.Lost;
-                case NotVolleyballActions.Change:
-                case NotVolleyballActions.Timeout:
-                    return RallyResult.Undefined;
-                case NotVolleyballActions.DisputedBall:
-                    return RallyResult.Disputable;
-            }
-            return RallyResult.Undefined;
-        }
-    }*/
-    //scheme: Rally -> NotVolleyActoin -> Rally -> ... etc
+    
 }

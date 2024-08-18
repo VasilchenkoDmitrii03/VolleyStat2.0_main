@@ -44,8 +44,10 @@ namespace StatisticsCreatorModule.Arrangment
         {
             string cont = "";
             if (Main != null) cont = $"#{Main.Number}";
+            else cont = "-";
             if (Change != null) cont += $" (#{Change.Number})";
             this.Content = cont; ;
+            
         }
     }
 }

@@ -44,7 +44,7 @@ namespace StatisticsCreatorModule
             _actionMetricTypes = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\BasicActionsMetrics");
             
             _team = new Team();
-            for(int  i = 1; i < 7; i++)
+            for(int  i = 1; i < 20; i++)
             {
                 _team.AddPlayer(new Player("", "", 1, i, (Amplua)(i % 4)));
             }
@@ -56,6 +56,11 @@ namespace StatisticsCreatorModule
             TextModule.setTeam(_team);
             TextModule.LineRepresentationControl.ComboBoxSelectionChanged += ButtonModule.ComboBoxUpdated;
             ButtonModule.ButtonSelectionChanged += TextModule.LineRepresentationControl.GetButtonIndex;
+            TextModule.ArrangementChanged += GraphicsModule.TeamControlChanged;
+            VideoModule.TimeCodeChanged += TextModule.GetCurrentTimeCodeEventHandler;
+            GraphicsModule.PointsChanged += TextModule.PointsUpdated;
+            TextModule.ActionAdded += GraphicsModule.ActionAdded;
+            TextModule.ScoreUpdated += ScoreModule.ScoreUpdated;
             //TextModule.LineRepresentationControl.ActionTypeChangedInTextModule += test;
         }
     }

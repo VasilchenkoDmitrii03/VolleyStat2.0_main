@@ -20,6 +20,7 @@ using System.Printing;
 using System.Diagnostics;
 using System.Reflection;
 using static System.Net.Mime.MediaTypeNames;
+using StatisticsCreatorModule.Arrangment;
 
 namespace StatisticsCreatorModule
 {
@@ -29,26 +30,37 @@ namespace StatisticsCreatorModule
     /// 
     
     public delegate void ComboBoxSelectedChanged(object sender, ComboBoxEventArgs e);
+    public delegate void DataFilled(object sender, RoutedEventArgs e);
     public partial class ActionTextRepresentationControl : UserControl
     {
         ActionsMetricTypes _actionsMetricTypes;
         List<VolleyActionType> _volleyActionTypes;
         ActionTextRepresentation _actionTextRepresentation;
-        Team _team;
+        TeamControl _teamControl;
 
 
         #region Events
         public event ComboBoxSelectedChanged ComboBoxSelectionChanged;
+        public event DataFilled DataFilled;
         public void GetButtonIndex(object sender, ButtonSelectedChangedEventArgs e)
         {
             _focusedComboBox.SelectedIndex = e.index;
+
+            if (Ready())
+            {
+                DataFilled(this, new RoutedEventArgs());
+                return;
+            }
             ComboBox comb = getNextComboBox(_focusedComboBox);
             if (comb == null) return;
             comb.Focus();
         }
         private ComboBox getNextComboBox(ComboBox comboBox)
         {
-            if (comboBox == PlayerComboBox) return ActionTypeComboBox;
+            if (comboBox == PlayerComboBox) {
+                PlayerComboBox_KeyDown(comboBox, null);
+                return ActionTypeComboBox; 
+            }
             if (comboBox == ActionTypeComboBox && _currentComboBoxes.Count > 0) return _currentComboBoxes[0];
             if (comboBox == ActionTypeComboBox && _currentComboBoxes.Count == 0) return null;
             int index = _currentComboBoxes.IndexOf(comboBox);
@@ -95,13 +107,13 @@ namespace StatisticsCreatorModule
             ActionTypeComboBox.Items.Clear();
 
         }
-        public void setTeam(Team team)
+        public void setTeamControl(TeamControl team)
         {
-            _team = team;
+            _teamControl = team;
             PlayerComboBox.Items.Clear();
-            foreach (Player p in _team.Players)
+            foreach (Player p in _teamControl.CurrentArrangement.Players)
             {
-                PlayerComboBox.Items.Add($"#{p.Number}");
+                if(p != null)  PlayerComboBox.Items.Add($"#{p.Number}");
             }
             PlayerComboBox.Items.Add(ActionAuthorType.OpponentTeam);
             PlayerComboBox.Items.Add(ActionAuthorType.Coach);
@@ -124,13 +136,16 @@ namespace StatisticsCreatorModule
             PlayerComboBox.Focus();
 
         }
-
+        public void UpdateAvaibleActionTypes(List<VolleyActionType> actionTypes)
+        {
+            currentAvaibleActionTypes = actionTypes;
+        }
         #endregion
 
         private void updatePlayersComboBox()
         {
             PlayerComboBox.Items.Clear();
-            foreach (Player p in _team.Players)
+            foreach (Player p in _teamControl.CurrentArrangement.Players)
             {
                 PlayerComboBox.Items.Add($"#{p.Number}");
             }
@@ -140,8 +155,11 @@ namespace StatisticsCreatorModule
         }
         //Module for statistics creation
 
+        List<VolleyActionType> currentAvaibleActionTypes = ActionTypeConverter.getActionTypesByAuthor(ActionAuthorType.Player);
+
         ActionAuthorType _currentAuthorType = ActionAuthorType.Undefined;
         VolleyActionType _currentActionType = VolleyActionType.Undefined;
+        VolleyActionType _lastPlayerAction  = VolleyActionType.Undefined;
         private void PlayerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!MyValidationForPlayerTypeComboBox(PlayerComboBox, true) || PlayerComboBox.SelectedItem == null) return;
@@ -165,7 +183,15 @@ namespace StatisticsCreatorModule
                 if (a.ToString() == PlayerComboBox.SelectedItem.ToString()) aat = a;
             }
             _currentAuthorType = aat;
-            UpdateActionTypeComboBoxItems(ActionTypeConverter.getActionTypesByAuthor(aat));
+            if(_currentAuthorType == ActionAuthorType.Player)
+            {
+                UpdateActionTypeComboBoxItems(currentAvaibleActionTypes);
+            }
+            else
+            {
+                UpdateActionTypeComboBoxItems(ActionTypeConverter.getActionTypesByAuthor(aat));
+            }
+            
         }
 
         private void UpdateActionTypeComboBoxItems(List<VolleyActionType> vats)
@@ -187,6 +213,7 @@ namespace StatisticsCreatorModule
             _currentActionType = aType;
             //if (_currentAuthorType == ActionAuthorType.Player) _actionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
             updateComboBoxes(aType);
+
             //if(_currentAuthorType == ActionAuthorType.Player)ActionTypeChangedInTextModule?.Invoke(this, new ActionTypeEventArgs(aType));
         }
         private void ActionTypeComboBox_SelectionChanged(object sender, KeyEventArgs e)
@@ -198,6 +225,7 @@ namespace StatisticsCreatorModule
             updateComboBoxes(aType);
             //if (_currentAuthorType == ActionAuthorType.Player) ActionTypeChangedInTextModule?.Invoke(this, new ActionTypeEventArgs(aType));
         }
+        
 
         private ActionTextRepresentation createActionTextRepresentation(ActionAuthorType aat, VolleyActionType vat)
         {
@@ -205,7 +233,7 @@ namespace StatisticsCreatorModule
             {
                 case ActionAuthorType.Player:
                     PlayerActionTextRepresentation patr =  new PlayerActionTextRepresentation(vat, _actionsMetricTypes[vat]);
-                    patr.SetPlayer(_team.Players[PlayerComboBox.SelectedIndex]);
+                    patr.SetPlayer(_teamControl.CurrentArrangement[PlayerComboBox.SelectedIndex]);
                     return patr;
                 case ActionAuthorType.Coach:
                     return new CoachActionTextRepresentation(vat);
@@ -216,6 +244,7 @@ namespace StatisticsCreatorModule
             }
             return null;
         }
+
 
         public void updateComboBoxes(VolleyActionType aType)
         {
@@ -237,6 +266,7 @@ namespace StatisticsCreatorModule
             if(MainGrid.ColumnDefinitions.Count > 2)MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
             if (MainGrid.Children.Count > 4)  MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
             MetricTypeList mtl = _actionsMetricTypes[aType];
+            
             _currentComboBoxes.Clear();
             int index = 2;
             foreach (MetricType a in mtl)
@@ -284,11 +314,11 @@ namespace StatisticsCreatorModule
                     break;
                 case VolleyActionType.Change:
                     _actionTextRepresentation = new CoachActionTextRepresentation(aType, new List<Player>(new Player[2]));
-                    createPlayerNumberComboBoxes(2, _team);
+                    createPlayerNumberComboBoxesForChange(2, new List<Player> (_teamControl.CurrentArrangement.Players),  _teamControl.ReservePlayers);
                     break;
                 case VolleyActionType.StartArrangment:
                     _actionTextRepresentation = new CoachActionTextRepresentation(aType, new List<Player>(new Player[6]));
-                    createPlayerNumberComboBoxes(6, _team);
+                    createPlayerNumberComboBoxes(6, _teamControl.Team.Players);
                     break;
             }
         }
@@ -305,7 +335,7 @@ namespace StatisticsCreatorModule
             }
         }
 
-        private void createPlayerNumberComboBoxes(int count = 2, Team team = null)
+        private void createPlayerNumberComboBoxes(int count = 2, List<Player> players = null)
         {
             _currentComboBoxes.Clear();
             if (MainGrid.ColumnDefinitions.Count > 2) MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
@@ -320,7 +350,7 @@ namespace StatisticsCreatorModule
                 comboBox.IsEditable = true;
                 comboBox.IsTextSearchCaseSensitive = true;
                 comboBox.TabIndex = i+2;
-                foreach (Player p in team.Players)
+                foreach (Player p in players)
                 {
                     comboBox.Items.Add($"#{p.Number}");
                 }
@@ -329,7 +359,7 @@ namespace StatisticsCreatorModule
                           if (!MyValidationForPlayerTypeComboBox((ComboBox)o, true)) return;
                           string txt = ((ComboBox)o).Text;
                           txt = txt.Remove(0, 1);
-                          ((CoachActionTextRepresentation)_actionTextRepresentation).Players[((ComboBox)o).TabIndex-2] = team.GetPlayerByNumber(Convert.ToInt32(txt));
+                          ((CoachActionTextRepresentation)_actionTextRepresentation).Players[((ComboBox)o).TabIndex - 2] = getPlayerByNumber(players, Convert.ToInt32(txt)); 
                       } ));
                 comboBox.GotFocus += (o, e) =>
                 {
@@ -342,8 +372,69 @@ namespace StatisticsCreatorModule
                 Grid.SetColumn(comboBox, i+2);
                 Grid.SetRow(comboBox, 1);
                 Grid.SetRow(lab, 0);
+                _currentComboBoxes.Add(comboBox);
                 index++;
             }
+        }
+        private void createPlayerNumberComboBoxesForChange(int count, List<Player> players, List<Player> changers)
+        {
+            _currentComboBoxes.Clear();
+            if (MainGrid.ColumnDefinitions.Count > 2) MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
+            if (MainGrid.Children.Count > 4) MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
+            int index = 0;
+            for (int i = 0; i < count; i++)
+            {
+                MainGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                Label lab = new Label();
+                lab.Content = $"Pl#{i + 1}";
+                ComboBox comboBox = new ComboBox();
+                comboBox.IsEditable = true;
+                comboBox.IsTextSearchCaseSensitive = true;
+                comboBox.TabIndex = i + 2;
+                if(i == 0)
+                {
+                    foreach (Player p in players)
+                    {
+                        comboBox.Items.Add($"#{p.Number}");
+                    }
+                }
+                if(i == 1)
+                {
+                    foreach (Player p in changers)
+                    {
+                        comboBox.Items.Add($"#{p.Number}");
+                    }
+                }
+                comboBox.AddHandler(System.Windows.Controls.Primitives.TextBoxBase.TextChangedEvent,
+                      new System.Windows.Controls.TextChangedEventHandler((o, e) => {
+                          if (!MyValidationForPlayerTypeComboBox((ComboBox)o, true)) return;
+                          string txt = ((ComboBox)o).Text;
+                          txt = txt.Remove(0, 1);
+                          List<Player> pls = (((ComboBox)o).TabIndex - 2 == 0) ? players : changers;
+                          ((CoachActionTextRepresentation)_actionTextRepresentation).Players[((ComboBox)o).TabIndex - 2] = getPlayerByNumber(pls, Convert.ToInt32(txt));
+                      }));
+                comboBox.GotFocus += (o, e) =>
+                {
+                    _focusedComboBox = (ComboBox)o;
+                    ComboBoxSelectionChanged(o, new ComboBoxEventArgs((ComboBox)o, _currentActionType.ToString(), lab.Content.ToString()));
+                };
+                MainGrid.Children.Add(lab);
+                MainGrid.Children.Add(comboBox);
+                Grid.SetColumn(lab, i + 2);
+                Grid.SetColumn(comboBox, i + 2);
+                Grid.SetRow(comboBox, 1);
+                Grid.SetRow(lab, 0);
+                _currentComboBoxes.Add(comboBox);
+                index++;
+            }
+        }
+        private Player getPlayerByNumber(List<Player> players, int number)
+        {
+            foreach(Player p in players)
+            {
+                if(p.Number == number) return p;
+            }
+            return null;
         }
         #endregion
         #region Validation
@@ -427,6 +518,12 @@ namespace StatisticsCreatorModule
         #endregion
 
         #region Not Players Actions
+
+
+        #endregion
+
+        #region Stat creationLogic
+            
 
 
         #endregion

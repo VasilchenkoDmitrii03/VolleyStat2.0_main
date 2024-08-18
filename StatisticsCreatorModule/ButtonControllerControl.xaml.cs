@@ -55,7 +55,7 @@ namespace StatisticsCreatorModule
             int index = 0;
             foreach(object o in list)
             {
-                Button button = new Button();
+                Button button = new Button() {Width=100, Height=30 };
                 button.Content = o.ToString();
                 MainPanel.Children.Add(button);
                 _currentButtons.Add(button);

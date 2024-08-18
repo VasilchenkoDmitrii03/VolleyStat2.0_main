@@ -7,14 +7,14 @@ using ActionsLib;
 
 namespace StatisticsCreatorModule.Arrangment
 {
-    internal class Arrangment
+    public class Arrangement
     {
         Player[] _fieldPlayers; 
-        public Arrangment()
+        public Arrangement()
         {
             _fieldPlayers = new Player[6];
         }
-        public Arrangment(Player[] pl)
+        public Arrangement(Player[] pl)
         {
             _fieldPlayers = pl.ToArray();
         }
@@ -32,6 +32,10 @@ namespace StatisticsCreatorModule.Arrangment
         {
             get { return _fieldPlayers[index]; }
             set { _fieldPlayers[index] = value; }
+        }
+        public Player[] Players
+        {
+            get { return _fieldPlayers; }
         }
         public Amplua getAmpluaByZone(int zone)
         {

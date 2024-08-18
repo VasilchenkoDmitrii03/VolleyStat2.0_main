@@ -21,6 +21,8 @@ namespace StatisticsCreatorModule
     /// <summary>
     /// Interaction logic for VideoModule.xaml
     /// </summary>
+    
+    public delegate void TimeCodeChanged(object sender, TimeCodeEventArgs e);
     public partial class VideoModule : UserControl
     {
         public VideoModule()
@@ -45,7 +47,7 @@ namespace StatisticsCreatorModule
                             player = new YT.Player('player', {
                                 height: '390',
                                 width: '640',
-                                videoId: 'M7lc1UVf-VE',
+                                videoId: 'ks6yJSDPBAY',
                                 events: {
                                     'onReady': onPlayerReady,
                                     'onStateChange': onPlayerStateChange
@@ -80,6 +82,7 @@ namespace StatisticsCreatorModule
                 </html>";
             YouTubeWebView.NavigateToString(htmlString);
         }
+        public TimeCodeChanged TimeCodeChanged;
 
         private void CoreWebView2_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
         {
@@ -95,6 +98,7 @@ namespace StatisticsCreatorModule
             {
                 var data = JsonSerializer.Deserialize<WebMessage>(message);
                 CurrentTime = (double)time.GetDouble();
+                TimeCodeChanged(this, new TimeCodeEventArgs(CurrentTime));
             }
         }
         double CurrentTime = 0;
@@ -106,6 +110,15 @@ namespace StatisticsCreatorModule
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             MessageBox.Show(CurrentTime.ToString());
+        }
+    }
+
+    public class TimeCodeEventArgs : EventArgs
+    {
+        public double currentTimeCode;
+        public TimeCodeEventArgs(double t)
+        {
+            currentTimeCode = t;
         }
     }
 

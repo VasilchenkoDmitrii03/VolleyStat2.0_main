@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              SizeChanged="UserControl_SizeChanged"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Canvas Name="MainCanvas" Width="Auto" Height="Auto" Background="AliceBlue">
+    <Canvas Name="MainCanvas" Width="Auto" Height="Auto" Background="AliceBlue" MouseLeftButtonUp="MainCanvas_MouseLeftButtonUp" MouseRightButtonUp="MainCanvas_MouseRightButtonUp">
 
     </Canvas>
 </UserControl>

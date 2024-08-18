@@ -1,5 +1,10 @@
-﻿
-using System.Net.Http.Metrics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace ActionsLib
 {
@@ -20,6 +25,10 @@ namespace ActionsLib
         public ActionAuthorType AuthorType
         {
             get { return _authorType; }
+        }
+        public VolleyActionType ActionType
+        {
+            get { return _actionType; }
         }
         public List<MetricType> MetricTypes
         {
@@ -63,15 +72,48 @@ namespace ActionsLib
             }
         }
     }
+    public class Point
+    {
+        double x, y;
+        public Point(double x, double y)
+        {
+            this.x = x;
+            this.y = y;
+        }
+        public double X
+        {
+            get => this.x;
+            set => this.x = value;
+        }
+        public double Y
+        {
+            get => this.y;
+            set => this.y = value;
+        }
+    }
     public class PlayerAction : Action
     {
+
         Player _player;
+        double _timeCode = 0;
+        Point[] _points;
         public PlayerAction(Player player, VolleyActionType actType, Metric[] metrics = null) : base(actType.ToString(), ActionAuthorType.Player, metrics)
         {
             _actionType = actType;
             _player = player;
         }
-
+        public double TimeCode
+        {
+            get { return _timeCode; }
+            set { if (value >= 0) _timeCode = value;
+                else _timeCode = 0;
+            }
+        }
+        public Point[] Points
+        {
+            get { return _points; }
+            set { _points = value; }
+        }
         public Player Player
         {
             get { return _player; }
@@ -92,8 +134,12 @@ namespace ActionsLib
                     {
                         res += " " + metric.getShortString();
                     }
-                    return res;
+                    return res + $" {TimeCode}";
             }
+        }
+        public int GetQuality()
+        {
+            return (int)_metrics[0].Value;
         }
     }
     public class OpponentAction : Action
@@ -132,6 +178,10 @@ namespace ActionsLib
             _actionType = actionType;
             if(players == null) _players = new List<Player>();
             else _players = players; ;
+        }
+        public List<Player> Players
+        {
+            get { return _players; }
         }
         public override string ExtendedString
         {
