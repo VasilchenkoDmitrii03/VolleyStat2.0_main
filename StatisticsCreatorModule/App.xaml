@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:StatisticsCreatorModule"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Themes/LightTheme.xaml">
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StatisticsCreatorModule"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Name="MainGrid">
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
+    <Grid Name="MainGrid" Background="{StaticResource WindowBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -19,6 +20,7 @@
         <Label Grid.Column="0">Player number</Label>
         <ComboBox Name="PlayerComboBox" IsEditable ="True" Grid.Row="1" Grid.Column="0" SelectionChanged="PlayerComboBox_SelectionChanged" KeyDown="PlayerComboBox_KeyDown" TabIndex="0" ></ComboBox>
         <Label Grid.Column="1">Action type</Label>
-        <ComboBox Name="ActionTypeComboBox" Grid.Row="1" Grid.Column="1"  IsEditable="True" TabIndex="1"></ComboBox>
+        <ComboBox Name="ActionTypeComboBox" Grid.Row="1"  Grid.Column="1"  IsEditable="True" TabIndex="1">
+        </ComboBox>
     </Grid>
 </UserControl>

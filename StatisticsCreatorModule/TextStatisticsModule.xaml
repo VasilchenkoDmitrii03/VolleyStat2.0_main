@@ -6,14 +6,14 @@
              xmlns:local="clr-namespace:StatisticsCreatorModule"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="{DynamicResource WindowBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="60"></RowDefinition>
         </Grid.RowDefinitions>
         <Label>Actions</Label>
-        <ListBox Grid.Row="1" Name="MainListBox" TabIndex="1000">
+        <ListBox Grid.Row="1" Name="MainListBox" TabIndex="1000" Background="{DynamicResource WindowBackgroundBrush}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=ExtendedString}"></TextBlock>
@@ -22,7 +22,10 @@
         </ListBox>
         <StackPanel Orientation="Horizontal" Grid.Row="2">
             <local:ActionTextRepresentationControl x:Name="Test"></local:ActionTextRepresentationControl>
-            <Button Width="100" Click="AddButton_Click" Name="AddButton"> Add</Button>
+            <Button Width="100" Click="AddButton_Click" Name="AddButton"
+                    Background="{DynamicResource ButtonBackgroundBrush}"
+                    Foreground="{DynamicResource TextBrush}"
+                    > Add</Button>
         </StackPanel>
         
     </Grid>

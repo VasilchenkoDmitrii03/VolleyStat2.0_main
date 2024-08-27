@@ -6,27 +6,55 @@
         xmlns:local="clr-namespace:StatisticsCreatorModule"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <local:TextStatisticsModule x:Name="TextModule" Grid.Column="0" Grid.Row="1"></local:TextStatisticsModule>
-        <local:ButtonControllerControl  x:Name="ButtonModule" Grid.Column="1" Grid.Row="0"></local:ButtonControllerControl>
-        <local:VideoModule x:Name="VideoModule"></local:VideoModule>
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="3*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <local:FIeldVisualisationControl Grid.Column="1" x:Name="GraphicsModule"></local:FIeldVisualisationControl>
-            <local:ScoreDisplayer Grid.Column="0" x:Name="ScoreModule"></local:ScoreDisplayer>
-        </Grid>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File">
+                <MenuItem Header="New" />
+                <MenuItem Header="Open" Click="Open_Click"/>
+                <MenuItem Header="Save as" Click="SaveAs_Click"/>
+                <Separator/>
+                <MenuItem Header="Exit"/>
+            </MenuItem>
+            <MenuItem Header="Settings">
+                <MenuItem Header="Theme">
+                    <MenuItem Header="Light" Click="ThemeSelector_Click"/>
+                    <MenuItem Header="Dark" Click="ThemeSelector_Click"/>
+                </MenuItem>
+            </MenuItem>
+        </Menu>
         
-    </Grid>
+        <Grid Background="{DynamicResource GridBackgroundBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Menu DockPanel.Dock="Top" Height="30" VerticalAlignment="Top">
+                <MenuItem Header="User Management" FontSize="15"  Height="30" Width="72">
+                    <MenuItem Header="_New" />
+                    <MenuItem Header="_Open" />
+                    <MenuItem Header="_Save" />
+                    <Separator />
+                    <MenuItem Header="_Exit" />
+                </MenuItem>
+            </Menu>
+            <local:TextStatisticsModule x:Name="TextModule" Grid.Column="0" Grid.Row="1"></local:TextStatisticsModule>
+            <local:ButtonControllerControl  x:Name="ButtonModule" Grid.Column="1" Grid.Row="0"></local:ButtonControllerControl>
+            <local:VideoModule x:Name="VideoModule"></local:VideoModule>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <local:FIeldVisualisationControl Grid.Column="0" x:Name="GraphicsModule"></local:FIeldVisualisationControl>
+                <local:ScoreDisplayer Grid.Column="1" x:Name="ScoreModule"></local:ScoreDisplayer>
+            </Grid>
+
+        </Grid>
+    </DockPanel>
+        
     
 </Window>

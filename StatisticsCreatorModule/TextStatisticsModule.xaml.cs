@@ -39,7 +39,7 @@ namespace StatisticsCreatorModule
             InitializeComponent();
             updateListVisual();
             rules.setDefaultRules();
-            BeginProcess(5);
+            BeginNewSet(5);
             AddButton.TabIndex = 40;
             LineRepresentationControl.DataFilled += AddButton_Click;
         }
@@ -85,14 +85,34 @@ namespace StatisticsCreatorModule
 
 
         #region game order creator
+        public void LoadSet(Set set)
+        {
+            _currentSet = set;
+            _actions = set.ConvertToSequence().ToList();
+            updateListVisual();
+        }
+
         private VolleyActionSegment _currentSegment;
         private ActionsLib.Rally _currentRally;
         private ActionsLib.Set _currentSet;
-        private void BeginProcess(int setScore)
+        public ActionsLib.Set CurrentSet
+        {
+            get
+            {
+                return _currentSet;
+            }
+        }
+        bool isRallyEnded = true;
+        bool isSetStart = true;
+        AvaibleActionTypes avaibleActionTypes = new AvaibleActionTypes();
+        public void BeginNewSet(int setScore)
         {
             _currentRally = new Rally();
             _currentSegment = new VolleyActionSegment();
             _currentSet = new Set(setScore);
+            avaibleActionTypes.GameBegining();
+            isSetStart = false;
+            LineRepresentationControl.UpdateAvaibleActionTypes(avaibleActionTypes);
         }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
@@ -109,8 +129,9 @@ namespace StatisticsCreatorModule
             }
             _actions.Add(act);
             actionAdded(act);
-            LineRepresentationControl.UpdateAvaibleActionTypes(GetAvaibleActionTypes(act));
-            ProcessCoachActions(act);
+            if (isRallyEnded) { avaibleActionTypes.BetweenRallies(GetAvaibleActionTypes(act)); }
+            else { avaibleActionTypes.InRally(GetAvaibleActionTypes(act)); }
+            LineRepresentationControl.UpdateAvaibleActionTypes(avaibleActionTypes);
             updateListVisual();
             LineRepresentationControl.setDefaultfocus();
             ActionAdded(this, new EventArgs());
@@ -151,6 +172,8 @@ namespace StatisticsCreatorModule
         }
         private void actionAdded(ActionsLib.Action act)
         {
+           ProcessCoachActions(act);
+           isRallyEnded = false;
            if(isNewSequence(_currentSegment, act))
             {
                 _currentRally.Add(_currentSegment);
@@ -203,9 +226,34 @@ namespace StatisticsCreatorModule
         {
             rally.UpdateRallyResult();
             _currentSet.Add(rally);
+            isRallyEnded = true;
             ScoreUpdated(this, new ScoreEventArgs(_currentSet.CurrentScore));
         }
 
+        #endregion
+
+        #region Themese module
+        private void LoadTheme()
+        {
+            ResourceDictionary themeDict = new ResourceDictionary();
+            // Определяем, какая тема загружена в приложении
+            if (Application.Current.Resources.MergedDictionaries[0].Source.ToString().Contains("LightTheme"))
+            {
+                themeDict.Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative);
+            }
+            else
+            {
+                themeDict.Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative);
+            }
+
+            this.Resources.MergedDictionaries.Add(themeDict);
+        }
+        public void UpdateTheme()
+        {
+            this.Resources.MergedDictionaries.Clear();
+            LoadTheme();
+            LineRepresentationControl.UpdateTheme();
+        }
         #endregion
     }
     public class TeamControlEventArgs : EventArgs

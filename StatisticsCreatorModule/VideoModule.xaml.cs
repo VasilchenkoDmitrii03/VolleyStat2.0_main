@@ -111,6 +111,30 @@ namespace StatisticsCreatorModule
         {
             MessageBox.Show(CurrentTime.ToString());
         }
+
+
+        #region Themese module
+        private void LoadTheme()
+        {
+            ResourceDictionary themeDict = new ResourceDictionary();
+            // Определяем, какая тема загружена в приложении
+            if (Application.Current.Resources.MergedDictionaries[0].Source.ToString().Contains("LightTheme"))
+            {
+                themeDict.Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative);
+            }
+            else
+            {
+                themeDict.Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative);
+            }
+
+            this.Resources.MergedDictionaries.Add(themeDict);
+        }
+        public void UpdateTheme()
+        {
+            this.Resources.MergedDictionaries.Clear();
+            LoadTheme();
+        }
+        #endregion
     }
 
     public class TimeCodeEventArgs : EventArgs

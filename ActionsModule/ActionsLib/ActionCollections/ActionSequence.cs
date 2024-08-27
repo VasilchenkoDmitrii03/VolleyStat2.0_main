@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http.Headers;
 using System.Numerics;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ActionsLib
@@ -67,11 +68,12 @@ namespace ActionsLib
         }
         public void Add(VolleyActionSequence seq)
         {
-            foreach (PlayerAction act in seq)
+            foreach (Action act in seq)
             {
                 this.Add(act);
             }
         }
+       
         public static VolleyActionSequence operator+(VolleyActionSequence left,  VolleyActionSequence right)
         {
             VolleyActionSequence res = new VolleyActionSequence(left);
@@ -80,6 +82,55 @@ namespace ActionsLib
                 res.Add(act);
             }
             return res;
+        }
+    
+        public string Save()
+        {
+            string res = $"{this.Count()}";
+            foreach(Action act in this)
+            {
+                res += "\n" + act.Save();
+            }
+            return res;
+        }
+        public static VolleyActionSequence Load(string str)
+        {
+            string[] strs = str.Split('\n');
+            int count = Convert.ToInt32(strs[0]);
+            VolleyActionSequence seq = new VolleyActionSequence();
+            for(int i = 0; i < count; i++)
+            {
+                seq.Add(ActionLoader.Load(strs[i+1]));
+            }
+            return seq;
+        }
+        public static VolleyActionSequence Load(string[] strs)
+        {
+            int count = Convert.ToInt32(strs[0]);
+            VolleyActionSequence seq = new VolleyActionSequence();
+            for (int i = 0; i < count; i++)
+            {
+                seq.Add(ActionLoader.Load(strs[i + 1]));
+            }
+            return seq;
+        }
+        public void Save (StreamWriter sw)
+        {
+            sw.WriteLine(JsonSerializer.Serialize(this.Count()));
+            foreach(Action act in this)
+            {
+                act.Save(sw);
+            }
+        }
+        public static VolleyActionSequence Load(StreamReader sr)
+        {
+            int count = JsonSerializer.Deserialize<int>(sr.ReadLine());
+            VolleyActionSequence actions = new VolleyActionSequence();
+            for(int i = 0;i < count; i++)
+            {
+                actions.Add(ActionLoader.Load(sr.ReadLine()));
+            }
+            return actions;
         }
     }
     public enum ActionSegmentResult //УТОЧНИТЬ
@@ -108,7 +159,7 @@ namespace ActionsLib
         public VolleyActionSegment(VolleyActionSequence a)
         {
             Actions = new VolleyActionSequence();
-            foreach (PlayerAction action in a)
+            foreach (Action action in a)
             {
                 Actions.Add(action);
             }
@@ -139,6 +190,44 @@ namespace ActionsLib
         public int Count
         {
             get { return Actions.Count; }
+        }
+
+        public string Save()
+        {
+            string res = $"{SegmentResult}";
+            res += "\n" + Actions.Save();
+            return res;
+        }
+
+        public static VolleyActionSegment Load(string str)
+        {
+            string[] strs = str.Split('\n');
+            ActionSegmentResult result = ActionSegmentResult.Undefined;
+            for(int i = -1; i < 4; i++)
+            {
+                if (strs[0] == ((ActionSegmentResult)i).ToString()) result = ((ActionSegmentResult)i);
+            }
+            if (result == ActionSegmentResult.Undefined) throw new Exception($"Can't load action segment result {strs[0]}");
+            string newstr = "";
+            for(int i= 1; i <  strs.Length; i++)
+            {
+                newstr += strs[i].ToString() + "\n";
+            }
+            VolleyActionSegment seg = new VolleyActionSegment(VolleyActionSequence.Load(newstr));
+            seg.SegmentResult = result;
+            return seg;
+        }
+        public void Save(StreamWriter sw)
+        {
+            sw.WriteLine(JsonSerializer.Serialize(SegmentResult));
+            Actions.Save(sw);
+        }
+        public static VolleyActionSegment Load(StreamReader sr)
+        {
+            ActionSegmentResult res = JsonSerializer.Deserialize<ActionSegmentResult>(sr.ReadLine());
+            VolleyActionSegment seg =  new VolleyActionSegment(VolleyActionSequence.Load(sr));
+            seg.SegmentResult = res;
+            return seg;
         }
     }
 
@@ -173,13 +262,61 @@ namespace ActionsLib
             }
             return res;
         }
+
+        public string Save()
+        {
+            string res = $"{this.Count}";
+            foreach(VolleyActionSegment seg in this)
+            {
+                res += "\n" + seg.Save();
+            }
+            return res;
+        }
+        public static VolleyActionSegmentSequence Load(string str)
+        {
+            string[] strs = str.Split('\n');
+            int index = 0;
+            int segmentsCount = Convert.ToInt32(strs[0]);
+            index++;
+            VolleyActionSegmentSequence res = new VolleyActionSegmentSequence();
+            for(int i= 0;i <  segmentsCount;i++)
+            {
+                string newstr = "";
+                for(int j= index; j < strs.Length; j++)
+                {
+                    newstr = strs[j] + "\n";
+                }
+                VolleyActionSegment seg = VolleyActionSegment.Load(newstr);
+                res.Add(seg);
+                index += seg.Count;
+            }
+            return res;
+        }
+        public void Save(StreamWriter sw)
+        {
+            sw.WriteLine(JsonSerializer.Serialize(Count));
+            foreach(VolleyActionSegment seg in this)
+            {
+                seg.Save(sw);
+            }
+        }
+        public static VolleyActionSegmentSequence Load(StreamReader sr)
+        {
+            int count = JsonSerializer.Deserialize<int>(sr.ReadLine());
+            VolleyActionSegmentSequence res = new VolleyActionSegmentSequence();
+            for(int i = 0;i < count; i++)
+            {
+                res.Add(VolleyActionSegment.Load(sr));
+            }
+            return res;
+        }
     }
     public enum RallyResult
     {
         Undefined = -1,
-        Won = 1,
-        Lost = 2,
-        Disputable = 3
+        Won = 0,
+        Lost = 1,
+        Disputable = 2
     }
     public class Rally
     {
@@ -199,6 +336,14 @@ namespace ActionsLib
         {
             Segments = new VolleyActionSegmentSequence();   
 
+        }
+        public Rally(VolleyActionSegmentSequence seg)
+        {
+            Segments = new VolleyActionSegmentSequence();
+            foreach(VolleyActionSegment s in seg)
+            {
+                Add(s);
+            }
         }
         public void Add(VolleyActionSegment seg)
         {
@@ -231,6 +376,45 @@ namespace ActionsLib
                     RallyResult = RallyResult.Disputable; break;
             }
 
+        }
+
+        public string Save()
+        {
+            string res = $"{RallyResult}";
+            res += "\n" + Segments.Save();
+            return res;
+        }
+        public static Rally Load(string str)
+        {
+            string[] strs = str.Split('\n');
+            RallyResult result = RallyResult.Undefined;
+            for (int i = -1; i < 3; i++)
+            {
+                if (strs[0] == ((RallyResult)i).ToString()) result = ((RallyResult)i);
+            }
+            //if (result == RallyResult.Undefined) throw new Exception($"Can't load rally result {strs[0]}");
+            string newstr = "";
+            for (int i = 1; i < strs.Length; i++)
+            {
+                newstr += strs[i].ToString() + "\n";
+            }
+            VolleyActionSegmentSequence seq = VolleyActionSegmentSequence.Load(newstr);
+            Rally ral = new Rally(seq);
+            ral.RallyResult = result; return ral;
+
+        }
+        public void Save(StreamWriter sw)
+        {
+            sw.WriteLine(JsonSerializer.Serialize(RallyResult));
+            Segments.Save(sw);
+        }
+        public static Rally Load(StreamReader sr)
+        {
+            RallyResult res = JsonSerializer.Deserialize<RallyResult>(sr.ReadLine());
+            VolleyActionSegmentSequence seq = VolleyActionSegmentSequence.Load(sr);
+            Rally ral = new Rally(seq);
+            ral.RallyResult = res;
+            return ral;
         }
     }
     public class RallySequence : ObservableCollection<Rally>
@@ -271,6 +455,54 @@ namespace ActionsLib
             }
             return res;
         }
+
+        public string Save()
+        {
+            string res = $"{Count}";
+            foreach(Rally r in this)
+            {
+                res +="\n" +  r.Save();
+            }
+            return res;
+        }
+        public static RallySequence Load(string str)
+        {
+            string[] strs = str.Split('\n');
+            int index = 0;
+            int segmentsCount = Convert.ToInt32(strs[0]);
+            index++;
+            RallySequence res = new RallySequence();
+            for (int i = 0; i < segmentsCount; i++)
+            {
+                string newstr = "";
+                for (int j = index; j < strs.Length; j++)
+                {
+                    newstr = strs[j] + "\n";
+                }
+                Rally seg = Rally.Load(newstr);
+                res.Add(seg);
+                index += seg.Length;
+            }
+            return res;
+        }
+        public void Save(StreamWriter sw)
+        {
+            sw.WriteLine(JsonSerializer.Serialize(Count));
+            foreach(Rally r in this)
+            {
+                r.Save(sw);
+            }
+        }
+        public static RallySequence Load(StreamReader sr)
+        {
+            RallySequence res = new RallySequence();
+            int count = JsonSerializer.Deserialize<int>(sr.ReadLine());
+            for(int i = 0;i < count; i++)
+            {
+                res.Add(Rally.Load(sr));
+            }
+            return res;
+        }
     }
     public enum SetResult
     {
@@ -305,10 +537,12 @@ namespace ActionsLib
         public SetResult SetResult
         {
             get { return _setResult; }
+            set {  _setResult = value; }
         }
         public Score CurrentScore
         {
             get { return _currentScore; }
+            set { _currentScore = value; }
         }
 
         public void updateScore(Rally rally)
@@ -337,9 +571,9 @@ namespace ActionsLib
             int index = 0;
             for(int i = 0;i < Rallies.Count; i++)
             {
-                if (Rallies[i].Segments[0].Actions[0].AuthorType == ActionAuthorType.Player || Rallies[i].Segments[0].Actions[0].AuthorType == ActionAuthorType.OpponentTeam)
+                if ((Rallies[i].Segments[0].Actions[0]).AuthorType == ActionAuthorType.Player || (Rallies[i].Segments[0].Actions[0]).AuthorType == ActionAuthorType.OpponentTeam)
                 {
-                    if (Rallies[i].Segments[0].Actions[0].AuthorType == ActionAuthorType.OpponentTeam || Rallies[i].Segments[0].Actions[0].ActionType == VolleyActionType.Reception)
+                    if ((Rallies[i].Segments[0].Actions[0]).AuthorType == ActionAuthorType.OpponentTeam || (Rallies[i].Segments[0].Actions[0]).ActionType == VolleyActionType.Reception)
                     {
                         CurrentPhase = SegmentPhase.Recep_1;
                     }
@@ -369,6 +603,57 @@ namespace ActionsLib
         public VolleyActionSequence ConvertToSequence()
         {
             return Rallies.ConvertToActionSequence();
+        }
+
+        public string Save()
+        {
+            string res = $"{_setLength};{_setResult}";
+            res += "\n" + _currentScore.Save();
+            res += "\n" + Rallies.Save();
+            return res;
+        }
+        public static Set Load(string str)
+        {
+            string[] strs = str.Split('\n');
+            string[] tmp = strs[0].Split(';');
+            int setLen = Convert.ToInt32(tmp[0]);
+           SetResult result = SetResult.Undefined;
+            for (int i = -1; i < 3; i++)
+            {
+                if (tmp[1] == ((SetResult)i).ToString()) result = ((SetResult)i);
+            }
+            //if (result == SetResult.Undefined) throw new Exception($"Can't load rally result {strs[1]}");
+            Set set = new Set(setLen);
+            string newstr = "";
+            for (int i = 2; i < strs.Length; i++) newstr = strs[i] + "\n";
+            RallySequence rs = RallySequence.Load(newstr);
+            set.Rallies = rs;
+            set._setResult = result;
+            return set;
+            
+        }
+
+        public void Save(StreamWriter sw)
+        {
+            sw.WriteLine(JsonSerializer.Serialize(_setLength));
+            sw.WriteLine(JsonSerializer.Serialize(_setResult));
+            sw.WriteLine(JsonSerializer.Serialize(CurrentPhase));
+            CurrentScore.Save(sw);
+            Rallies.Save(sw);
+        }
+        public static Set Load(StreamReader sr)
+        {
+            int len = JsonSerializer.Deserialize<int>(sr.ReadLine());
+            SetResult res = JsonSerializer.Deserialize<SetResult>(sr.ReadLine());
+            SegmentPhase phase= JsonSerializer.Deserialize<SegmentPhase>(sr.ReadLine());
+            Score score = Score.Load(sr);
+            RallySequence rs = RallySequence.Load(sr);
+            Set set = new Set(len);
+            set.CurrentPhase = phase;
+            set.SetResult = res;
+            set.CurrentScore = score;
+            set.Rallies = rs;
+            return set;
         }
     }
     public class Score
@@ -400,6 +685,31 @@ namespace ActionsLib
         {
             get { return _right; }
             set { if (value >= 0) _right = value; }
+        }
+
+        public string Save()
+        {
+            string res = $"{_left};{_right};{_setLength}";
+            return res;
+        }
+        public static Score Load(string str)
+        {
+            string[] strs = str.Split(';');
+            int left = int.Parse(strs[0]);
+            int right = int.Parse(strs[1]);
+            int len = int.Parse(strs[2]);
+            Score s = new Score(len);
+            s.Left = left;
+            s.Right = right;
+            return s;
+        }
+        public void Save(StreamWriter sw)
+        {
+            sw.WriteLine(Save());
+        }
+        public static Score Load(StreamReader sr)
+        {
+            return Load(sr.ReadLine());
         }
     }
 }
