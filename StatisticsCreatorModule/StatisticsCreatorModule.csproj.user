@@ -16,7 +16,22 @@
     <Compile Update="LiberoModeSetter\LiberoModeSetter.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="PlayerPositioning\Field.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="PlayerPositioning\PlayerPositionController.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="PlayerPositioning\PlayerPositionWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="ScoreDisplayer.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SettingsWindow\LiberoSystemSettingsBlock.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SettingsWindow\SettingsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="TextStatisticsModule.xaml.cs">
@@ -42,7 +57,22 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="PlayerPositioning\Field.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="PlayerPositioning\PlayerPositionController.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="PlayerPositioning\PlayerPositionWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="ScoreDisplayer.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SettingsWindow\LiberoSystemSettingsBlock.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SettingsWindow\SettingsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="TextStatisticsModule.xaml">

@@ -292,7 +292,7 @@ namespace ActionsLib
                 case ActionAuthorType.Judge:
                     return new List<VolleyActionType>() {VolleyActionType.JudgeMistakeWon, VolleyActionType.JudgeMistakeLost, VolleyActionType.DisputableBall };
                 case ActionAuthorType.Coach:
-                    return new List<VolleyActionType>() {VolleyActionType.TimeOut, VolleyActionType.Change, VolleyActionType.StartArrangment };
+                    return new List<VolleyActionType>() {VolleyActionType.TimeOut, VolleyActionType.Change, VolleyActionType.StartArrangment, VolleyActionType.SetStartParams};
                 case ActionAuthorType.OpponentTeam:
                     return new List<VolleyActionType>() { VolleyActionType.OpponentError, VolleyActionType.OpponentPoint };
                 default:
@@ -362,6 +362,8 @@ namespace ActionsLib
                         additionalParamsCount = 2; break;
                     case VolleyActionType.StartArrangment:
                         additionalParamsCount = 6; break;
+                    case VolleyActionType.SetStartParams:
+                        additionalParamsCount = 1; break;
                 } //argrument counts
                 Player[] players = new Player[additionalParamsCount];
                 for (int i = 2; i < 2 + additionalParamsCount; i++)
@@ -464,6 +466,7 @@ namespace ActionsLib
         TimeOut = 13,
         Change = 14,
         StartArrangment = 15,
+        SetStartParams = 16,
         Undefined = -1
     }
     public enum JudgeActionType

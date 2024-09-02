@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ActionsLib;
+using Microsoft.Win32;
+using PlayerPositioningWIndow;
 
 namespace StatisticsCreatorModule.LiberoModeSetter
 {
@@ -25,6 +29,7 @@ namespace StatisticsCreatorModule.LiberoModeSetter
         {
             InitializeComponent();
             _dataContainer = new LiberoArrangementDataContainer();
+            _dataContainer.fillDefault();
             FillComboBoxesItems();
            
         }
@@ -83,6 +88,30 @@ namespace StatisticsCreatorModule.LiberoModeSetter
                 if(getData != -1)PlayerComboBox.SelectedIndex = getData;
             }
             catch { }
+        }
+
+        private void SaveAs_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == true)
+            {
+                using (StreamWriter sw = new StreamWriter(sfd.FileName))
+                {
+                    _dataContainer.Save(sw);
+                }
+            }
+        }
+
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() == true)
+            {
+                using (StreamReader sr = new StreamReader(ofd.FileName))
+                {
+                    _dataContainer = LiberoArrangementDataContainer.Load(sr);
+                }
+            }
         }
     }
 }

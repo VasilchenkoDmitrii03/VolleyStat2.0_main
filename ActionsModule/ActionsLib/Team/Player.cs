@@ -66,6 +66,10 @@ namespace ActionsLib
         {
             return $"{_number} {_surname} {_name}";
         }
+        public override string ToString()
+        {
+            return $"#{Number}";
+        }
     }
 
     public enum Amplua

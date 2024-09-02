@@ -17,7 +17,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label Grid.Column="0">Player number</Label>
+        <Label Grid.Column="0">Performer</Label>
         <ComboBox Name="PlayerComboBox" IsEditable ="True" Grid.Row="1" Grid.Column="0" SelectionChanged="PlayerComboBox_SelectionChanged" KeyDown="PlayerComboBox_KeyDown" TabIndex="0" ></ComboBox>
         <Label Grid.Column="1">Action type</Label>
         <ComboBox Name="ActionTypeComboBox" Grid.Row="1"  Grid.Column="1"  IsEditable="True" TabIndex="1">

@@ -72,7 +72,23 @@ namespace StatisticsCreatorModule.Arrangment
                 ChangeFastPlayer(_currentArrangment[3], changer);
             }
         }
-
+        public int getPlayerZone(Player player)
+        {
+            for(int i =0;i < 6; i++)
+            {
+                if(player == _currentArrangment[i]) return i;
+            }
+            return -1;
+        }
+        public List<Player> getLiberoPlayers()
+        {
+            List<Player> res = new List<Player>();
+            foreach(Player player in Team.Players)
+            {
+                if(player.Amplua == Amplua.Libero) res.Add(player);
+            }
+            return res;
+        }
         private void UpdateReservePlayers()
         {
             _reservePlayers.Clear();

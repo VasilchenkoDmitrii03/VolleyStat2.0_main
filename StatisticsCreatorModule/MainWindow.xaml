@@ -16,6 +16,10 @@
                 <MenuItem Header="Exit"/>
             </MenuItem>
             <MenuItem Header="Settings">
+                <MenuItem Header="Player positioning">
+                    <MenuItem Header="Arrangement system"></MenuItem>
+                    <MenuItem Header="Libero system"></MenuItem>
+                </MenuItem>
                 <MenuItem Header="Theme">
                     <MenuItem Header="Light" Click="ThemeSelector_Click"/>
                     <MenuItem Header="Dark" Click="ThemeSelector_Click"/>

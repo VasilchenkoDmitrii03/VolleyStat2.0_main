@@ -330,6 +330,10 @@ namespace StatisticsCreatorModule
                     _actionTextRepresentation = new CoachActionTextRepresentation(aType, new List<Player>(new Player[6]));
                     createPlayerNumberComboBoxes(6, _teamControl.Team.Players);
                     break;
+                case VolleyActionType.SetStartParams:
+                    _actionTextRepresentation = new CoachActionTextRepresentation(aType, new List<Player>(new Player[1]));
+                    createPlayerNumberComboBoxesForChange(1, new List<Player>(_teamControl.CurrentArrangement.Players), _teamControl.ReservePlayers);
+                    break;
             }
         }
         public void updateComboBoxesOpponentMode(VolleyActionType aType) { }
@@ -438,6 +442,35 @@ namespace StatisticsCreatorModule
                 index++;
             }
         }
+       /* private void createSetStartParamsComboBoxes()
+        {
+            _currentComboBoxes.Clear();
+            if (MainGrid.ColumnDefinitions.Count > 2) MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
+            if (MainGrid.Children.Count > 4) MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
+            //Arrangement position
+            Label label = new Label() { Content = "Arrangement number" };
+
+            _currentComboBoxes.Add(new ComboBox());
+            _currentComboBoxes[0].IsEditable = true;
+            _currentComboBoxes[0].IsTextSearchCaseSensitive = true;
+            _currentComboBoxes[0].TabIndex = 2;
+            _currentComboBoxes[0].ItemsSource = new List<string>() { "P1", "P2", "P3", "P4", "P5", "P6" };
+            _currentComboBoxes[0].GotFocus += (o, e) =>
+            {
+                _focusedComboBox = (ComboBox)o;
+                ComboBoxSelectionChanged(o, new ComboBoxEventArgs((ComboBox)o, _currentActionType.ToString(), label.Content.ToString()));
+            };
+            _currentComboBoxes[0].AddHandler(System.Windows.Controls.Primitives.TextBoxBase.TextChangedEvent,
+                   new System.Windows.Controls.TextChangedEventHandler((o, e) =>
+                   {
+                       if (MyValidationForMetricComboBoxes((_currentComboBoxes[0])))
+                       {
+                           ((PlayerActionTextRepresentation)_actionTextRepresentation).SetMetricByShortString(type, shrtString);
+                       }
+                   }));
+
+
+        }*/
         private Player getPlayerByNumber(List<Player> players, int number)
         {
             foreach(Player p in players)

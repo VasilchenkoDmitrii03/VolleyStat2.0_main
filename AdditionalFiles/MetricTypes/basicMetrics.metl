@@ -1,0 +1,92 @@
+"BasicMetrics"
+15
+"Position"
+"Position on the playground"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+"Quality"
+"Quality of any action from 1-6"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["=","-","/","!","\u002B","#"]
+"RecepQuality"
+"Quality of reception"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["=","-","/","!","\u002B","#"]
+"SetQuality"
+"Quality of set"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["=","-","/","!","\u002B","#"]
+"Direction"
+"Direction of attack\\set\\serve"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+"ErrorType"
+"Types of error"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["NoError","Foot","Net","Out","Double Touch","Lift"]
+"ServeType"
+"Types of serve"
+"System.Int32"
+true
+["1","2","3","4"]
+["Glider","Jump","Short","Lower"]
+"AttackType"
+"Type of attack"
+"System.Int32"
+true
+["1","2","3","4","5"]
+["Spike","Dump","BlockOut","Recoup","ShortSpike"]
+"Combination"
+"Combination"
+"System.Int32"
+true
+["1","2","3","4","5","6","7","8","9","10"]
+["QuickSideout","SlowSideout","Takeoff","BackTakeoff","Zone","Pipe","Cross","Meter","Transferring","HighBall"]
+"RecepType"
+"Type of reception"
+"System.Int32"
+true
+["1","2","3"]
+["Lower"," Upper"," OneHanded"]
+"BlockersCount"
+"Count of blockers"
+"System.Int32"
+true
+["1","2","3","4"]
+["0","1","2","3"]
+"AttackComplexity"
+"Complexity of attack"
+"System.Int32"
+true
+["1","2","3","4","5"]
+["0","1","2","3","4"]
+"ServeComplexity"
+"Complexity of serve"
+"System.Int32"
+true
+["1","2","3","4","5"]
+["0","1","2","3","4"]
+"Phase"
+"Game phase"
+"System.Int32"
+true
+["1","2","3"]
+["break","recep1","recep"]
+"ScoreType"
+"Type of score"
+"System.Int32"
+true
+["1","2"]
+["Usual","Clatch"]

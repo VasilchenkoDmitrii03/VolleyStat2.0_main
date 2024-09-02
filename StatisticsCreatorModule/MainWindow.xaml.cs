@@ -14,7 +14,8 @@ using ActionsLib;
 using ActionsLib.ActionTypes;
 using ActionsLib.TextRepresentation;
 using Microsoft.Win32;
-
+using PlayerPositioningWIndow;
+using StatisticsCreatorModule.PlayerPositioning;
 namespace StatisticsCreatorModule
 {
     /// <summary>
@@ -43,22 +44,33 @@ namespace StatisticsCreatorModule
         public MainWindow()
         {
             InitializeComponent();
-            LiberoModeSetter.LiberoModeSetter tmp = new LiberoModeSetter.LiberoModeSetter();
-            tmp.Show();
+
+          
+
             _actionMetricTypes = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\BasicActionsMetrics");
             
             _team = new Team();
             for(int  i = 1; i < 20; i++)
             {
-                _team.AddPlayer(new Player($"{i}", $"{i}", 1, i, Amplua.OutsideHitter));
+                if(i > 16)
+                {
+                    _team.AddPlayer(new Player($"{i}", $"{i}", 1, i, Amplua.Libero));
+                }
+                else _team.AddPlayer(new Player($"{i}", $"{i}", 1, i, Amplua.OutsideHitter));
             }
+
             InitializeModules();
             TextModule.BeginNewSet(25);
+            StatisticsCreatorModule.SettingsWindow.SettingsWindow tmp = new SettingsWindow.SettingsWindow(new Arrangment.TeamControl(_team));
+            tmp.Show();
         }
         private void InitializeModules()
         {
-            
 
+            using(StreamReader sr = new StreamReader(@"C:\Dmitrii\Arrangement5-1"))
+            {
+                GraphicsModule._playersPositions = PlayerPositionDataContainer.Load(sr);
+            }
             TextModule.setActionMetricsTypes(_actionMetricTypes);
             TextModule.setTeam(_team);
             TextModule.LineRepresentationControl.ComboBoxSelectionChanged += ButtonModule.ComboBoxUpdated;
@@ -68,6 +80,7 @@ namespace StatisticsCreatorModule
             GraphicsModule.PointsChanged += TextModule.PointsUpdated;
             TextModule.ActionAdded += GraphicsModule.ActionAdded;
             TextModule.ScoreUpdated += ScoreModule.ScoreUpdated;
+            TextModule.GamePhaseForGraphicsChanged += GraphicsModule.PhaseChanged;
             //TextModule.LineRepresentationControl.ActionTypeChangedInTextModule += test;
 
             CreateLists();

@@ -42,15 +42,7 @@ class Program
             ActionsMetricTypes actionMetricTYpes = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\BasicActionsMetrics");
             ActionLoader.currentTeam = _team;
             ActionLoader.ActionsMetricTypes = actionMetricTYpes;
-            using (StreamReader sr = new StreamReader(@"C:\Dmitrii\newTestExt.txt"))
-            {
-                    Set set = Set.Load(sr);
-                    foreach(ActionsLib.Action act in set.ConvertToSequence())
-            {
-                if (act == null) Console.WriteLine();
-                else Console.WriteLine(act.ExtendedString);
-            }
-            }
+
         }
     }
 

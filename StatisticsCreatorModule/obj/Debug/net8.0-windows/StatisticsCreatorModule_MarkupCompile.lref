@@ -1,11 +1,16 @@
-﻿
+﻿C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\App.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\ActionTextRepresentationControl.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\ButtonControllerControl.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\FIeldVisualisationControl.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\LiberoModeSetter\LiberoModeSetter.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\MainWindow.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\PlayerPositioning\Field.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\PlayerPositioning\PlayerPositionController.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\PlayerPositioning\PlayerPositionWindow.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\ScoreDisplayer.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\SettingsWindow\LiberoSystemSettingsBlock.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\SettingsWindow\SettingsWindow.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\TextStatisticsModule.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\VideoModule.xaml;;
 

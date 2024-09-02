@@ -35,6 +35,11 @@ namespace StatisticsCreatorModule.Logic
             _data.Clear();
             _data.Add(ActionAuthorType.Coach, new List<VolleyActionType>() { VolleyActionType.StartArrangment });
         }
+        public void ArrangementSet()
+        {
+            _data.Clear();
+            _data.Add(ActionAuthorType.Coach, new List<VolleyActionType>() { VolleyActionType.SetStartParams});
+        }
         public void BetweenRallies(List<VolleyActionType> PlayersActions) 
         {
             _data.Clear();

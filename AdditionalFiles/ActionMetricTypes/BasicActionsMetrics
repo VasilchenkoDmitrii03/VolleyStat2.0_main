@@ -1,0 +1,285 @@
+"tmp"
+"Serve"
+4
+"quality"
+"quality of any action from 1-6"
+"qual"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["=","-","/","!","\u002B","#"]
+["=","-","/","!","\u002B","#"]
+"ServeType"
+"Types of serve"
+"serT"
+"System.Int32"
+true
+["1","2","3","4"]
+["Glider","Jump","Short","Lower"]
+["gldr","jmp","shrt","lwr"]
+"Direction"
+"Direction"
+"dir"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+"ErrorType"
+"TypesOfErrors"
+"tyEr"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["NoError","Foot","Net","Out","Double touch","Lift"]
+["noer","foot","net","out","2tch","lift"]
+"Reception"
+5
+"quality"
+"quality of any action from 1-6"
+"qual"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["=","-","/","!","\u002B","#"]
+["=","-","/","!","\u002B","#"]
+"position"
+"position on the playground"
+"pos"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+"ServeType"
+"Types of serve"
+"serT"
+"System.Int32"
+true
+["1","2","3","4"]
+["Glider","Jump","Short","Lower"]
+["gldr","jmp","shrt","lwr"]
+"AttackComplexity"
+"Complexity of attack"
+"attC"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["0","1","2","3","4","5"]
+["0","1","2","3","4","5"]
+"ErrorType"
+"TypesOfErrors"
+"tyEr"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["NoError","Foot","Net","Out","Double touch","Lift"]
+["noer","foot","net","out","2tch","lift"]
+"Set"
+7
+"quality"
+"quality of any action from 1-6"
+"qual"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["=","-","/","!","\u002B","#"]
+["=","-","/","!","\u002B","#"]
+"position"
+"position on the playground"
+"pos"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+"ReceptionQuality"
+"quality of reception"
+"recQ"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["=","-","/","!","\u002B","#"]
+["=","-","/","!","\u002B","#"]
+"Direction"
+"Direction"
+"dir"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+"Combination"
+"Combination"
+"cmb"
+"System.Int32"
+true
+["1","2","3","4","5","6","7","8","9","10","11"]
+["QuickSideout","SlowSideout","Takeoff","BackTakeoff","Zone","Pipe","Cross","Meter","Transferring","HighBall","Train"]
+["qcsd","slsd","tkf","btkf","zn","pp","crs","mtr","trns","hb","trn"]
+"BlockersCount"
+"Count of blockers"
+"blkC"
+"System.Int32"
+true
+["1","2","3","4","5","6","7"]
+["0","0.5","1","1.5","2","2.5","3"]
+["0","0.5","1","1.5","2","2.5","3"]
+"ErrorType"
+"TypesOfErrors"
+"tyEr"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["NoError","Foot","Net","Out","Double touch","Lift"]
+["noer","foot","net","out","2tch","lift"]
+"Attack"
+7
+"quality"
+"quality of any action from 1-6"
+"qual"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["=","-","/","!","\u002B","#"]
+["=","-","/","!","\u002B","#"]
+"position"
+"position on the playground"
+"pos"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+"Combination"
+"Combination"
+"cmb"
+"System.Int32"
+true
+["1","2","3","4","5","6","7","8","9","10","11"]
+["QuickSideout","SlowSideout","Takeoff","BackTakeoff","Zone","Pipe","Cross","Meter","Transferring","HighBall","Train"]
+["qcsd","slsd","tkf","btkf","zn","pp","crs","mtr","trns","hb","trn"]
+"SetQuality"
+"quality of set"
+"setQ"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["=","-","/","!","\u002B","#"]
+["=","-","/","!","\u002B","#"]
+"Direction"
+"Direction"
+"dir"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+"AttackType"
+"Type of attack"
+"attT"
+"System.Int32"
+true
+["1","2","3","4","5"]
+["Spike","Dump","BlockOut","Recoup","ShortSpike"]
+["spk","dmp","blck","rcp","shsp"]
+"ErrorType"
+"TypesOfErrors"
+"tyEr"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["NoError","Foot","Net","Out","Double touch","Lift"]
+["noer","foot","net","out","2tch","lift"]
+"Block"
+4
+"quality"
+"quality of any action from 1-6"
+"qual"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["=","-","/","!","\u002B","#"]
+["=","-","/","!","\u002B","#"]
+"Direction"
+"Direction"
+"dir"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+"BlockersCount"
+"Count of blockers"
+"blkC"
+"System.Int32"
+true
+["1","2","3","4","5","6","7"]
+["0","0.5","1","1.5","2","2.5","3"]
+["0","0.5","1","1.5","2","2.5","3"]
+"ErrorType"
+"TypesOfErrors"
+"tyEr"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["NoError","Foot","Net","Out","Double touch","Lift"]
+["noer","foot","net","out","2tch","lift"]
+"Defence"
+7
+"quality"
+"quality of any action from 1-6"
+"qual"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["=","-","/","!","\u002B","#"]
+["=","-","/","!","\u002B","#"]
+"position"
+"position on the playground"
+"pos"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+"Direction"
+"Direction"
+"dir"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+["1","2","3","4","5","6"]
+"AttackType"
+"Type of attack"
+"attT"
+"System.Int32"
+true
+["1","2","3","4","5"]
+["Spike","Dump","BlockOut","Recoup","ShortSpike"]
+["spk","dmp","blck","rcp","shsp"]
+"BlockersCount"
+"Count of blockers"
+"blkC"
+"System.Int32"
+true
+["1","2","3","4","5","6","7"]
+["0","0.5","1","1.5","2","2.5","3"]
+["0","0.5","1","1.5","2","2.5","3"]
+"AttackComplexity"
+"Complexity of attack"
+"attC"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["0","1","2","3","4","5"]
+["0","1","2","3","4","5"]
+"ErrorType"
+"TypesOfErrors"
+"tyEr"
+"System.Int32"
+true
+["1","2","3","4","5","6"]
+["NoError","Foot","Net","Out","Double touch","Lift"]
+["noer","foot","net","out","2tch","lift"]

@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\PlayerPositioningWIndow\\PlayerPositioningWIndow.csproj",
-      "projectName": "PlayerPositioningWIndow",
-      "projectPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\PlayerPositioningWIndow\\PlayerPositioningWIndow.csproj",
+      "projectUniqueName": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\PlayerPositioningWIndow\\tmp228.csproj",
+      "projectName": "tmp228",
+      "projectPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\PlayerPositioningWIndow\\tmp228.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
       "outputPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\PlayerPositioningWIndow\\obj\\",
       "projectStyle": "PackageReference",

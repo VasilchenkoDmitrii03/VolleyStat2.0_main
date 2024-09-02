@@ -27,6 +27,7 @@ namespace StatisticsCreatorModule
     public delegate void ArrangmentChanged(object sender, TeamControlEventArgs e);
     public delegate void ActionAdded(object sender, EventArgs e);
     public delegate void ScoreUpdated(object sender, ScoreEventArgs e);
+    public delegate void GamePhaseForGraphicsChanged(object sender, PhaseEventArgs e);
     public partial class TextStatisticsModule : UserControl
     {
         List<ActionsLib.Action> _actions = new List<ActionsLib.Action>();
@@ -47,6 +48,7 @@ namespace StatisticsCreatorModule
         public event ArrangmentChanged ArrangementChanged;
         public event ActionAdded ActionAdded;
         public event ScoreUpdated ScoreUpdated;
+        public event GamePhaseForGraphicsChanged GamePhaseForGraphicsChanged;
 
         private void updateListVisual()
         {
@@ -85,6 +87,8 @@ namespace StatisticsCreatorModule
 
 
         #region game order creator
+
+        int currentArrangementNumber = -1;
         public void LoadSet(Set set)
         {
             _currentSet = set;
@@ -129,8 +133,11 @@ namespace StatisticsCreatorModule
             }
             _actions.Add(act);
             actionAdded(act);
-            if (isRallyEnded) { avaibleActionTypes.BetweenRallies(GetAvaibleActionTypes(act)); }
-            else { avaibleActionTypes.InRally(GetAvaibleActionTypes(act)); }
+            if(currentArrangementNumber != -1)
+            {
+                if (isRallyEnded) { avaibleActionTypes.BetweenRallies(GetAvaibleActionTypes(act)); }
+                else { avaibleActionTypes.InRally(GetAvaibleActionTypes(act)); }
+            }
             LineRepresentationControl.UpdateAvaibleActionTypes(avaibleActionTypes);
             updateListVisual();
             LineRepresentationControl.setDefaultfocus();
@@ -146,10 +153,18 @@ namespace StatisticsCreatorModule
                     case VolleyActionType.StartArrangment:
                         _teamControl.SetArrangement(cact.Players.ToArray());
                         ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
+                        if(currentArrangementNumber == -1)
+                        {
+                            avaibleActionTypes.ArrangementSet();
+                        }
                         break;
                     case VolleyActionType.Change:
                         _teamControl.ChangePlayer(cact.Players[0], cact.Players[1]);
                         ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
+                        break;
+                    case VolleyActionType.SetStartParams:
+                         currentArrangementNumber =  _teamControl.getPlayerZone(((CoachAction)act).Players[0]);
+                        GamePhaseForGraphicsChanged(this, new PhaseEventArgs(SegmentPhase.Recep_1, currentArrangementNumber));
                         break;
                 }
             }
@@ -172,6 +187,7 @@ namespace StatisticsCreatorModule
         }
         private void actionAdded(ActionsLib.Action act)
         {
+           phaseChaned(act);
            ProcessCoachActions(act);
            isRallyEnded = false;
            if(isNewSequence(_currentSegment, act))
@@ -188,9 +204,24 @@ namespace StatisticsCreatorModule
                 {
                     _teamControl.Rotate();
                     ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
+                    currentArrangementNumber -= 1;
+                    if (currentArrangementNumber < 0) currentArrangementNumber = 5;                   
                 }
+                graphicsPhaseChanges(_currentRally);
                 _currentSegment = new VolleyActionSegment();
                 _currentRally = new Rally();
+            }
+        }
+        private void phaseChaned(ActionsLib.Action act)
+        {
+            if(act.ActionType == VolleyActionType.Reception && ((PlayerAction)act).GetQuality() > 1)
+            {
+                GamePhaseForGraphicsChanged(this, new PhaseEventArgs(SegmentPhase.Recep, currentArrangementNumber));
+            }
+            if(_currentSet.CurrentScore.Left == 0 && _currentSet.CurrentScore.Right == 0 && _currentRally.Length == 0 && _currentSegment.Count == 0)
+            {
+                if (act.ActionType == VolleyActionType.Serve) GamePhaseForGraphicsChanged(this, new PhaseEventArgs(SegmentPhase.Break, currentArrangementNumber));
+                else if(act.ActionType == VolleyActionType.Reception) GamePhaseForGraphicsChanged(this,new PhaseEventArgs(SegmentPhase.Recep,currentArrangementNumber));
             }
         }
         private bool isNewSequence(VolleyActionSegment seq, ActionsLib.Action act)
@@ -228,6 +259,11 @@ namespace StatisticsCreatorModule
             _currentSet.Add(rally);
             isRallyEnded = true;
             ScoreUpdated(this, new ScoreEventArgs(_currentSet.CurrentScore));
+        }
+        private void graphicsPhaseChanges(Rally rally)
+        {
+            if (rally.RallyResult == RallyResult.Won) GamePhaseForGraphicsChanged(this, new PhaseEventArgs(SegmentPhase.Break, currentArrangementNumber));
+            else if (rally.RallyResult == RallyResult.Lost) GamePhaseForGraphicsChanged(this, new PhaseEventArgs(SegmentPhase.Recep_1, currentArrangementNumber));
         }
 
         #endregion
@@ -270,6 +306,16 @@ namespace StatisticsCreatorModule
         public ScoreEventArgs(Score score)
         {
             this.score = score;
+        }
+    }
+    public class PhaseEventArgs : EventArgs
+    {
+        public SegmentPhase phase;
+        public int arrangement;
+        public PhaseEventArgs(SegmentPhase ph, int arr)
+        {
+            phase = ph;
+            arrangement = arr;
         }
     }
 }

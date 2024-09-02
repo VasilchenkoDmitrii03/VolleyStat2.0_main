@@ -120,6 +120,5 @@ namespace ActionsLib.TextRepresentation
         {
             return new CoachAction(_actionType, _players);
         }
-
     }
 }

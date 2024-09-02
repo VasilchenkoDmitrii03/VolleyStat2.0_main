@@ -1,4 +1,6 @@
-﻿using Microsoft.Windows.Themes;
+﻿using ActionsLib;
+using Microsoft.Windows.Themes;
+using PlayerPositioningWIndow;
 using StatisticsCreatorModule.Arrangment;
 using System;
 using System.Collections.Generic;
@@ -30,8 +32,9 @@ namespace StatisticsCreatorModule
             InitializeComponent();
             PlayerLabels = new PlayerLabel[6];
             createPlayerLabels();
+            _playersPositions = new PlayerPositionDataContainer();
         }
-
+        
         private void createPlayerLabels()
         {
             for(int i= 0; i<PlayerLabels.Length; i++)
@@ -40,8 +43,12 @@ namespace StatisticsCreatorModule
             }
         }
 
+        public PlayerPositionDataContainer _playersPositions;
+
         List<ActionsLib.Point> _currentPoints = new List<ActionsLib.Point>();
 
+        int currentArrangement = 1;
+        SegmentPhase phase = SegmentPhase.Recep_1;
 
         #region drawing
 
@@ -97,23 +104,42 @@ namespace StatisticsCreatorModule
         {
             int LabelWidth =(int) Field.Width / 3 - insideBorder;
             int LabelHeight = (int) Field.Height / 6 -  insideBorder;
-            for(int i = 3; i >= 1; i--) // first line
+
+            try
             {
-                PlayerLabels[i].Height = LabelHeight;
-                PlayerLabels[i].Width = LabelWidth;
-                MainCanvas.Children.Add(PlayerLabels[i]);
-                Canvas.SetLeft(PlayerLabels[i], (this.ActualWidth - Field.Width) / 2 + (3 - i) * (Field.Width / 3) + insideBorder);
-                Canvas.SetTop(PlayerLabels[i], this.ActualHeight / 2 + insideBorder);
+                for (int i = 0; i < PlayerLabels.Length; i++)
+                {
+                    PlayerLabels[i].Height = LabelHeight;
+                    PlayerLabels[i].Width = LabelWidth;
+                    MainCanvas.Children.Add(PlayerLabels[i]);
+                    double width = (this.ActualWidth - Field.Width) / 2;
+                    double height = (this.ActualHeight - Field.Height) / 2;
+                    Canvas.SetTop(PlayerLabels[i], _playersPositions[phase][currentArrangement][i].Y * _currentRectangle.Height + height);
+                    Canvas.SetLeft(PlayerLabels[i], _playersPositions[phase][currentArrangement][i].X * _currentRectangle.Width + width);
+                }
+            }
+            catch (Exception exc)
+            {
+                for (int i = 3; i >= 1; i--) // first line
+                {
+                    PlayerLabels[i].Height = LabelHeight;
+                    PlayerLabels[i].Width = LabelWidth;
+                    MainCanvas.Children.Add(PlayerLabels[i]);
+                    Canvas.SetLeft(PlayerLabels[i], (this.ActualWidth - Field.Width) / 2 + (3 - i) * (Field.Width / 3) + insideBorder);
+                    Canvas.SetTop(PlayerLabels[i], this.ActualHeight / 2 + insideBorder);
+                }
+
+                for (int i = 4; i <= 6; i++)
+                {
+                    PlayerLabels[i % 6].Height = LabelHeight;
+                    PlayerLabels[i % 6].Width = LabelWidth;
+                    MainCanvas.Children.Add(PlayerLabels[i % 6]);
+                    Canvas.SetLeft(PlayerLabels[i % 6], (this.ActualWidth - Field.Width) / 2 + (i - 4) * (Field.Width / 3) + insideBorder);
+                    Canvas.SetTop(PlayerLabels[i % 6], this.ActualHeight / 2 + Field.Height / 6 + insideBorder);
+                }
             }
 
-            for(int i = 4; i <=6; i++)
-            {
-                PlayerLabels[i%6].Height = LabelHeight;
-                PlayerLabels[i%6].Width = LabelWidth;
-                MainCanvas.Children.Add(PlayerLabels[i % 6]);
-                Canvas.SetLeft(PlayerLabels[i%6], (this.ActualWidth - Field.Width) / 2 + (i - 4) * (Field.Width / 3) + insideBorder);
-                Canvas.SetTop(PlayerLabels[i%6], this.ActualHeight / 2 + Field.Height/ 6 + insideBorder);
-            }
+            
         }
         private int[] getFieldSizes(int W, int H)
         {
@@ -197,6 +223,12 @@ namespace StatisticsCreatorModule
         public void ActionAdded(object sender, EventArgs e)
         {
             ClearPoints();
+        }
+        public void PhaseChanged(object sender, PhaseEventArgs e)
+        {
+            currentArrangement = e.arrangement;
+            phase = e.phase;
+            DrawField();
         }
         #endregion
 
