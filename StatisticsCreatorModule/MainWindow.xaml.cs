@@ -47,7 +47,7 @@ namespace StatisticsCreatorModule
 
           
 
-            _actionMetricTypes = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\BasicActionsMetrics");
+            _actionMetricTypes = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\AdditionalFiles\ActionMetricTypes\BasicActionsMetrics");
             
             _team = new Team();
             for(int  i = 1; i < 20; i++)
