@@ -31,11 +31,11 @@ namespace StatisticsCreatorModule.LiberoModeSetter
         public int ArrangementNumberForChange
         {
             get { return arrangementNumberForChange; }
-            set {  arrangementNumberForChange = value; }
+            set { arrangementNumberForChange = value; }
         }
         public void fillDefault()
         {
-            foreach(SegmentPhase phase in _data.Keys)
+            foreach (SegmentPhase phase in _data.Keys)
             {
                 _data[phase].fillDefault();
             }
@@ -43,7 +43,7 @@ namespace StatisticsCreatorModule.LiberoModeSetter
         public int getLiberoCount()
         {
             int max = -1;
-            foreach(SegmentPhase phase in _data.Keys)
+            foreach (SegmentPhase phase in _data.Keys)
             {
                 if (_data[phase].getLiberoCount() > max) max = _data[phase].getLiberoCount();
             }
@@ -51,7 +51,8 @@ namespace StatisticsCreatorModule.LiberoModeSetter
         }
         public void setLiberos(Player[] players)
         {
-            players.CopyTo(Players, 1);
+            Players = new Player[players.Length];
+            players.CopyTo(Players, 0);
         }
         public void setFieldPlayer(Player player)
         {
@@ -60,6 +61,13 @@ namespace StatisticsCreatorModule.LiberoModeSetter
         public Player getCurrentPlayer(SegmentPhase currentPhase, int currentArrangement)
         {
             return Players[_data[currentPhase].getData(currentArrangement)];
+        }
+
+        public Player UpdatePlayer(int currentArrangement, SegmentPhase phase)
+        {
+            if (phase == SegmentPhase.Recep) phase = SegmentPhase.Recep_1;
+            if (_data[phase].getData(currentArrangement) - 1 < 0) return null;
+            return Players[_data[phase].getData(currentArrangement)-1];
         }
 
         public void Save(StreamWriter sw)

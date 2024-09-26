@@ -106,6 +106,19 @@ namespace StatisticsCreatorModule.Arrangment
             }
         }
 
+        public bool isLiberoOnFirstLine()
+        {
+            for(int i = 1; i <=3; i++)
+            {
+                if (_currentArrangment[i].Amplua == Amplua.Libero) return true;
+            }
+            return false;
+        }
+        public void AutomaticFirstLineLiberoChange()
+        {
+            if (! isLiberoOnFirstLine()) return;
+            ChangeLiberoOnMiddleBlockerAutomatically(_currentArrangment[3]);
+        }
         
         private void ChangeBasicPlayer(Player onField, Player Reserve) 
         {
@@ -114,7 +127,7 @@ namespace StatisticsCreatorModule.Arrangment
             _currentArrangment[index] = Reserve;
             UpdateReservePlayers();
         }
-        private void ChangeFastPlayer(Player onField, Player Reserve) // to change fast players correctly
+        public void ChangeFastPlayer(Player onField, Player Reserve) // to change fast players correctly
         {
             int index = _currentArrangment.IndexOf(onField);
             if (index == -1) { throw new Exception("No such player on field"); }
@@ -128,9 +141,18 @@ namespace StatisticsCreatorModule.Arrangment
         }
         private void ChangeLiberoOnMiddleBlockerAutomatically(Player Libero) // P4 
         {
-            ChangeFastPlayer(_fastChangePlayers[0], Libero);
+            int index = -1;
+            for(int i= 0;i < _fastChangePlayers.Count;i++)
+            {
+                if (_fastChangePlayers[i].Amplua != Amplua.Libero)
+                {
+                    index = i;
+                    break;
+                }
+            }
+            ChangeFastPlayer(_fastChangePlayers[index], Libero);
         }
-        private Player GetNonLiberoFromFastChangePlayers()
+        public Player GetNonLiberoFromFastChangePlayers()
         {
             foreach(Player m in _fastChangePlayers)
             {

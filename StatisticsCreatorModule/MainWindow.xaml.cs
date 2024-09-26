@@ -8,6 +8,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.TextFormatting;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ActionsLib;
@@ -16,6 +17,7 @@ using ActionsLib.TextRepresentation;
 using Microsoft.Win32;
 using PlayerPositioningWIndow;
 using StatisticsCreatorModule.PlayerPositioning;
+using StatisticsCreatorModule.SettingsWindow;
 namespace StatisticsCreatorModule
 {
     /// <summary>
@@ -61,8 +63,6 @@ namespace StatisticsCreatorModule
 
             InitializeModules();
             TextModule.BeginNewSet(25);
-            StatisticsCreatorModule.SettingsWindow.SettingsWindow tmp = new SettingsWindow.SettingsWindow(new Arrangment.TeamControl(_team));
-            tmp.Show();
         }
         private void InitializeModules()
         {
@@ -137,7 +137,26 @@ namespace StatisticsCreatorModule
         }
         #endregion
 
-
+        
+        SettingsWindow.SettingsWindow PositionSettingsWindow;
+        public void PlayerPositionUpdate (object sender, RoutedEventArgs e)
+        {
+            if(PositionSettingsWindow == null || PositionSettingsWindow.IsVisible == false)
+            {
+                PositionSettingsWindow = new SettingsWindow.SettingsWindow(TextModule.TeamControl);
+                PositionSettingsWindow.Closed += (s, args) => PositionSettingsWindow = null;
+                PositionSettingsWindow.SettingsUpdated += PositionSettingsUpdated;
+                PositionSettingsWindow.Show();
+            }
+            else
+            {
+                PositionSettingsWindow.Activate();
+            }
+        }
+        private void PositionSettingsUpdated(object sender, PositionSettingsArgs e)
+        {
+            TextModule.SetPositionSettingsMode(e.PositionSettingsMode);
+        }
         #region Save\Load
         private Set Load(string path)
         {

@@ -22,7 +22,7 @@
             
         </Grid.ColumnDefinitions>
         <Label>Changing arrangement</Label>
-        <ComboBox Name="CurrentArrangementNumberComboBox" Grid.Column="1">
+        <ComboBox Name="ChangingArrangementNumberComboBox" Grid.Column="1">
             <ComboBoxItem>P1</ComboBoxItem>
             <ComboBoxItem>P2</ComboBoxItem>
             <ComboBoxItem>P3</ComboBoxItem>

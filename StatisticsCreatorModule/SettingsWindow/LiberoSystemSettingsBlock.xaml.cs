@@ -56,5 +56,28 @@ namespace StatisticsCreatorModule.SettingsWindow
                 comboBoxes.Add(comb);
             }
         }
+
+        public bool isDataFilledCorrectly()
+        {
+            bool isFilled = ChangingArrangementNumberComboBox.SelectedItem != null;
+            foreach(ComboBox comboBox in comboBoxes)
+            {
+                isFilled = isFilled && comboBox.SelectedItem != null;
+            }
+            return isFilled;
+        }
+        public ActionsLib.Player[] GetLiberos()
+        {
+            ActionsLib.Player[] result = new ActionsLib.Player[comboBoxes.Count];
+            for(int i = 0;i < comboBoxes.Count; i++)
+            {
+                result[i] = (ActionsLib.Player)comboBoxes[i].SelectedItem;
+            }
+            return result;
+        }
+        public int getChangingArrangement()
+        {
+            return ChangingArrangementNumberComboBox.SelectedIndex;
+        }
     }
 }

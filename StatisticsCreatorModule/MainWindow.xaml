@@ -16,9 +16,7 @@
                 <MenuItem Header="Exit"/>
             </MenuItem>
             <MenuItem Header="Settings">
-                <MenuItem Header="Player positioning">
-                    <MenuItem Header="Arrangement system"></MenuItem>
-                    <MenuItem Header="Libero system"></MenuItem>
+                <MenuItem Header="Player positioning" Click="PlayerPositionUpdate">
                 </MenuItem>
                 <MenuItem Header="Theme">
                     <MenuItem Header="Light" Click="ThemeSelector_Click"/>

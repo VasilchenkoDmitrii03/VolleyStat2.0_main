@@ -8,7 +8,7 @@
         Title="SettingsWindow" Height="350" Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Apply"></MenuItem>
+            <MenuItem Header="Apply"  Click="ApplyButtonClick"></MenuItem>
             <MenuItem Header="Game system settings">
                 <MenuItem Header="Arrangement system" Click="ArrangementMenu_Click"></MenuItem>
                 <MenuItem Header="Libero system" Click="LiberoMenu_Click"></MenuItem>
@@ -27,7 +27,7 @@
             </Grid.RowDefinitions>
             <Label>Arrangement sytem</Label>
             <Label Grid.Column="1">Libero system</Label>
-            <ComboBox Name ="ArrangementSystemComboBoxes" Grid.Row="1" Grid.Column="0"></ComboBox>
+            <ComboBox Name ="ArrangementSystemComboBoxes" Grid.Row="1" Grid.Column="0" SelectionChanged="ArrangementSystemComboBoxes_SelectionChanged"></ComboBox>
             <ComboBox Name ="LiberoSystemComboBoxes" Grid.Row="1" Grid.Column="1" SelectionChanged="LiberoSystemComboBoxes_SelectionChanged"></ComboBox>
             <Grid Grid.Row="2" Grid.Column="0">
                 <Grid.ColumnDefinitions>

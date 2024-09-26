@@ -18,7 +18,7 @@ namespace StatisticsCreatorModule.Logic
         {
             _data = new Dictionary<ActionAuthorType, List<VolleyActionType>>();
         }
-        public void Ad(ActionAuthorType type, List<VolleyActionType> lst) 
+        public void Add(ActionAuthorType type, List<VolleyActionType> lst) 
         {
             _data.Add(type, lst);
         }

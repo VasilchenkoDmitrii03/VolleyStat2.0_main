@@ -2,10 +2,12 @@
 using ActionsLib.ActionTypes;
 using StatisticsCreatorModule.Arrangment;
 using StatisticsCreatorModule.Logic;
+using StatisticsCreatorModule.SettingsWindow;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,6 +17,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Media3D;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
@@ -50,6 +53,11 @@ namespace StatisticsCreatorModule
         public event ScoreUpdated ScoreUpdated;
         public event GamePhaseForGraphicsChanged GamePhaseForGraphicsChanged;
 
+        public TeamControl TeamControl
+        {
+            get { return _teamControl; }
+        }
+
         private void updateListVisual()
         {
             MainListBox.ItemsSource = null;
@@ -84,7 +92,38 @@ namespace StatisticsCreatorModule
         }
         #endregion
 
-
+        PositionSettingsMode PositionSettingsMode;
+        public void SetPositionSettingsMode(PositionSettingsMode stm)
+        {
+            PositionSettingsMode = stm;
+            currentArrangementNumber = PositionSettingsMode.CurrentArrangementIndex;
+            GamePhaseForGraphicsChanged(this, new PhaseEventArgs(SegmentPhase.Recep_1, currentArrangementNumber));
+        }
+        private bool isLiberoChangingSituation(int currentArrangement)
+        {
+            int diference = PositionSettingsMode.LiberoArrangementDataContainer.ArrangementNumberForChange - PositionSettingsMode.CurrentArrangementIndex;
+            if (diference < 0) diference += 3;
+            int pos = (currentArrangement + diference) % 6;
+            if (pos== 0 || pos== 3)
+            {
+                return true;
+            }
+            return false;
+        }
+        private Player CurrentBackRowLibero(int currentArrangement)
+        {
+            int diference;
+            if(PositionSettingsMode == null) diference = 2;
+            else
+            {
+                diference = PositionSettingsMode.LiberoArrangementDataContainer.ArrangementNumberForChange - PositionSettingsMode.CurrentArrangementIndex;
+                if (diference < 0) diference += 3;
+            }
+            int pos1 = (currentArrangement  + diference) % 6;
+            int pos2 = (pos1 + 3) %6;
+            if (pos1 == 4 || pos1 == 5 || pos1 == 0) return _teamControl.CurrentArrangement[pos1];
+            else return _teamControl.CurrentArrangement[pos2];
+        }
 
         #region game order creator
 
@@ -109,6 +148,7 @@ namespace StatisticsCreatorModule
         bool isRallyEnded = true;
         bool isSetStart = true;
         AvaibleActionTypes avaibleActionTypes = new AvaibleActionTypes();
+
         public void BeginNewSet(int setScore)
         {
             _currentRally = new Rally();
@@ -153,10 +193,7 @@ namespace StatisticsCreatorModule
                     case VolleyActionType.StartArrangment:
                         _teamControl.SetArrangement(cact.Players.ToArray());
                         ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
-                        if(currentArrangementNumber == -1)
-                        {
-                            avaibleActionTypes.ArrangementSet();
-                        }
+                        currentArrangementNumber = 1; //Default arrangement selected;
                         break;
                     case VolleyActionType.Change:
                         _teamControl.ChangePlayer(cact.Players[0], cact.Players[1]);
@@ -203,10 +240,34 @@ namespace StatisticsCreatorModule
                 if(isRotateNeeded(_currentRally, _currentSet.CurrentPhase))
                 {
                     _teamControl.Rotate();
-                    ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
                     currentArrangementNumber -= 1;
-                    if (currentArrangementNumber < 0) currentArrangementNumber = 5;                   
+                    if (currentArrangementNumber < 0) currentArrangementNumber = 5;
+                    if (isLiberoChangingSituation(currentArrangementNumber))
+                    {
+                        _teamControl.AutomaticFirstLineLiberoChange();
+                    }
+                    ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
+                                    
                 }
+
+                if(PositionSettingsMode != null)
+                {
+                    Player currentPlayer = CurrentBackRowLibero(currentArrangementNumber);
+                    Player newPlayer = PositionSettingsMode.LiberoArrangementDataContainer.UpdatePlayer(currentArrangementNumber, _currentSet.CurrentPhase);
+                    if(newPlayer == null)
+                    {
+                        newPlayer = _teamControl.GetNonLiberoFromFastChangePlayers();
+                        if (newPlayer == null) newPlayer = currentPlayer;
+                    }
+                    if (currentPlayer.Number != newPlayer.Number)
+                    {
+                        _teamControl.ChangeFastPlayer(currentPlayer, newPlayer);
+                    }
+                    ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
+                    GamePhaseForGraphicsChanged(this, new PhaseEventArgs(_currentSet.CurrentPhase, currentArrangementNumber));
+                }
+
+
                 graphicsPhaseChanges(_currentRally);
                 _currentSegment = new VolleyActionSegment();
                 _currentRally = new Rally();
