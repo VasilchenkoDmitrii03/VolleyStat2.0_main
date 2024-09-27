@@ -67,5 +67,36 @@ namespace ActionsLib
             }
             return null;
         }
+        public void Save(StreamWriter sw)
+        {
+            sw.WriteLine(_name);
+            sw.WriteLine(_description);
+            sw.WriteLine(SaveColor(MainColor));
+            sw.WriteLine(SaveColor(LiberoColor));
+            sw.WriteLine(JsonSerializer.Serialize(Players));
+
+        }
+        private string SaveColor(Color c)
+        {
+            string res = $"{c.R},{c.G},{c.B}";
+            return res;
+        }
+        private static Color LoadColor(string color)
+        {
+            string[] strs = color.Split(',');
+            int[] values = new int[strs.Length];
+            for (int i = 0; i < values.Length; i++) { values[i] = Convert.ToInt32(strs[i]); }
+            return Color.FromArgb(values[0], values[1], values[2]);
+        }
+        public static Team Load(StreamReader sr)
+        {
+            string name = sr.ReadLine();
+            string description = sr.ReadLine();
+            Color color = LoadColor(sr.ReadLine());
+            Color lcolor = LoadColor(sr.ReadLine());
+            List<Player> players = JsonSerializer.Deserialize<List<Player>>(sr.ReadLine());
+
+            return new Team(name, description, color, lcolor, players);
+        }
     }
 }

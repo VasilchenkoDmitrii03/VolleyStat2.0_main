@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="ActionsLib">
       <HintPath>..\ActionsModule\ActionsLib\bin\Debug\net8.0\ActionsLib.dll</HintPath>
     </Reference>

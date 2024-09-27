@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ActionsLib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9fa2d4207eaf64db761f5305d8618c6293012a01")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46df2c86a1e976f0fafe698ac7c1562e50ac3526")]
 [assembly: System.Reflection.AssemblyProductAttribute("ActionsLib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ActionsLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

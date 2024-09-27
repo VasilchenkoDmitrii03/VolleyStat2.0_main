@@ -13,20 +13,41 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ActionsLib;
+
 namespace InterfaceShell.AdditionalWindows
 {
     /// <summary>
     /// Логика взаимодействия для PlayerControl.xaml
     /// </summary>
+    /// 
+    public delegate void InfoWasChanged (object sender, EventArgs e);
     public partial class PlayerControl : UserControl
     {
-        Player Player { get; set; }
-        static List<Amplua> ampluas = new List<Amplua>() {Amplua.OutsideHitter, Amplua.MiddleBlocker, Amplua.Setter, Amplua.Opposite, Amplua.Libero };
+        static List<Amplua> ampluas = new List<Amplua>() { Amplua.OutsideHitter, Amplua.MiddleBlocker, Amplua.Setter, Amplua.Opposite, Amplua.Libero };
         public PlayerControl()
         {
             InitializeComponent();
-            this.DataContext = Player;
             RoleComboBox.ItemsSource = ampluas;
+            InfoChanged += (o, e) => { };
+        }
+        public Player GetPlayer()
+        {
+
+            Player p = new Player(FirstNameTextBox.Text, LastNameTextBox.Text, Convert.ToInt32(HeightTextBox.Text), Convert.ToInt32(PlayerNumberTextBox.Text), (Amplua)RoleComboBox.SelectedItem);
+            return p;
+        }
+        public void SetPlayer(Player p)
+        {
+            this.FirstNameTextBox.Text = p.Name;
+            this.LastNameTextBox.Text = p.Surname;
+            this.HeightTextBox.Text = p.Number.ToString();
+            this.PlayerNumberTextBox.Text = p.Number.ToString();
+            RoleComboBox.SelectedItem = p.Amplua;
+        }
+        public InfoWasChanged InfoChanged;
+        private void TextBox_TextChanged(object sender, EventArgs e)
+        {
+            InfoChanged(sender, e);
         }
     }
 }

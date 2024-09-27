@@ -3,26 +3,46 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:InterfaceShell.AdditionalWindows"
         mc:Ignorable="d"
-        Title="TeamCreater" Height="450" Width="800">
+        Title="TeamCreater" Height="450" Width="1000">
     <DockPanel >
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="File"></MenuItem>
+            <MenuItem Header="File">
+                <MenuItem Header="New" Click="New_Click"></MenuItem>
+                <MenuItem Header="Open" Click="Load_Click"></MenuItem>
+                <MenuItem Header="Save" Click=" Save_Click"></MenuItem>
+                <MenuItem Header="Save as" Click=" SaveAs_Click"></MenuItem>
+            </MenuItem>
         </Menu>
-    <StackPanel>
+    <StackPanel Orientation="Horizontal">
+            <StackPanel>
         <!-- Ввод названия команды -->
         <TextBlock Text="Team name"  />
-        <TextBox x:Name="TeamNameTextBox" Width="200" Margin="10" HorizontalAlignment="Left" />
+                <TextBox x:Name="TeamNameTextBox" Width="200" Margin="10" HorizontalAlignment="Left" TextChanged="WasChanged"/>
 
-        <!-- Список игроков -->
+            <TextBlock Text="Team description"  />
+                <TextBox x:Name="TeamDescriptionTextBox" Width="200" Margin="10" HorizontalAlignment="Left" TextChanged="WasChanged"/>
+
+            <TextBlock Text="Main color"  />
+            <toolkit:ColorPicker x:Name="MaincolorPicker"
+                             SelectedColor="LightBlue" 
+                             HorizontalAlignment="Left" Margin="10" Width="100" SelectedColorChanged="WasChanged"/>
+            <TextBlock Text="Libero color"  />
+            <toolkit:ColorPicker x:Name="LiberocolorPicker"
+                 SelectedColor="Pink" 
+                 HorizontalAlignment="Left" Margin="10" Width="100"  SelectedColorChanged="WasChanged"/>
+            </StackPanel>
+            <!-- Список игроков -->
+            <StackPanel>
         <TextBlock Text="Players:"  />
         <StackPanel x:Name="PlayersPanel" />
 
         <!-- Кнопка для добавления нового игрока -->
-        
-        <Button Content="+" Width="150"  Click="AddPlayer_Click"  HorizontalAlignment="Left"/>
-            <Button Content="-" Width="150"  Click="RemovePlayer_Click"  HorizontalAlignment="Left"/>
+
+                <Button Content="+" Width="150"  Click="AddPlayer_Click"  HorizontalAlignment="Left"/>
+            </StackPanel>
         </StackPanel>
     </DockPanel>
 </Window>

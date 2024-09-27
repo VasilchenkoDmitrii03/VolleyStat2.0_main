@@ -6,22 +6,21 @@
              xmlns:local="clr-namespace:InterfaceShell.AdditionalWindows"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-
     <StackPanel Orientation="Horizontal" >
 
         <TextBlock Margin="5">#</TextBlock>
-        <TextBox x:Name="PlayerNumberTextBox" Width="50" Margin="5" Text="{Binding Number}" />
+        <TextBox Name="PlayerNumberTextBox" Width="50" Margin="5"  TextChanged="TextBox_TextChanged"/>
         <TextBlock Margin="5">Last name</TextBlock>
-        <TextBox x:Name="LastNameTextBox" Width="100" Margin="5" Text="{Binding Surname}" />
+        <TextBox Name="LastNameTextBox" Width="100" Margin="5"  TextChanged="TextBox_TextChanged"/>
         <TextBlock Margin="5">First name</TextBlock>
 
-        <TextBox x:Name="FirstNameTextBox" Width="100" Margin="5" Text="{Binding Name}"/>
+        <TextBox Name="FirstNameTextBox" Width="100" Margin="5" TextChanged="TextBox_TextChanged"/>
         <TextBlock Margin="5">Amplua</TextBlock>
 
-        <ComboBox x:Name="RoleComboBox" Width="100" Margin="5" SelectedValue="{Binding Amplua}">
+        <ComboBox Name="RoleComboBox" Width="100" Margin="5" SelectionChanged="TextBox_TextChanged">
         </ComboBox>
         <TextBlock Margin="5">Height</TextBlock>
 
-        <TextBox x:Name="HeightTextBox" Width="50" Margin="5" Text="{Binding Height}" />
+        <TextBox Name="HeightTextBox" Width="50" Margin="5" TextChanged="TextBox_TextChanged" />
     </StackPanel>
 </UserControl>

@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="AdditionalWindows\ExtendedPlayerControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="AdditionalWindows\PlayerControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -15,6 +18,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="AdditionalWindows\ExtendedPlayerControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="AdditionalWindows\PlayerControl.xaml">
       <SubType>Designer</SubType>
     </Page>

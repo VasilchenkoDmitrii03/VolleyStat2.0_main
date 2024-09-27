@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Syvy6ooX3NAeRLQmpdrn5ovxbZPHzLCoQ+MDGU5/TCC7vMChmI7QeEp0MrD9OWrU2Bwq5TZaNrsnqBylu1c19w==",
+  "dgSpecHash": "+YUW0qQ5Etb2gsOGm32MKONBL3zqrsSv4TBj87uxmVJEHUqsvizN8ZDo0MmaQLTOFH8zfLdydxK1+L2Zht/QYQ==",
   "success": true,
   "projectFilePath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\InterfaceShell.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\extended.wpf.toolkit\\4.6.1\\extended.wpf.toolkit.4.6.1.nupkg.sha512"
+  ],
   "logs": []
 }
