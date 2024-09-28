@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -712,4 +713,65 @@ namespace ActionsLib
             return Load(sr.ReadLine());
         }
     }
+
+    public enum GameResult
+    {
+        Undefined = -1,
+        NotFinished = 0,
+        Won = 1,
+        Lost = 2
+    }
+    public class Game
+    {
+        List<Set> _sets;
+        int[] _setLengths;
+        int _currentSetIndex;
+        int _setsToWin;
+        GameResult _result;
+        public Game(List<int> setLengths, int setsToWin)
+        {
+            _setLengths = setLengths.ToArray();
+            _currentSetIndex = -1;
+            _result = GameResult.NotFinished;
+            _setsToWin = setsToWin;
+        }
+        public GameResult AddSet(Set set)
+        {
+            _sets.Add(set);
+            _result = isGameFinished();
+            _currentSetIndex++;
+            return _result;
+            
+        }
+        private GameResult isGameFinished()
+        {
+            int lost = 0, won = 0;
+            foreach(Set set in _sets)
+            {
+                if (set.SetResult == SetResult.Lost) lost++;
+                else if (set.SetResult == SetResult.Won) won++;
+                if (lost >= _setsToWin) return GameResult.Lost;
+                else if (won >= _setsToWin) return GameResult.Won;
+            }
+            return GameResult.NotFinished;
+        }
+        public Set CurrentSet
+        {
+            get { return _sets[_currentSetIndex]; }
+            set { _sets[_currentSetIndex] = value; }
+        }
+        public GameResult GameResult
+        {
+            get { return _result; }
+        }
+        public List<Set> Sets
+        {
+            get { return _sets; }
+        }
+        public int NextSetLength
+        {
+            get { return _setLengths[_currentSetIndex + 1]; }
+        }
+    }
+
 }

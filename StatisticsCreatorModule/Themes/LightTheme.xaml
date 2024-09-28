@@ -39,16 +39,8 @@
     <Style TargetType="ListBox">
     <Setter Property="Background" Value ="{StaticResource LabelBackgroundBrush}"></Setter>
   </Style>
-  <Style TargetType="Canvas">
-    <Setter Property="Background" Value ="{StaticResource CanvasBackgroundBrush}"></Setter>
-  </Style>
-  <Style TargetType="Label">
-    <Setter Property="Background" Value ="{StaticResource LabelBackgroundBrush}"></Setter>
-    <Setter Property="Foreground" Value ="{StaticResource TextBrush}"></Setter>
-  </Style>
-    <Style x:Key="LabelStyle" TargetType="Label">
-        <Setter Property="Background" Value ="{StaticResource LabelBackgroundBrush}"></Setter>
-        <Setter Property="Foreground" Value ="{StaticResource TextBrush}"></Setter>
+    <Style TargetType="Canvas">
+        <Setter Property="Background" Value ="{StaticResource CanvasBackgroundBrush}"></Setter>
     </Style>
     <Style TargetType="Menu">
         <Setter Property="Background" Value="{StaticResource CanvasBackgroundBrush}"/>

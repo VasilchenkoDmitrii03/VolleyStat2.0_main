@@ -16,6 +16,7 @@ using ActionsLib.ActionTypes;
 using ActionsLib.TextRepresentation;
 using Microsoft.Win32;
 using PlayerPositioningWIndow;
+using StatisticsCreatorModule.Arrangment;
 using StatisticsCreatorModule.PlayerPositioning;
 using StatisticsCreatorModule.SettingsWindow;
 namespace StatisticsCreatorModule
@@ -43,6 +44,7 @@ namespace StatisticsCreatorModule
         PlayerActionTextRepresentation _currentAction;
         ActionsMetricTypes _actionMetricTypes;
         Team _team;
+        Game _game;
         public MainWindow()
         {
             InitializeComponent();
@@ -64,6 +66,16 @@ namespace StatisticsCreatorModule
             InitializeModules();
             TextModule.BeginNewSet(25);
         }
+        public MainWindow(Team team, Game game, ActionsMetricTypes amt)
+        {
+            InitializeComponent();
+            _team = team;
+            _game = game;
+            _actionMetricTypes = amt;
+
+            BeginSet();
+        }
+
         private void InitializeModules()
         {
 
@@ -81,6 +93,10 @@ namespace StatisticsCreatorModule
             TextModule.ActionAdded += GraphicsModule.ActionAdded;
             TextModule.ScoreUpdated += ScoreModule.ScoreUpdated;
             TextModule.GamePhaseForGraphicsChanged += GraphicsModule.PhaseChanged;
+            TextModule.SetFinished += SetFinishedHandler;
+
+            PlayerLabel.LiberoColor = System.Drawing.Color.Red;
+            PlayerLabel.MainColor = System.Drawing.Color.Black;
             //TextModule.LineRepresentationControl.ActionTypeChangedInTextModule += test;
 
             CreateLists();
@@ -100,7 +116,21 @@ namespace StatisticsCreatorModule
             _userControlsThemeUpdaters.Add(GraphicsModule.UpdateTheme);
             _userControlsThemeUpdaters.Add(ScoreModule.UpdateTheme);
         }
+        private void SetFinishedHandler(object sender, SetEventArgs e) 
+        {
+            this._game.AddSet(e.Set);
+            if (_game.GameResult == GameResult.Lost || _game.GameResult == GameResult.Won)
+            {
+                MessageBox.Show("Game finished");
+                return;
+            }
+            else BeginSet();
+        }
 
+        private void BeginSet()
+        {
+            TextModule.BeginNewSet(this._game.NextSetLength);
+        }
         List<Control> _userControls;
         List<themeUpdater> _userControlsThemeUpdaters;
 

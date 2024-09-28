@@ -16,6 +16,7 @@ namespace StatisticsCreatorModule.Arrangment
 {
     public class PlayerLabel :  Label
     {
+        public static System.Drawing.Color LiberoColor, MainColor;
         Player Main, Change;
         public Player MainPlayer
         {
@@ -39,6 +40,7 @@ namespace StatisticsCreatorModule.Arrangment
         {
             Main = main;
             ChangePlayer = fch;
+            SetColor();
         }
         private void updateVisual()
         {
@@ -47,7 +49,24 @@ namespace StatisticsCreatorModule.Arrangment
             else cont = "-";
             if (Change != null) cont += $" (#{Change.Number})";
             this.Content = cont; ;
-            
+            SetColor();
+        }
+        public void SetColor()
+        {
+           /* this.Foreground = Brushes.Transparent;
+            if (MainPlayer == null) return;
+            if (MainPlayer.Amplua == Amplua.Libero)
+            {
+                
+                this.Background= new SolidColorBrush(Convert(LiberoColor));
+            }
+            else this.Background = new SolidColorBrush(Convert(MainColor));
+
+            */
+        }
+        private System.Windows.Media.Color Convert(System.Drawing.Color color)
+        {
+            return  System.Windows.Media.Color.FromRgb(color.R, color.G, color.B);
         }
     }
 }

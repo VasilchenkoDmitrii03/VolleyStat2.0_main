@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,6 +32,7 @@ namespace StatisticsCreatorModule
     public delegate void ActionAdded(object sender, EventArgs e);
     public delegate void ScoreUpdated(object sender, ScoreEventArgs e);
     public delegate void GamePhaseForGraphicsChanged(object sender, PhaseEventArgs e);
+    public delegate void SetFinished(object sender, SetEventArgs e);
     public partial class TextStatisticsModule : UserControl
     {
         List<ActionsLib.Action> _actions = new List<ActionsLib.Action>();
@@ -52,7 +54,7 @@ namespace StatisticsCreatorModule
         public event ActionAdded ActionAdded;
         public event ScoreUpdated ScoreUpdated;
         public event GamePhaseForGraphicsChanged GamePhaseForGraphicsChanged;
-
+        public event SetFinished SetFinished;
         public TeamControl TeamControl
         {
             get { return _teamControl; }
@@ -320,6 +322,7 @@ namespace StatisticsCreatorModule
             _currentSet.Add(rally);
             isRallyEnded = true;
             ScoreUpdated(this, new ScoreEventArgs(_currentSet.CurrentScore));
+            if (_currentSet.isFinished() == SetResult.Lost || _currentSet.isFinished() == SetResult.Won) SetFinished(this, new SetEventArgs(_currentSet));
         }
         private void graphicsPhaseChanges(Rally rally)
         {
@@ -377,6 +380,14 @@ namespace StatisticsCreatorModule
         {
             phase = ph;
             arrangement = arr;
+        }
+    }
+    public class SetEventArgs : EventArgs
+    {
+        public Set Set { get; set; }
+        public SetEventArgs(Set set)
+        {
+            Set = set;
         }
     }
 }

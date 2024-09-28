@@ -54,7 +54,7 @@ namespace StatisticsCreatorModule
 
         PlayerLabel[] PlayerLabels;
         const int border = 20;
-        const int insideBorder = 10;
+        const int insideBorder = 20;
         Rectangle _currentRectangle;
         private void DrawField()
         {
@@ -102,8 +102,8 @@ namespace StatisticsCreatorModule
         }
         private void RelocateLabels(Rectangle Field)
         {
-            int LabelWidth =(int) Field.Width / 3 - insideBorder;
-            int LabelHeight = (int) Field.Height / 6 -  insideBorder;
+            int LabelWidth = 30;//(int) Field.Width / 3 - insideBorder;
+            int LabelHeight = 30;// (int) Field.Height / 6 -  insideBorder;
 
             try
             {
@@ -182,7 +182,12 @@ namespace StatisticsCreatorModule
         {
             for(int i= 0;i < 6; i++)
             {
+                if (arr[i].Amplua == Amplua.Libero)
+                {
+                    int a = 5;
+                }
                 PlayerLabels[i].MainPlayer = arr[i];
+                PlayerLabels[i].SetColor();
             }
         }
         public void TeamControlChanged(object sender, TeamControlEventArgs e)
