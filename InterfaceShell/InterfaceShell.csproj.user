@@ -7,24 +7,36 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="AdditionalWindows\ExtendedPlayerControl.xaml.cs">
+    <Compile Update="AdditionalWindows\GameCreation\GameCreateWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="AdditionalWindows\PlayerControl.xaml.cs">
+    <Compile Update="AdditionalWindows\GameCreation\GameLengthRulesControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="AdditionalWindows\TeamCreater.xaml.cs">
+    <Compile Update="AdditionalWindows\TeamCreation\ExtendedPlayerControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AdditionalWindows\TeamCreation\PlayerControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AdditionalWindows\TeamCreation\TeamCreater.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="AdditionalWindows\ExtendedPlayerControl.xaml">
+    <Page Update="AdditionalWindows\GameCreation\GameCreateWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="AdditionalWindows\PlayerControl.xaml">
+    <Page Update="AdditionalWindows\GameCreation\GameLengthRulesControl.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="AdditionalWindows\TeamCreater.xaml">
+    <Page Update="AdditionalWindows\TeamCreation\ExtendedPlayerControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AdditionalWindows\TeamCreation\PlayerControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AdditionalWindows\TeamCreation\TeamCreater.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="MainWindow.xaml">

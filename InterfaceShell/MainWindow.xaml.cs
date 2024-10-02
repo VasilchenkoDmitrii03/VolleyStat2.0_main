@@ -20,7 +20,7 @@ namespace InterfaceShell
         public MainWindow()
         {
             InitializeComponent();
-            TeamCreater tmp = new TeamCreater();
+            AdditionalWindows.GameCreation.GameCreateWindow tmp = new AdditionalWindows.GameCreation.GameCreateWindow();
             tmp.Show();
         }
     }
