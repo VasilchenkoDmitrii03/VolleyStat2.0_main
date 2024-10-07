@@ -17,6 +17,7 @@ using ActionsLib.TextRepresentation;
 using Microsoft.Win32;
 using PlayerPositioningWIndow;
 using StatisticsCreatorModule.Arrangment;
+using StatisticsCreatorModule.LiberoModeSetter;
 using StatisticsCreatorModule.PlayerPositioning;
 using StatisticsCreatorModule.SettingsWindow;
 namespace StatisticsCreatorModule
@@ -69,32 +70,29 @@ namespace StatisticsCreatorModule
         public MainWindow(Team team, Game game, ActionsMetricTypes amt)
         {
             InitializeComponent();
+            
             _team = team;
             _game = game;
             _actionMetricTypes = amt;
-
+            InitializeModules();
             BeginSet();
         }
 
         private void InitializeModules()
         {
-
-            using(StreamReader sr = new StreamReader(@"C:\Dmitrii\Arrangement5-1"))
-            {
-                GraphicsModule._playersPositions = PlayerPositionDataContainer.Load(sr);
-            }
             TextModule.setActionMetricsTypes(_actionMetricTypes);
             TextModule.setTeam(_team);
             TextModule.LineRepresentationControl.ComboBoxSelectionChanged += ButtonModule.ComboBoxUpdated;
             ButtonModule.ButtonSelectionChanged += TextModule.LineRepresentationControl.GetButtonIndex;
             TextModule.ArrangementChanged += GraphicsModule.TeamControlChanged;
-            VideoModule.TimeCodeChanged += TextModule.GetCurrentTimeCodeEventHandler;
+            VideoModule.OnTimeCodeChanged += TextModule.GetCurrentTimeCodeEventHandler;
             GraphicsModule.PointsChanged += TextModule.PointsUpdated;
             TextModule.ActionAdded += GraphicsModule.ActionAdded;
             TextModule.ScoreUpdated += ScoreModule.ScoreUpdated;
             TextModule.GamePhaseForGraphicsChanged += GraphicsModule.PhaseChanged;
             TextModule.SetFinished += SetFinishedHandler;
-
+            TextModule.SetPositionSettingsMode(new PositionSettingsMode(1, LiberoArrangementDataContainer.GetDefault(), PlayerPositionDataContainer.GetDefault()));
+            GraphicsModule._playersPositions = PlayerPositionDataContainer.GetDefault();
             PlayerLabel.LiberoColor = System.Drawing.Color.Red;
             PlayerLabel.MainColor = System.Drawing.Color.Black;
             //TextModule.LineRepresentationControl.ActionTypeChangedInTextModule += test;
@@ -122,13 +120,22 @@ namespace StatisticsCreatorModule
             if (_game.GameResult == GameResult.Lost || _game.GameResult == GameResult.Won)
             {
                 MessageBox.Show("Game finished");
+                SaveAs_Click(null, null);
+
                 return;
             }
-            else BeginSet();
+            else
+            {
+                TextModule.Clear();
+                ScoreModule.Clear();
+                GraphicsModule.ClearPoints();
+                BeginSet();
+            }
         }
 
         private void BeginSet()
         {
+           
             TextModule.BeginNewSet(this._game.NextSetLength);
         }
         List<Control> _userControls;
@@ -201,7 +208,11 @@ namespace StatisticsCreatorModule
         {
             using(StreamWriter sw = new StreamWriter(path)) 
             {
-                TextModule.CurrentSet.Save(sw);
+                if(_game.GameResult == GameResult.Undefined || _game.GameResult== GameResult.NotFinished)
+                {
+                    _game.AddSet(TextModule.CurrentSet);
+                }
+                _game.Save(sw);
                 //sw.Write(TextModule.CurrentSet.Save());
             }
         }

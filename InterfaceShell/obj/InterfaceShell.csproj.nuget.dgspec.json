@@ -52,6 +52,10 @@
             "Extended.Wpf.Toolkit": {
               "target": "Package",
               "version": "[4.6.1, )"
+            },
+            "Microsoft.Web.WebView2": {
+              "target": "Package",
+              "version": "[1.0.2792.45, )"
             }
           },
           "imports": [

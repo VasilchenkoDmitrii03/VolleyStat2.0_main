@@ -17,15 +17,22 @@
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
         <Label Content="Выберите команду" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" Grid.Row="0" Grid.Column="0"/>
-        <ComboBox Name="TeamComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="20,50,0,0" Grid.Row="0" Grid.Column="0"/>
+        
+        <local:TeamSelectorWithFileOption x:Name="OurTeamControl" Height="20"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="20,50,0,0" Grid.Row="0" Grid.Column="0"></local:TeamSelectorWithFileOption>
 
         <Label Content="Выберите команду соперников" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,100,0,0" Grid.Row="0" Grid.Column="0" />
-        <ComboBox Name="OpponentTeamComboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="20,130,0,0" Grid.Row="0" Grid.Column="0"/>
+
+        <local:TeamSelectorWithFileOption x:Name="OpponentTeamControl" Height="20"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="20,130,0,0" Grid.Row="0" Grid.Column="0"></local:TeamSelectorWithFileOption>
 
         <Label Content="Выберите игроков" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" Grid.Row="0" Grid.Column="1"/>
         <ListBox Name="PlayersListBox" SelectionMode="Multiple" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="100" Margin="20,50,0,0" Grid.Row="0" Grid.Column="1">
             
         </ListBox>
+
+        <Label Content="Выберите набор метрик" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" Grid.Row="0" Grid.Column="2"/>
+        <local:ActionMetricTypesSelector  x:Name="ATMSelector" Height="20"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="20,50,0,0" Grid.Row="0" Grid.Column="2"></local:ActionMetricTypesSelector>
+
+        
 
 
         <local:GameLengthRulesControl x:Name="GameLenControl" Grid.Column="0" Grid.Row="1"></local:GameLengthRulesControl >

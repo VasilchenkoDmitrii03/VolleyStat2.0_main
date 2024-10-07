@@ -40,6 +40,11 @@ namespace StatisticsCreatorModule
             UpdateScore(e.score);
         }
 
+        public void Clear()
+        {
+            this.ScoreListBox.Items.Clear();
+            this.ScoreLabel.Content = "0 : 0";
+        }
         #region Themese module
         private void LoadTheme()
         {

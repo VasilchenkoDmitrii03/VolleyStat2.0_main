@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Web.WebView2.Core;
 using System.Text.Json;
+using Microsoft.Web.WebView2.Wpf;
 
 namespace StatisticsCreatorModule
 {
@@ -27,92 +28,64 @@ namespace StatisticsCreatorModule
     {
         public VideoModule()
         {
+            
             InitializeComponent();
-            InitializeWebView();
+            StartVideo();
         }
 
-        private async void InitializeWebView()
+        public void StartVideo()
         {
+            InitializeWebView2();
+        }
+        private async void InitializeWebView2()
+        {
+            // Инициализация WebView2
             await YouTubeWebView.EnsureCoreWebView2Async(null);
-            YouTubeWebView.CoreWebView2.WebMessageReceived += CoreWebView2_WebMessageReceived;
 
-            string htmlString = @"
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <script src=""https://www.youtube.com/iframe_api""></script>
-                    <script>
-                        var player;
-                        function onYouTubeIframeAPIReady() {
-                            player = new YT.Player('player', {
-                                height: '390',
-                                width: '640',
-                                videoId: 'ks6yJSDPBAY',
-                                events: {
-                                    'onReady': onPlayerReady,
-                                    'onStateChange': onPlayerStateChange
-                                }
-                            });
-                        }
-
-                        function onPlayerReady(event) {
-                            // Видео готово к воспроизведению
-                        }
-
-                        function onPlayerStateChange(event) {
-                            if (event.data == YT.PlayerState.PLAYING) {
-                                setInterval(() => {
-                                    window.chrome.webview.postMessage({ type: 'currentTime', time: player.getCurrentTime() });
-                                }, 250);
-                            }
-                        }
-
-                        function getCurrentTime() {
-                            return player.getCurrentTime();
-                        }
-
-                        function seekTo(time) {
-                            player.seekTo(time, true);
-                        }
-                    </script>
-                </head>
-                <body>
-                    <div id=""player""></div>
-                </body>
-                </html>";
-            YouTubeWebView.NavigateToString(htmlString);
+            // Установка URL для воспроизведения видео с YouTube
+            YouTubeWebView.CoreWebView2.WebMessageReceived += WebView2Control_WebMessageReceived;
+            YouTubeWebView.NavigationCompleted += WebView2Control_NavigationCompleted;
+            YouTubeWebView.CoreWebView2.Navigate("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+            
         }
-        public TimeCodeChanged TimeCodeChanged;
-
-        private void CoreWebView2_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
+        double currentTimeCode = 0;
+        private void WebView2Control_WebMessageReceived(object sender, Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
         {
-            var message = e.WebMessageAsJson;
-            using JsonDocument doc = JsonDocument.Parse(message);
-            JsonElement root = doc.RootElement;
-
-            var time = root.GetProperty("time");
-            
-            
-
-            if (message != null)
+            // Получаем сообщение от JavaScript
+            string message = e.WebMessageAsJson;
+            if (double.TryParse(message, out double currentTime))
             {
-                var data = JsonSerializer.Deserialize<WebMessage>(message);
-                CurrentTime = (double)time.GetDouble();
-                TimeCodeChanged(this, new TimeCodeEventArgs(CurrentTime));
+                // Обновляем текстовый блок с текущим временем
+                currentTimeCode = currentTime;
+                OnTimeCodeChanged(this, new TimeCodeEventArgs(currentTime));
             }
         }
-        double CurrentTime = 0;
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void WebView2Control_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
         {
+            if (e.IsSuccess)
+            {
+                // Успешная загрузка страницы, можно запускать скрипт
+                string script = @"
+                    setInterval(function() {
+                        let video = document.querySelector('video');
+                        if (video) {
+                            window.chrome.webview.postMessage(video.currentTime);
+                        }
+                    }, 100);"; // Обновление каждые 100 мс
 
+                await YouTubeWebView.CoreWebView2.ExecuteScriptAsync(script);
+            }
+            else
+            {
+                MessageBox.Show("Failed to load the page.");
+            }
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        public event TimeCodeChanged OnTimeCodeChanged;
+        public double GetTimeCode()
         {
-            MessageBox.Show(CurrentTime.ToString());
+            return currentTimeCode;
         }
-
-
         #region Themese module
         private void LoadTheme()
         {

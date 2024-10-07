@@ -25,14 +25,14 @@ namespace PlayerPositioningWIndow
         }
         public void setForEvery(System.Windows.Point[] points)
         {
-            foreach(SegmentPhase phase in _data.Keys)
+            foreach (SegmentPhase phase in _data.Keys)
             {
                 _data[phase].setForEvery(points);
             }
         }
         public void setForNull(System.Windows.Point[] points)
         {
-            foreach(PositionHolder positionHolder in _data.Values)
+            foreach (PositionHolder positionHolder in _data.Values)
             {
                 positionHolder.setForNull(points);
             }
@@ -46,9 +46,9 @@ namespace PlayerPositioningWIndow
         public void Save(StreamWriter sw)
         {
 
-            for(int i = 0;i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
-                sw.WriteLine(JsonSerializer.Serialize(_data.Keys.ToArray()[i] ));
+                sw.WriteLine(JsonSerializer.Serialize(_data.Keys.ToArray()[i]));
                 _data.Values.ToArray()[i].Save(sw);
             }
         }
@@ -56,13 +56,31 @@ namespace PlayerPositioningWIndow
         public static PlayerPositionDataContainer Load(StreamReader sr)
         {
             PlayerPositionDataContainer res = new PlayerPositionDataContainer();
-            for(int i = 0; i< 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 SegmentPhase phase = JsonSerializer.Deserialize<SegmentPhase>(sr.ReadLine());
                 PositionHolder holder = PositionHolder.Load(sr);
                 res[phase] = holder;
             }
             return res;
+        }
+
+        public static PlayerPositionDataContainer GetDefault()
+        {
+            PlayerPositionDataContainer playerPositionDataContainer = new PlayerPositionDataContainer();
+            System.Windows.Point[] defaultPoints = new System.Windows.Point[6]
+            {
+                new System.Windows.Point(0.7234848484848484, 0.6949952785646837),
+                new System.Windows.Point(0.7234848484848484,0.5283286118980169),
+                new System.Windows.Point(0.39015151515151525,0.5283286118980169),
+                new System.Windows.Point(0.056818181818181816,0.5283286118980169),
+                new System.Windows.Point(0.056818181818181816,0.6949952785646837),
+                new System.Windows.Point(0.39015151515151525, 0.6949952785646837)
+            };
+
+               playerPositionDataContainer.setForEvery(defaultPoints);
+
+            return playerPositionDataContainer;
         }
     }
     public class PositionHolder

@@ -665,13 +665,13 @@ namespace ActionsLib
 
         public Score(int setLength = 25)
         {
-            _left = setLength;
+            _setLength = setLength;
             _right = _left = 0;
         }
 
         public bool isFinished()
         {
-            if (Math.Abs(_left - _right) > 1 && (_left > _setLength || _right > _setLength))
+            if (Math.Abs(_left - _right) > 1 && (_left >= _setLength || _right >= _setLength))
             {
                 return true;
             }
@@ -734,6 +734,15 @@ namespace ActionsLib
             _currentSetIndex = -1;
             _result = GameResult.NotFinished;
             _setsToWin = setsToWin;
+            _sets = new List<Set>();
+        }
+        public Game(List<int> setLengths)
+        {
+            _setLengths = setLengths.ToArray();
+            _currentSetIndex = -1;
+            _result = GameResult.NotFinished;
+            _setsToWin = _setLengths.Length / 2 + 1;
+            _sets = new List<Set>();
         }
         public GameResult AddSet(Set set)
         {
@@ -771,6 +780,34 @@ namespace ActionsLib
         public int NextSetLength
         {
             get { return _setLengths[_currentSetIndex + 1]; }
+        }
+        public void Save(StreamWriter sw)
+        {
+            sw.WriteLine(JsonSerializer.Serialize(_setLengths));
+            sw.WriteLine(JsonSerializer.Serialize(_setsToWin));
+            sw.WriteLine(JsonSerializer.Serialize(_currentSetIndex));
+            sw.WriteLine(JsonSerializer.Serialize(GameResult));
+            sw.WriteLine(JsonSerializer.Serialize(_sets.Count));
+            foreach(Set set in _sets)
+            {
+                set.Save(sw);
+            }
+        }
+        public static Game Load(StreamReader sr)
+        {
+            int[] setLengths = JsonSerializer.Deserialize<int[]>(sr.ReadLine());
+            int setsToWin = JsonSerializer.Deserialize<int>(sr.ReadLine());
+            int currentIndexSet = JsonSerializer.Deserialize<int>(sr.ReadLine());
+            GameResult gameResult = JsonSerializer.Deserialize<GameResult>(sr.ReadLine());
+            int setsCount = JsonSerializer.Deserialize<int>(sr.ReadLine());
+            Game res = new Game(new List<int>(setLengths));
+            res._setsToWin = setsToWin;
+            res._currentSetIndex = currentIndexSet;
+            for(int i= 0;i < setsCount; i++)
+            {
+                res.AddSet(Set.Load(sr));
+            }
+            return res;
         }
     }
 

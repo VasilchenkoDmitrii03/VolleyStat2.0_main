@@ -7,10 +7,16 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="AdditionalWindows\GameCreation\ActionMetricTypesSelector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="AdditionalWindows\GameCreation\GameCreateWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="AdditionalWindows\GameCreation\GameLengthRulesControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="AdditionalWindows\GameCreation\TeamSelectorWithFileOption.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="AdditionalWindows\TeamCreation\ExtendedPlayerControl.xaml.cs">
@@ -24,10 +30,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="AdditionalWindows\GameCreation\ActionMetricTypesSelector.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="AdditionalWindows\GameCreation\GameCreateWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="AdditionalWindows\GameCreation\GameLengthRulesControl.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AdditionalWindows\GameCreation\TeamSelectorWithFileOption.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="AdditionalWindows\TeamCreation\ExtendedPlayerControl.xaml">

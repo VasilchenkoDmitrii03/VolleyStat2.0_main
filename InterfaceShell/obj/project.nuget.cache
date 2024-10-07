@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "+YUW0qQ5Etb2gsOGm32MKONBL3zqrsSv4TBj87uxmVJEHUqsvizN8ZDo0MmaQLTOFH8zfLdydxK1+L2Zht/QYQ==",
+  "dgSpecHash": "EkdiZzVJVYRUjrQYnrDYnr+u5ioYl6FV4fJlB2SpjeEfZpLBRoKYrDsrUh8H/tQBT6vCChUpPi/ZMVw8xtj52g==",
   "success": true,
   "projectFilePath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\InterfaceShell.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\User\\.nuget\\packages\\extended.wpf.toolkit\\4.6.1\\extended.wpf.toolkit.4.6.1.nupkg.sha512"
+    "C:\\Users\\User\\.nuget\\packages\\extended.wpf.toolkit\\4.6.1\\extended.wpf.toolkit.4.6.1.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.web.webview2\\1.0.2792.45\\microsoft.web.webview2.1.0.2792.45.nupkg.sha512"
   ],
   "logs": []
 }

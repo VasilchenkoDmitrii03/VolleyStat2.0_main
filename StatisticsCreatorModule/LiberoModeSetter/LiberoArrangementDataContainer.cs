@@ -91,6 +91,18 @@ namespace StatisticsCreatorModule.LiberoModeSetter
             }
             return res;
         }
+
+        public static LiberoArrangementDataContainer GetDefault()
+        {
+            LiberoArrangementDataContainer result = new LiberoArrangementDataContainer();
+            for(int i = 0;i < 6; i++)
+            {
+                result.fillData(SegmentPhase.Recep_1, i, 0);
+                result.fillData(SegmentPhase.Break, i, 0);
+            }
+            result.setLiberos(new Player[0]);
+            return result;
+        }
     }
     public class LiberoPhaseDataContainer
     {

@@ -49,7 +49,11 @@ namespace StatisticsCreatorModule
             AddButton.TabIndex = 40;
             LineRepresentationControl.DataFilled += AddButton_Click;
         }
-
+        public void Clear()
+        {
+            this._actions.Clear();
+            this.MainListBox.ItemsSource = _actions;
+        }
         public event ArrangmentChanged ArrangementChanged;
         public event ActionAdded ActionAdded;
         public event ScoreUpdated ScoreUpdated;
@@ -174,7 +178,7 @@ namespace StatisticsCreatorModule
                 ((PlayerAction)act).Points = _currentPoints;
             }
             _actions.Add(act);
-            actionAdded(act);
+            if(actionAdded(act))return ;
             if(currentArrangementNumber != -1)
             {
                 if (isRallyEnded) { avaibleActionTypes.BetweenRallies(GetAvaibleActionTypes(act)); }
@@ -224,7 +228,7 @@ namespace StatisticsCreatorModule
             }
             return null;
         }
-        private void actionAdded(ActionsLib.Action act)
+        private bool actionAdded(ActionsLib.Action act)
         {
            phaseChaned(act);
            ProcessCoachActions(act);
@@ -238,7 +242,7 @@ namespace StatisticsCreatorModule
             if(isRallyFinished(_currentSegment) != ActionSegmentResult.NotEnded)
             {
                 _currentRally.Add(_currentSegment);
-                rallyAdded(_currentRally);
+                if(rallyAdded(_currentRally)) return true;
                 if(isRotateNeeded(_currentRally, _currentSet.CurrentPhase))
                 {
                     _teamControl.Rotate();
@@ -274,6 +278,7 @@ namespace StatisticsCreatorModule
                 _currentSegment = new VolleyActionSegment();
                 _currentRally = new Rally();
             }
+            return false;
         }
         private void phaseChaned(ActionsLib.Action act)
         {
@@ -316,13 +321,18 @@ namespace StatisticsCreatorModule
             if (phase == SegmentPhase.Recep_1 && newPhase == SegmentPhase.Break) return true;
             return false;
         }
-        private void rallyAdded(Rally rally)
+        private bool rallyAdded(Rally rally)
         {
             rally.UpdateRallyResult();
             _currentSet.Add(rally);
             isRallyEnded = true;
             ScoreUpdated(this, new ScoreEventArgs(_currentSet.CurrentScore));
-            if (_currentSet.isFinished() == SetResult.Lost || _currentSet.isFinished() == SetResult.Won) SetFinished(this, new SetEventArgs(_currentSet));
+            if (_currentSet.isFinished() == SetResult.Lost || _currentSet.isFinished() == SetResult.Won)
+            {
+                SetFinished(this, new SetEventArgs(_currentSet));
+                return true;
+            }
+            return false;
         }
         private void graphicsPhaseChanges(Rally rally)
         {

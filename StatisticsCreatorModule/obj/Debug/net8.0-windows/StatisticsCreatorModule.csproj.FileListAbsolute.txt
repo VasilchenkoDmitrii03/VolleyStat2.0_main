@@ -82,3 +82,6 @@ C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\SettingsWindow\LiberoSystemSettingsBlock.baml
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\SettingsWindow\SettingsWindow.baml
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\App.baml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml

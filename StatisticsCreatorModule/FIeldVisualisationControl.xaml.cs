@@ -104,7 +104,6 @@ namespace StatisticsCreatorModule
         {
             int LabelWidth = 30;//(int) Field.Width / 3 - insideBorder;
             int LabelHeight = 30;// (int) Field.Height / 6 -  insideBorder;
-
             try
             {
                 for (int i = 0; i < PlayerLabels.Length; i++)
@@ -175,6 +174,12 @@ namespace StatisticsCreatorModule
             MainCanvas.Children.Clear();
             DrawField();
             DrawPoints();
+        }
+
+        public void Clear()
+        {
+            ClearPoints();
+            ReDraw();
         }
 
         #endregion

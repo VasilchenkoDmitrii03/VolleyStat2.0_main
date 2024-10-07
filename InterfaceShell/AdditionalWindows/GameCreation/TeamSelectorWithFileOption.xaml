@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="InterfaceShell.AdditionalWindows.GameCreation.TeamSelectorWithFileOption"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:InterfaceShell.AdditionalWindows.GameCreation"
+             mc:Ignorable="d" 
+             d:DesignHeight="50" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*">
+            </ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <ComboBox Name="BaseTeamsComboBox" Grid.Column="0" SelectionChanged="BaseTeamsComboBox_SelectionChanged"></ComboBox>
+        <Button Name="OpenFileButton" Grid.Column="1" Click="OpenFileButton_Click">
+            File
+        </Button>
+    </Grid>
+
+</UserControl>

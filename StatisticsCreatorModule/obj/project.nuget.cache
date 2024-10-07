@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "xTWdQQhYJEHjTxi99dp7YoPcoGBMZLDDHliK907Y4RlgYuiHzcSYtRmDfA2XK+PccVGWbEsoKuZYaMvNDMImgA==",
+  "dgSpecHash": "ma8fkCMj0hMMzQtqAacyt4Z3cLWobcqEgNb0Lo8eAPSfo/V9ex0PjksTJGJl0jl/LT0Z1NLfTpugJ4KdhZkFAA==",
   "success": true,
   "projectFilePath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\StatisticsCreatorModule.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\User\\.nuget\\packages\\microsoft.web.webview2\\1.0.2592.51\\microsoft.web.webview2.1.0.2592.51.nupkg.sha512"
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.web.webview2\\1.0.2792.45\\microsoft.web.webview2.1.0.2792.45.nupkg.sha512"
   ],
   "logs": []
 }
