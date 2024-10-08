@@ -85,3 +85,13 @@ C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsModule\MetricTypeStatSelector.g.cs
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsModule\ComboCheckBox.g.cs
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsModule\ComboCheckBox.baml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsModule\MetricTypeStatSelector.baml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsModule\StatisticsMetricsController.g.cs
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsModule\StatisticsMetricsController.baml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsModule\ActionMetricTypeStatSelector.g.cs
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsModule\AllActionMetricsController.g.cs
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsModule\ActionMetricTypeStatSelector.baml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\StatisticsModule\AllActionMetricsController.baml

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\App.xaml
-15-1870971060
+201245051449
 31236984110
-252020897321
+301941490067
 2021301392973
-ActionTextRepresentationControl.xaml;ButtonControllerControl.xaml;FIeldVisualisationControl.xaml;LiberoModeSetter\LiberoModeSetter.xaml;MainWindow.xaml;PlayerPositioning\Field.xaml;PlayerPositioning\PlayerPositionController.xaml;PlayerPositioning\PlayerPositionWindow.xaml;ScoreDisplayer.xaml;SettingsWindow\LiberoSystemSettingsBlock.xaml;SettingsWindow\SettingsWindow.xaml;TextStatisticsModule.xaml;Themes\DarkTheme.xaml;Themes\LightTheme.xaml;VideoModule.xaml;
+ActionTextRepresentationControl.xaml;ButtonControllerControl.xaml;FIeldVisualisationControl.xaml;LiberoModeSetter\LiberoModeSetter.xaml;MainWindow.xaml;PlayerPositioning\Field.xaml;PlayerPositioning\PlayerPositionController.xaml;PlayerPositioning\PlayerPositionWindow.xaml;ScoreDisplayer.xaml;SettingsWindow\LiberoSystemSettingsBlock.xaml;SettingsWindow\SettingsWindow.xaml;StatisticsModule\ActionMetricTypeStatSelector.xaml;StatisticsModule\AllActionMetricsController.xaml;StatisticsModule\ComboCheckBox.xaml;StatisticsModule\MetricTypeStatSelector.xaml;StatisticsModule\StatisticsMetricsController.xaml;TextStatisticsModule.xaml;Themes\DarkTheme.xaml;Themes\LightTheme.xaml;VideoModule.xaml;
 
-False
+True
 

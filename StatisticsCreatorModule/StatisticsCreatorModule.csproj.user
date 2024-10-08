@@ -34,6 +34,21 @@
     <Compile Update="SettingsWindow\SettingsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="StatisticsModule\ActionMetricTypeStatSelector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="StatisticsModule\AllActionMetricsController.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="StatisticsModule\ComboCheckBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="StatisticsModule\MetricTypeStatSelector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="StatisticsModule\StatisticsMetricsController.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="TextStatisticsModule.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -73,6 +88,21 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SettingsWindow\SettingsWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StatisticsModule\ActionMetricTypeStatSelector.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StatisticsModule\AllActionMetricsController.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StatisticsModule\ComboCheckBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StatisticsModule\MetricTypeStatSelector.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StatisticsModule\StatisticsMetricsController.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="TextStatisticsModule.xaml">

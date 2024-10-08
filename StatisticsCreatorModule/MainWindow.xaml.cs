@@ -92,6 +92,7 @@ namespace StatisticsCreatorModule
             TextModule.SetFinished += SetFinishedHandler;
             TextModule.SetPositionSettingsMode(new PositionSettingsMode(1, LiberoArrangementDataContainer.GetDefault(), PlayerPositionDataContainer.GetDefault()));
             GraphicsModule._playersPositions = PlayerPositionDataContainer.GetDefault();
+            FiltersModule.UpdateAMT(_actionMetricTypes);
             PlayerLabel.LiberoColor = System.Drawing.Color.Red;
             PlayerLabel.MainColor = System.Drawing.Color.Black;
             //TextModule.LineRepresentationControl.ActionTypeChangedInTextModule += test;

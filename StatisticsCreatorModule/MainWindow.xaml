@@ -24,38 +24,45 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        
-        <Grid Background="{DynamicResource GridBackgroundBrush}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="3*"></ColumnDefinition>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"></RowDefinition>
-                <RowDefinition Height="*"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Menu DockPanel.Dock="Top" Height="30" VerticalAlignment="Top">
-                <MenuItem Header="User Management" FontSize="15"  Height="30" Width="72">
-                    <MenuItem Header="_New" />
-                    <MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" />
-                    <Separator />
-                    <MenuItem Header="_Exit" />
-                </MenuItem>
-            </Menu>
-            <local:TextStatisticsModule x:Name="TextModule" Grid.Column="0" Grid.Row="1"></local:TextStatisticsModule>
-            <local:ButtonControllerControl  x:Name="ButtonModule" Grid.Column="1" Grid.Row="0"></local:ButtonControllerControl>
-            <local:VideoModule x:Name="VideoModule"></local:VideoModule>
-            <Grid Grid.Row="1" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <local:FIeldVisualisationControl Grid.Column="0" x:Name="GraphicsModule"></local:FIeldVisualisationControl>
-                <local:ScoreDisplayer Grid.Column="1" x:Name="ScoreModule"></local:ScoreDisplayer>
-            </Grid>
+        <TabControl>
+            <TabItem Header="Creation">
+                <Grid Background="{DynamicResource GridBackgroundBrush}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Menu DockPanel.Dock="Top" Height="30" VerticalAlignment="Top">
+                        <MenuItem Header="User Management" FontSize="15"  Height="30" Width="72">
+                            <MenuItem Header="_New" />
+                            <MenuItem Header="_Open" />
+                            <MenuItem Header="_Save" />
+                            <Separator />
+                            <MenuItem Header="_Exit" />
+                        </MenuItem>
+                    </Menu>
+                    <local:TextStatisticsModule x:Name="TextModule" Grid.Column="0" Grid.Row="1"></local:TextStatisticsModule>
+                    <local:ButtonControllerControl  x:Name="ButtonModule" Grid.Column="1" Grid.Row="0"></local:ButtonControllerControl>
+                    <local:VideoModule x:Name="VideoModule"></local:VideoModule>
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <local:FIeldVisualisationControl Grid.Column="0" x:Name="GraphicsModule"></local:FIeldVisualisationControl>
+                        <local:ScoreDisplayer Grid.Column="1" x:Name="ScoreModule"></local:ScoreDisplayer>
+                    </Grid>
 
-        </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Statistics">
+                <local:AllActionMetricsController x:Name="FiltersModule"></local:AllActionMetricsController>
+            </TabItem>
+        </TabControl>
+        
     </DockPanel>
         
     

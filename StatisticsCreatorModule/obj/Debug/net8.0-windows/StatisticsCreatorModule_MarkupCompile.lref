@@ -11,6 +11,11 @@ FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\PlayerPositio
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\ScoreDisplayer.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\SettingsWindow\LiberoSystemSettingsBlock.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\SettingsWindow\SettingsWindow.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\StatisticsModule\ComboCheckBox.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\StatisticsModule\MetricTypeStatSelector.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\StatisticsModule\StatisticsMetricsController.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\TextStatisticsModule.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\VideoModule.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\StatisticsModule\ActionMetricTypeStatSelector.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\StatisticsModule\AllActionMetricsController.xaml;;
 
