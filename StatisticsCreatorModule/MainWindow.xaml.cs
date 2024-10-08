@@ -80,8 +80,7 @@ namespace StatisticsCreatorModule
 
         private void InitializeModules()
         {
-            TextModule.setActionMetricsTypes(_actionMetricTypes);
-            TextModule.setTeam(_team);
+            SetTeam_AMT(_team, _actionMetricTypes);
             TextModule.LineRepresentationControl.ComboBoxSelectionChanged += ButtonModule.ComboBoxUpdated;
             ButtonModule.ButtonSelectionChanged += TextModule.LineRepresentationControl.GetButtonIndex;
             TextModule.ArrangementChanged += GraphicsModule.TeamControlChanged;
@@ -135,8 +134,14 @@ namespace StatisticsCreatorModule
 
         private void BeginSet()
         {
-           
+            ScoreModule.UpdateSetNumber(_game.Sets.Count + 1);
             TextModule.BeginNewSet(this._game.NextSetLength);
+        }
+        private void SetTeam_AMT(Team team, ActionsMetricTypes amt)
+        {
+            this.TextModule.setTeam(team);
+            this.TextModule.setActionMetricsTypes(amt);
+           
         }
         List<Control> _userControls;
         List<themeUpdater> _userControlsThemeUpdaters;
@@ -174,6 +179,7 @@ namespace StatisticsCreatorModule
         }
         #endregion
 
+
         
         SettingsWindow.SettingsWindow PositionSettingsWindow;
         public void PlayerPositionUpdate (object sender, RoutedEventArgs e)
@@ -195,14 +201,15 @@ namespace StatisticsCreatorModule
             TextModule.SetPositionSettingsMode(e.PositionSettingsMode);
         }
         #region Save\Load
-        private Set Load(string path)
+        private Game Load(string path)
         {
             ActionLoader.currentTeam = _team;
             ActionLoader.ActionsMetricTypes = _actionMetricTypes;
             using (StreamReader sr = new StreamReader(path))
             {
-                return Set.Load(sr);
+                return Game.Load(sr);
             }
+
         }
         private void Save(string path)
         {
@@ -229,8 +236,13 @@ namespace StatisticsCreatorModule
             OpenFileDialog sfd = new OpenFileDialog();
             if (sfd.ShowDialog() == true)
             {
-                Set set = Load(sfd.FileName);
-                TextModule.LoadSet(set);
+                Game game = Load(sfd.FileName);
+                _game = game;
+                this._actionMetricTypes = _game.ActionsMetricTypes;
+                this._team = _game.Team;
+                SetTeam_AMT(_team, _actionMetricTypes);
+                ScoreModule.UpdateSetNumber(_game.Sets.Count);
+                TextModule.LoadSet(_game.Sets.Last());
             }
         }
 

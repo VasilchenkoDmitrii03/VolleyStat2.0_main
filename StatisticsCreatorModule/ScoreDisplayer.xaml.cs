@@ -39,7 +39,10 @@ namespace StatisticsCreatorModule
         {
             UpdateScore(e.score);
         }
-
+        public void UpdateSetNumber(int number)
+        {
+            SetNumberLabel.Content = $"Set #{number}";
+        }
         public void Clear()
         {
             this.ScoreListBox.Items.Clear();

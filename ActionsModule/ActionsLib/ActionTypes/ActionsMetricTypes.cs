@@ -47,26 +47,34 @@ namespace ActionsLib.ActionTypes
         {
             using (StreamWriter sw = new StreamWriter(filename))
             {
-                sw.WriteLine(JsonSerializer.Serialize(_name));
-                foreach(VolleyActionType vt in _data.Keys)
-                {
-                    _data[vt].Save(sw);
-                }
+                Save(sw);
+            }
+        }
+        public void Save(StreamWriter sw)
+        {
+            sw.WriteLine(JsonSerializer.Serialize(_name));
+            foreach (VolleyActionType vt in _data.Keys)
+            {
+                _data[vt].Save(sw);
             }
         }
         public static ActionsMetricTypes Load(string filename)
         {
-            string name;
-            ActionsMetricTypes res;
             using (StreamReader sr = new StreamReader(filename))
             {
-                name = JsonSerializer.Deserialize<string>(sr.ReadLine());
-                res = new ActionsMetricTypes(name);
-                VolleyActionType[] keys = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence };
-                for (int i = 0; i < keys.Length; i++)
-                {
-                    res.updateList(keys[i], MetricTypeList.Load(sr));
-                }
+                return Load(sr);
+            }
+        }
+        public static ActionsMetricTypes Load(StreamReader sr)
+        {
+            string name;
+            ActionsMetricTypes res;
+            name = JsonSerializer.Deserialize<string>(sr.ReadLine());
+            res = new ActionsMetricTypes(name);
+            VolleyActionType[] keys = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence };
+            for (int i = 0; i < keys.Length; i++)
+            {
+                res.updateList(keys[i], MetricTypeList.Load(sr));
             }
             return res;
         }

@@ -53,6 +53,8 @@ namespace StatisticsCreatorModule
         {
             this._actions.Clear();
             this.MainListBox.ItemsSource = _actions;
+            this.LineRepresentationControl.clear();
+            this.LineRepresentationControl.setDefaultfocus();
         }
         public event ArrangmentChanged ArrangementChanged;
         public event ActionAdded ActionAdded;
