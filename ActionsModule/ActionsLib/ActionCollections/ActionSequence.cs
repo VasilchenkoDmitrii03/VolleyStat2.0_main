@@ -788,7 +788,10 @@ namespace ActionsLib
         }
         public int NextSetLength
         {
-            get { return _setLengths[_currentSetIndex + 1]; }
+            get {
+                int ind = Sets.Count;
+                return _setLengths[ind];
+                return _setLengths[_currentSetIndex]; }
         }
         public void Save(StreamWriter sw)
         {
@@ -809,6 +812,8 @@ namespace ActionsLib
         {
             ActionsMetricTypes amt = ActionsMetricTypes.Load(sr);
             Team team = Team.Load(sr);
+            ActionLoader.currentTeam = team;
+            ActionLoader.ActionsMetricTypes = amt;
             int[] setLengths = JsonSerializer.Deserialize<int[]>(sr.ReadLine());
             int setsToWin = JsonSerializer.Deserialize<int>(sr.ReadLine());
             int currentIndexSet = JsonSerializer.Deserialize<int>(sr.ReadLine());

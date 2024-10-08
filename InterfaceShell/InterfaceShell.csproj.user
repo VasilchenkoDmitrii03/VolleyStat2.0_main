@@ -19,6 +19,9 @@
     <Compile Update="AdditionalWindows\GameCreation\TeamSelectorWithFileOption.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="AdditionalWindows\Settings\SettingsRedactorWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="AdditionalWindows\TeamCreation\ExtendedPlayerControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -40,6 +43,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="AdditionalWindows\GameCreation\TeamSelectorWithFileOption.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AdditionalWindows\Settings\SettingsRedactorWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="AdditionalWindows\TeamCreation\ExtendedPlayerControl.xaml">

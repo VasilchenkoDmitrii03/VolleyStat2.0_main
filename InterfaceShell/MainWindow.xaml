@@ -5,8 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfaceShell"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-            
-    </Grid>
+        Title="" Height="450" Width="800">
+    <StackPanel>
+        <Label FontSize="30">VolleyStat</Label>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="6*"></ColumnDefinition>
+                <ColumnDefinition Width="4*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <StackPanel Name="RecentProjectsStackPanel">
+                <Label FontSize="20">Open recent</Label>
+            </StackPanel>
+            <StackPanel Name="BaseOptionsStackPanel" Grid.Column="1" Width="250">
+                <Label FontSize="20">Start</Label>
+                <Button FontSize="20" Margin="0,0,0,10" Height="40" Click="CreateGame_Click">Create game</Button>
+                <Button FontSize="20" Margin="0,0,0,10" Height="40" Click="OpenGame_Click">Open game</Button>
+                <Button FontSize="20" Margin="0,0,0,10" Height="40" IsEnabled="False">Create tournament</Button>
+                <Button FontSize="20" Margin="0,0,0,10" Height="40" IsEnabled="False">Open tournament</Button>
+                <TextBlock Text="Continue without game"
+                   Foreground="Blue"
+                   TextDecorations="Underline"
+                   Cursor="Hand"
+                   MouseEnter="Link_MouseEnter"
+                   MouseLeave="Link_MouseLeave"
+                   MouseLeftButtonUp="Link_MouseLeftButtonUp"/>
+                <TextBlock Text="Redact settings"
+                   Foreground="Blue"
+                   TextDecorations="Underline"
+                   Cursor="Hand"
+                   MouseEnter="Link_MouseEnter"
+                   MouseLeave="Link_MouseLeave"
+                   MouseLeftButtonUp="LinkSettings_MouseLeftButtonUp"/>
+                <TextBlock Text="CreateTeam"
+   Foreground="Blue"
+   TextDecorations="Underline"
+   Cursor="Hand"
+   MouseEnter="Link_MouseEnter"
+   MouseLeave="Link_MouseLeave"
+   MouseLeftButtonUp="LinkTeam_MouseLeftButtonUp"/>
+            </StackPanel>
+        </Grid>
+    </StackPanel>
 </Window>

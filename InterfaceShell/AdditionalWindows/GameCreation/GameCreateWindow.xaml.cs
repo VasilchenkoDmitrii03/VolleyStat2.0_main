@@ -24,7 +24,6 @@ namespace InterfaceShell.AdditionalWindows.GameCreation
         public GameCreateWindow()
         {
             InitializeComponent();
-            this.OurTeamControl.TeamUpdated += OurTeamUpdated;
             this.OpponentTeamControl.TeamUpdated += (o, e) => { };
 
         }
@@ -35,9 +34,12 @@ namespace InterfaceShell.AdditionalWindows.GameCreation
             //StatisticsCreatorModule.MainWindow tmp = new StatisticsCreatorModule.MainWindow();
             tmp.Show();
         }
-        public void OurTeamUpdated(object sender, TeamEventArgs e) 
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            PlayersListBox.ItemsSource = OurTeamControl._selectedTeam.Players;
+            MainWindow tmp = new MainWindow();
+            tmp.Show();
+            this.Close();
         }
     }
 }

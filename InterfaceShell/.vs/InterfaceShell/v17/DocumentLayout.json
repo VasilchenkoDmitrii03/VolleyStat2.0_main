@@ -3,23 +3,42 @@
   "WorkspaceRootPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\interfaceshell\\additionalwindows\\teamcreation\\teamcreater.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|solutionrelative:additionalwindows\\teamcreation\\teamcreater.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\interfaceshell\\additionalwindows\\teamcreation\\teamcreater.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|solutionrelative:additionalwindows\\teamcreation\\teamcreater.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\interfaceshell\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\interfaceshell\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\interfaceshell\\additionalwindows\\settings\\settingsredactorwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|solutionrelative:additionalwindows\\settings\\settingsredactorwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\interfaceshell\\additionalwindows\\settings\\settingsredactorwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|solutionrelative:additionalwindows\\settings\\settingsredactorwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\Arrangment\\TeamControl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\interfaceshell\\additionalwindows\\gamecreation\\gamecreatewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|solutionrelative:additionalwindows\\gamecreation\\gamecreatewindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TextStatisticsModule.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\interfaceshell\\additionalwindows\\gamecreation\\teamselectorwithfileoption.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|solutionrelative:additionalwindows\\gamecreation\\teamselectorwithfileoption.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\interfaceshell\\additionalwindows\\gamecreation\\gamecreatewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|solutionrelative:additionalwindows\\gamecreation\\gamecreatewindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\interfaceshell\\additionalwindows\\gamecreation\\teamselectorwithfileoption.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B4B14580-3C18-4DFF-8585-74A6176538C2}|InterfaceShell.csproj|solutionrelative:additionalwindows\\gamecreation\\teamselectorwithfileoption.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\Action.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -29,7 +48,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -37,63 +56,129 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TextStatisticsModule.xaml.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TextStatisticsModule.xaml.cs",
-              "RelativeDocumentMoniker": "..\\StatisticsCreatorModule\\TextStatisticsModule.xaml.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TextStatisticsModule.xaml.cs",
-              "RelativeToolTip": "..\\StatisticsCreatorModule\\TextStatisticsModule.xaml.cs",
-              "ViewState": "AQIAAB4AAAAAAAAAAAAwwC8AAAAMAAAA",
+              "DocumentIndex": 0,
+              "Title": "TeamCreater.xaml.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\TeamCreation\\TeamCreater.xaml.cs",
+              "RelativeDocumentMoniker": "AdditionalWindows\\TeamCreation\\TeamCreater.xaml.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\TeamCreation\\TeamCreater.xaml.cs",
+              "RelativeToolTip": "AdditionalWindows\\TeamCreation\\TeamCreater.xaml.cs",
+              "ViewState": "AQIAAG8AAAAAAAAAAAAAALIAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-07T14:17:18.519Z",
+              "WhenOpened": "2024-10-08T10:36:16.249Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "TeamSelectorWithFileOption.xaml",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\GameCreation\\TeamSelectorWithFileOption.xaml",
-              "RelativeDocumentMoniker": "AdditionalWindows\\GameCreation\\TeamSelectorWithFileOption.xaml",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\GameCreation\\TeamSelectorWithFileOption.xaml",
-              "RelativeToolTip": "AdditionalWindows\\GameCreation\\TeamSelectorWithFileOption.xaml",
+              "DocumentIndex": 1,
+              "Title": "TeamCreater.xaml",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\TeamCreation\\TeamCreater.xaml",
+              "RelativeDocumentMoniker": "AdditionalWindows\\TeamCreation\\TeamCreater.xaml",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\TeamCreation\\TeamCreater.xaml",
+              "RelativeToolTip": "AdditionalWindows\\TeamCreation\\TeamCreater.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-06T12:02:51.909Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "GameCreateWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\GameCreation\\GameCreateWindow.xaml.cs",
-              "RelativeDocumentMoniker": "AdditionalWindows\\GameCreation\\GameCreateWindow.xaml.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\GameCreation\\GameCreateWindow.xaml.cs",
-              "RelativeToolTip": "AdditionalWindows\\GameCreation\\GameCreateWindow.xaml.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAvwB0AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-06T11:39:23.623Z",
+              "WhenOpened": "2024-10-08T10:33:24.101Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "TeamSelectorWithFileOption.xaml.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\GameCreation\\TeamSelectorWithFileOption.xaml.cs",
-              "RelativeDocumentMoniker": "AdditionalWindows\\GameCreation\\TeamSelectorWithFileOption.xaml.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\GameCreation\\TeamSelectorWithFileOption.xaml.cs",
-              "RelativeToolTip": "AdditionalWindows\\GameCreation\\TeamSelectorWithFileOption.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADsAAAAJAAAA",
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAAAFMAAABUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-06T11:39:08.004Z"
+              "WhenOpened": "2024-10-08T10:32:33.48Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
+              "Title": "SettingsRedactorWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\Settings\\SettingsRedactorWindow.xaml.cs",
+              "RelativeDocumentMoniker": "AdditionalWindows\\Settings\\SettingsRedactorWindow.xaml.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\Settings\\SettingsRedactorWindow.xaml.cs",
+              "RelativeToolTip": "AdditionalWindows\\Settings\\SettingsRedactorWindow.xaml.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACYAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T10:17:50Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SettingsRedactorWindow.xaml",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\Settings\\SettingsRedactorWindow.xaml",
+              "RelativeDocumentMoniker": "AdditionalWindows\\Settings\\SettingsRedactorWindow.xaml",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\Settings\\SettingsRedactorWindow.xaml",
+              "RelativeToolTip": "AdditionalWindows\\Settings\\SettingsRedactorWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-08T10:04:40.188Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TeamControl.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\Arrangment\\TeamControl.cs",
+              "RelativeDocumentMoniker": "..\\StatisticsCreatorModule\\Arrangment\\TeamControl.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\Arrangment\\TeamControl.cs",
+              "RelativeToolTip": "..\\StatisticsCreatorModule\\Arrangment\\TeamControl.cs",
+              "ViewState": "AQIAAEwAAAAAAAAAAAAAAF4AAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T10:01:59.462Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GameCreateWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\GameCreation\\GameCreateWindow.xaml.cs",
+              "RelativeDocumentMoniker": "AdditionalWindows\\GameCreation\\GameCreateWindow.xaml.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\GameCreation\\GameCreateWindow.xaml.cs",
+              "RelativeToolTip": "AdditionalWindows\\GameCreation\\GameCreateWindow.xaml.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAAACgAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T09:55:52.007Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "GameCreateWindow.xaml",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\GameCreation\\GameCreateWindow.xaml",
               "RelativeDocumentMoniker": "AdditionalWindows\\GameCreation\\GameCreateWindow.xaml",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\GameCreation\\GameCreateWindow.xaml",
               "RelativeToolTip": "AdditionalWindows\\GameCreation\\GameCreateWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-02T15:08:27.53Z"
+              "WhenOpened": "2024-10-08T09:50:44.256Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Action.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\Action.cs",
+              "RelativeDocumentMoniker": "..\\ActionsModule\\ActionsLib\\ActionTypes\\Action.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\Action.cs",
+              "RelativeToolTip": "..\\ActionsModule\\ActionsLib\\ActionTypes\\Action.cs",
+              "ViewState": "AQIAAJMBAAAAAAAAAAAewJsBAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-08T09:35:44.689Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-08T09:15:48.261Z",
+              "EditorCaption": ""
             }
           ]
         }

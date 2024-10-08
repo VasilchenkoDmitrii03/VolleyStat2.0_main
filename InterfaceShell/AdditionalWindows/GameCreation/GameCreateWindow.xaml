@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InterfaceShell.AdditionalWindows.GameCreation"
         mc:Ignorable="d"
-        Title="GameCreateWindow" Height="450" Width="800">
+        Title="" Height="450" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -13,30 +13,30 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
             <RowDefinition Height="3*"></RowDefinition>
             <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label Content="Выберите команду" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" Grid.Row="0" Grid.Column="0"/>
-        
-        <local:TeamSelectorWithFileOption x:Name="OurTeamControl" Height="20"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="20,50,0,0" Grid.Row="0" Grid.Column="0"></local:TeamSelectorWithFileOption>
+        <Label FontSize="30">Game creation</Label>
+            <Label Content="Select team" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" Grid.Row="1" Grid.Column="0"/>
 
-        <Label Content="Выберите команду соперников" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,100,0,0" Grid.Row="0" Grid.Column="0" />
+        <local:TeamSelectorWithFileOption x:Name="OurTeamControl" Height="20"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="20,50,0,0" Grid.Row="1" Grid.Column="0"></local:TeamSelectorWithFileOption>
 
-        <local:TeamSelectorWithFileOption x:Name="OpponentTeamControl" Height="20"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="20,130,0,0" Grid.Row="0" Grid.Column="0"></local:TeamSelectorWithFileOption>
+        <Label Content="Select opponent team" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,100,0,0" Grid.Row="1" Grid.Column="0" />
 
-        <Label Content="Выберите игроков" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" Grid.Row="0" Grid.Column="1"/>
-        <ListBox Name="PlayersListBox" SelectionMode="Multiple" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Height="100" Margin="20,50,0,0" Grid.Row="0" Grid.Column="1">
-            
-        </ListBox>
-
-        <Label Content="Выберите набор метрик" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" Grid.Row="0" Grid.Column="2"/>
-        <local:ActionMetricTypesSelector  x:Name="ATMSelector" Height="20"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="20,50,0,0" Grid.Row="0" Grid.Column="2"></local:ActionMetricTypesSelector>
-
-        
+        <local:TeamSelectorWithFileOption x:Name="OpponentTeamControl" Height="20"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="20,130,0,0" Grid.Row="1" Grid.Column="0"></local:TeamSelectorWithFileOption>
 
 
-        <local:GameLengthRulesControl x:Name="GameLenControl" Grid.Column="0" Grid.Row="1"></local:GameLengthRulesControl >
 
-        <Button Content="Создать матч" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="30" Click="CreateMatch_Click" Grid.Column="1" Grid.Row="1"/>
+        <Label Content="Select action metrics" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0" Grid.Row="1" Grid.Column="1"/>
+        <local:ActionMetricTypesSelector  x:Name="ATMSelector" Height="20"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" Margin="20,50,0,0" Grid.Row="1" Grid.Column="1"></local:ActionMetricTypesSelector>
+
+
+
+
+        <local:GameLengthRulesControl x:Name="GameLenControl" Grid.Column="2" Grid.Row="1"  Margin="0,50,0,0"></local:GameLengthRulesControl >
+
+        <Button Content="Create" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="150" Height="30"  Margin="10" Click="CreateMatch_Click" Grid.Column="2" Grid.Row="2"/>
+        <Button Content="Back" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10" Width="150" Height="30" Click="BackButton_Click"></Button>
     </Grid>
 </Window>

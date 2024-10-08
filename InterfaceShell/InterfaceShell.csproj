@@ -17,6 +17,9 @@
     <Reference Include="ActionsLib">
       <HintPath>..\ActionsModule\ActionsLib\bin\Debug\net8.0\ActionsLib.dll</HintPath>
     </Reference>
+    <Reference Include="MetricTypesWindow">
+      <HintPath>..\ActionsModule\MetricTypesWindow\bin\Debug\net8.0-windows\MetricTypesWindow.dll</HintPath>
+    </Reference>
     <Reference Include="StatisticsCreatorModule">
       <HintPath>..\StatisticsCreatorModule\bin\Debug\net8.0-windows\StatisticsCreatorModule.dll</HintPath>
     </Reference>

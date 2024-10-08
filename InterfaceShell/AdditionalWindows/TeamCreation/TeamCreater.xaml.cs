@@ -170,5 +170,12 @@ namespace InterfaceShell.AdditionalWindows
         {
             wasChanged = true;
         }
+
+        private void BackButton_Click(object sender, EventArgs e)
+        {
+            MainWindow tmp = new MainWindow();
+            tmp.Show();
+            this.Close();
+        }
     }
 }

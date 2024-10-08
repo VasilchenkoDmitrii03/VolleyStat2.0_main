@@ -7,6 +7,7 @@
         xmlns:local="clr-namespace:InterfaceShell.AdditionalWindows"
         mc:Ignorable="d"
         Title="TeamCreater" Height="450" Width="1000">
+    <Grid>
     <DockPanel >
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
@@ -33,6 +34,7 @@
             <toolkit:ColorPicker x:Name="LiberocolorPicker"
                  SelectedColor="Pink" 
                  HorizontalAlignment="Left" Margin="10" Width="100"  SelectedColorChanged="WasChanged"/>
+                
             </StackPanel>
             <!-- Список игроков -->
             <StackPanel>
@@ -42,7 +44,12 @@
         <!-- Кнопка для добавления нового игрока -->
 
                 <Button Content="+" Width="150"  Click="AddPlayer_Click"  HorizontalAlignment="Left"/>
+                
             </StackPanel>
+           
         </StackPanel>
+        
     </DockPanel>
+        <Button Height="30" Width="150" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10" Click="BackButton_Click">Back</Button>
+    </Grid>
 </Window>
