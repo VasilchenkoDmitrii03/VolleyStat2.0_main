@@ -31,6 +31,7 @@ namespace InterfaceShell.AdditionalWindows.GameCreation
         public TeamSelectorWithFileOption()
         {
             InitializeComponent();
+            TeamUpdated += (o, e) => { };
         }
         public void LoadBasicTeams(List<Team> teams)
         {

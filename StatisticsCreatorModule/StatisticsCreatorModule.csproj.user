@@ -34,19 +34,22 @@
     <Compile Update="SettingsWindow\SettingsWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="StatisticsModule\ActionMetricTypeStatSelector.xaml.cs">
+    <Compile Update="Filters\ActionMetricTypeStatSelector.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="StatisticsModule\AllActionMetricsController.xaml.cs">
+    <Compile Update="Filters\AllActionMetricsController.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="StatisticsModule\ComboCheckBox.xaml.cs">
+    <Compile Update="Filters\ComboCheckBox.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="StatisticsModule\MetricTypeStatSelector.xaml.cs">
+    <Compile Update="Filters\MetricTypeStatSelector.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="StatisticsModule\StatisticsMetricsController.xaml.cs">
+    <Compile Update="Filters\StatisticsMetricsController.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="StatisticsTextModule\StatisticsTextControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="TextStatisticsModule.xaml.cs">
@@ -90,19 +93,22 @@
     <Page Update="SettingsWindow\SettingsWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="StatisticsModule\ActionMetricTypeStatSelector.xaml">
+    <Page Update="Filters\ActionMetricTypeStatSelector.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="StatisticsModule\AllActionMetricsController.xaml">
+    <Page Update="Filters\AllActionMetricsController.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="StatisticsModule\ComboCheckBox.xaml">
+    <Page Update="Filters\ComboCheckBox.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="StatisticsModule\MetricTypeStatSelector.xaml">
+    <Page Update="Filters\MetricTypeStatSelector.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="StatisticsModule\StatisticsMetricsController.xaml">
+    <Page Update="Filters\StatisticsMetricsController.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="StatisticsTextModule\StatisticsTextControl.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="TextStatisticsModule.xaml">

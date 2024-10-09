@@ -59,7 +59,20 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Statistics">
-                <local:AllActionMetricsController x:Name="FiltersModule"></local:AllActionMetricsController>
+                <Grid Name="StatisticsMainGrid">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <local:AllActionMetricsController x:Name="FiltersModule"></local:AllActionMetricsController>
+                    <local:StatisticsTextControl x:Name="StatisticsListBox" Grid.Column="1" Grid.Row="1"></local:StatisticsTextControl>
+                    <local:VideoModule x:Name="StatisticsVideoModule" Grid.Column="1"></local:VideoModule>
+                </Grid>
+                
             </TabItem>
         </TabControl>
         

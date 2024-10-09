@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using Microsoft.Web.WebView2.Core;
 using System.Text.Json;
 using Microsoft.Web.WebView2.Wpf;
+using Microsoft.Web.WebView2.WinForms;
 
 namespace StatisticsCreatorModule
 {
@@ -28,8 +29,9 @@ namespace StatisticsCreatorModule
     {
         public VideoModule()
         {
-            
+
             InitializeComponent();
+            OnTimeCodeChanged += (o, e) => { };
             StartVideo();
         }
 
@@ -45,7 +47,7 @@ namespace StatisticsCreatorModule
             // Установка URL для воспроизведения видео с YouTube
             YouTubeWebView.CoreWebView2.WebMessageReceived += WebView2Control_WebMessageReceived;
             YouTubeWebView.NavigationCompleted += WebView2Control_NavigationCompleted;
-            YouTubeWebView.CoreWebView2.Navigate("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+            YouTubeWebView.CoreWebView2.Navigate("https://www.youtube.com/watch?v=SMfXDGgmDCU");
             
         }
         double currentTimeCode = 0;
@@ -71,7 +73,7 @@ namespace StatisticsCreatorModule
                         if (video) {
                             window.chrome.webview.postMessage(video.currentTime);
                         }
-                    }, 100);"; // Обновление каждые 100 мс
+                    }, 300);"; // Обновление каждые 100 мс
 
                 await YouTubeWebView.CoreWebView2.ExecuteScriptAsync(script);
             }
@@ -80,11 +82,19 @@ namespace StatisticsCreatorModule
                 MessageBox.Show("Failed to load the page.");
             }
         }
-
+        public async void SetYouTubeTimeCode(double timeInSeconds)
+        {
+            string script = $"document.getElementById('movie_player').seekTo({timeInSeconds}, true);";
+            await YouTubeWebView.ExecuteScriptAsync(script);
+        }
         public event TimeCodeChanged OnTimeCodeChanged;
         public double GetTimeCode()
         {
             return currentTimeCode;
+        }
+        public void SetTimeCode()
+        {
+
         }
         #region Themese module
         private void LoadTheme()

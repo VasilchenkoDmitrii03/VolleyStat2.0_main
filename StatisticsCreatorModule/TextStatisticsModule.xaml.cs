@@ -29,10 +29,11 @@ namespace StatisticsCreatorModule
     /// </summary>
     /// 
     public delegate void ArrangmentChanged(object sender, TeamControlEventArgs e);
-    public delegate void ActionAdded(object sender, EventArgs e);
+    public delegate void ActionAdded(object sender, ActionSequenceEventArgs e);
     public delegate void ScoreUpdated(object sender, ScoreEventArgs e);
     public delegate void GamePhaseForGraphicsChanged(object sender, PhaseEventArgs e);
     public delegate void SetFinished(object sender, SetEventArgs e);
+
     public partial class TextStatisticsModule : UserControl
     {
         List<ActionsLib.Action> _actions = new List<ActionsLib.Action>();
@@ -189,7 +190,7 @@ namespace StatisticsCreatorModule
             LineRepresentationControl.UpdateAvaibleActionTypes(avaibleActionTypes);
             updateListVisual();
             LineRepresentationControl.setDefaultfocus();
-            ActionAdded(this, new EventArgs());
+            ActionAdded(this, new ActionSequenceEventArgs(_actions));
         }
         private void ProcessCoachActions(ActionsLib.Action act)
         {
@@ -400,6 +401,18 @@ namespace StatisticsCreatorModule
         public SetEventArgs(Set set)
         {
             Set = set;
+        }
+    }
+    public class ActionSequenceEventArgs : EventArgs
+    {
+        public VolleyActionSequence seq;
+        public ActionSequenceEventArgs(List<ActionsLib.Action> actions)
+        {
+            this.seq = new VolleyActionSequence();
+            foreach (ActionsLib.Action action in actions)
+            {
+                if (action.AuthorType == ActionAuthorType.Player) seq.Add(action);
+            }
         }
     }
 }

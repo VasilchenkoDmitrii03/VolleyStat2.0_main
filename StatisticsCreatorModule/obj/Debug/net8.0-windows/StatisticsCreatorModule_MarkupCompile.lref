@@ -3,6 +3,11 @@ FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\App.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\ActionTextRepresentationControl.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\ButtonControllerControl.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\FIeldVisualisationControl.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\Filters\ActionMetricTypeStatSelector.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\Filters\AllActionMetricsController.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\Filters\ComboCheckBox.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\Filters\MetricTypeStatSelector.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\Filters\StatisticsMetricsController.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\LiberoModeSetter\LiberoModeSetter.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\MainWindow.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\PlayerPositioning\Field.xaml;;
@@ -11,11 +16,7 @@ FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\PlayerPositio
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\ScoreDisplayer.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\SettingsWindow\LiberoSystemSettingsBlock.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\SettingsWindow\SettingsWindow.xaml;;
-FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\StatisticsModule\ComboCheckBox.xaml;;
-FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\StatisticsModule\MetricTypeStatSelector.xaml;;
-FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\StatisticsModule\StatisticsMetricsController.xaml;;
+FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\StatisticsTextModule\StatisticsTextControl.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\TextStatisticsModule.xaml;;
 FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\VideoModule.xaml;;
-FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\StatisticsModule\ActionMetricTypeStatSelector.xaml;;
-FC:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\StatisticsModule\AllActionMetricsController.xaml;;
 

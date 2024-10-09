@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\App.xaml
-201245051449
-31236984110
-28-1355803445
-2021301392973
-ActionTextRepresentationControl.xaml;ButtonControllerControl.xaml;FIeldVisualisationControl.xaml;LiberoModeSetter\LiberoModeSetter.xaml;MainWindow.xaml;PlayerPositioning\Field.xaml;PlayerPositioning\PlayerPositionController.xaml;PlayerPositioning\PlayerPositionWindow.xaml;ScoreDisplayer.xaml;SettingsWindow\LiberoSystemSettingsBlock.xaml;SettingsWindow\SettingsWindow.xaml;StatisticsModule\ActionMetricTypeStatSelector.xaml;StatisticsModule\AllActionMetricsController.xaml;StatisticsModule\ComboCheckBox.xaml;StatisticsModule\MetricTypeStatSelector.xaml;StatisticsModule\StatisticsMetricsController.xaml;TextStatisticsModule.xaml;Themes\DarkTheme.xaml;Themes\LightTheme.xaml;VideoModule.xaml;
+21-1356808239
+3-2136454762
+301761620583
+2022122912913
+ActionTextRepresentationControl.xaml;ButtonControllerControl.xaml;FIeldVisualisationControl.xaml;Filters\ActionMetricTypeStatSelector.xaml;Filters\AllActionMetricsController.xaml;Filters\ComboCheckBox.xaml;Filters\MetricTypeStatSelector.xaml;Filters\StatisticsMetricsController.xaml;LiberoModeSetter\LiberoModeSetter.xaml;MainWindow.xaml;PlayerPositioning\Field.xaml;PlayerPositioning\PlayerPositionController.xaml;PlayerPositioning\PlayerPositionWindow.xaml;ScoreDisplayer.xaml;SettingsWindow\LiberoSystemSettingsBlock.xaml;SettingsWindow\SettingsWindow.xaml;StatisticsTextModule\StatisticsTextControl.xaml;TextStatisticsModule.xaml;Themes\DarkTheme.xaml;Themes\LightTheme.xaml;VideoModule.xaml;
 
 False
 

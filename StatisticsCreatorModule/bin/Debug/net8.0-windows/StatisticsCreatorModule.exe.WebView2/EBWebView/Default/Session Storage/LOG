@@ -1,13 +1,3 @@
-2024/10/08-23:53:14.004 487c Reusing MANIFEST C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\StatisticsCreatorModule.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
-2024/10/08-23:53:14.005 487c Recovering log #10
-2024/10/08-23:53:14.006 487c Level-0 table #12: started
-2024/10/08-23:53:14.010 487c Level-0 table #12: 19001 bytes OK
-2024/10/08-23:53:14.014 487c Delete type=0 #10
-2024/10/08-23:53:14.015 5db8 Compacting 4@0 + 0@1 files
-2024/10/08-23:53:14.020 5db8 Generated table #14@0: 4 keys, 391 bytes
-2024/10/08-23:53:14.020 5db8 Compacted 4@0 + 0@1 files => 391 bytes
-2024/10/08-23:53:14.021 5db8 compacted to: files[ 0 1 0 0 0 0 0 ]
-2024/10/08-23:53:14.022 5db8 Delete type=2 #3
-2024/10/08-23:53:14.022 5db8 Delete type=2 #7
-2024/10/08-23:53:14.022 5db8 Delete type=2 #9
-2024/10/08-23:53:14.022 5db8 Delete type=2 #12
+2024/10/09-19:22:19.254 539c Reusing MANIFEST C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\StatisticsCreatorModule.exe.WebView2\EBWebView\Default\Session Storage/MANIFEST-000001
+2024/10/09-19:22:19.256 539c Recovering log #6
+2024/10/09-19:22:19.259 539c Reusing old log C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\StatisticsCreatorModule.exe.WebView2\EBWebView\Default\Session Storage/000006.log 

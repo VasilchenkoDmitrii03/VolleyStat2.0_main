@@ -87,12 +87,15 @@ namespace StatisticsCreatorModule
             VideoModule.OnTimeCodeChanged += TextModule.GetCurrentTimeCodeEventHandler;
             GraphicsModule.PointsChanged += TextModule.PointsUpdated;
             TextModule.ActionAdded += GraphicsModule.ActionAdded;
+            TextModule.ActionAdded += (o, e) => { StatisticsListBox.Sequence = e.seq; };
             TextModule.ScoreUpdated += ScoreModule.ScoreUpdated;
             TextModule.GamePhaseForGraphicsChanged += GraphicsModule.PhaseChanged;
             TextModule.SetFinished += SetFinishedHandler;
             TextModule.SetPositionSettingsMode(new PositionSettingsMode(1, LiberoArrangementDataContainer.GetDefault(), PlayerPositionDataContainer.GetDefault()));
             GraphicsModule._playersPositions = PlayerPositionDataContainer.GetDefault();
             FiltersModule.UpdateAMT(_actionMetricTypes);
+            StatisticsListBox.SetFiltersController(this.FiltersModule);
+            StatisticsListBox.SetVideoModule(this.StatisticsVideoModule);
             PlayerLabel.LiberoColor = System.Drawing.Color.Red;
             PlayerLabel.MainColor = System.Drawing.Color.Black;
             //TextModule.LineRepresentationControl.ActionTypeChangedInTextModule += test;
@@ -241,6 +244,7 @@ namespace StatisticsCreatorModule
                 _game = game;
                 this._actionMetricTypes = _game.ActionsMetricTypes;
                 this._team = _game.Team;
+                StatisticsListBox.Sequence = _game.Sets[0].ConvertToSequence();
                 SetTeam_AMT(_team, _actionMetricTypes);
                 ScoreModule.UpdateSetNumber(_game.Sets.Count);
                 TextModule.LoadSet(_game.Sets.Last());
