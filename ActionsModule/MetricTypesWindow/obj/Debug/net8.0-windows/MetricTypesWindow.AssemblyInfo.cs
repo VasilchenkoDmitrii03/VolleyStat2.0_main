@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MetricTypesWindow")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+12216de56288d1acc5c7771445eb64af24575ff3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4f829ee84e8b1a95167b0a72ed8e04b73f07f6c3")]
 [assembly: System.Reflection.AssemblyProductAttribute("MetricTypesWindow")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MetricTypesWindow")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

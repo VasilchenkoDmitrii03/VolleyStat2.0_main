@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="AutomaticMetricFiller\AutomaticMetricFillerWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="MetricTypeCreator.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -15,6 +18,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="AutomaticMetricFiller\AutomaticMetricFillerWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AutomaticMetricFiller\ComboCheckBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

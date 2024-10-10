@@ -1,0 +1,46 @@
+﻿<Window x:Class="MetricTypesWindow.AutomaticMetricFillerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MetricTypesWindow"
+        mc:Ignorable="d"
+        Title="AutomaticMetricFillerWindow" Height="450" Width="800">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File"></MenuItem>
+        </Menu>
+        <TabControl>
+            <TabItem Header="In action">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <Label>Action Type</Label>
+                        <ComboBox Name="ActionTypeComboBox" SelectionChanged="ActionTypeComboBox_SelectionChanged"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"  Grid.Row="1">
+                        <Label>Condition</Label>
+                        <local:ComboCheckBox x:Name="LeftValuesSelector" HorizontalAlignment="Left" ></local:ComboCheckBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Grid.Column="1"  Grid.Row="1">
+                        <Label>Values</Label>
+                        <ComboBox Name="RightValueComboBox"></ComboBox>
+                    </StackPanel>
+
+                </Grid>
+                
+                
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+    
+</Window>

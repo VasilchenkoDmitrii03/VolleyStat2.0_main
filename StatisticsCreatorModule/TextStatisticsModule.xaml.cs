@@ -263,15 +263,27 @@ namespace StatisticsCreatorModule
                 {
                     Player currentPlayer = CurrentBackRowLibero(currentArrangementNumber);
                     Player newPlayer = PositionSettingsMode.LiberoArrangementDataContainer.UpdatePlayer(currentArrangementNumber, _currentSet.CurrentPhase);
-                    if(newPlayer == null)
+                    if ((currentArrangementNumber == PositionSettingsMode.CurrentArrangementIndex || (currentArrangementNumber + 3) % 6 == PositionSettingsMode.CurrentArrangementIndex) && CurrentSet.CurrentPhase == SegmentPhase.Break)//случай когда выполняется подача центральным блокирующим
                     {
-                        newPlayer = _teamControl.GetNonLiberoFromFastChangePlayers();
-                        if (newPlayer == null) newPlayer = currentPlayer;
+                        Player notLibero = _teamControl.GetNonLiberoFromFastChangePlayers();
+                        if (notLibero != null)
+                        {
+                            _teamControl.ChangeFastPlayer(currentPlayer, notLibero);
+                        }
                     }
-                    if (currentPlayer.Number != newPlayer.Number)
+                    else
                     {
-                        _teamControl.ChangeFastPlayer(currentPlayer, newPlayer);
+                        if (newPlayer == null)
+                        {
+                            newPlayer = _teamControl.GetNonLiberoFromFastChangePlayers();
+                            if (newPlayer == null) newPlayer = currentPlayer;
+                        }
+                        if (currentPlayer.Number != newPlayer.Number)
+                        {
+                            _teamControl.ChangeFastPlayer(currentPlayer, newPlayer);
+                        }
                     }
+                    
                     ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
                     GamePhaseForGraphicsChanged(this, new PhaseEventArgs(_currentSet.CurrentPhase, currentArrangementNumber));
                 }
