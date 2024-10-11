@@ -180,6 +180,15 @@ namespace ActionsLib
             var req = from act in Actions select act.ActionType;
             return req.ToList();
         }
+        public PlayerAction getByActionType(VolleyActionType type)
+        {
+            if (!ContainsActionType(type)) return null;
+            foreach(var act in Actions)
+            {
+                if (act.ActionType == type) return (PlayerAction)act;
+            }
+            return null;
+        }
         public VolleyActionSequence ConvertToSequence()
         {
             return Actions;

@@ -48,6 +48,14 @@ namespace ActionsLib.TextRepresentation
         {
             this._player = player;
         }
+        public Metric GetMetric(MetricType metricType)
+        {
+            foreach(Metric metric in _metrics)
+            {
+                if (metric.MetricType == metricType) return metric;
+            }
+            return null;
+        }
         public string LongStringFormat()
         {
             string res = $"{_player.Number}:{_actionType}";
