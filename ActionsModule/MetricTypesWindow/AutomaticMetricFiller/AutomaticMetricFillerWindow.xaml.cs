@@ -1,8 +1,10 @@
 ﻿using ActionsLib;
 using ActionsLib.ActionTypes;
+using MetricTypesWindow.AutomaticMetricFiller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -70,6 +72,13 @@ namespace MetricTypesWindow
         }
         private void InAction_Click(object sender, RoutedEventArgs e)
         {
+            VolleyActionType type = (VolleyActionType)ActionTypeComboBox.SelectedItem;
+            MetricType right = AMT[type][RightSelectedMetricType_ComboBox.SelectedIndex];
+            MetricType left = AMT[type][AvaibleConditionMetricTypes_ComboBox.SelectedIndex];
+            string[] strs = LeftValuesSelector.SelectedOptions().ToArray();
+
+            InActionAutomaticFiller inActionAutomaticFiller = new InActionAutomaticFiller(type, left, right, strs, RightValueComboBox.SelectedItem.ToString());
+
 
         }
 
