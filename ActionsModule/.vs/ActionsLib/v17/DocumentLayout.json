@@ -58,8 +58,7 @@
               "RelativeToolTip": "ActionsLib\\ActionTypes\\Action.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAABMAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-11T16:41:43.276Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-11T16:41:43.276Z"
             },
             {
               "$type": "Document",
@@ -71,8 +70,7 @@
               "RelativeToolTip": "ActionsLib\\TextRepresentation\\ActionTextRepresentation.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAEwAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-11T15:50:51.839Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-11T15:50:51.839Z"
             },
             {
               "$type": "Document",
@@ -82,7 +80,7 @@
               "RelativeDocumentMoniker": "MetricTypesWindow\\AutomaticMetricFiller\\AutomaticFillersRulesHolder.cs",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\MetricTypesWindow\\AutomaticMetricFiller\\AutomaticFillersRulesHolder.cs",
               "RelativeToolTip": "MetricTypesWindow\\AutomaticMetricFiller\\AutomaticFillersRulesHolder.cs",
-              "ViewState": "AQIAAEMAAAAAAAAAAAAAAGcAAAAZAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGcAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-11T15:45:30.204Z",
               "EditorCaption": ""
@@ -97,8 +95,7 @@
               "RelativeToolTip": "MetricTypesWindow\\AutomaticMetricFiller\\ComboCheckBox.xaml.cs",
               "ViewState": "AQIAAB4AAAAAAAAAAAAAACYAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-10T16:04:11.451Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-10T16:04:11.451Z"
             },
             {
               "$type": "Document",
@@ -110,8 +107,7 @@
               "RelativeToolTip": "MetricTypesWindow\\AutomaticMetricFiller\\AutomaticMetricFillerWindow.xaml.cs",
               "ViewState": "AQIAAB0AAAAAAAAAAAAAAEgAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-10T16:01:55.941Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-10T16:01:55.941Z"
             },
             {
               "$type": "Document",
@@ -123,8 +119,7 @@
               "RelativeToolTip": "MetricTypesWindow\\MainWindow.xaml.cs",
               "ViewState": "AQIAABQAAAAAAAAAAAAIwBsAAABSAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-10T16:01:22.057Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-10T16:01:22.057Z"
             },
             {
               "$type": "Document",
@@ -135,8 +130,7 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\MetricTypesWindow\\AutomaticMetricFiller\\ComboCheckBox.xaml",
               "RelativeToolTip": "MetricTypesWindow\\AutomaticMetricFiller\\ComboCheckBox.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-10T15:55:59.631Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-10T15:55:59.631Z"
             },
             {
               "$type": "Document",
@@ -147,8 +141,7 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\MetricTypesWindow\\AutomaticMetricFiller\\AutomaticMetricFillerWindow.xaml",
               "RelativeToolTip": "MetricTypesWindow\\AutomaticMetricFiller\\AutomaticMetricFillerWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-10T15:43:18.561Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-10T15:43:18.561Z"
             }
           ]
         }
