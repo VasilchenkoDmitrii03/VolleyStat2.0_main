@@ -1,6 +1,5 @@
 ﻿using ActionsLib;
 using ActionsLib.ActionTypes;
-using MetricTypesWindow.AutomaticMetricFiller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ActionsLib;
 
 namespace MetricTypesWindow
 {
@@ -127,20 +127,33 @@ namespace MetricTypesWindow
         }
         private void ValueActionType_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            updateMetricComboBox((VolleyActionType)ValueActionType_ComboBox.SelectedItem, SequenceValueMetricType_ComboBox);
+            try
+            {
+                updateMetricComboBox((VolleyActionType)ValueActionType_ComboBox.SelectedItem, SequenceValueMetricType_ComboBox);
+            }
+            catch { }
         }
 
         private void SequenceConditionMetricType_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.SequenceConditionValues_ComboBox.ClearOptions();
-            this.SequenceConditionValues_ComboBox.UpdateOptions(AMT[(VolleyActionType)CondtionActionType_ComboBox.SelectedItem][SequenceConditionMetricType_ComboBox.SelectedIndex].AcceptableValuesNames.Values.ToArray());
-            this.SequenceConditionValues_ComboBox.DeselectAll();
+            try
+            {
+                this.SequenceConditionValues_ComboBox.ClearOptions();
+                this.SequenceConditionValues_ComboBox.UpdateOptions(AMT[(VolleyActionType)CondtionActionType_ComboBox.SelectedItem][SequenceConditionMetricType_ComboBox.SelectedIndex].AcceptableValuesNames.Values.ToArray());
+                this.SequenceConditionValues_ComboBox.DeselectAll();
+            }
+            catch { }
         }
 
         private void SequenceValueMetricType_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            this.SequenceValue_ComboBox.ItemsSource = null;
-            this.SequenceValue_ComboBox.ItemsSource = AMT[(VolleyActionType)ValueActionType_ComboBox.SelectedItem][SequenceValueMetricType_ComboBox.SelectedIndex].AcceptableValuesNames.Values.ToArray();
+            try
+            {
+                this.SequenceValue_ComboBox.ItemsSource = null;
+                this.SequenceValue_ComboBox.ItemsSource = AMT[(VolleyActionType)ValueActionType_ComboBox.SelectedItem][SequenceValueMetricType_ComboBox.SelectedIndex].AcceptableValuesNames.Values.ToArray();
+            }
+            catch { }
+           
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)

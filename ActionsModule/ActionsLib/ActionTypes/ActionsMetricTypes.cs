@@ -12,12 +12,13 @@ namespace ActionsLib.ActionTypes
     public class ActionsMetricTypes
     {
         Dictionary<VolleyActionType, MetricTypeList> _data;
+        AutomaticFillersRulesHolder _rulesHolder;
         string _name;
         public ActionsMetricTypes(string name)
         {
             _data = new Dictionary<VolleyActionType, MetricTypeList>();
             _name = name;
-            VolleyActionType[] keys = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence };
+            VolleyActionType[] keys = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall };
             foreach(VolleyActionType key in keys)
             {
                 _data.Add(key, new MetricTypeList(key.ToString()));
@@ -57,6 +58,7 @@ namespace ActionsLib.ActionTypes
             {
                 _data[vt].Save(sw);
             }
+            _rulesHolder.Save(sw);
         }
         public static ActionsMetricTypes Load(string filename)
         {
@@ -71,11 +73,12 @@ namespace ActionsLib.ActionTypes
             ActionsMetricTypes res;
             name = JsonSerializer.Deserialize<string>(sr.ReadLine());
             res = new ActionsMetricTypes(name);
-            VolleyActionType[] keys = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence };
+            VolleyActionType[] keys = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall };
             for (int i = 0; i < keys.Length; i++)
             {
                 res.updateList(keys[i], MetricTypeList.Load(sr));
             }
+            res._rulesHolder = AutomaticFillersRulesHolder.Load(sr);
             return res;
         }
     }

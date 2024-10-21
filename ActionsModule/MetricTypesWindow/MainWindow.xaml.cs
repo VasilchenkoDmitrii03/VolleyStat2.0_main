@@ -26,12 +26,6 @@ namespace MetricTypesWindow
             this.ActionTypeCombobox.ItemsSource = _data.Keys;
             this.ActionTypeCombobox.SelectedIndex = 0;
             this.AvaibleMetricsSelector.OnCheckBoxUpdated += CheckBoxUpdateEventHadler;
-
-            ActionsMetricTypes amt = ActionsMetricTypes.Load("C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\AdditionalFiles\\ActionMetricTypes\\BasicActionsMetrics");
-            VolleyActionType[] array = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall };
-            AutomaticMetricFillerWindow tmp = new AutomaticMetricFillerWindow(amt, array);
-            tmp.Show();
-            this.Close();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

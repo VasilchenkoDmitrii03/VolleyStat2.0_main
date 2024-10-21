@@ -32,6 +32,7 @@
                 <Button Height="50" Click="AddButton_Click">Add new</Button>
                 <Button Height="50" Click="EditButton_Click">Edit selected</Button>
                 <Button Height="50" Click="RemoveButton_Click">Remove selected</Button>
+                <Button Height="50">Create automaitc rules</Button>
             </StackPanel>
         </Grid>
     </StackPanel>
