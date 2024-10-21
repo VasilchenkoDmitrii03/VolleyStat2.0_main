@@ -20,8 +20,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="3*"></RowDefinition>
-                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition Height="6*"></RowDefinition>
+
                     </Grid.RowDefinitions>
                     <StackPanel>
                         <Label>Action Type</Label>
@@ -33,14 +33,18 @@
                         <Label>Values</Label>
                         <local:ComboCheckBox x:Name="LeftValuesSelector" HorizontalAlignment="Left" ></local:ComboCheckBox>
                         <Button Margin="0,10,0,0" Click="InAction_Click">Add</Button>
+                        <Label>Current rules</Label>
+                        <ListBox Name="CurrentInActionRules_ListBox"></ListBox>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Column="1"  Grid.Row="1">
                         <Label>Value metric type</Label>
                         <ComboBox Name="RightSelectedMetricType_ComboBox" SelectionChanged="RightSelectedMetricType_ComboBox_SelectionChanged"></ComboBox>
                         <Label>Value</Label>
                         <ComboBox Name="RightValueComboBox"></ComboBox>
-                    </StackPanel>
 
+                        
+                    </StackPanel>
+                    
                 </Grid>
                 
                 
@@ -54,8 +58,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="3*"></RowDefinition>
-                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition Height="6*"></RowDefinition>
+
                     </Grid.RowDefinitions>
                     <StackPanel>
                         <Label>Condition action Type</Label>
@@ -70,19 +74,21 @@
                         <ComboBox Name="SequenceConditionMetricType_ComboBox" SelectionChanged="SequenceConditionMetricType_ComboBox_SelectionChanged"></ComboBox>
                         <Label>Values</Label>
                         <local:ComboCheckBox x:Name="SequenceConditionValues_ComboBox"  HorizontalAlignment="Left" ></local:ComboCheckBox>
-                        <Button Margin="0,10,0,0">Add</Button>
+                        <Button Margin="0,10,0,0" Click="Button_Click">Add</Button>
+                        <Label>Current rules</Label>
+                        <ListBox Name="CurrentSequenceActionRules_ListBox"></ListBox>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" Grid.Column="1"  Grid.Row="1">
                         <Label>Value metric type</Label>
                         <ComboBox Name="SequenceValueMetricType_ComboBox" SelectionChanged="SequenceValueMetricType_ComboBox_SelectionChanged"></ComboBox>
                         <Label>Value</Label>
                         <ComboBox Name="SequenceValue_ComboBox"></ComboBox>
-                        <CheckBox Checked="CheckBox_Checked" Unchecked="CheckBox_Checked">Copy All values</CheckBox>
+                        <CheckBox Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" Name="CopyingChecker">Copy All values</CheckBox>
                     </StackPanel>
 
                 </Grid>
 
-
+                
             </TabItem>
         </TabControl>
 

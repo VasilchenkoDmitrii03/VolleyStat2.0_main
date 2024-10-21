@@ -24,9 +24,11 @@ namespace MetricTypesWindow
     public partial class AutomaticMetricFillerWindow : Window
     {
         ActionsMetricTypes AMT;
+        AutomaticFillersRulesHolder fillersHolder;
         public AutomaticMetricFillerWindow()
         {
             InitializeComponent();
+            fillersHolder = new AutomaticFillersRulesHolder();
         }
         public AutomaticMetricFillerWindow(ActionsMetricTypes AMT, VolleyActionType[] types) : this()
         {
@@ -36,8 +38,16 @@ namespace MetricTypesWindow
             this.ValueActionType_ComboBox.ItemsSource = types;
         }
         #region Action Tab
+        private void clearInActionComboBoxes()
+        {
+            this.AvaibleConditionMetricTypes_ComboBox.Text = "" ;
+            this.RightSelectedMetricType_ComboBox.Text = "";
+            this.RightValueComboBox.Text = "";
+            this.LeftValuesSelector.ClearOptions();
+        }
         private void ActionTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            clearInActionComboBoxes();
             updateMetricTypeComboBoxes((VolleyActionType)ActionTypeComboBox.SelectedItem);
             //updateOptionsComboBox((VolleyActionType)ActionTypeComboBox.SelectedItem);
         }
@@ -63,21 +73,40 @@ namespace MetricTypesWindow
 
         private void RightSelectedMetricType_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            updateRightOptionsComboBox((VolleyActionType)ActionTypeComboBox.SelectedItem, RightSelectedMetricType_ComboBox.SelectedIndex);
+            try
+            {
+                updateRightOptionsComboBox((VolleyActionType)ActionTypeComboBox.SelectedItem, RightSelectedMetricType_ComboBox.SelectedIndex);
+            }
+            catch { }
+            
         }
 
         private void AvaibleConditionMetricTypes_ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            updateLeftOptionsComboBox((VolleyActionType)ActionTypeComboBox.SelectedItem, AvaibleConditionMetricTypes_ComboBox.SelectedIndex);
+            try
+            {
+                updateLeftOptionsComboBox((VolleyActionType)ActionTypeComboBox.SelectedItem, AvaibleConditionMetricTypes_ComboBox.SelectedIndex);
+            }
+            catch { }
         }
         private void InAction_Click(object sender, RoutedEventArgs e)
         {
-            VolleyActionType type = (VolleyActionType)ActionTypeComboBox.SelectedItem;
-            MetricType right = AMT[type][RightSelectedMetricType_ComboBox.SelectedIndex];
-            MetricType left = AMT[type][AvaibleConditionMetricTypes_ComboBox.SelectedIndex];
-            string[] strs = LeftValuesSelector.SelectedOptions().ToArray();
+            try
+            {
+                VolleyActionType type = (VolleyActionType)ActionTypeComboBox.SelectedItem;
+                MetricType right = AMT[type][RightSelectedMetricType_ComboBox.SelectedIndex];
+                MetricType left = AMT[type][AvaibleConditionMetricTypes_ComboBox.SelectedIndex];
+                string[] strs = LeftValuesSelector.SelectedOptions().ToArray();
 
-            InActionAutomaticFiller inActionAutomaticFiller = new InActionAutomaticFiller(type, left, right, strs, RightValueComboBox.SelectedItem.ToString());
+                InActionAutomaticFiller inActionAutomaticFiller = new InActionAutomaticFiller(type, left, right, strs, RightValueComboBox.SelectedItem.ToString());
+                fillersHolder.Add(inActionAutomaticFiller);
+                CurrentInActionRules_ListBox.ItemsSource = null;
+                CurrentInActionRules_ListBox.ItemsSource = fillersHolder.InActionsFillers;
+            }
+            catch
+            {
+                MessageBox.Show("Something went wrong, check input data");
+            }
 
 
         }
@@ -119,6 +148,31 @@ namespace MetricTypesWindow
             this.SequenceConditionValues_ComboBox.IsEnabled = !(bool)((CheckBox)sender).IsChecked;
             this.SequenceValue_ComboBox.IsEnabled = !(bool)((CheckBox)sender).IsChecked;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            VolleyActionType leftAct = (VolleyActionType)CondtionActionType_ComboBox.SelectedItem;
+            VolleyActionType rightAct = (VolleyActionType)ValueActionType_ComboBox.SelectedItem;
+            MetricType left = AMT[leftAct][SequenceConditionMetricType_ComboBox.SelectedIndex];
+            MetricType right = AMT[rightAct][SequenceValueMetricType_ComboBox.SelectedIndex];
+            string[] leftValues = SequenceConditionValues_ComboBox.SelectedOptions().ToArray();
+            string rightValue = (string)SequenceValue_ComboBox.SelectedItem;
+            bool isCopying = (bool)CopyingChecker.IsChecked;
+            if(isCopying)
+            {
+                SequenceAutomaticFiller sequenceAutomaticFiller = new SequenceAutomaticFiller(leftAct, rightAct, left, right, isCopying);
+                fillersHolder.Add(sequenceAutomaticFiller);
+            }
+            else
+            {
+                SequenceAutomaticFiller sequenceAutomaticFiller = new SequenceAutomaticFiller(leftAct, rightAct, left, right, leftValues, rightValue);
+                fillersHolder.Add(sequenceAutomaticFiller);
+            }
+            
+            CurrentSequenceActionRules_ListBox.ItemsSource = null;
+            CurrentSequenceActionRules_ListBox.ItemsSource = fillersHolder.SequenceFillers;
+        }
         #endregion
+
     }
 }

@@ -10,6 +10,32 @@ namespace MetricTypesWindow.AutomaticMetricFiller
 {
     class AutomaticFillersRulesHolder
     {
+        List<InActionAutomaticFiller> _inActionFillers;
+        List<SequenceAutomaticFiller> _sequenceFillers;
+
+        public AutomaticFillersRulesHolder()
+        {
+            _inActionFillers = new List<InActionAutomaticFiller>();
+            _sequenceFillers = new List<SequenceAutomaticFiller>();
+        }
+
+        public void Add(InActionAutomaticFiller tmp)
+        {
+            _inActionFillers.Add(tmp);
+        }
+        public void Add(SequenceAutomaticFiller tmp)
+        {
+            _sequenceFillers.Add(tmp);
+        }
+
+        public List<InActionAutomaticFiller> InActionsFillers
+        {
+            get { return _inActionFillers; }
+        }
+        public List<SequenceAutomaticFiller> SequenceFillers
+        {
+            get { return _sequenceFillers; }
+        }
     }
 
     class InActionAutomaticFiller
@@ -49,6 +75,14 @@ namespace MetricTypesWindow.AutomaticMetricFiller
 
             }
             return false;
+        }
+
+        public override string ToString()
+        {
+            string tmp = _leftValues[0];
+            for (int i = 1; i < _leftValues.Length; i++) tmp += $", {_leftValues[i]}";
+            string res = $"{actionType}: {_leftMetricType.ToString()} ({tmp}) ==> {_rightMetricType.ToString()}({_rightValue})";
+            return res;
         }
     }
 
@@ -102,6 +136,14 @@ namespace MetricTypesWindow.AutomaticMetricFiller
                 }
             }
             return false;
+        }
+        public override string ToString()
+        {
+            if(isCopying)return $"{_leftActionType}: {_leftMetricType.ToString()} ==> {_rightActionType}: {_rightMetricType.ToString()}";
+            string tmp = _leftValues[0];
+            for (int i = 1; i < _leftValues.Length; i++) tmp += $", {_leftValues[i]}";
+            string res = $"{_leftActionType}: {_leftMetricType.ToString()} ({tmp}) ==> {_rightActionType}: {_rightMetricType.ToString()}({_rightValue})";
+            return res;
         }
     }
 }
