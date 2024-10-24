@@ -32,14 +32,14 @@ namespace StatisticsCreatorModule
 
             InitializeComponent();
             OnTimeCodeChanged += (o, e) => { };
-            StartVideo();
+            //StartVideo("");
         }
 
-        public void StartVideo()
+        public void StartVideo(string url)
         {
-            InitializeWebView2();
+            InitializeWebView2(url);
         }
-        private async void InitializeWebView2()
+        private async void InitializeWebView2(string url)
         {
             // Инициализация WebView2
             await YouTubeWebView.EnsureCoreWebView2Async(null);
@@ -47,7 +47,7 @@ namespace StatisticsCreatorModule
             // Установка URL для воспроизведения видео с YouTube
             YouTubeWebView.CoreWebView2.WebMessageReceived += WebView2Control_WebMessageReceived;
             YouTubeWebView.NavigationCompleted += WebView2Control_NavigationCompleted;
-            YouTubeWebView.CoreWebView2.Navigate("https://www.youtube.com/watch?v=SMfXDGgmDCU");
+            YouTubeWebView.CoreWebView2.Navigate(url);
             
         }
         double currentTimeCode = 0;

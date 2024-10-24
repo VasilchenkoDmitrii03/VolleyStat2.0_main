@@ -78,12 +78,12 @@ namespace ActionsLib
             }
             return res;
         }
-        public List<SequenceAutomaticFiller> getSequenceFillers(VolleyActionType leftAct, VolleyActionType rightAct)
+        public List<SequenceAutomaticFiller> getSequenceFillers(VolleyActionType rightAct)
         {
             List<SequenceAutomaticFiller> res = new List<SequenceAutomaticFiller>();
             foreach(var filler in _sequenceFillers)
             {
-                if(filler.LeftActionType == leftAct && filler.RightActionType==rightAct) res.Add(filler);
+                if(filler.RightActionType==rightAct) res.Add(filler);
             }
             return res;
         }

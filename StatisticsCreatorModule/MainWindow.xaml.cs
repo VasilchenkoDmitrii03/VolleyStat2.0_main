@@ -49,9 +49,6 @@ namespace StatisticsCreatorModule
         public MainWindow()
         {
             InitializeComponent();
-
-          
-
             _actionMetricTypes = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\AdditionalFiles\ActionMetricTypes\KvadratikiMetrics");
             
             _team = new Team();
@@ -74,6 +71,7 @@ namespace StatisticsCreatorModule
             _team = team;
             _game = game;
             _actionMetricTypes = amt;
+            UpdateURL(game.URL);
             InitializeModules();
             BeginSet();
         }
@@ -136,6 +134,11 @@ namespace StatisticsCreatorModule
             }
         }
 
+        private void UpdateURL(string url)
+        {
+            this.VideoModule.StartVideo(url);
+            this.StatisticsVideoModule.StartVideo(url);
+        }
         private void BeginSet()
         {
             ScoreModule.UpdateSetNumber(_game.Sets.Count + 1);

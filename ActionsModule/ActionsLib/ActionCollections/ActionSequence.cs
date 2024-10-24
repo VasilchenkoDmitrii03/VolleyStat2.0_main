@@ -738,7 +738,7 @@ namespace ActionsLib
         int _currentSetIndex;
         int _setsToWin;
         GameResult _result;
-
+        string youtubeURL = "";
         public ActionsMetricTypes ActionsMetricTypes;
         public Team Team;
 
@@ -752,6 +752,10 @@ namespace ActionsLib
             ActionsMetricTypes = amt;
             Team = team;    
         }
+        public Game(List<int> setLengths, ActionsMetricTypes amt, Team team, int setsToWin, string youtubeURL) : this(setLengths, amt, team, setsToWin)
+        {
+            this.youtubeURL = youtubeURL;
+        }
         public Game(List<int> setLengths, ActionsMetricTypes amt, Team team)
         {
             _setLengths = setLengths.ToArray();
@@ -761,6 +765,10 @@ namespace ActionsLib
             _sets = new List<Set>();
             ActionsMetricTypes = amt;
             Team = team;
+        }
+        public Game(List<int> setLengths, ActionsMetricTypes amt, Team team, string URL) : this(setLengths, amt, team)
+        {
+            youtubeURL = URL;
         }
         public GameResult AddSet(Set set)
         {
@@ -802,6 +810,11 @@ namespace ActionsLib
                 return _setLengths[ind];
                 return _setLengths[_currentSetIndex]; }
         }
+        public string URL
+        {
+            get { return youtubeURL; }
+        }
+
         public void Save(StreamWriter sw)
         {
             ActionsMetricTypes.Save(sw);

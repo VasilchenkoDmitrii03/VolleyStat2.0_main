@@ -64,9 +64,19 @@ namespace StatisticsCreatorModule
             }
             if (comboBox == ActionTypeComboBox && _currentComboBoxes.Count > 0) return _currentComboBoxes[0];
             if (comboBox == ActionTypeComboBox && _currentComboBoxes.Count == 0) return null;
-            int index = _currentComboBoxes.IndexOf(comboBox);
-            if (index + 1 == _currentComboBoxes.Count) return null;
-            return _currentComboBoxes[index + 1];
+            int index = getNextEmptyComboBoxIndex();
+            if (index == -1 || index + 1 == _currentComboBoxes.Count) return null;
+            return _currentComboBoxes[index];
+        }
+        private int getNextEmptyComboBoxIndex()
+        {
+            int i = 0;
+            foreach (ComboBox comb in _currentComboBoxes)
+            {
+                if (comb.SelectedItem == null) return i;
+                i++;
+            }
+            return -1;
         }
         #endregion
 
@@ -126,6 +136,10 @@ namespace StatisticsCreatorModule
             if (MainGrid.ColumnDefinitions.Count > 2) MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
             if (MainGrid.Children.Count > 4) MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
         }
+        public void updateCurrentSegment(VolleyActionSegment sequence)
+        {
+            _currentSegment = sequence;
+        }
 
         #endregion
 
@@ -169,6 +183,8 @@ namespace StatisticsCreatorModule
         ActionAuthorType _currentAuthorType = ActionAuthorType.Undefined;
         VolleyActionType _currentActionType = VolleyActionType.Undefined;
         VolleyActionType _lastPlayerAction  = VolleyActionType.Undefined;
+        VolleyActionSegment _currentSegment = new VolleyActionSegment();
+
         private void PlayerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (!MyValidationForPlayerTypeComboBox(PlayerComboBox, true) || PlayerComboBox.SelectedItem == null) return;
@@ -221,10 +237,25 @@ namespace StatisticsCreatorModule
             VolleyActionType aType = (VolleyActionType)ActionTypeComboBox.SelectedItem;
             _actionTextRepresentation = createActionTextRepresentation(_currentAuthorType, aType);
             _currentActionType = aType;
-            //if (_currentAuthorType == ActionAuthorType.Player) _actionTextRepresentation = new PlayerActionTextRepresentation(aType, _actionsMetricTypes[aType]);
+            
             updateComboBoxes(aType);
+            //autoFilling
+            if(_currentAuthorType == ActionAuthorType.Player)
+            {
+                if (_currentSegment.Count > 0)
+                {
+                    List<SequenceAutomaticFiller> fillers = _actionsMetricTypes.FillersRules.getSequenceFillers(aType);
+                    foreach (SequenceAutomaticFiller filler in fillers)
+                    {
+                        if (filler.Use((PlayerActionTextRepresentation)_actionTextRepresentation, _currentSegment))
+                        {
+                            updateMetricComboBoxes((PlayerActionTextRepresentation)_actionTextRepresentation);
+                        }
+                    }
+                }
+            }
+            
 
-            //if(_currentAuthorType == ActionAuthorType.Player)ActionTypeChangedInTextModule?.Invoke(this, new ActionTypeEventArgs(aType));
         }
         private void ActionTypeComboBox_SelectionChanged(object sender, KeyEventArgs e)
         {

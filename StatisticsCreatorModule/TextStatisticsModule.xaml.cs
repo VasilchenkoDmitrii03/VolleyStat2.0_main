@@ -191,6 +191,7 @@ namespace StatisticsCreatorModule
             updateListVisual();
             LineRepresentationControl.setDefaultfocus();
             ActionAdded(this, new ActionSequenceEventArgs(_actions));
+            LineRepresentationControl.updateCurrentSegment(_currentSegment);
         }
         private void ProcessCoachActions(ActionsLib.Action act)
         {

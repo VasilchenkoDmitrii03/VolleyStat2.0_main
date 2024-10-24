@@ -29,7 +29,7 @@ namespace InterfaceShell.AdditionalWindows.GameCreation
         }
         private void CreateMatch_Click(object sender, RoutedEventArgs e)
         {
-            Game game = new Game(this.GameLenControl.getLengthes(),this.ATMSelector._selectedAMT, this.OurTeamControl._selectedTeam);
+            Game game = new Game(this.GameLenControl.getLengthes(), this.ATMSelector._selectedAMT, this.OurTeamControl._selectedTeam, YoutubeURLTextBox.Text);
             StatisticsCreatorModule.MainWindow tmp = new StatisticsCreatorModule.MainWindow(this.OurTeamControl._selectedTeam, game, this.ATMSelector._selectedAMT);
             //StatisticsCreatorModule.MainWindow tmp = new StatisticsCreatorModule.MainWindow();
             tmp.Show();
