@@ -92,7 +92,7 @@
                 
             </TabItem>
         </TabControl>
-        <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="1" Height="40" Width="100"> Finish</Button>
+        <Button VerticalAlignment="Bottom" HorizontalAlignment="Right" Grid.Row="1" Height="40" Width="100" Click="Button_Click_1"> Finish</Button>
         
     </Grid>
     

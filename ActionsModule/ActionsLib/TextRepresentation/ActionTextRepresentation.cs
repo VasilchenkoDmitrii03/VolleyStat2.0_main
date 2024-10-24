@@ -52,7 +52,14 @@ namespace ActionsLib.TextRepresentation
         {
             foreach(Metric metric in _metrics)
             {
-                if (metric.MetricType == metricType) return metric;
+                try
+                {
+                    if (metric != null && metric.MetricType == metricType) return metric;
+                }
+                catch (NullReferenceException exc)
+                {
+                    continue;                
+                }
             }
             return null;
         }
@@ -77,6 +84,17 @@ namespace ActionsLib.TextRepresentation
         public override Action GenerateAction()
         {
             return new PlayerAction(_player, _actionType, _metrics);
+        }
+
+        public bool automaticInActionFiller(AutomaticFillersRulesHolder automaticFillersRulesHolder, MetricType addedMetric)
+        {
+            bool res = false;
+            List<InActionAutomaticFiller> fillers = automaticFillersRulesHolder.getInActionFiller(ActionType, addedMetric);
+            foreach(InActionAutomaticFiller filler in fillers)
+            {
+                res = res || filler.Use(this);
+            }
+            return res;
         }
 
     }

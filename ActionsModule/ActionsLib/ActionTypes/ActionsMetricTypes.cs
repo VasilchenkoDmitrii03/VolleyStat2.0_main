@@ -23,6 +23,7 @@ namespace ActionsLib.ActionTypes
             {
                 _data.Add(key, new MetricTypeList(key.ToString()));
             }
+            _rulesHolder = new AutomaticFillersRulesHolder();
         }
         public void updateList(VolleyActionType type, MetricTypeList mtypelist)
         {
@@ -31,6 +32,7 @@ namespace ActionsLib.ActionTypes
             {
                 _data[type].Add(mt);
             }
+            _rulesHolder = new AutomaticFillersRulesHolder();
         }
         public VolleyActionType[] Keys
         {
@@ -42,6 +44,12 @@ namespace ActionsLib.ActionTypes
             {
                 return _data[type];
             }
+        }
+
+        public AutomaticFillersRulesHolder FillersRules
+        {
+            get { return _rulesHolder; }
+            set { _rulesHolder = value; }
         }
 
         public void Save(string filename)
@@ -58,6 +66,7 @@ namespace ActionsLib.ActionTypes
             {
                 _data[vt].Save(sw);
             }
+            
             _rulesHolder.Save(sw);
         }
         public static ActionsMetricTypes Load(string filename)

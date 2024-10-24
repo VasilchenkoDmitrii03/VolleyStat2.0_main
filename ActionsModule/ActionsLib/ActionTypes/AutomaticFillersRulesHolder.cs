@@ -68,6 +68,25 @@ namespace ActionsLib
             }
             return res;
         }
+
+        public List<InActionAutomaticFiller> getInActionFiller(VolleyActionType actType, MetricType metricType)
+        {
+            List<InActionAutomaticFiller> res = new List<InActionAutomaticFiller>();
+            foreach(var filler in _inActionFillers)
+            {
+                if (filler.ActionType == actType && filler.LeftMetric == metricType) res.Add(filler);
+            }
+            return res;
+        }
+        public List<SequenceAutomaticFiller> getSequenceFillers(VolleyActionType leftAct, VolleyActionType rightAct)
+        {
+            List<SequenceAutomaticFiller> res = new List<SequenceAutomaticFiller>();
+            foreach(var filler in _sequenceFillers)
+            {
+                if(filler.LeftActionType == leftAct && filler.RightActionType==rightAct) res.Add(filler);
+            }
+            return res;
+        }
     }
 
     public class InActionAutomaticFiller
@@ -77,6 +96,19 @@ namespace ActionsLib
         MetricType _rightMetricType;
         string[] _leftValues;
         string _rightValue;
+
+        public VolleyActionType ActionType
+        {
+            get { return _actionType; }
+        }
+        public MetricType LeftMetric
+        {
+            get { return _leftMetricType; }
+        }
+        public MetricType RightMetric
+        {
+            get { return _rightMetricType; }
+        }
 
         public InActionAutomaticFiller()
         {
@@ -128,8 +160,8 @@ namespace ActionsLib
         {
             InActionAutomaticFiller res = new InActionAutomaticFiller();
             res._actionType = JsonSerializer.Deserialize<VolleyActionType>(sr.ReadLine());
-            res._leftMetricType = MetricType.Load(sr.ReadLine());
-            res._rightMetricType = MetricType.Load(sr.ReadLine());
+            res._leftMetricType = MetricType.Load(sr);
+            res._rightMetricType = MetricType.Load(sr);
             res._leftValues = JsonSerializer.Deserialize<string[]>(sr.ReadLine());
             res._rightValue = JsonSerializer.Deserialize<string>(sr.ReadLine());
             return res;
@@ -147,6 +179,22 @@ namespace ActionsLib
         string _rightValue;
         bool _isCopying;
 
+        public VolleyActionType LeftActionType
+        {
+            get { return _leftActionType; }
+        }
+        public VolleyActionType RightActionType
+        {
+            get { return _rightActionType; }
+        }
+        public MetricType LeftMetricType
+        {
+            get { return _leftMetricType; }
+        }
+        public MetricType RightMetricType
+        {
+            get { return _rightMetricType; }
+        }
         public SequenceAutomaticFiller()
         {
 
@@ -212,8 +260,8 @@ namespace ActionsLib
             SequenceAutomaticFiller res = new SequenceAutomaticFiller();
             res._leftActionType = JsonSerializer.Deserialize<VolleyActionType>(sr.ReadLine());
             res._rightActionType = JsonSerializer.Deserialize<VolleyActionType>(sr.ReadLine());
-            res._leftMetricType = MetricType.Load(sr.ReadLine());
-            res._rightMetricType = MetricType.Load(sr.ReadLine());
+            res._leftMetricType = MetricType.Load(sr);
+            res._rightMetricType = MetricType.Load(sr);
             res._leftValues = JsonSerializer.Deserialize<string[]>(sr.ReadLine());
             res._rightValue = JsonSerializer.Deserialize<string>(sr.ReadLine());
             res._isCopying = JsonSerializer.Deserialize<bool>(sr.ReadLine());

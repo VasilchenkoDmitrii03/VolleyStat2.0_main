@@ -290,9 +290,15 @@ namespace StatisticsCreatorModule
                       {
                           if (MyValidationForMetricComboBoxes((comb)))
                           {
+
                               MetricType type = a;
                               string shrtString = (string)((ComboBox)o).SelectedItem;
                               ((PlayerActionTextRepresentation)_actionTextRepresentation).SetMetricByShortString(type, shrtString);
+                              bool isFiltered = ((PlayerActionTextRepresentation)_actionTextRepresentation).automaticInActionFiller(_actionsMetricTypes.FillersRules, type);
+                              if (isFiltered)
+                              {
+                                  updateMetricComboBoxes((PlayerActionTextRepresentation)_actionTextRepresentation);
+                              }
                           }
                       }));
                 comb.GotFocus += (o, e) =>
@@ -478,6 +484,16 @@ namespace StatisticsCreatorModule
                 if(p.Number == number) return p;
             }
             return null;
+        }
+
+        private void updateMetricComboBoxes(PlayerActionTextRepresentation textRepr)
+        {
+            int i = 0;
+            foreach(Metric metric in textRepr.Metrics)
+            {
+                if (metric != null) _currentComboBoxes[i].Text = metric.getShortString();
+                i++;
+            }
         }
         #endregion
         #region Validation

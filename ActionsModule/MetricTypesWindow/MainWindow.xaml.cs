@@ -117,6 +117,20 @@ namespace MetricTypesWindow
             }
 
         }
-    
-}
+
+        bool isOpened = false;
+        AutomaticMetricFillerWindow window;
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (!isOpened)
+            {
+                window = new AutomaticMetricFillerWindow(_data, _data.Keys );
+                window.Closed += (o, e) => 
+                { isOpened = false; window = null; };
+                window.Show();
+                isOpened = true;
+            }
+            
+        }
+    }
 }

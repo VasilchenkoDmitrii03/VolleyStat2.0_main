@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,14 +41,26 @@ namespace ActionsLib
 
         public static bool operator ==(Metric lhs, Metric rhs)
         {
+            if (ReferenceEquals(lhs, null) && ReferenceEquals(rhs, null))
+                return true;
+
+            // Если один из объектов null, они не равны
+            if (ReferenceEquals(lhs, null) || ReferenceEquals(rhs, null))
+                return false;
             if (lhs._metricType != rhs._metricType) return false;
             return lhs._value == rhs._value;
         }
         
         public static bool operator !=(Metric lhs, Metric rhs)
         {
+            if (ReferenceEquals(lhs, null) && ReferenceEquals(rhs, null))
+                return false;
+
+            // Если один из объектов null, они не равны
+            if (ReferenceEquals(lhs, null) || ReferenceEquals(rhs, null))
+                return true;
             if (lhs._metricType != rhs._metricType) return true;
-            return lhs._value == rhs._value;
+            return lhs._value != rhs._value;
         }
     }
 }

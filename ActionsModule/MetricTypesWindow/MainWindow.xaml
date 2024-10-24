@@ -14,10 +14,14 @@
                 <MenuItem Header="Open" Click="Open_Click"></MenuItem>
                 <MenuItem Header="Save"></MenuItem>
                 <MenuItem Header="Save as" Click="SaveAs_Click"></MenuItem>
+         
             </MenuItem>
             <MenuItem Header="Metric types">
                 <MenuItem Header="New" Click="ListNew_Click"></MenuItem>
                 <MenuItem Header="Open" Click="ListOpen_Click"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Automatic rules">
+                <MenuItem Header="Automatic rules creater" Click="MenuItem_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <Grid Background="AliceBlue">

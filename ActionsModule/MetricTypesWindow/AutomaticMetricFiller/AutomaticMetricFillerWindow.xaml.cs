@@ -24,7 +24,7 @@ namespace MetricTypesWindow
     public partial class AutomaticMetricFillerWindow : Window
     {
         ActionsMetricTypes AMT;
-        AutomaticFillersRulesHolder fillersHolder;
+        public AutomaticFillersRulesHolder fillersHolder;
         public AutomaticMetricFillerWindow()
         {
             InitializeComponent();
@@ -36,6 +36,11 @@ namespace MetricTypesWindow
             this.ActionTypeComboBox.ItemsSource = types;
            this.CondtionActionType_ComboBox.ItemsSource = types;
             this.ValueActionType_ComboBox.ItemsSource = types;
+            this.fillersHolder = AMT.FillersRules;
+            CurrentSequenceActionRules_ListBox.ItemsSource = null;
+            CurrentSequenceActionRules_ListBox.ItemsSource = fillersHolder.SequenceFillers;
+            CurrentInActionRules_ListBox.ItemsSource = null;
+            CurrentInActionRules_ListBox.ItemsSource = fillersHolder.InActionsFillers;
         }
         #region Action Tab
         private void clearInActionComboBoxes()
@@ -187,5 +192,11 @@ namespace MetricTypesWindow
         }
         #endregion
 
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            AMT.FillersRules = fillersHolder;
+            this.Close();
+        }
+        
     }
 }
