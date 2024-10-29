@@ -47,7 +47,8 @@ namespace StatisticsCreatorModule
             // Установка URL для воспроизведения видео с YouTube
             YouTubeWebView.CoreWebView2.WebMessageReceived += WebView2Control_WebMessageReceived;
             YouTubeWebView.NavigationCompleted += WebView2Control_NavigationCompleted;
-            YouTubeWebView.CoreWebView2.Navigate(url);
+            if(url == "") YouTubeWebView.CoreWebView2.Navigate("https://youtu.be/f1cpF2xF3Mw");
+            else YouTubeWebView.CoreWebView2.Navigate(url);
             
         }
         double currentTimeCode = 0;

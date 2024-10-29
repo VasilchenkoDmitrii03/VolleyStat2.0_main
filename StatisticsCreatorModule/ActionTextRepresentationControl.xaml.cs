@@ -140,6 +140,11 @@ namespace StatisticsCreatorModule
         {
             _currentSegment = sequence;
         }
+        public void setBegin()
+        {
+            this.clear();
+            this.PlayerComboBox.Text = "Coach";
+        }
 
         #endregion
 

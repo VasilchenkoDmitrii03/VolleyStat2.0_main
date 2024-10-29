@@ -117,6 +117,7 @@ namespace StatisticsCreatorModule
         }
         private void SetFinishedHandler(object sender, SetEventArgs e) 
         {
+            MessageBox.Show("Game finished");
             this._game.AddSet(e.Set);
             if (_game.GameResult == GameResult.Lost || _game.GameResult == GameResult.Won)
             {
