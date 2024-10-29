@@ -36,7 +36,8 @@ namespace MetricTypesWindow
             this.ActionTypeComboBox.ItemsSource = types;
            this.CondtionActionType_ComboBox.ItemsSource = types;
             this.ValueActionType_ComboBox.ItemsSource = types;
-            this.fillersHolder = AMT.FillersRules;
+            if (AMT.FillersRules == null) this.fillersHolder = new AutomaticFillersRulesHolder();
+             else this.fillersHolder = AMT.FillersRules;
             CurrentSequenceActionRules_ListBox.ItemsSource = null;
             CurrentSequenceActionRules_ListBox.ItemsSource = fillersHolder.SequenceFillers;
             CurrentInActionRules_ListBox.ItemsSource = null;
@@ -191,10 +192,13 @@ namespace MetricTypesWindow
             CurrentSequenceActionRules_ListBox.ItemsSource = fillersHolder.SequenceFillers;
         }
         #endregion
-
+       public AutomaticFillersRulesHolder AutomaticFillersRulesHolder
+        {
+            get { return fillersHolder; }
+        }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            AMT.FillersRules = fillersHolder;
+            //AMT.FillersRules = fillersHolder;
             this.Close();
         }
         

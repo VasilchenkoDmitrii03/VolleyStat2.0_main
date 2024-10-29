@@ -1,4 +1,5 @@
-﻿using PlayerPositioningWIndow;
+﻿using ActionsLib;
+using PlayerPositioningWIndow;
 using StatisticsCreatorModule.Arrangment;
 using StatisticsCreatorModule.LiberoModeSetter;
 using System;
@@ -116,7 +117,8 @@ namespace StatisticsCreatorModule.SettingsWindow
             _liberoArrangementDataContainer.setLiberos(LiberoSettingsBlock.GetLiberos());
             _liberoArrangementDataContainer.ArrangementNumberForChange = LiberoSettingsBlock.getChangingArrangement();
             PositionSettingsMode tmp = new PositionSettingsMode(this.CurrentArrangementNumberComboBox.SelectedIndex,_liberoArrangementDataContainer, _playerPositionDataContainer );
-            SettingsUpdated(this, new PositionSettingsArgs(tmp));
+            SegmentPhase phase = (PhaseComboBox.SelectedIndex == 0) ? SegmentPhase.Break : SegmentPhase.Recep_1;
+            SettingsUpdated(this, new PositionSettingsArgs(tmp, phase));
         }
 
 
@@ -137,13 +139,16 @@ namespace StatisticsCreatorModule.SettingsWindow
     public class PositionSettingsArgs: EventArgs
     {
         public PositionSettingsMode PositionSettingsMode;
-        public PositionSettingsArgs(PositionSettingsMode Mode) 
+        public SegmentPhase startingPhase;
+        public PositionSettingsArgs(PositionSettingsMode Mode, SegmentPhase phase) 
         {
             this.PositionSettingsMode = Mode;
+            this.startingPhase = phase;
         }
-        public PositionSettingsArgs(int current, LiberoArrangementDataContainer lib, PlayerPositionDataContainer pos)
+        public PositionSettingsArgs(int current, LiberoArrangementDataContainer lib, PlayerPositionDataContainer pos, SegmentPhase phase)
         {
             this.PositionSettingsMode = new PositionSettingsMode(current, lib, pos);
+            this.startingPhase = phase;
         }
     }
 

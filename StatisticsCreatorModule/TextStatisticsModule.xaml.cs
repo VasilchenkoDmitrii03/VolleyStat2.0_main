@@ -102,10 +102,12 @@ namespace StatisticsCreatorModule
         #endregion
 
         PositionSettingsMode PositionSettingsMode;
-        public void SetPositionSettingsMode(PositionSettingsMode stm)
+        public void SetPositionSettingsMode(PositionSettingsArgs stm)
         {
-            PositionSettingsMode = stm;
+            PositionSettingsMode = stm.PositionSettingsMode;
+            this.CurrentSet.CurrentPhase = stm.startingPhase;
             currentArrangementNumber = PositionSettingsMode.CurrentArrangementIndex;
+            LineRepresentationControl.setPositionHolder(stm.PositionSettingsMode.PlayerPositionDataContainer);
             GamePhaseForGraphicsChanged(this, new PhaseEventArgs(SegmentPhase.Recep_1, currentArrangementNumber));
         }
         private bool isLiberoChangingSituation(int currentArrangement)
@@ -187,6 +189,7 @@ namespace StatisticsCreatorModule
                 if (isRallyEnded) { avaibleActionTypes.BetweenRallies(GetAvaibleActionTypes(act)); }
                 else { avaibleActionTypes.InRally(GetAvaibleActionTypes(act)); }
             }
+            if (!isSetStart) return;
             LineRepresentationControl.UpdateAvaibleActionTypes(avaibleActionTypes);
             updateListVisual();
             LineRepresentationControl.setDefaultfocus();
@@ -201,9 +204,11 @@ namespace StatisticsCreatorModule
                 switch (cact.ActionType)
                 {
                     case VolleyActionType.StartArrangment:
+                        isSetStart = true;
                         _teamControl.SetArrangement(cact.Players.ToArray());
                         ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
-                        currentArrangementNumber = 1; //Default arrangement selected;
+                        if(currentArrangementNumber == -1)currentArrangementNumber = 1; //Default arrangement selected;
+                        
                         break;
                     case VolleyActionType.Change:
                         _teamControl.ChangePlayer(cact.Players[0], cact.Players[1]);
@@ -286,6 +291,7 @@ namespace StatisticsCreatorModule
                     }
                     
                     ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
+                    LineRepresentationControl.setCurrentArrangementAndPhase(_currentSet.CurrentPhase, currentArrangementNumber);
                     GamePhaseForGraphicsChanged(this, new PhaseEventArgs(_currentSet.CurrentPhase, currentArrangementNumber));
                 }
 

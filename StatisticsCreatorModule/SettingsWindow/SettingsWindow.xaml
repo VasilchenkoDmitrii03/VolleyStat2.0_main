@@ -49,6 +49,14 @@
                 </ComboBox>
             </Grid>
             <local:LiberoSystemSettingsBlock Grid.Row="2" Grid.Column="1" x:Name="LiberoSettingsBlock"></local:LiberoSystemSettingsBlock>
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Label>Starting with</Label>
+                <ComboBox Name="PhaseComboBox" SelectedIndex="0">
+                    <ComboBoxItem>Serving</ComboBoxItem>
+                    <ComboBoxItem>Receiving</ComboBoxItem>
+                </ComboBox>
+            </StackPanel>
+            
         </Grid>
     </DockPanel>
     

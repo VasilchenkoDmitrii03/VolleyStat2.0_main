@@ -14,17 +14,22 @@ namespace ActionsLib.ActionTypes
         Dictionary<VolleyActionType, MetricTypeList> _data;
         AutomaticFillersRulesHolder _rulesHolder;
         string _name;
+        static ActionsMetricTypes()
+        {
+            staticMetrics= createDefaultMetrics();
+        }
         public ActionsMetricTypes(string name)
         {
             _data = new Dictionary<VolleyActionType, MetricTypeList>();
             _name = name;
-            VolleyActionType[] keys = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall };
+            VolleyActionType[] keys = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Transfer };
             foreach(VolleyActionType key in keys)
             {
                 _data.Add(key, new MetricTypeList(key.ToString()));
             }
             _rulesHolder = new AutomaticFillersRulesHolder();
         }
+        public static MetricType[] staticMetrics = new MetricType[0];
         public void updateList(VolleyActionType type, MetricTypeList mtypelist)
         {
             _data[type] = new MetricTypeList(type.ToString());
@@ -32,7 +37,6 @@ namespace ActionsLib.ActionTypes
             {
                 _data[type].Add(mt);
             }
-            _rulesHolder = new AutomaticFillersRulesHolder();
         }
         public VolleyActionType[] Keys
         {
@@ -44,6 +48,14 @@ namespace ActionsLib.ActionTypes
             {
                 return _data[type];
             }
+        }
+
+        static private MetricType[] createDefaultMetrics()
+        {
+            MetricType Quality = new MetricType("Quality", "Quality of any action", "qual", typeof(int), new Dictionary<object, string> { { 1, "=" }, { 2, "-" }, { 3, "/" }, { 4, "!" }, { 5, "+" }, { 6, "#" } }, new List<string>() { "=", "-", "\\", "!", "+", "#" });
+            MetricType PlaygroundPosition = new MetricType("FieldPosition", "Position on field", "fpos", typeof(int), new Dictionary<object, string> { { 1, "1" }, { 2, "2" }, { 3, "3" }, { 4, "4" }, { 5, "5" }, { 6, "6" } }, new List<string>() { "1", "2", "3", "4", "5", "6" });
+            MetricType ArrangementPosition = new MetricType("ArrangementPosition", "Position in arrangement", "apos", typeof(int), new Dictionary<object, string> { { 1, "1" }, { 2, "2" }, { 3, "3" }, { 4, "4" }, { 5, "5" }, { 6, "6" } }, new List<string>() { "1", "2", "3", "4", "5", "6" });
+            return new MetricType[] { Quality, PlaygroundPosition, ArrangementPosition };
         }
 
         public AutomaticFillersRulesHolder FillersRules
@@ -82,7 +94,7 @@ namespace ActionsLib.ActionTypes
             ActionsMetricTypes res;
             name = JsonSerializer.Deserialize<string>(sr.ReadLine());
             res = new ActionsMetricTypes(name);
-            VolleyActionType[] keys = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall };
+            VolleyActionType[] keys = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Transfer };
             for (int i = 0; i < keys.Length; i++)
             {
                 res.updateList(keys[i], MetricTypeList.Load(sr));

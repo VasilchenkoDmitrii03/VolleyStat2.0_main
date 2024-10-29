@@ -49,7 +49,7 @@ namespace StatisticsCreatorModule
         public MainWindow()
         {
             InitializeComponent();
-            _actionMetricTypes = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\AdditionalFiles\ActionMetricTypes\KvadratikiMetrics");
+            _actionMetricTypes = ActionsMetricTypes.Load(@"C:\Dmitrii\Programming\VolleyStat2.0_main\AdditionalFiles\ActionMetricTypes\Kvadratiki");
             
             _team = new Team();
             for(int  i = 1; i < 20; i++)
@@ -62,7 +62,8 @@ namespace StatisticsCreatorModule
             }
 
             InitializeModules();
-            TextModule.BeginNewSet(25);
+            _game = new Game(new List<int>() { 1, 2, 2 }, _actionMetricTypes, _team);
+            BeginSet();
         }
         public MainWindow(Team team, Game game, ActionsMetricTypes amt)
         {
@@ -89,7 +90,7 @@ namespace StatisticsCreatorModule
             TextModule.ScoreUpdated += ScoreModule.ScoreUpdated;
             TextModule.GamePhaseForGraphicsChanged += GraphicsModule.PhaseChanged;
             TextModule.SetFinished += SetFinishedHandler;
-            TextModule.SetPositionSettingsMode(new PositionSettingsMode(1, LiberoArrangementDataContainer.GetDefault(), PlayerPositionDataContainer.GetDefault()));
+            TextModule.SetPositionSettingsMode(new PositionSettingsArgs(new PositionSettingsMode(1, LiberoArrangementDataContainer.GetDefault(), PlayerPositionDataContainer.GetDefault()), SegmentPhase.Recep_1));
             GraphicsModule._playersPositions = PlayerPositionDataContainer.GetDefault();
             FiltersModule.UpdateAMT(_actionMetricTypes);
             StatisticsListBox.SetFiltersController(this.FiltersModule);
@@ -131,6 +132,7 @@ namespace StatisticsCreatorModule
                 TextModule.Clear();
                 ScoreModule.Clear();
                 GraphicsModule.ClearPoints();
+                ButtonModule.ClearButtons();
                 BeginSet();
             }
         }
@@ -142,8 +144,10 @@ namespace StatisticsCreatorModule
         }
         private void BeginSet()
         {
+
             ScoreModule.UpdateSetNumber(_game.Sets.Count + 1);
             TextModule.BeginNewSet(this._game.NextSetLength);
+            PlayerPositionUpdate(null, null);
         }
         private void SetTeam_AMT(Team team, ActionsMetricTypes amt)
         {
@@ -206,7 +210,9 @@ namespace StatisticsCreatorModule
         }
         private void PositionSettingsUpdated(object sender, PositionSettingsArgs e)
         {
-            TextModule.SetPositionSettingsMode(e.PositionSettingsMode);
+            GraphicsModule.SetPositionSettingsMode(e);
+            TextModule.SetPositionSettingsMode(e);
+            
         }
         #region Save\Load
         private Game Load(string path)

@@ -48,6 +48,10 @@ namespace ActionsLib.TextRepresentation
         {
             this._player = player;
         }
+        public Player GetPlayer()
+        {
+            return _player;
+        }
         public Metric GetMetric(MetricType metricType)
         {
             foreach(Metric metric in _metrics)
@@ -81,6 +85,22 @@ namespace ActionsLib.TextRepresentation
             get { return _metrics; }
         }
 
+        public bool ContainsMetricType(string str)
+        {
+            foreach(MetricType mt in _metricTypeList)
+            {
+                if(mt.Name == str) return true;
+            }
+            return false;
+        }
+        public MetricType GetMetricType(string str)
+        {
+            foreach (MetricType mt in _metricTypeList)
+            {
+                if (mt.Name == str) return mt;
+            }
+            return null;
+        }
         public override Action GenerateAction()
         {
             return new PlayerAction(_player, _actionType, _metrics);

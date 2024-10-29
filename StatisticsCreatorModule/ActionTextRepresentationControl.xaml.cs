@@ -22,6 +22,7 @@ using System.Reflection;
 using static System.Net.Mime.MediaTypeNames;
 using StatisticsCreatorModule.Arrangment;
 using StatisticsCreatorModule.Logic;
+using PlayerPositioningWIndow;
 
 namespace StatisticsCreatorModule
 {
@@ -65,7 +66,7 @@ namespace StatisticsCreatorModule
             if (comboBox == ActionTypeComboBox && _currentComboBoxes.Count > 0) return _currentComboBoxes[0];
             if (comboBox == ActionTypeComboBox && _currentComboBoxes.Count == 0) return null;
             int index = getNextEmptyComboBoxIndex();
-            if (index == -1 || index + 1 == _currentComboBoxes.Count) return null;
+            if (index == -1 || index == _currentComboBoxes.Count) return null;
             return _currentComboBoxes[index];
         }
         private int getNextEmptyComboBoxIndex()
@@ -73,7 +74,7 @@ namespace StatisticsCreatorModule
             int i = 0;
             foreach (ComboBox comb in _currentComboBoxes)
             {
-                if (comb.SelectedItem == null) return i;
+                if (comb.SelectedItem == null && comb.SelectedIndex == -1) return i;
                 i++;
             }
             return -1;
@@ -130,9 +131,18 @@ namespace StatisticsCreatorModule
             PlayerComboBox.Items.Add(ActionAuthorType.Coach);
             PlayerComboBox.Items.Add(ActionAuthorType.Judge);
         }
+        public void setPositionHolder(PlayerPositionDataContainer ppdc) {
+            this._posHolder = ppdc;
+        }
+        public void setCurrentArrangementAndPhase(SegmentPhase phase, int arr)
+        {
+            _currentPhase = phase;
+            _currentArrangementNumber = arr;
+        }
         public void clear()
         {
             this.ActionTypeComboBox.Text = "";
+            this.ActionTypeComboBox.ItemsSource = null;
             if (MainGrid.ColumnDefinitions.Count > 2) MainGrid.ColumnDefinitions.RemoveRange(2, MainGrid.ColumnDefinitions.Count - 2);
             if (MainGrid.Children.Count > 4) MainGrid.Children.RemoveRange(4, MainGrid.Children.Count - 4);
         }
@@ -145,6 +155,7 @@ namespace StatisticsCreatorModule
             this.clear();
             this.PlayerComboBox.Text = "Coach";
         }
+        
 
         #endregion
 
@@ -188,7 +199,11 @@ namespace StatisticsCreatorModule
         ActionAuthorType _currentAuthorType = ActionAuthorType.Undefined;
         VolleyActionType _currentActionType = VolleyActionType.Undefined;
         VolleyActionType _lastPlayerAction  = VolleyActionType.Undefined;
+        SegmentPhase _currentPhase = SegmentPhase.Break;
+        int _currentArrangementNumber = 1;
         VolleyActionSegment _currentSegment = new VolleyActionSegment();
+        PlayerPositionDataContainer _posHolder;
+
 
         private void PlayerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -331,6 +346,7 @@ namespace StatisticsCreatorModule
                               string shrtString = (string)((ComboBox)o).SelectedItem;
                               ((PlayerActionTextRepresentation)_actionTextRepresentation).SetMetricByShortString(type, shrtString);
                               bool isFiltered = ((PlayerActionTextRepresentation)_actionTextRepresentation).automaticInActionFiller(_actionsMetricTypes.FillersRules, type);
+                              isFiltered = isFiltered | fillBasicPositionMetrics((PlayerActionTextRepresentation)_actionTextRepresentation);
                               if (isFiltered)
                               {
                                   updateMetricComboBoxes((PlayerActionTextRepresentation)_actionTextRepresentation);
@@ -530,6 +546,25 @@ namespace StatisticsCreatorModule
                 if (metric != null) _currentComboBoxes[i].Text = metric.getShortString();
                 i++;
             }
+        }
+
+        private bool fillBasicPositionMetrics(PlayerActionTextRepresentation textRepr)
+        {
+            if (_teamControl == null || _posHolder == null) return false; ;
+            bool res = false;
+            if (textRepr.ContainsMetricType("FieldPosition")) 
+            {
+                int position = _teamControl.getPlayerZone(textRepr.GetPlayer()) + 1;
+                textRepr.SetMetricByObject(textRepr.GetMetricType("FieldPosition"), position);
+                res = true;
+            }
+            if (textRepr.ContainsMetricType("ArrangementPosition"))
+            {
+                int position = _posHolder[_currentPhase]._arrangementPositions[_currentArrangementNumber][_teamControl.getPlayerZone(textRepr.GetPlayer())] + 1;
+                textRepr.SetMetricByObject(textRepr.GetMetricType("ArrangementPosition"), position);
+                res = true;
+            }
+            return res;
         }
         #endregion
         #region Validation

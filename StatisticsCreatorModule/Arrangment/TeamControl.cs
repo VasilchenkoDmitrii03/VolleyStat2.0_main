@@ -80,6 +80,14 @@ namespace StatisticsCreatorModule.Arrangment
             }
             return -1;
         }
+        public int getPlayerZone(int number)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                if (number == _currentArrangment[i].Number) return i;
+            }
+            return -1;
+        }
         public List<Player> getLiberoPlayers()
         {
             List<Player> res = new List<Player>();

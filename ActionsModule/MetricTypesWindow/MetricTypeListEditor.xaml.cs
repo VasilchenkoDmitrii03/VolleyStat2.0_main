@@ -73,6 +73,7 @@ namespace MetricTypesWindow
         private void updateListBox()
         {
             CurrentMetricTypes.SetBinding(ListBox.ItemsSourceProperty, "null");
+
             CurrentMetricTypes.SetBinding(ListBox.ItemsSourceProperty, "ListMetricTypes");
         }
 

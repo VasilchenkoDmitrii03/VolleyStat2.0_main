@@ -64,12 +64,20 @@ namespace MetricTypesWindow
         {
             CurrentSelectedValues.ItemsSource = this.AvaibleMetricsSelector._selectedList;
             CurrentSelectedValues.ItemsSource = null;
-            CurrentSelectedValues.ItemsSource = this.AvaibleMetricsSelector._selectedList;
+
+            CurrentSelectedValues.ItemsSource = getMetricTypeList(this.AvaibleMetricsSelector._selectedList);
             updateData();
+        }
+        private MetricTypeList getMetricTypeList(MetricTypeList mtl)
+        {
+            MetricTypeList res = new MetricTypeList("");
+            foreach (MetricType t in ActionsMetricTypes.staticMetrics) res.Add(t);
+            foreach (MetricType t in mtl) res.Add(t);
+            return res;
         }
         private void updateData()
         {
-            _data.updateList((VolleyActionType)ActionTypeCombobox.SelectedItem, AvaibleMetricsSelector._selectedList);
+            _data.updateList((VolleyActionType)ActionTypeCombobox.SelectedItem, getMetricTypeList(AvaibleMetricsSelector._selectedList));
         }
 
         private void ActionTypeCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -126,7 +134,7 @@ namespace MetricTypesWindow
             {
                 window = new AutomaticMetricFillerWindow(_data, _data.Keys );
                 window.Closed += (o, e) => 
-                { isOpened = false; window = null; };
+                { _data.FillersRules = window.AutomaticFillersRulesHolder; isOpened = false; window = null; };
                 window.Show();
                 isOpened = true;
             }

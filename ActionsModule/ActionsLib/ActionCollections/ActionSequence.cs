@@ -785,9 +785,10 @@ namespace ActionsLib
             {
                 if (set.SetResult == SetResult.Lost) lost++;
                 else if (set.SetResult == SetResult.Won) won++;
-                if (lost >= _setsToWin) return GameResult.Lost;
-                else if (won >= _setsToWin) return GameResult.Won;
+                
             }
+            if (lost >= _setsToWin) return GameResult.Lost;
+            else if (won >= _setsToWin) return GameResult.Won;
             return GameResult.NotFinished;
         }
         public Set CurrentSet

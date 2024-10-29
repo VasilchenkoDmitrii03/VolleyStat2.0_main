@@ -2,6 +2,7 @@
 using Microsoft.Windows.Themes;
 using PlayerPositioningWIndow;
 using StatisticsCreatorModule.Arrangment;
+using StatisticsCreatorModule.SettingsWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -198,6 +199,11 @@ namespace StatisticsCreatorModule
         public void TeamControlChanged(object sender, TeamControlEventArgs e)
         {
             updateLabels(e._teamControl.CurrentArrangement);
+        }
+        public void SetPositionSettingsMode(PositionSettingsArgs e)
+        {
+            this._playersPositions = e.PositionSettingsMode.PlayerPositionDataContainer;
+            ReDraw();
         }
 
         private void MainCanvas_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
