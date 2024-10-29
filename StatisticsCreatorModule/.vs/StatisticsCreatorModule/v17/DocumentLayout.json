@@ -3,8 +3,24 @@
   "WorkspaceRootPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\statisticstextmodule\\statisticstextcontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:statisticstextmodule\\statisticstextcontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\statisticstextmodule\\statisticstextcontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:statisticstextmodule\\statisticstextcontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\playerpositioning\\playerpositiondatacontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:playerpositioning\\playerpositiondatacontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\actiontextrepresentationcontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -16,10 +32,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\playerpositioning\\playerpositioncontroller.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:playerpositioning\\playerpositioncontroller.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\playerpositioning\\playerpositiondatacontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:playerpositioning\\playerpositiondatacontainer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\textstatisticsmodule.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -59,10 +71,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\MetricTypeList.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -72,17 +80,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAADMAAACRAAAA",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAAAEkAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-09T15:14:59.774Z",
               "IsPinned": true,
@@ -94,28 +102,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MetricType.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\MetricType.cs",
-              "RelativeDocumentMoniker": "..\\ActionsModule\\ActionsLib\\ActionTypes\\MetricType.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\MetricType.cs",
-              "RelativeToolTip": "..\\ActionsModule\\ActionsLib\\ActionTypes\\MetricType.cs",
-              "ViewState": "AQIAAGMAAAAAAAAAAAAwwHkAAAAeAAAA",
+              "DocumentIndex": 0,
+              "Title": "StatisticsTextControl.xaml.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\StatisticsTextModule\\StatisticsTextControl.xaml.cs",
+              "RelativeDocumentMoniker": "StatisticsTextModule\\StatisticsTextControl.xaml.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\StatisticsTextModule\\StatisticsTextControl.xaml.cs",
+              "RelativeToolTip": "StatisticsTextModule\\StatisticsTextControl.xaml.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAADUAAABZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T18:54:04.364Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "PlayerLabel.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\Arrangment\\PlayerLabel.cs",
-              "RelativeDocumentMoniker": "Arrangment\\PlayerLabel.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\Arrangment\\PlayerLabel.cs",
-              "RelativeToolTip": "Arrangment\\PlayerLabel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T18:27:05.851Z",
+              "WhenOpened": "2024-10-29T20:43:14.564Z",
               "EditorCaption": ""
             },
             {
@@ -133,7 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "ActionTextRepresentationControl.xaml.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\ActionTextRepresentationControl.xaml.cs",
               "RelativeDocumentMoniker": "ActionTextRepresentationControl.xaml.cs",
@@ -141,12 +136,11 @@
               "RelativeToolTip": "ActionTextRepresentationControl.xaml.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAADAAAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T16:19:00.794Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T16:19:00.794Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "FIeldVisualisationControl.xaml.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\FIeldVisualisationControl.xaml.cs",
               "RelativeDocumentMoniker": "FIeldVisualisationControl.xaml.cs",
@@ -154,12 +148,11 @@
               "RelativeToolTip": "FIeldVisualisationControl.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T16:09:27.096Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T16:09:27.096Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "TextStatisticsModule.xaml.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TextStatisticsModule.xaml.cs",
               "RelativeDocumentMoniker": "TextStatisticsModule.xaml.cs",
@@ -167,74 +160,11 @@
               "RelativeToolTip": "TextStatisticsModule.xaml.cs",
               "ViewState": "AQIAAEIAAAAAAAAAAADgv1cAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T14:56:49.659Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T14:56:49.659Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PlayerPositionController.xaml.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\PlayerPositioning\\PlayerPositionController.xaml.cs",
-              "RelativeDocumentMoniker": "PlayerPositioning\\PlayerPositionController.xaml.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\PlayerPositioning\\PlayerPositionController.xaml.cs",
-              "RelativeToolTip": "PlayerPositioning\\PlayerPositionController.xaml.cs",
-              "ViewState": "AQIAAEcAAAAAAAAAAAAAAGkAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T18:32:41.342Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "PlayerPositionController.xaml",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\PlayerPositioning\\PlayerPositionController.xaml",
-              "RelativeDocumentMoniker": "PlayerPositioning\\PlayerPositionController.xaml",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\PlayerPositioning\\PlayerPositionController.xaml",
-              "RelativeToolTip": "PlayerPositioning\\PlayerPositionController.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-29T18:32:35.679Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ScoreDisplayer.xaml.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\ScoreDisplayer.xaml.cs",
-              "RelativeDocumentMoniker": "ScoreDisplayer.xaml.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\ScoreDisplayer.xaml.cs",
-              "RelativeToolTip": "ScoreDisplayer.xaml.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAACEAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T16:09:01.011Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "TextStatisticsModule.xaml",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TextStatisticsModule.xaml",
-              "RelativeDocumentMoniker": "TextStatisticsModule.xaml",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TextStatisticsModule.xaml",
-              "RelativeToolTip": "TextStatisticsModule.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-29T16:44:04.66Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "App.xaml",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\App.xaml",
-              "RelativeDocumentMoniker": "App.xaml",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\App.xaml",
-              "RelativeToolTip": "App.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-29T16:57:05.465Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
@@ -246,7 +176,101 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "StatisticsTextControl.xaml",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\StatisticsTextModule\\StatisticsTextControl.xaml",
+              "RelativeDocumentMoniker": "StatisticsTextModule\\StatisticsTextControl.xaml",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\StatisticsTextModule\\StatisticsTextControl.xaml",
+              "RelativeToolTip": "StatisticsTextModule\\StatisticsTextControl.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-29T20:43:10.81Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PlayerPositionController.xaml.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\PlayerPositioning\\PlayerPositionController.xaml.cs",
+              "RelativeDocumentMoniker": "PlayerPositioning\\PlayerPositionController.xaml.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\PlayerPositioning\\PlayerPositionController.xaml.cs",
+              "RelativeToolTip": "PlayerPositioning\\PlayerPositionController.xaml.cs",
+              "ViewState": "AQIAAEcAAAAAAAAAAAAAAGkAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T18:32:41.342Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 10,
+              "Title": "PlayerLabel.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\Arrangment\\PlayerLabel.cs",
+              "RelativeDocumentMoniker": "Arrangment\\PlayerLabel.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\Arrangment\\PlayerLabel.cs",
+              "RelativeToolTip": "Arrangment\\PlayerLabel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T18:27:05.851Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MetricType.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\MetricType.cs",
+              "RelativeDocumentMoniker": "..\\ActionsModule\\ActionsLib\\ActionTypes\\MetricType.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\MetricType.cs",
+              "RelativeToolTip": "..\\ActionsModule\\ActionsLib\\ActionTypes\\MetricType.cs",
+              "ViewState": "AQIAAGMAAAAAAAAAAAAwwHkAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T18:54:04.364Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "PlayerPositionController.xaml",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\PlayerPositioning\\PlayerPositionController.xaml",
+              "RelativeDocumentMoniker": "PlayerPositioning\\PlayerPositionController.xaml",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\PlayerPositioning\\PlayerPositionController.xaml",
+              "RelativeToolTip": "PlayerPositioning\\PlayerPositionController.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-29T18:32:35.679Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "ScoreDisplayer.xaml.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\ScoreDisplayer.xaml.cs",
+              "RelativeDocumentMoniker": "ScoreDisplayer.xaml.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\ScoreDisplayer.xaml.cs",
+              "RelativeToolTip": "ScoreDisplayer.xaml.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAACEAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T16:09:01.011Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "TextStatisticsModule.xaml",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TextStatisticsModule.xaml",
+              "RelativeDocumentMoniker": "TextStatisticsModule.xaml",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TextStatisticsModule.xaml",
+              "RelativeToolTip": "TextStatisticsModule.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-29T16:44:04.66Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\App.xaml",
+              "RelativeDocumentMoniker": "App.xaml",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\App.xaml",
+              "RelativeToolTip": "App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-10-29T16:57:05.465Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "AvaibleActionTypes.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\Logic\\AvaibleActionTypes.cs",
               "RelativeDocumentMoniker": "Logic\\AvaibleActionTypes.cs",
@@ -254,24 +278,22 @@
               "RelativeToolTip": "Logic\\AvaibleActionTypes.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAD8AAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T16:47:52.347Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T16:47:52.347Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "VideoModule.xaml",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\VideoModule.xaml",
               "RelativeDocumentMoniker": "VideoModule.xaml",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\VideoModule.xaml",
               "RelativeToolTip": "VideoModule.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-29T16:44:00.763Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T16:44:00.763Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "MetricTypeList.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\ActionsModule\\ActionsLib\\ActionTypes\\MetricTypeList.cs",
               "RelativeDocumentMoniker": "..\\ActionsModule\\ActionsLib\\ActionTypes\\MetricTypeList.cs",

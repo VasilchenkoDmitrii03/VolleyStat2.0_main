@@ -820,6 +820,7 @@ namespace ActionsLib
         {
             ActionsMetricTypes.Save(sw);
             Team.Save(sw);
+            sw.WriteLine(URL);
             sw.WriteLine(JsonSerializer.Serialize(_setLengths));
             sw.WriteLine(JsonSerializer.Serialize(_setsToWin));
             sw.WriteLine(JsonSerializer.Serialize(_currentSetIndex));
@@ -837,12 +838,13 @@ namespace ActionsLib
             Team team = Team.Load(sr);
             ActionLoader.currentTeam = team;
             ActionLoader.ActionsMetricTypes = amt;
+            string url = sr.ReadLine();
             int[] setLengths = JsonSerializer.Deserialize<int[]>(sr.ReadLine());
             int setsToWin = JsonSerializer.Deserialize<int>(sr.ReadLine());
             int currentIndexSet = JsonSerializer.Deserialize<int>(sr.ReadLine());
             GameResult gameResult = JsonSerializer.Deserialize<GameResult>(sr.ReadLine());
             int setsCount = JsonSerializer.Deserialize<int>(sr.ReadLine());
-            Game res = new Game(new List<int>(setLengths), amt, team);
+            Game res = new Game(new List<int>(setLengths), amt, team, url);
             res._setsToWin = setsToWin;
             res._currentSetIndex = currentIndexSet -1 ;
             for(int i= 0;i < setsCount; i++)

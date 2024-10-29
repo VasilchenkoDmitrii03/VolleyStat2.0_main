@@ -74,9 +74,19 @@ namespace StatisticsCreatorModule
             _actionMetricTypes = amt;
             UpdateURL(game.URL);
             InitializeModules();
+            updateStatisticsData(_game);
             BeginSet();
         }
 
+        private void updateStatisticsData(Game game)
+        {
+            VolleyActionSequence seq = new VolleyActionSequence();
+            foreach(Set set in game.Sets)
+            {
+                seq.Add(set.ConvertToSequence());
+            }
+            StatisticsListBox.SetActions(seq);
+        }
         private void InitializeModules()
         {
             SetTeam_AMT(_team, _actionMetricTypes);

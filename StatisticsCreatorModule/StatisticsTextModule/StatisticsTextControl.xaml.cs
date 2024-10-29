@@ -51,7 +51,12 @@ namespace StatisticsCreatorModule
         {
             
             int index = MainListBox.SelectedIndex;
-            VideoModule.SetYouTubeTimeCode(((PlayerAction)currentSeq[index]).TimeCode - 2);
+            VideoModule.SetYouTubeTimeCode(((PlayerAction)currentSeq[index]).TimeCode - 3);
+        }
+        public void SetActions(VolleyActionSequence seq)
+        {
+            Sequence = seq;
+            updateListBox();
         }
     }
 }
