@@ -156,8 +156,12 @@ namespace StatisticsCreatorModule
         {
 
             ScoreModule.UpdateSetNumber(_game.Sets.Count + 1);
-            TextModule.BeginNewSet(this._game.NextSetLength);
-            PlayerPositionUpdate(null, null);
+            if(_game.GameResult == GameResult.NotFinished)
+            {
+                TextModule.BeginNewSet(this._game.NextSetLength);
+                PlayerPositionUpdate(null, null);
+            }
+            
         }
         private void SetTeam_AMT(Team team, ActionsMetricTypes amt)
         {
