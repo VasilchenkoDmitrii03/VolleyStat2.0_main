@@ -103,8 +103,10 @@ namespace StatisticsCreatorModule
             TextModule.SetPositionSettingsMode(new PositionSettingsArgs(new PositionSettingsMode(1, LiberoArrangementDataContainer.GetDefault(), PlayerPositionDataContainer.GetDefault()), SegmentPhase.Recep_1));
             GraphicsModule._playersPositions = PlayerPositionDataContainer.GetDefault();
             FiltersModule.UpdateAMT(_actionMetricTypes);
+            this.PlayersFiltersModule.SetupCombobox(_team);
             StatisticsListBox.SetFiltersController(this.FiltersModule);
             StatisticsListBox.SetVideoModule(this.StatisticsVideoModule);
+            StatisticsListBox.SetPlayersFilters(this.PlayersFiltersModule);
             PlayerLabel.LiberoColor = System.Drawing.Color.Red;
             PlayerLabel.MainColor = System.Drawing.Color.Black;
             //TextModule.LineRepresentationControl.ActionTypeChangedInTextModule += test;
@@ -129,7 +131,11 @@ namespace StatisticsCreatorModule
         private void SetFinishedHandler(object sender, SetEventArgs e) 
         {
             MessageBox.Show("Game finished");
-            this._game.AddSet(e.Set);
+            if (!currentSetAdded)
+            {
+                this._game.AddSet(e.Set);
+            }
+            currentSetAdded = false;
             if (_game.GameResult == GameResult.Lost || _game.GameResult == GameResult.Won)
             {
                 MessageBox.Show("Game finished");
@@ -208,6 +214,7 @@ namespace StatisticsCreatorModule
 
         
         SettingsWindow.SettingsWindow PositionSettingsWindow;
+        bool currentSetAdded = false;
         public void PlayerPositionUpdate (object sender, RoutedEventArgs e)
         {
             if(PositionSettingsWindow == null || PositionSettingsWindow.IsVisible == false)
@@ -243,9 +250,14 @@ namespace StatisticsCreatorModule
         {
             using(StreamWriter sw = new StreamWriter(path)) 
             {
+
                 if(_game.GameResult == GameResult.Undefined || _game.GameResult== GameResult.NotFinished)
                 {
-                    _game.AddSet(TextModule.CurrentSet);
+                    if (!currentSetAdded)
+                    {
+                        _game.AddSet(TextModule.CurrentSet);
+                    }        
+                    currentSetAdded = true;
                 }
                 _game.Save(sw);
                 //sw.Write(TextModule.CurrentSet.Save());

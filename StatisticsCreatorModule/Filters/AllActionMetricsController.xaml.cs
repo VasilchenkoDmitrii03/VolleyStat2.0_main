@@ -30,7 +30,7 @@ namespace StatisticsCreatorModule
         public AllActionMetricsController()
         {
             InitializeComponent();
-             array = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence/*, VolleyActionType.FreeBall*/ };
+             array = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall };
             ActionTypeComboBox.ItemsSource = array;
             ActionTypeComboBox.SelectionChanged += ActionTypeSelectionChanged;
         }

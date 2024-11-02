@@ -1,4 +1,5 @@
 ﻿using ActionsLib;
+using StatisticsCreatorModule.StatisticsModule;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,15 @@ namespace StatisticsCreatorModule
         }
         public VolleyActionSequence Sequence { get; set; } = new VolleyActionSequence();
         public AllActionMetricsController AllActionMetricsController { get; private set; }
+        public StatisticsPlayersFilters PlayerFilters { get; private set; }
         public VideoModule VideoModule { get; private set; }
         public void SetFiltersController(AllActionMetricsController allActionMetricsController)
         {
             this.AllActionMetricsController = allActionMetricsController;
+        }
+        public void SetPlayersFilters(StatisticsPlayersFilters tmp)
+        {
+            PlayerFilters = tmp;
         }
         public void SetVideoModule(VideoModule videoModule)
         {
@@ -42,16 +48,17 @@ namespace StatisticsCreatorModule
         }
         private void updateListBox()
         {
+            PlayerFilters.Update();
             MainListBox.ItemsSource = null;
             currentSeq = AllActionMetricsController.UseFilters(Sequence);
+            currentSeq = PlayerFilters.PlayersFiltersHolder.ProcessSequence(currentSeq);
             MainListBox.ItemsSource = currentSeq;
         }
         private VolleyActionSequence currentSeq;
         private void MainListBox_Selected(object sender, RoutedEventArgs e)
         {
-            
             int index = MainListBox.SelectedIndex;
-            VideoModule.SetYouTubeTimeCode(((PlayerAction)currentSeq[index]).TimeCode - 3);
+            VideoModule.SetYouTubeTimeCode(((PlayerAction)currentSeq[index]).TimeCode - Convert.ToInt32(TimeShiftComboBox.Text));
         }
         public void SetActions(VolleyActionSequence seq)
         {

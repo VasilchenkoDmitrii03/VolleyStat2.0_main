@@ -85,5 +85,40 @@ namespace StatisticsCreatorModule.StatisticsModule
             return res;
         }
     }
+    public class PlayersFiltersHolder
+    {
+        Team _team;
+        List<string> _selected;
+        public PlayersFiltersHolder(Team team) 
+        { _team = team;
+            _selected = new List<string>();
+        }
+        public void update(List<string> selected)
+        {
+            _selected = selected;
+        }
+        public void clear()
+        {
+            _selected = new List<string>();
+        }
+        public VolleyActionSequence ProcessSequence(VolleyActionSequence seq)
+        {
+            VolleyActionSequence res = new VolleyActionSequence();
+            foreach (var i in seq)
+            {
+                if (checkCondition((PlayerAction)i))
+                {
+                    res.Add(i);
+                }
+            }
+            return res;
+        }
+        public bool checkCondition(PlayerAction playerAction)
+        {
+            return (_selected.Contains(playerAction.Player.Number.ToString()));
+        }
+    }
+        
+
 
 }

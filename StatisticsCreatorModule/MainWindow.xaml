@@ -61,14 +61,15 @@
             <TabItem Header="Statistics">
                 <Grid Name="StatisticsMainGrid">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="3*"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <local:AllActionMetricsController x:Name="FiltersModule"></local:AllActionMetricsController>
+                    <local:StatisticsPlayersFilters x:Name="PlayersFiltersModule" Grid.Column="0" Grid.Row="1"></local:StatisticsPlayersFilters>
                     <local:StatisticsTextControl x:Name="StatisticsListBox" Grid.Column="1" Grid.Row="1"></local:StatisticsTextControl>
                     <local:VideoModule x:Name="StatisticsVideoModule" Grid.Column="1"></local:VideoModule>
                 </Grid>
