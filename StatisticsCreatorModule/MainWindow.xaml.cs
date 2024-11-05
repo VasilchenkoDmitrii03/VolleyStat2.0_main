@@ -14,12 +14,16 @@ using System.Windows.Shapes;
 using ActionsLib;
 using ActionsLib.ActionTypes;
 using ActionsLib.TextRepresentation;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml;
 using Microsoft.Win32;
 using PlayerPositioningWIndow;
 using StatisticsCreatorModule.Arrangment;
 using StatisticsCreatorModule.LiberoModeSetter;
 using StatisticsCreatorModule.PlayerPositioning;
 using StatisticsCreatorModule.SettingsWindow;
+using StatisticsCreatorModule.TableTextStatsModule;
 namespace StatisticsCreatorModule
 {
     /// <summary>
@@ -115,7 +119,7 @@ namespace StatisticsCreatorModule
         }
         private void CreateLists()
         {
-            _userControls = new List<Control>();
+            _userControls = new List<System.Windows.Controls.Control>();
             _userControls.Add(VideoModule);
             _userControls.Add(TextModule);
             _userControls.Add(ButtonModule);
@@ -175,7 +179,7 @@ namespace StatisticsCreatorModule
             this.TextModule.setActionMetricsTypes(amt);
            
         }
-        List<Control> _userControls;
+        List<System.Windows.Controls.Control> _userControls;
         List<themeUpdater> _userControlsThemeUpdaters;
 
         #region Themes
@@ -212,8 +216,25 @@ namespace StatisticsCreatorModule
         #endregion
 
 
-        
-        SettingsWindow.SettingsWindow PositionSettingsWindow;
+        private void CreateBaseTableClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == true)
+            {
+                using (WordprocessingDocument document = WordprocessingDocument.Create(sfd.FileName, WordprocessingDocumentType.Document))
+                {
+                    MainDocumentPart mainPart = document.AddMainDocumentPart();
+                    mainPart.Document = new Document();
+                    Body body = new Body();
+                    BaseStatTable tableCreator = new BaseStatTable();
+                    body.Append(tableCreator.process(_team, this._game.getVolleyActionSequence()));
+                    mainPart.Document.Append(body);
+                }
+            }
+        }
+
+
+            SettingsWindow.SettingsWindow PositionSettingsWindow;
         bool currentSetAdded = false;
         public void PlayerPositionUpdate (object sender, RoutedEventArgs e)
         {

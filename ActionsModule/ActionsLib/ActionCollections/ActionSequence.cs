@@ -79,13 +79,42 @@ namespace ActionsLib
         public static VolleyActionSequence operator+(VolleyActionSequence left,  VolleyActionSequence right)
         {
             VolleyActionSequence res = new VolleyActionSequence(left);
-            foreach(PlayerAction act in right)
+            foreach(Action act in right)
             {
                 res.Add(act);
             }
             return res;
         }
     
+        public int[] CountActionsByCondition(params Func<PlayerAction, bool>[]  function)
+        {
+            int[] res = new int[function.Length];
+            for (int i = 0; i < res.Length; i++) res[i] = 0;
+            foreach(Action action in this)
+            {
+                if(action.AuthorType == ActionAuthorType.Player)
+                {
+                    PlayerAction pact = (PlayerAction)action;
+                    for(int i = 0;i < function.Length; i++)
+                    {
+                        if (function[i](pact)) res[i]++;
+                    }
+                }
+            }
+            return res;
+        }
+        public VolleyActionSequence SelectActionsByCondition(Func<PlayerAction, bool> function)
+        {
+            VolleyActionSequence res = new VolleyActionSequence();
+            foreach(Action act in this)
+            {
+                if (act.AuthorType != ActionAuthorType.Player) continue;
+                if (function((PlayerAction)act)) res.Add(act);
+            }
+            return res;
+        }
+
+
         public string Save()
         {
             string res = $"{this.Count()}";
@@ -814,6 +843,16 @@ namespace ActionsLib
         public string URL
         {
             get { return youtubeURL; }
+        }
+
+        public VolleyActionSequence getVolleyActionSequence()
+        {
+            VolleyActionSequence res = new VolleyActionSequence();
+            foreach(Set s in Sets)
+            {
+                res += s.ConvertToSequence();
+            }
+            return res;
         }
 
         public void Save(StreamWriter sw)
