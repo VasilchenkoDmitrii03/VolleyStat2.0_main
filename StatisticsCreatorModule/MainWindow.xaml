@@ -25,6 +25,7 @@
             </MenuItem>
             <MenuItem Header="Statistics">
                 <MenuItem Click="CreateBaseTableClick"> Create base table</MenuItem>
+                <MenuItem Click="CreateSetterTableClick">Create setter table</MenuItem>
             </MenuItem>
         </Menu>
         <TabControl>

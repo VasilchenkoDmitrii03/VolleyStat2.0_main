@@ -233,8 +233,36 @@ namespace StatisticsCreatorModule
             }
         }
 
+        private void CreateSetterTableClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == true)
+            {
+                using (WordprocessingDocument document = WordprocessingDocument.Create(sfd.FileName, WordprocessingDocumentType.Document))
+                {
+                    MainDocumentPart mainPart = document.AddMainDocumentPart();
+                    mainPart.Document = new Document();
+                    Body body = new Body();
+                    SetStatTable tableCreator = new SetStatTable();
 
-            SettingsWindow.SettingsWindow PositionSettingsWindow;
+                    DocumentFormat.OpenXml.Wordprocessing.Paragraph par = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(new DocumentFormat.OpenXml.Wordprocessing.Run(new Text("Reception distribution")));
+                    body.Append(par);
+                    body.Append(tableCreator.getBlockersDistributionByReceptionQuality(_game.getVolleyActionSegmentSequence(), _game));
+
+                    DocumentFormat.OpenXml.Wordprocessing.Table[] tables = tableCreator.getReceptionZoneDistributionStatistics(_game.getVolleyActionSegmentSequence());
+                    for(int i= 0; i < tables.Length; i++)
+                    {
+                        DocumentFormat.OpenXml.Wordprocessing.Paragraph paragraph = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(new DocumentFormat.OpenXml.Wordprocessing.Run(new Text($"P{i+1}")));
+                        body.Append(paragraph);
+                        body.Append(tables[i]);
+                    }
+
+                    mainPart.Document.Append(body);
+                }
+            }
+        }
+
+        SettingsWindow.SettingsWindow PositionSettingsWindow;
         bool currentSetAdded = false;
         public void PlayerPositionUpdate (object sender, RoutedEventArgs e)
         {

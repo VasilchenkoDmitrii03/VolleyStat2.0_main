@@ -302,6 +302,15 @@ namespace ActionsLib
             }
             return res;
         }
+        public VolleyActionSegmentSequence SelectByCondition(Func<VolleyActionSegment, bool> func)
+        {
+            VolleyActionSegmentSequence result = new VolleyActionSegmentSequence();
+            foreach(var seg in this)
+            {
+                if (func(seg)) result.Add(seg);
+            }
+            return result;
+        }
 
         public string Save()
         {
@@ -493,6 +502,12 @@ namespace ActionsLib
             {
                 res.Add(r.ConvertToActionSequence());
             }
+            return res;
+        }
+        public RallySequence SelectByCondition(Func<Rally, bool> condition)
+        {
+            RallySequence res = new RallySequence();
+            foreach (Rally r in this) if (condition(r)) { res.Add(r); }
             return res;
         }
 
@@ -851,6 +866,15 @@ namespace ActionsLib
             foreach(Set s in Sets)
             {
                 res += s.ConvertToSequence();
+            }
+            return res;
+        }
+        public VolleyActionSegmentSequence getVolleyActionSegmentSequence()
+        {
+            VolleyActionSegmentSequence res = new VolleyActionSegmentSequence();
+            foreach(Set s in Sets)
+            {
+                res.Add(s.ConvertToSegmentSequence());
             }
             return res;
         }

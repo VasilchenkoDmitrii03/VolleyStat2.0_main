@@ -84,7 +84,7 @@
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\MainWindow.xaml.cs",
               "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-08T10:32:33.48Z",
               "EditorCaption": ""
@@ -99,8 +99,7 @@
               "RelativeToolTip": "..\\StatisticsCreatorModule\\MainWindow.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAxwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-02T08:39:41.044Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-02T08:39:41.044Z"
             },
             {
               "$type": "Document",
@@ -112,8 +111,7 @@
               "RelativeToolTip": "..\\ActionsModule\\ActionsLib\\ActionTypes\\Action.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T09:35:44.689Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-08T09:35:44.689Z"
             },
             {
               "$type": "Document",
@@ -125,8 +123,7 @@
               "RelativeToolTip": "AdditionalWindows\\GameCreation\\GameCreateWindow.xaml.cs",
               "ViewState": "AQIAAA8AAAAAAAAAAABBwCAAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T09:55:52.007Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-08T09:55:52.007Z"
             },
             {
               "$type": "Document",
@@ -137,8 +134,7 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\GameCreation\\GameCreateWindow.xaml",
               "RelativeToolTip": "AdditionalWindows\\GameCreation\\GameCreateWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-08T09:50:44.256Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-08T09:50:44.256Z"
             },
             {
               "$type": "Document",
@@ -149,8 +145,7 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\TeamCreation\\TeamCreater.xaml",
               "RelativeToolTip": "AdditionalWindows\\TeamCreation\\TeamCreater.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-08T10:33:24.101Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-08T10:33:24.101Z"
             },
             {
               "$type": "Document",
@@ -161,13 +156,12 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-08T09:15:48.261Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-08T09:15:48.261Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "EventRoute.cs",
+              "Title": "EventRoute.cs [\u0422\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u0435\u043D\u0438\u0435]",
               "DocumentMoniker": "C:\\Users\\User\\AppData\\Local\\Temp\\.vsdbgsrc\\adba73314a80ada0366302ebf9fa965687b438599f6992b45df62e4d553ec3bf\\EventRoute.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Users\\User\\AppData\\Local\\Temp\\.vsdbgsrc\\adba73314a80ada0366302ebf9fa965687b438599f6992b45df62e4d553ec3bf\\EventRoute.cs",
               "ToolTip": "C:\\Users\\User\\AppData\\Local\\Temp\\.vsdbgsrc\\adba73314a80ada0366302ebf9fa965687b438599f6992b45df62e4d553ec3bf\\EventRoute.cs [\u0422\u043E\u043B\u044C\u043A\u043E \u0447\u0442\u0435\u043D\u0438\u0435]",
@@ -187,8 +181,7 @@
               "RelativeToolTip": "..\\StatisticsCreatorModule\\VideoModule.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T15:53:47.481Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-09T15:53:47.481Z"
             },
             {
               "$type": "Document",
@@ -200,8 +193,7 @@
               "RelativeToolTip": "..\\ActionsModule\\ActionsLib\\ActionTypes\\ActionsMetricTypes.cs",
               "ViewState": "AQIAAEgAAAAAAAAAAAAwwF4AAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-01T22:02:37.749Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-01T22:02:37.749Z"
             },
             {
               "$type": "Document",
@@ -212,8 +204,7 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\AdditionalWindows\\Settings\\SettingsRedactorWindow.xaml",
               "RelativeToolTip": "AdditionalWindows\\Settings\\SettingsRedactorWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-08T10:04:40.188Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-08T10:04:40.188Z"
             },
             {
               "$type": "Document",
@@ -225,8 +216,7 @@
               "RelativeToolTip": "AdditionalWindows\\Settings\\SettingsRedactorWindow.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACYAAAAsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T10:17:50Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-08T10:17:50Z"
             },
             {
               "$type": "Document",
@@ -238,8 +228,7 @@
               "RelativeToolTip": "..\\..\\..\\..\\Users\\User\\AppData\\Local\\Temp\\.vsdbgsrc\\82ffb49f2261ae495c422ae86144dc12b4adb1cfd3872cebfac8573dd370a655\\ItemContainerGenerator.cs",
               "ViewState": "AQIAANsFAAAAAAAAAAAawO0FAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T20:29:55.207Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T20:29:55.207Z"
             },
             {
               "$type": "Document",
@@ -251,8 +240,7 @@
               "RelativeToolTip": "..\\ActionsModule\\ActionsLib\\Team\\Team.cs",
               "ViewState": "AQIAACQAAAAAAAAAAAAwwF4AAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-27T09:43:13.553Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-27T09:43:13.553Z"
             },
             {
               "$type": "Document",
@@ -264,8 +252,7 @@
               "RelativeToolTip": "AdditionalWindows\\TeamCreation\\TeamCreater.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAxwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T10:36:16.249Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-08T10:36:16.249Z"
             },
             {
               "$type": "Document",
@@ -277,8 +264,7 @@
               "RelativeToolTip": "AdditionalWindows\\GameCreation\\TeamSelectorWithFileOption.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-09T15:44:38.67Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-09T15:44:38.67Z"
             },
             {
               "$type": "Document",
@@ -290,8 +276,7 @@
               "RelativeToolTip": "..\\StatisticsCreatorModule\\Arrangment\\TeamControl.cs",
               "ViewState": "AQIAAEoAAAAAAAAAAABBwF4AAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-08T10:01:59.462Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-08T10:01:59.462Z"
             }
           ]
         }

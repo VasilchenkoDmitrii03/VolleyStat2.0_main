@@ -17,6 +17,42 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         public TableStatsCreator() { }
         public abstract Table process(Team team, VolleyActionSequence seq);
         public abstract Table process(Team team, VolleyActionSegmentSequence seq);
+
+        protected string convertValuesToString(int value)
+        {
+            if (value == 0) return ".";
+            return value.ToString();
+        }
+        protected string convertValuesToPercentString(int value, int total)
+        {
+            if (total == 0) return ".";
+            return $"{value * 100 / total}%";
+        }
+        protected TableCell CreateCell(string text, bool hasRightBorder = false, bool hasBottomBorder = false, string width = "720")
+        {
+            var cell = new TableCell(new Paragraph(new Run(new Text(text))));
+
+            // Установка ширины ячейки
+            TableCellProperties cellProperties = new TableCellProperties();
+            cellProperties.TableCellWidth = new TableCellWidth() { Width = width, Type = TableWidthUnitValues.Dxa }; // dxa - единицы измерения для ширины
+            cellProperties.TableCellBorders = new TableCellBorders();
+            cellProperties.TableCellBorders.RightBorder = new RightBorder() { Val = BorderValues.Single, Size = 4 };
+            cellProperties.TableCellBorders.LeftBorder = new LeftBorder() { Val = BorderValues.Single, Size = 4 };
+            cellProperties.TableCellBorders.BottomBorder = new BottomBorder() { Val = BorderValues.Single, Size = 4 };
+            cellProperties.TableCellBorders.TopBorder = new TopBorder() { Val = BorderValues.Single, Size = 4 };
+            // Настройка границ: слева, справа, снизу, сверху
+            if (hasRightBorder)
+            {
+                cellProperties.TableCellBorders.RightBorder = new RightBorder() { Val = BorderValues.Single, Size = 12 }; // Толщина 12
+            }
+            if (hasBottomBorder)
+            {
+                cellProperties.TableCellBorders.BottomBorder = new BottomBorder() { Val = BorderValues.Single, Size = 12 }; // Жирная граница вниз
+            }
+
+            cell.TableCellProperties = cellProperties;
+            return cell;
+        }
     }
     public class BaseStatTable : TableStatsCreator
     {
@@ -112,31 +148,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             }
             return row;
         }
-        TableCell CreateCell(string text,  bool hasRightBorder = false, bool hasBottomBorder = false, string width = "720")
-        {
-            var cell = new TableCell(new Paragraph(new Run(new Text(text))));
-
-            // Установка ширины ячейки
-            TableCellProperties cellProperties = new TableCellProperties();
-            cellProperties.TableCellWidth = new TableCellWidth() { Width = width, Type = TableWidthUnitValues.Dxa }; // dxa - единицы измерения для ширины
-            cellProperties.TableCellBorders = new TableCellBorders();
-            cellProperties.TableCellBorders.RightBorder = new RightBorder() { Val = BorderValues.Single, Size = 4 };
-             cellProperties.TableCellBorders.LeftBorder = new LeftBorder() { Val = BorderValues.Single, Size = 4 };
-              cellProperties.TableCellBorders.BottomBorder = new BottomBorder() { Val = BorderValues.Single, Size = 4 };
-               cellProperties.TableCellBorders.TopBorder = new TopBorder() { Val = BorderValues.Single, Size = 4 };
-            // Настройка границ: слева, справа, снизу, сверху
-            if (hasRightBorder)
-            {
-                cellProperties.TableCellBorders.RightBorder = new RightBorder() { Val = BorderValues.Single, Size = 12 }; // Толщина 12
-            }
-            if (hasBottomBorder)
-            {
-                cellProperties.TableCellBorders.BottomBorder = new BottomBorder() { Val = BorderValues.Single, Size = 12 }; // Жирная граница вниз
-            }
-
-            cell.TableCellProperties = cellProperties;
-            return cell;
-        }
+        
         private string[] getPlayerStats(VolleyActionSequence seq, Player p) 
         {
             return getRowStats(seq.SelectActionsByCondition((pl) => { return pl.Player == p; }), $"#{p.Number} {p.Surname}");
@@ -279,16 +291,137 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             res.Add(convertValuesToPercentString(values[0], count));
             return res;
         }
-        private string convertValuesToString(int value)
-        {
-            if (value == 0) return ".";
-            return value.ToString();
-        }
-        private string convertValuesToPercentString(int value, int total)
-        {
-            if (total == 0) return ".";
-            return $"{value * 100 / total}%";
-        }
+
         
+    }
+
+    public class SetStatTable : TableStatsCreator
+    {
+        public SetStatTable() { }
+        public override Table process(Team team, VolleyActionSegmentSequence seq)
+        {
+            throw new NotImplementedException();
+        }
+        public override Table process(Team team, VolleyActionSequence seq)
+        {
+            return null;
+        }
+        public Table[] getReceptionZoneDistributionStatistics(VolleyActionSegmentSequence sequence)
+        {
+            Table[] result = new Table[6];
+            for(int i = 1; i <= 6; i++)
+            {
+                result[i - 1] = createReceptionZoneDistributionTable(sequence, i);
+            }
+
+            return result;
+        }
+        private Table createReceptionZoneDistributionTable(VolleyActionSegmentSequence sequence, int zone)
+        {
+            VolleyActionSegmentSequence RecepSetSegments = sequence.SelectByCondition((seg) => { return seg.ContainsActionType(VolleyActionType.Reception) && seg.ContainsActionType(VolleyActionType.Set); });
+            VolleyActionSegmentSequence seq = RecepSetSegments.SelectByCondition((seg) =>
+            {
+                PlayerAction set = seg.getByActionType(VolleyActionType.Set);
+                if (set == null) return false;
+                return (int)set[set.MetricTypes[1]].Value == zone;
+            }); //segments where setter arrangement position = zone
+            Table table = new Table();
+
+            TableGrid tableGrid = new TableGrid();
+            for (int i = 0; i < 3; i++) // 3 columns
+            {
+                tableGrid.Append(new GridColumn());
+            }
+            table.Append(tableGrid);
+            TableRow firstRow = new TableRow();
+            for (int i = 4; i >=2; i--)
+            {
+                string str = getDirectionZoneData(seq, i);
+                firstRow.Append(CreateCell(str));
+            }
+
+            TableRow secondRow = new TableRow();
+            for (int i = 5; i <= 7; i++)
+            {
+                int zn = i;
+                if (i == 7) zn = 1;
+                string str = getDirectionZoneData(seq, zn );
+                secondRow.Append(CreateCell(str));
+            }
+            table.Append(firstRow);
+            table.Append(secondRow);
+            return table;
+        }
+        private string getDirectionZoneData(VolleyActionSegmentSequence segments, int zone)
+        {
+            string res = "";
+            VolleyActionSegmentSequence setsDirectedToZone = segments.SelectByCondition((seg) => {
+                return (int)seg.getByActionType(VolleyActionType.Set)["Direction"].Value == zone;
+            });
+            VolleyActionSequence setSeq = setsDirectedToZone.ConvertToActionSequence().SelectActionsByCondition((act) => { return act.VolleyActionType == VolleyActionType.Set; });
+            VolleyActionSequence attackSeq = setsDirectedToZone.ConvertToActionSequence().SelectActionsByCondition((act) => { return act.VolleyActionType == VolleyActionType.Attack; });
+            int directedCount = setSeq.Count;
+            int realizedAttacks = attackSeq.CountActionsByCondition((act) => { return act.GetQuality() == 6; })[0];
+
+            double blockers = setSeq.Sum((act) => Convert.ToDouble(act["BlockersCount"].getShortString()));
+            if (setSeq.Count > 0) blockers /= setSeq.Count;
+
+            res = $@"{convertValuesToString(directedCount)}({convertValuesToPercentString(directedCount, segments.Count)})
+{convertValuesToPercentString(realizedAttacks, attackSeq.Count)}
+{blockers.ToString("F")}";
+            return res;
+        }
+
+        public Table getBlockersDistributionByReceptionQuality(VolleyActionSegmentSequence seq, Game game)
+        {
+            VolleyActionSegmentSequence recepSetSegments = seq.SelectByCondition((seg) => { return seg.ContainsActionType(VolleyActionType.Reception) && seg.ContainsActionType(VolleyActionType.Set); });
+            VolleyActionSequence sequence = recepSetSegments.ConvertToActionSequence().SelectActionsByCondition((act) => { return act.VolleyActionType == VolleyActionType.Set; });
+            MetricType mt = game.ActionsMetricTypes.getByName(VolleyActionType.Set, "BlockersCount");
+            Table table = new Table();
+            TableGrid tableGrid = new TableGrid();
+            for (int i = 0; i < 1 + mt.AcceptableValues.Count; i++) // Всего 24 столбца
+            {
+                tableGrid.Append(new GridColumn());
+            }
+            TableRow header = new TableRow();
+            header.Append(CreateCell(""));
+            string[] names = mt.AcceptableValuesNames.Values.ToArray();
+            for(int i= 0;i < mt.AcceptableValues.Count; i++)
+            {
+                header.Append(CreateCell(names[i]));
+            }
+            table.Append(header);
+            table.Append(getDistributionByReceptionQuality(sequence, 6));
+            table.Append(getDistributionByReceptionQuality(sequence, 5));
+            table.Append(getDistributionByReceptionQuality(sequence, 4));
+            table.Append(getDistributionByReceptionQuality(sequence, 6, 5, 4));
+            table.Append(getDistributionByReceptionQuality(sequence, 3,2));
+            return table;
+        }
+        private TableRow getDistributionByReceptionQuality(VolleyActionSequence seq, params int[] receptionQuality)
+        {
+            VolleyActionSequence sequence = seq.SelectActionsByCondition((act) => { return receptionQuality.Contains((int)((PlayerAction)act)["ReceptionQuality"].Value); });
+            TableRow row = new TableRow();
+            List<Func<PlayerAction, bool>> funcs = new List<Func<PlayerAction, bool>>();
+            MetricType metricType = sequence[0]["BlockersCount"].MetricType;
+            MetricType qual = sequence[0]["Quality"].MetricType;
+            foreach(int value in metricType.AcceptableValues)
+            {
+                funcs.Add((act) => { return (int)((PlayerAction)act)["BlockersCount"].Value == value; });
+            }
+            int[] values = sequence.CountActionsByCondition(funcs.ToArray());
+            string first = "";
+            foreach(int i in receptionQuality)
+            {
+                first += qual.AcceptableValuesNames[i];
+            }
+            first += $"({sequence.Count})";
+            row.Append(CreateCell(first));
+            for(int i= 0; i  < values.Length; i++)
+            {
+                row.Append(CreateCell($"{convertValuesToString(values[i])}({convertValuesToPercentString(values[i], sequence.Count)})"));
+            }
+            return row;
+        }
     }
 }

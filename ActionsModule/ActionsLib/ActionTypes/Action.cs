@@ -65,6 +65,17 @@ namespace ActionsLib
                 throw new Exception($"Action {_name} does not contains metric type {metricType.Name}");
             }
         }
+        public Metric this[string metricTypeName]
+        {
+            get
+            {
+                foreach(Metric metric in _metrics)
+                {
+                    if(metric.MetricType.Name == metricTypeName) return metric;
+                }
+                return null;
+            }
+        }
         public virtual string ExtendedString
         {
             get { string res =  _authorType.ToString();
@@ -155,7 +166,7 @@ namespace ActionsLib
         public Player Player
         {
             get { return _player; }
-        }
+        }   
         public VolleyActionType VolleyActionType
         {
             get

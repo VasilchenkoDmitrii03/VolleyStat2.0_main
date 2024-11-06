@@ -49,6 +49,14 @@ namespace ActionsLib.ActionTypes
                 return _data[type];
             }
         }
+        public MetricType getByName(VolleyActionType type, string name)
+        {
+            foreach (MetricType mt in _data[type])
+            {
+                if (mt.Name == name) return mt;
+            }
+            return null;
+        }
 
         static private MetricType[] createDefaultMetrics()
         {
@@ -97,6 +105,7 @@ namespace ActionsLib.ActionTypes
             VolleyActionType[] keys = new VolleyActionType[] { VolleyActionType.Serve, VolleyActionType.Reception, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Transfer };
             for (int i = 0; i < keys.Length; i++)
             {
+
                 res.updateList(keys[i], MetricTypeList.Load(sr));
             }
             res._rulesHolder = AutomaticFillersRulesHolder.Load(sr);
