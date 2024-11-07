@@ -51,7 +51,8 @@ namespace StatisticsCreatorModule.Logic
             setRuleForActionAndQuality(VolleyActionType.Serve, new int[] { 5, 4, 3, 2 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack);
             setRuleForActionAndQuality(VolleyActionType.Serve, 1, VolleyActionType.Reception);
             //reception
-            setRuleForActionAndQuality(VolleyActionType.Reception, new int[] {6, 5, 4, 3, 2 }, VolleyActionType.Set,  VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall);
+            setRuleForActionAndQuality(VolleyActionType.Reception, new int[] {6, 5, 4, 3 }, VolleyActionType.Set,  VolleyActionType.Attack, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall);
+            setRuleForActionAndQuality(VolleyActionType.Reception, 2, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack);
             setRuleForActionAndQuality(VolleyActionType.Reception, 1, VolleyActionType.Reception);
             //set
             setRuleForActionAndQuality(VolleyActionType.Set, new int[] { 6, 5, 4, 3, 2 }, VolleyActionType.Attack, VolleyActionType.Transfer, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall);
@@ -62,7 +63,7 @@ namespace StatisticsCreatorModule.Logic
             setRuleForActionAndQuality(VolleyActionType.Attack, new int[] { 2, 1 }, VolleyActionType.Reception);
             //block
             setRuleForActionAndQuality(VolleyActionType.Block, 6, VolleyActionType.Serve);
-            setRuleForActionAndQuality(VolleyActionType.Block, new int[] { 5, 4, 3, 2 }, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack);
+            setRuleForActionAndQuality(VolleyActionType.Block, new int[] { 5, 4, 3, 2 },VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.FreeBall, VolleyActionType.Set, VolleyActionType.Attack);
             setRuleForActionAndQuality(VolleyActionType.Block, 1, VolleyActionType.Reception);
             //defence
             setRuleForActionAndQuality(VolleyActionType.Defence, new int[] {6, 5, 4, 3, 2 }, VolleyActionType.Block, VolleyActionType.Defence, VolleyActionType.Set, VolleyActionType.Attack, VolleyActionType.Transfer);

@@ -221,6 +221,38 @@ namespace StatisticsCreatorModule
                 }
             }
         }
+        private bool ProcessJudgeActions(ActionsLib.Action act)
+        {
+            switch (act.ActionType)
+            {
+                case VolleyActionType.DisputableBall:
+                    RallyResult res = this.CurrentSet.Rallies.Last().RallyResult;
+                    if(res == RallyResult.Lost) this.CurrentSet.CurrentScore.Right -= 1;
+                    if (res == RallyResult.Won) this.CurrentSet.CurrentScore.Left -= 1;
+                    if (isRotateBackNeeded(_currentSet.Rallies))
+                    {
+                        _teamControl.RotateBack();
+                        currentArrangementNumber = (currentArrangementNumber + 1) % 6;
+                       
+                    }
+                    ActionsLib.Action firstAction = this.CurrentSet.Rallies.Last().ConvertToActionSequence()[0];
+                    _currentSet.CurrentPhase = SegmentPhase.Recep_1;
+                    if (firstAction.ActionType == VolleyActionType.Serve) _currentSet.CurrentPhase = SegmentPhase.Break;
+                    ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
+                    GamePhaseForGraphicsChanged(this, new PhaseEventArgs(_currentSet.CurrentPhase, currentArrangementNumber));
+                    return true;
+                case VolleyActionType.JudgeMistakeLost:
+                    this.CurrentSet.CurrentScore.Left -= 1;
+                    this.CurrentSet.CurrentScore.Right += 1;
+                    return true;
+                case VolleyActionType.JudgeMistakeWon:
+                    this.CurrentSet.CurrentScore.Left += 1;
+                    this.CurrentSet.CurrentScore.Right -= 1;
+                    return true;
+            }
+            return false;
+           
+        }
         public List<VolleyActionType> GetAvaibleActionTypes(ActionsLib.Action lastAction)
         {
             if(lastAction.AuthorType == ActionAuthorType.Player)
@@ -239,8 +271,9 @@ namespace StatisticsCreatorModule
         }
         private bool actionAdded(ActionsLib.Action act)
         {
-           phaseChaned(act);
+           phaseChanged(act);
            ProcessCoachActions(act);
+            ProcessJudgeActions(act);
            isRallyEnded = false;
            if(isNewSequence(_currentSegment, act))
             {
@@ -300,9 +333,10 @@ namespace StatisticsCreatorModule
                 _currentSegment = new VolleyActionSegment();
                 _currentRally = new Rally();
             }
+            
             return false;
         }
-        private void phaseChaned(ActionsLib.Action act)
+        private void phaseChanged(ActionsLib.Action act)
         {
             if(act.ActionType == VolleyActionType.Reception && ((PlayerAction)act).GetQuality() > 1)
             {
@@ -317,6 +351,9 @@ namespace StatisticsCreatorModule
         private bool isNewSequence(VolleyActionSegment seq, ActionsLib.Action act)
         {
             if (seq.Count == 0 || act.AuthorType == ActionAuthorType.Judge) return false;
+            if (seq.ContainsActionType(act.ActionType) && act.ActionType != VolleyActionType.Defence) return true;
+            if (act.ActionType == VolleyActionType.Block && ((PlayerAction)act).GetQuality() == 5) return true;
+            if(act.ActionType == VolleyActionType.Attack) return true;
             if (seq.Count > 4) return true;
             if (seq.Last().AuthorType != act.AuthorType) return true;
             if (seq.Count > 0 && (act.ActionType == VolleyActionType.Block || act.ActionType == VolleyActionType.Defence)) return true;
@@ -362,6 +399,16 @@ namespace StatisticsCreatorModule
             else if (rally.RallyResult == RallyResult.Lost) GamePhaseForGraphicsChanged(this, new PhaseEventArgs(SegmentPhase.Recep_1, currentArrangementNumber));
         }
 
+        private bool isRotateBackNeeded(RallySequence rallySequence)
+        {
+            if (rallySequence.Count == 0) return false;
+            Rally last = rallySequence.Last();
+            if (last.RallyResult == RallyResult.Lost) return false;
+            if (rallySequence.Count == 2) return true;
+            int index = rallySequence.Count - 2;
+            if (rallySequence[index].RallyResult == RallyResult.Lost) return true;
+            return false;
+        }
         #endregion
 
         #region Themese module

@@ -72,6 +72,16 @@ namespace StatisticsCreatorModule.Arrangment
                 ChangeFastPlayer(_currentArrangment[3], changer);
             }
         }
+        public void RotateBack()
+        {
+            for (int i = 0; i < 5; i++) _currentArrangment.Rotate();
+            if (_currentArrangment.getAmpluaByZone(4) == Amplua.Libero)
+            {
+                //Change To MiddleBlocker
+                Player changer = GetNonLiberoFromFastChangePlayers();
+                ChangeFastPlayer(_currentArrangment[3], changer);
+            }
+        }
         public int getPlayerZone(Player player)
         {
             for(int i =0;i < 6; i++)
