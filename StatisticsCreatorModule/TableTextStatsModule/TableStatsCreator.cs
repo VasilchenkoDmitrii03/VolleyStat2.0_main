@@ -10,6 +10,7 @@ using System.ComponentModel.Design;
 using DocumentFormat.OpenXml.Office2013.Excel;
 using DocumentFormat.OpenXml.Drawing.Charts;
 
+
 namespace StatisticsCreatorModule.TableTextStatsModule
 {
     public abstract class TableStatsCreator
@@ -50,7 +51,8 @@ namespace StatisticsCreatorModule.TableTextStatsModule
                 cellProperties.TableCellBorders.BottomBorder = new BottomBorder() { Val = BorderValues.Single, Size = 12 }; // Жирная граница вниз
             }
 
-            cell.TableCellProperties = cellProperties;
+           
+            cell.AppendChild(cellProperties);
             return cell;
         }
     }
@@ -75,13 +77,13 @@ namespace StatisticsCreatorModule.TableTextStatsModule
 
             table.Append(createHeaderTableRow());
             TableRow headerRow = new TableRow();
-            foreach(string header in getHeader())
+            foreach (string header in getHeader())
             {
                 TableCell cell = CreateCell(header);
                 headerRow.Append(cell);
             }
             table.Append(headerRow);
-            foreach(Player p in team.Players)
+            foreach (Player p in team.Players)
             {
                 table.Append(createPlayerTableRow(p, seq, boldColumnsNumbers));
             }
@@ -132,7 +134,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         {
             string[] strs = getPlayerStats(seq, p);
             TableRow row = new TableRow();
-            for(int i = 0;i < strs.Length; i++)
+            for (int i = 0; i < strs.Length; i++)
             {
                 row.Append(CreateCell(strs[i], boldColumnsNumbers.Contains(i), false));
             }
@@ -148,8 +150,8 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             }
             return row;
         }
-        
-        private string[] getPlayerStats(VolleyActionSequence seq, Player p) 
+
+        private string[] getPlayerStats(VolleyActionSequence seq, Player p)
         {
             return getRowStats(seq.SelectActionsByCondition((pl) => { return pl.Player == p; }), $"#{p.Number} {p.Surname}");
         }
@@ -159,20 +161,20 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         }
         private string[] getHeader()
         {
-            return new string[] {"", "Pts", "W-L", "Tot", "Err", "Eff%", "Ace", "Tot", "Err", "Neg%", "Pos%", "Per%", "Tot", "Err", "Bk", "Pts", "Eff%", "Pts%", "Err", "Neg%", "Pos%", "Pts", "Tot", "Pos%" };
+            return new string[] { "", "Pts", "W-L", "Tot", "Err", "Eff%", "Ace", "Tot", "Err", "Neg%", "Pos%", "Per%", "Tot", "Err", "Bk", "Pts", "Eff%", "Pts%", "Err", "Neg%", "Pos%", "Pts", "Tot", "Pos%" };
         }
         private string[] getRowStats(VolleyActionSequence seq, string rowName)
         {
             List<string> result = new List<string>();
-            
-            Func<VolleyActionSequence, List<string>>[] funcs = new Func<VolleyActionSequence, List<string>>[] { getPtsStats, getServeStats, getReceptionStats, getAttackStats, getBlockStats, getDefenceStats  };
+
+            Func<VolleyActionSequence, List<string>>[] funcs = new Func<VolleyActionSequence, List<string>>[] { getPtsStats, getServeStats, getReceptionStats, getAttackStats, getBlockStats, getDefenceStats };
             result.Add(rowName);
-            foreach(var func in funcs)
+            foreach (var func in funcs)
             {
                 List<string> stats = func(seq);
                 result.AddRange(stats);
             }
-            return result.ToArray();    
+            return result.ToArray();
         }
         private List<string> getPtsStats(VolleyActionSequence seq)
         {
@@ -292,7 +294,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             return res;
         }
 
-        
+
     }
 
     public class SetStatTable : TableStatsCreator
@@ -309,7 +311,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         public Table[] getReceptionZoneDistributionStatistics(VolleyActionSegmentSequence sequence)
         {
             Table[] result = new Table[6];
-            for(int i = 1; i <= 6; i++)
+            for (int i = 1; i <= 6; i++)
             {
                 result[i - 1] = createReceptionZoneDistributionTable(sequence, i);
             }
@@ -334,7 +336,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             }
             table.Append(tableGrid);
             TableRow firstRow = new TableRow();
-            for (int i = 4; i >=2; i--)
+            for (int i = 4; i >= 2; i--)
             {
                 string str = getDirectionZoneData(seq, i);
                 firstRow.Append(CreateCell(str));
@@ -345,7 +347,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             {
                 int zn = i;
                 if (i == 7) zn = 1;
-                string str = getDirectionZoneData(seq, zn );
+                string str = getDirectionZoneData(seq, zn);
                 secondRow.Append(CreateCell(str));
             }
             table.Append(firstRow);
@@ -355,7 +357,8 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         private string getDirectionZoneData(VolleyActionSegmentSequence segments, int zone)
         {
             string res = "";
-            VolleyActionSegmentSequence setsDirectedToZone = segments.SelectByCondition((seg) => {
+            VolleyActionSegmentSequence setsDirectedToZone = segments.SelectByCondition((seg) =>
+            {
                 return (int)seg.getByActionType(VolleyActionType.Set)["Direction"].Value == zone;
             });
             VolleyActionSequence setSeq = setsDirectedToZone.ConvertToActionSequence().SelectActionsByCondition((act) => { return act.VolleyActionType == VolleyActionType.Set; });
@@ -386,7 +389,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             TableRow header = new TableRow();
             header.Append(CreateCell(""));
             string[] names = mt.AcceptableValuesNames.Values.ToArray();
-            for(int i= 0;i < mt.AcceptableValues.Count; i++)
+            for (int i = 0; i < mt.AcceptableValues.Count; i++)
             {
                 header.Append(CreateCell(names[i]));
             }
@@ -395,7 +398,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             table.Append(getDistributionByReceptionQuality(sequence, 5));
             table.Append(getDistributionByReceptionQuality(sequence, 4));
             table.Append(getDistributionByReceptionQuality(sequence, 6, 5, 4));
-            table.Append(getDistributionByReceptionQuality(sequence, 3,2));
+            table.Append(getDistributionByReceptionQuality(sequence, 3, 2));
             return table;
         }
         private TableRow getDistributionByReceptionQuality(VolleyActionSequence seq, params int[] receptionQuality)
@@ -405,23 +408,112 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             List<Func<PlayerAction, bool>> funcs = new List<Func<PlayerAction, bool>>();
             MetricType metricType = sequence[0]["BlockersCount"].MetricType;
             MetricType qual = sequence[0]["Quality"].MetricType;
-            foreach(int value in metricType.AcceptableValues)
+            foreach (int value in metricType.AcceptableValues)
             {
                 funcs.Add((act) => { return (int)((PlayerAction)act)["BlockersCount"].Value == value; });
             }
             int[] values = sequence.CountActionsByCondition(funcs.ToArray());
             string first = "";
-            foreach(int i in receptionQuality)
+            foreach (int i in receptionQuality)
             {
                 first += qual.AcceptableValuesNames[i];
             }
             first += $"({sequence.Count})";
             row.Append(CreateCell(first));
-            for(int i= 0; i  < values.Length; i++)
+            for (int i = 0; i < values.Length; i++)
             {
                 row.Append(CreateCell($"{convertValuesToString(values[i])}({convertValuesToPercentString(values[i], sequence.Count)})"));
             }
             return row;
+        }
+    }
+
+    public class ReceptionStatTable : TableStatsCreator
+    {
+        public ReceptionStatTable()
+        {
+        }
+        public override Table process(Team team, VolleyActionSegmentSequence seq)
+        {
+            throw new NotImplementedException();
+        }
+        public override Table process(Team team, VolleyActionSequence seq)
+        {
+            throw new NotImplementedException();
+        }
+        public Table[] createGliderAndJumpTablesForPlayer(Player p, VolleyActionSequence seq)
+        {
+            VolleyActionSequence sequence = seq.SelectActionsByCondition((pl) => { return pl.Player == p && pl.VolleyActionType == VolleyActionType.Reception; });
+            if (sequence.Count == 0) return null;
+            VolleyActionSequence gliders = sequence.SelectActionsByCondition((pl) => { return pl["ServeType"].getShortString() == "gldr"; });
+            VolleyActionSequence jumps = sequence.SelectActionsByCondition((pl) => { return pl["ServeType"].getShortString() == "jmp"; });
+
+            DocumentFormat.OpenXml.Wordprocessing.Table gliderTable = new DocumentFormat.OpenXml.Wordprocessing.Table();
+            TableGrid tableGrid = new TableGrid();
+            TableGrid tableGrid_ = new TableGrid();
+            TableProperties tblProperties = new TableProperties(
+           new TableWidth { Width = "7500", Type = TableWidthUnitValues.Dxa } // Ширина таблицы 5000 twips (половина ширины страницы)
+           
+       );
+            TableProperties tblProperties_ = new TableProperties(
+           new TableWidth { Width = "7500", Type = TableWidthUnitValues.Dxa }); // Ширина таблицы 5000 twips (половина ширины страницы)
+
+
+            for (int i = 0; i < 3; i++)
+            {
+                tableGrid.Append(new GridColumn());
+                tableGrid_.Append(new GridColumn());
+            }
+            gliderTable.Append(tableGrid);
+            gliderTable.Append(tblProperties);
+            List<string[]> gliderStrings = stringsForTable(gliders);
+            TableRow gliderFirst = new TableRow();
+            TableRow gliderSecond = new TableRow();
+            for(int i= 0;i < 3; i++)
+            {
+                gliderFirst.Append(CreateCell(gliderStrings[0][i], false, false, "2500"));
+                gliderSecond.Append(CreateCell((gliderStrings[1][i]), false, false, "2500"));
+            }
+
+            gliderTable.Append(gliderFirst);
+            gliderTable.Append(gliderSecond);
+
+            DocumentFormat.OpenXml.Wordprocessing.Table jumpTable = new DocumentFormat.OpenXml.Wordprocessing.Table();
+            jumpTable.Append(tableGrid_);
+            jumpTable.Append(tblProperties_);
+            List<string[]> jumpStrings = stringsForTable(jumps);
+            TableRow jumpFirst = new TableRow();
+            TableRow jumpSecond = new TableRow();
+            for (int i = 0; i < 3; i++)
+            {
+
+                jumpFirst.Append(CreateCell(jumpStrings[0][i], false, false, "2500"));
+                jumpSecond.Append(CreateCell((jumpStrings[1][i]), false, false, "2500"));
+            }
+            jumpTable.Append(jumpFirst);
+            jumpTable.Append(jumpSecond);
+
+            return new DocumentFormat.OpenXml.Wordprocessing.Table[] { gliderTable, jumpTable };
+        }
+        private List<string[]> stringsForTable(VolleyActionSequence seq)
+        {
+            string[] strings = new string[6];
+            Func<PlayerAction, bool>[] funcs = new Func<PlayerAction, bool>[] {(pl)=> { return pl.GetQuality() == 6; },
+            (pl)=> { return pl.GetQuality() >= 5; },
+            (pl)=> { return pl.GetQuality() >= 2 && pl.GetQuality() < 5; },
+            (pl)=> { return pl.GetQuality() == 1; }};
+            for(int i = 0;i < 6; i++)
+            {
+                VolleyActionSequence currentSeq = seq.SelectActionsByCondition((pl) => { return (int)pl[pl.MetricTypes[1]].Value == i + 1; });
+                int[] values = currentSeq.CountActionsByCondition(funcs);
+                strings[i] = $@"{convertValuesToString(currentSeq.Count)}({convertValuesToPercentString(currentSeq.Count, seq.Count)})
+#: {convertValuesToPercentString(values[0], currentSeq.Count)}, #+: {convertValuesToPercentString(values[1], currentSeq.Count)}
+!/-: {convertValuesToPercentString(values[2], currentSeq.Count)}, =: {convertValuesToPercentString(values[3], currentSeq.Count)}";
+            }
+
+            string[] FirstLine = new string[]{ strings[3], strings[2], strings[1] };
+            string[] SecondLine = new string[] { strings[4], strings[5], strings[0] };
+            return new List<string[]>() { FirstLine, SecondLine };
         }
     }
 }

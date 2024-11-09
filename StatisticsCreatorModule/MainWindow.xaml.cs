@@ -262,6 +262,38 @@ namespace StatisticsCreatorModule
             }
         }
 
+        private void CreateReceptionTableClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == true)
+            {
+                using (WordprocessingDocument document = WordprocessingDocument.Create(sfd.FileName, WordprocessingDocumentType.Document))
+                {
+                    MainDocumentPart mainPart = document.AddMainDocumentPart();
+                    mainPart.Document = new Document();
+                    Body body = new Body();
+                    ReceptionStatTable tableCreator = new ReceptionStatTable();
+                    VolleyActionSequence seq = _game.getVolleyActionSequence();
+                    foreach(Player p in _game.Team.Players)
+                    {
+                        DocumentFormat.OpenXml.Wordprocessing.Table[] tables = tableCreator.createGliderAndJumpTablesForPlayer(p, seq);
+                        if (tables == null) continue;
+                        DocumentFormat.OpenXml.Wordprocessing.Paragraph player = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(new DocumentFormat.OpenXml.Wordprocessing.Run(new Text($"Player #{p.Number}")));
+                        body.Append(player);
+
+                        DocumentFormat.OpenXml.Wordprocessing.Paragraph glider = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(new DocumentFormat.OpenXml.Wordprocessing.Run(new Text($"Glider")));
+                        body.Append(glider);
+                        body.Append(tables[0]);
+                        DocumentFormat.OpenXml.Wordprocessing.Paragraph jump = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(new DocumentFormat.OpenXml.Wordprocessing.Run(new Text($"Jump")));
+                        body.Append(jump);
+                        body.Append(tables[1]);
+                    }
+
+                    mainPart.Document.Append(body);
+                }
+            }
+        }
+
         SettingsWindow.SettingsWindow PositionSettingsWindow;
         bool currentSetAdded = false;
         public void PlayerPositionUpdate (object sender, RoutedEventArgs e)
