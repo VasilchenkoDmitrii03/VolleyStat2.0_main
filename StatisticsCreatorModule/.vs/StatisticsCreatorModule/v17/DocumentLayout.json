@@ -136,8 +136,7 @@
               "ViewState": "AgIAAJoAAAAAAAAAAAAAAEMBAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-09T15:14:59.774Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -151,7 +150,7 @@
               "RelativeDocumentMoniker": "TableTextStatsModule\\TableStatsCreator.cs",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TableTextStatsModule\\TableStatsCreator.cs",
               "RelativeToolTip": "TableTextStatsModule\\TableStatsCreator.cs",
-              "ViewState": "AgIAAMYBAAAAAAAAAAAAANkBAABTAAAAAAAAAA==",
+              "ViewState": "AgIAALIBAAAAAAAAAAAAAPoBAAB4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-02T13:41:31.255Z",
               "EditorCaption": ""
@@ -166,8 +165,7 @@
               "RelativeToolTip": "TextStatisticsModule.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAPEAAAB+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T14:56:49.659Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T14:56:49.659Z"
             },
             {
               "$type": "Document",
@@ -190,8 +188,7 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-29T15:14:04.355Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T15:14:04.355Z"
             },
             {
               "$type": "Document",
@@ -425,8 +422,7 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TextStatisticsModule.xaml",
               "RelativeToolTip": "TextStatisticsModule.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-29T16:44:04.66Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T16:44:04.66Z"
             },
             {
               "$type": "Document",
@@ -437,8 +433,7 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\App.xaml",
               "RelativeToolTip": "App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-29T16:57:05.465Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T16:57:05.465Z"
             },
             {
               "$type": "Document",
@@ -461,8 +456,7 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\VideoModule.xaml",
               "RelativeToolTip": "VideoModule.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-10-29T16:44:00.763Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T16:44:00.763Z"
             },
             {
               "$type": "Document",

@@ -504,7 +504,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             (pl)=> { return pl.GetQuality() == 1; }};
             for(int i = 0;i < 6; i++)
             {
-                VolleyActionSequence currentSeq = seq.SelectActionsByCondition((pl) => { return (int)pl[pl.MetricTypes[1]].Value == i + 1; });
+                VolleyActionSequence currentSeq = seq.SelectActionsByCondition((pl) => { return (int)pl[pl.MetricTypes[2]].Value == i + 1; });
                 int[] values = currentSeq.CountActionsByCondition(funcs);
                 strings[i] = $@"{convertValuesToString(currentSeq.Count)}({convertValuesToPercentString(currentSeq.Count, seq.Count)})
 #: {convertValuesToPercentString(values[0], currentSeq.Count)}, #+: {convertValuesToPercentString(values[1], currentSeq.Count)}
