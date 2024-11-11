@@ -248,7 +248,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         private List<string> getAttackStats(VolleyActionSequence seq)
         {
             List<string> res = new List<string>();
-            VolleyActionSequence attacks = seq.SelectActionsByCondition((pl) => { return pl.ActionType == VolleyActionType.Attack; });
+            VolleyActionSequence attacks = seq.SelectActionsByCondition((pl) => { return pl.ActionType == VolleyActionType.Attack && ( (int)pl["SetQuality"].Value >= 4 || pl.GetQuality() <= 2 || pl.GetQuality() >= 5); });
             Func<PlayerAction, bool>[] funcs = new Func<PlayerAction, bool>[4];
             funcs[0] = (pl) => { return pl.GetQuality() == 1; }; // errors
             funcs[1] = (pl) => { return pl.GetQuality() == 2; }; // blocked
