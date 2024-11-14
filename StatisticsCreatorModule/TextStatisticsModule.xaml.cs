@@ -169,6 +169,15 @@ namespace StatisticsCreatorModule
             isSetStart = false;
             LineRepresentationControl.UpdateAvaibleActionTypes(avaibleActionTypes);
         }
+        public void BeginNewSet(int setScore, VolleyActionSequence sequence)
+        {
+            BeginNewSet(setScore);
+            foreach(ActionsLib.Action act in sequence)
+            {
+                buttonClickActionAdded(act);
+            }
+            LineRepresentationControl.updateCurrentSegment(_currentSegment);
+        }
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
             if (!LineRepresentationControl.Ready())
@@ -182,9 +191,14 @@ namespace StatisticsCreatorModule
                 ((PlayerAction)act).TimeCode = _currentTimeCode;
                 ((PlayerAction)act).Points = _currentPoints;
             }
+            buttonClickActionAdded(act);
+        }
+        private void buttonClickActionAdded(ActionsLib.Action act)
+        {
+            
             _actions.Add(act);
-            if(actionAdded(act))return ;
-            if(currentArrangementNumber != -1)
+            if (actionAdded(act)) return;
+            if (currentArrangementNumber != -1)
             {
                 if (isRallyEnded) { avaibleActionTypes.BetweenRallies(GetAvaibleActionTypes(act)); }
                 else { avaibleActionTypes.InRally(GetAvaibleActionTypes(act)); }
@@ -353,7 +367,7 @@ namespace StatisticsCreatorModule
             if (seq.Count == 0 || act.AuthorType == ActionAuthorType.Judge) return false;
             if (seq.ContainsActionType(act.ActionType) && act.ActionType != VolleyActionType.Defence) return true;
             if (act.ActionType == VolleyActionType.Block && ((PlayerAction)act).GetQuality() == 5) return true;
-            if(act.ActionType == VolleyActionType.Attack) return true;
+            if(seq.Last().ActionType == VolleyActionType.Attack) return true;
             if (seq.Count > 4) return true;
             if (seq.Last().AuthorType != act.AuthorType) return true;
             if (seq.Count > 0 && (act.ActionType == VolleyActionType.Block || act.ActionType == VolleyActionType.Defence)) return true;

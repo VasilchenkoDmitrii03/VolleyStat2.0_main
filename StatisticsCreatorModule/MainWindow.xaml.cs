@@ -140,6 +140,7 @@ namespace StatisticsCreatorModule
                 this._game.AddSet(e.Set);
             }
             currentSetAdded = false;
+            _game.UpdateResult();
             if (_game.GameResult == GameResult.Lost || _game.GameResult == GameResult.Won)
             {
                 MessageBox.Show("Game finished");
@@ -165,11 +166,25 @@ namespace StatisticsCreatorModule
         private void BeginSet()
         {
 
-            ScoreModule.UpdateSetNumber(_game.Sets.Count + 1);
+            
             if(_game.GameResult == GameResult.NotFinished)
             {
-                TextModule.BeginNewSet(this._game.NextSetLength);
-                PlayerPositionUpdate(null, null);
+                
+                if(_game.Sets.Count > 0 && (_game.Sets.Last().SetResult == SetResult.NotFinished || _game.Sets.Last().SetResult == SetResult.Undefined))
+                {
+                    ScoreModule.UpdateSetNumber(_game.Sets.Count);
+                    VolleyActionSequence seq = _game.Sets.Last().ConvertToSequence();
+                    TextModule.BeginNewSet(this._game.Sets.Last().SetLength, seq);
+                    currentSetAdded = true;
+                    _game.Sets[_game.Sets.Count-1] = TextModule.CurrentSet;
+                }
+                else
+                {
+                    ScoreModule.UpdateSetNumber(_game.Sets.Count + 1);
+                    TextModule.BeginNewSet(this._game.NextSetLength);
+                    PlayerPositionUpdate(null, null);
+                }
+                
             }
             
         }
@@ -223,12 +238,10 @@ namespace StatisticsCreatorModule
             {
                 using (WordprocessingDocument document = WordprocessingDocument.Create(sfd.FileName, WordprocessingDocumentType.Document))
                 {
-                    MainDocumentPart mainPart = document.AddMainDocumentPart();
-                    mainPart.Document = new Document();
-                    Body body = new Body();
-                    BaseStatTable tableCreator = new BaseStatTable();
-                    body.Append(tableCreator.process(_team, this._game.getVolleyActionSequence()));
-                    mainPart.Document.Append(body);
+                    DocumentCreator documentCreator = new DocumentCreator();
+                    documentCreator.CreateBaseStatTable(_game, document);
+                    documentCreator.ImageTestDocument(_game, document);
+
                 }
             }
         }
@@ -240,24 +253,8 @@ namespace StatisticsCreatorModule
             {
                 using (WordprocessingDocument document = WordprocessingDocument.Create(sfd.FileName, WordprocessingDocumentType.Document))
                 {
-                    MainDocumentPart mainPart = document.AddMainDocumentPart();
-                    mainPart.Document = new Document();
-                    Body body = new Body();
-                    SetStatTable tableCreator = new SetStatTable();
-
-                    DocumentFormat.OpenXml.Wordprocessing.Paragraph par = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(new DocumentFormat.OpenXml.Wordprocessing.Run(new Text("Reception distribution")));
-                    body.Append(par);
-                    body.Append(tableCreator.getBlockersDistributionByReceptionQuality(_game.getVolleyActionSegmentSequence(), _game));
-
-                    DocumentFormat.OpenXml.Wordprocessing.Table[] tables = tableCreator.getReceptionZoneDistributionStatistics(_game.getVolleyActionSegmentSequence());
-                    for(int i= 0; i < tables.Length; i++)
-                    {
-                        DocumentFormat.OpenXml.Wordprocessing.Paragraph paragraph = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(new DocumentFormat.OpenXml.Wordprocessing.Run(new Text($"P{i+1}")));
-                        body.Append(paragraph);
-                        body.Append(tables[i]);
-                    }
-
-                    mainPart.Document.Append(body);
+                    DocumentCreator documentCreator = new DocumentCreator();
+                    documentCreator.CreateBaseSetterTable(_game, document);
                 }
             }
         }
@@ -269,27 +266,8 @@ namespace StatisticsCreatorModule
             {
                 using (WordprocessingDocument document = WordprocessingDocument.Create(sfd.FileName, WordprocessingDocumentType.Document))
                 {
-                    MainDocumentPart mainPart = document.AddMainDocumentPart();
-                    mainPart.Document = new Document();
-                    Body body = new Body();
-                    ReceptionStatTable tableCreator = new ReceptionStatTable();
-                    VolleyActionSequence seq = _game.getVolleyActionSequence();
-                    foreach(Player p in _game.Team.Players)
-                    {
-                        DocumentFormat.OpenXml.Wordprocessing.Table[] tables = tableCreator.createGliderAndJumpTablesForPlayer(p, seq);
-                        if (tables == null) continue;
-                        DocumentFormat.OpenXml.Wordprocessing.Paragraph player = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(new DocumentFormat.OpenXml.Wordprocessing.Run(new Text($"Player #{p.Number}")));
-                        body.Append(player);
-
-                        DocumentFormat.OpenXml.Wordprocessing.Paragraph glider = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(new DocumentFormat.OpenXml.Wordprocessing.Run(new Text($"Glider")));
-                        body.Append(glider);
-                        body.Append(tables[0]);
-                        DocumentFormat.OpenXml.Wordprocessing.Paragraph jump = new DocumentFormat.OpenXml.Wordprocessing.Paragraph(new DocumentFormat.OpenXml.Wordprocessing.Run(new Text($"Jump")));
-                        body.Append(jump);
-                        body.Append(tables[1]);
-                    }
-
-                    mainPart.Document.Append(body);
+                   DocumentCreator documentCreator = new DocumentCreator();
+                    documentCreator.CreateBaseReceptionTable(_game, document);
                 }
             }
         }

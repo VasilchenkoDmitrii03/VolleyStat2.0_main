@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\App.xaml
 22-11143236
 31236984110
-34-1238144248
-2041209711145
+35782462938
+206190758718
 ActionTextRepresentationControl.xaml;ButtonControllerControl.xaml;FIeldVisualisationControl.xaml;Filters\ActionMetricTypeStatSelector.xaml;Filters\AllActionMetricsController.xaml;Filters\ComboCheckBox.xaml;Filters\MetricTypeStatSelector.xaml;Filters\StatisticsMetricsController.xaml;Filters\StatisticsPlayersFilters.xaml;LiberoModeSetter\LiberoModeSetter.xaml;MainWindow.xaml;PlayerPositioning\Field.xaml;PlayerPositioning\PlayerPositionController.xaml;PlayerPositioning\PlayerPositionWindow.xaml;ScoreDisplayer.xaml;SettingsWindow\LiberoSystemSettingsBlock.xaml;SettingsWindow\SettingsWindow.xaml;StatisticsTextModule\StatisticsTextControl.xaml;TextStatisticsModule.xaml;Themes\DarkTheme.xaml;Themes\LightTheme.xaml;VideoModule.xaml;
 
-True
+False
 

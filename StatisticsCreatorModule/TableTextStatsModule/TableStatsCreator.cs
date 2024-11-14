@@ -181,7 +181,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             List<string> res = new List<string>();
             int[] values = seq.CountActionsByCondition(wonAction, lostAction);
             res.Add(convertValuesToString(values[0]));
-            res.Add(values[1].ToString());
+            res.Add((values[0] -values[1]).ToString());
             return res;
         }
         private bool wonAction(PlayerAction pl)

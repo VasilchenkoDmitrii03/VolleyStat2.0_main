@@ -822,6 +822,10 @@ namespace ActionsLib
             return _result;
             
         }
+        public void UpdateResult()
+        {
+            _result = isGameFinished();
+        }
         private GameResult isGameFinished()
         {
             int lost = 0, won = 0;
@@ -851,9 +855,15 @@ namespace ActionsLib
         public int NextSetLength
         {
             get {
-                int ind = Sets.Count;
-                return _setLengths[ind];
-                return _setLengths[_currentSetIndex]; }
+                try
+                {
+                    int ind = Sets.Count;
+                    return _setLengths[ind];
+                    return _setLengths[_currentSetIndex];
+                }
+                catch {
+                    return 25;
+                } }
         }
         public string URL
         {
