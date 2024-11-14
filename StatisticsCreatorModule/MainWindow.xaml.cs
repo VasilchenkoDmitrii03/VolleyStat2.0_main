@@ -245,6 +245,19 @@ namespace StatisticsCreatorModule
                 }
             }
         }
+        private void ImageTableClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == true)
+            {
+                using (WordprocessingDocument document = WordprocessingDocument.Create(sfd.FileName, WordprocessingDocumentType.Document))
+                {
+                    DocumentCreator documentCreator = new DocumentCreator();
+                    documentCreator.CreateFullReceptionStats(_game, document);
+
+                }
+            }
+        }
 
         private void CreateSetterTableClick(object sender, RoutedEventArgs e)
         {
