@@ -247,13 +247,13 @@ namespace StatisticsCreatorModule
                 docCreat.CreateBaseStatTablePDF(_game, sfd.FileName);
             }
         }
-        private void ImageTableClick(object sender, RoutedEventArgs e)
+        private void CreateServeTableClick(object sender, RoutedEventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
             if (sfd.ShowDialog() == true)
             {
                 DocumentCreator documentCreator = new DocumentCreator();
-                documentCreator.CreateFullReceptionStats(_game, sfd.FileName);
+                documentCreator.CreateBaseServeTablePDF(_game, sfd.FileName);
             }
         }
 
@@ -269,17 +269,33 @@ namespace StatisticsCreatorModule
                 }
             }
         }
-
+       
+              private void CreateFullFileClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == true)
+            {
+                DocumentCreator docCreat = new DocumentCreator();
+                docCreat.CreateTotalStatisticsFilePDF(_game, sfd.FileName);
+            }
+        }
+        private void CreateAttackTableClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == true)
+            {
+                DocumentCreator docCreat = new DocumentCreator();
+                docCreat.CreateBaseAttackTablePDF(_game, sfd.FileName);
+            }
+        }
+        
         private void CreateReceptionTableClick(object sender, RoutedEventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
             if (sfd.ShowDialog() == true)
             {
-                using (WordprocessingDocument document = WordprocessingDocument.Create(sfd.FileName, WordprocessingDocumentType.Document))
-                {
-                   DocumentCreator documentCreator = new DocumentCreator();
-                    documentCreator.CreateBaseReceptionTable(_game, document);
-                }
+                DocumentCreator docCreat = new DocumentCreator();
+                docCreat.CreateBaseReceptionTablePDF(_game, sfd.FileName);
             }
         }
 

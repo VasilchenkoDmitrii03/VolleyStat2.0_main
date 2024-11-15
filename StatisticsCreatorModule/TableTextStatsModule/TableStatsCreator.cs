@@ -12,6 +12,7 @@ using DocumentFormat.OpenXml.Drawing.Charts;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
 using static QuestPDF.Helpers.Colors;
+using System.Reflection;
 
 namespace StatisticsCreatorModule.TableTextStatsModule
 {
@@ -460,6 +461,24 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         {
             throw new NotImplementedException();
         }
+        public void createServeTypeTable(VolleyActionSequence PlayerActions, ColumnDescriptor column)
+        {
+            if (PlayerActions.Count == 0) return;
+            List<string[]> strs = stringsForTable(PlayerActions);
+            column.Item().Table(table =>
+            {
+                int columnCount = 3;
+                table.ColumnsDefinition(columns =>
+                {
+                    for (int i = 0; i < columnCount; i++) columns.ConstantColumn(30, Unit.Millimetre);
+                });
+                for(int i= 0; i < 2; i++)
+                {
+                    for(int j = 0;j < 3; j++) table.Cell().Border(1).BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0)).Text(strs[i][j]);
+                }
+            });
+        }
+
         public Table[] createGliderAndJumpTablesForPlayer(Player p, VolleyActionSequence seq)
         {
             VolleyActionSequence sequence = seq.SelectActionsByCondition((pl) => { return pl.Player == p && pl.VolleyActionType == VolleyActionType.Reception; });
@@ -514,6 +533,19 @@ namespace StatisticsCreatorModule.TableTextStatsModule
 
             return new DocumentFormat.OpenXml.Wordprocessing.Table[] { gliderTable, jumpTable };
         }
+        private List<string> createGliderAndJumpTables(VolleyActionSequence seq)
+        {
+            List<string> result = new List<string>();
+            VolleyActionSequence sequence = seq.SelectActionsByCondition((pl) => { return pl.VolleyActionType == VolleyActionType.Reception; });
+            if (sequence.Count == 0) return null;
+            VolleyActionSequence gliders = sequence.SelectActionsByCondition((pl) => { return pl["ServeType"].getShortString() == "gldr"; });
+            VolleyActionSequence jumps = sequence.SelectActionsByCondition((pl) => { return pl["ServeType"].getShortString() == "jmp"; });
+            List<string[]> strGliders = stringsForTable(gliders);
+            foreach (string[] strarr in strGliders) result.AddRange(strarr);
+            List<string[]> strJumps = stringsForTable(jumps);
+            foreach (string[] strarr in strJumps) result.AddRange(strarr);
+            return result;
+        }
         private List<string[]> stringsForTable(VolleyActionSequence seq)
         {
             string[] strings = new string[6];
@@ -533,6 +565,73 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             string[] FirstLine = new string[]{ strings[3], strings[2], strings[1] };
             string[] SecondLine = new string[] { strings[4], strings[5], strings[0] };
             return new List<string[]>() { FirstLine, SecondLine };
+        }
+
+        public void QualityTable(VolleyActionSequence sequence, ColumnDescriptor column)
+        {
+            List<string> strs = new List<string>() {"=", "-", "/", "!", "+", "#" };
+            Func<PlayerAction, bool>[] funcs = new Func<PlayerAction, bool>[]
+            {
+                (pl => pl.GetQuality() == 1),
+                (pl => pl.GetQuality() == 2),
+                (pl => pl.GetQuality() == 3),
+                (pl => pl.GetQuality() == 4),
+                (pl => pl.GetQuality() == 5),
+                (pl => pl.GetQuality() == 6)
+            };
+            int[] values = sequence.CountActionsByCondition(funcs);
+            foreach(int value in values)
+            {
+                strs.Add($"{convertValuesToString(value)} ({convertValuesToPercentString(value, sequence.Count)})");
+            }
+            column.Item().Table(table => {
+                table.ColumnsDefinition(columns =>
+                {
+                    for (int i = 0; i < 6; i++) columns.ConstantColumn(30, Unit.Millimetre);
+                    foreach (string str in strs)
+                    {
+                        table.Cell().Border(1).BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0,0,0)).Text(str).AlignCenter();
+                    }
+                });
+
+            });
+        }
+        public void QualityTable(VolleyActionSequence sequence,RowDescriptor column)
+        {
+            List<string> strs = new List<string>() { "Total", "#", "+", "!", "/", "-", "=" };
+            Func<PlayerAction, bool>[] funcs = new Func<PlayerAction, bool>[]
+            {
+                (pl => pl.GetQuality() == 6),
+                (pl => pl.GetQuality() == 5),
+                (pl => pl.GetQuality() == 4),
+                (pl => pl.GetQuality() == 3),
+                (pl => pl.GetQuality() == 2),
+                (pl => pl.GetQuality() == 1)
+            };
+            int[] values = sequence.CountActionsByCondition(funcs);
+            strs.Add("");
+            foreach (int value in values)
+            {
+                strs.Add($"{convertValuesToPercentString(value, sequence.Count)}");
+            }
+            strs.Add(sequence.Count.ToString());
+            foreach (int value in values)
+            {
+                strs.Add($"{convertValuesToString(value)}");
+            }
+            
+            column.RelativeColumn().Table(table => {
+                table.ColumnsDefinition(columns =>
+                {
+                    //for (int i = 0; i < 6; i++) columns.ConstantColumn(15, Unit.Millimetre);
+                    for (int i = 0; i < 7; i++) columns.RelativeColumn();
+                    foreach (string str in strs)
+                    {
+                        table.Cell().Border(1).BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0)).Text(str).FontSize(8).AlignCenter();
+                    }
+                });
+
+            });
         }
     }
 }

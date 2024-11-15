@@ -24,10 +24,12 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Statistics">
+                <MenuItem Click="CreateFullFileClick">Create full pdf file</MenuItem>
                 <MenuItem Click="CreateBaseTableClick"> Create base table</MenuItem>
                 <MenuItem Click="CreateSetterTableClick">Create setter table</MenuItem>
                 <MenuItem Click="CreateReceptionTableClick">Create reception table</MenuItem>
-                <MenuItem Click="ImageTableClick">Image test</MenuItem>
+                <MenuItem Click="CreateServeTableClick">Create serve table</MenuItem>
+                <MenuItem Click="CreateAttackTableClick">Create attack table</MenuItem>
             </MenuItem>
         </Menu>
         <TabControl>

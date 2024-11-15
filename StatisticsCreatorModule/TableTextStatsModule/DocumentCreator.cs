@@ -21,6 +21,9 @@ using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using DocumentFormat.OpenXml.Office2013.Excel;
+using System.Windows.Media.Media3D;
+using System.Xml.Linq;
 
 namespace StatisticsCreatorModule.TableTextStatsModule
 {
@@ -69,68 +72,81 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         {
             QuestPDF.Fluent.Document.Create(container =>
             {
-                container.Page(page =>
-                {
-                    page.Size(new QuestPDF.Helpers.PageSize(297, 210, Unit.Millimetre));
-                    page.Margin(20);
-
-                    page.Content().Column(column =>
-                    {
-                        column.Spacing(10);
-
-                        int columnCount = 24;
-                        // Добавляем длинную таблицу
-                        column.Item().Table(table =>
-                        {
-                            table.ColumnsDefinition(columns =>
-                            {
-                                columns.ConstantColumn(35, Unit.Millimetre);
-                                for (int i = 1; i < columnCount; i++) columns.RelativeColumn();
-                            });
-                            string[] Headers = new string[] { "Player", "Points", "Serve", "Reception", "Attack", "Block", "Defence" };
-                            int[] boldColumnsNumbers = new int[] { 0, 2, 6, 11, 17, 21 };
-                            table.Cell().ColumnSpan(1).Text(Headers[0]).FontSize(15);
-                            table.Cell().ColumnSpan(2).Text(Headers[1]).FontSize(15);
-                            table.Cell().ColumnSpan(4).Text(Headers[2]).FontSize(15);
-                            table.Cell().ColumnSpan(5).Text(Headers[3]).FontSize(15);
-                            table.Cell().ColumnSpan(6).Text(Headers[4]).FontSize(15);
-                            table.Cell().ColumnSpan(4).Text(Headers[5]).FontSize(15);
-                            table.Cell().ColumnSpan(2).Text(Headers[6]).FontSize(15);
-                            List<string> lst = BaseStatTable.CreateTablePDF(_game);
-                            int index = 0;
-                            foreach (string s in lst)
-                            {
-                                if(index % 24 == 0){
-                            table.Cell().Border(1) // Устанавливаем границу толщиной 1 пиксель
-            .BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0))
-            .Background(QuestPDF.Infrastructure.Color.FromRGB(255, 255, 255))
-            .Padding(2)
-            .Text(s).FontSize(9);
-                                }
-                                else if(boldColumnsNumbers.Contains(index % 24))
-                                {
-                                    table.Cell().BorderRight(3).BorderBottom(1).BorderLeft(1).BorderTop(1) // Устанавливаем границу толщиной 1 пиксель
-            .BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0))
-            .Background(QuestPDF.Infrastructure.Color.FromRGB(255, 255, 255))
-            .Padding(2)
-            .Text(s).FontSize(9);
-                                }
-                                else
-                                {
-                                    table.Cell().Border(1) // Устанавливаем границу толщиной 1 пиксель
-           .BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0))
-           .Background(QuestPDF.Infrastructure.Color.FromRGB(255, 255, 255))
-           .Padding(2).AlignCenter()
-           .Text(s).FontSize(9);
-                                }
-
-                                index++;
-                            }
-                        });
-                    });
-                });
+                CreateBaseStatTablePDF(_game, container);
             })
        .GeneratePdf(path);
+        }
+        private void CreateBaseStatTablePDF(Game _game, IDocumentContainer container)
+        {
+            container.Page(page =>
+            {
+                page.Size(new QuestPDF.Helpers.PageSize(297, 210, Unit.Millimetre));
+                page.Margin(20);
+
+                page.Content().Column(column =>
+                {
+                    column.Spacing(10);
+
+                    int columnCount = 24;
+                    // Добавляем длинную таблицу
+                    column.Item().Table(table =>
+                    {
+                        table.ColumnsDefinition(columns =>
+                        {
+                            columns.ConstantColumn(35, Unit.Millimetre);
+                            for (int i = 1; i < columnCount; i++) columns.RelativeColumn();
+                        });
+                        string[] Headers = new string[] { "Player", "Points", "Serve", "Reception", "Attack", "Block", "Defence" };
+                        int[] boldColumnsNumbers = new int[] { 0, 2, 6, 11, 17, 21 };
+                        int[] boldRowsNumbers = new int[] { 0, _game.Team.Players.Count };
+                        table.Cell().ColumnSpan(1).Text(Headers[0]).FontSize(15);
+                        table.Cell().ColumnSpan(2).Text(Headers[1]).FontSize(15);
+                        table.Cell().ColumnSpan(4).Text(Headers[2]).FontSize(15);
+                        table.Cell().ColumnSpan(5).Text(Headers[3]).FontSize(15);
+                        table.Cell().ColumnSpan(6).Text(Headers[4]).FontSize(15);
+                        table.Cell().ColumnSpan(4).Text(Headers[5]).FontSize(15);
+                        table.Cell().ColumnSpan(2).Text(Headers[6]).FontSize(15);
+                        List<string> lst = BaseStatTable.CreateTablePDF(_game);
+                        int index = 0;
+                        foreach (string s in lst)
+                        {
+                            int bottom = 1;
+                            int top = 1;
+                            int left = 1;
+                            int right = 1;
+                            byte r = 255, g = 255, b = 255;
+                            bool alignCenter = false;
+                            if (index == 0)
+                            {
+                                alignCenter = true;
+                            }
+                            if (boldColumnsNumbers.Contains(index % 24)) right = 4;
+                            if (boldRowsNumbers.Contains(index / 24)) bottom = 4;
+                            if ((index / 24) % 2 == 1)
+                            {
+                                r = g = b = 216;
+                            }
+                            if (alignCenter)
+                            {
+                                table.Cell().BorderRight(right).BorderBottom(bottom).BorderLeft(left).BorderTop(top) // Устанавливаем границу толщиной 1 пиксель
+        .BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0))
+        .Background(QuestPDF.Infrastructure.Color.FromRGB(255, 255, 255))
+        .Padding(2)
+        .Text(s).FontSize(9);
+                            }
+                            else
+                            {
+                                table.Cell().BorderRight(right).BorderBottom(bottom).BorderLeft(left).BorderTop(top) // Устанавливаем границу толщиной 1 пиксель
+        .BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0))
+        .Background(QuestPDF.Infrastructure.Color.FromRGB(r, g, b))
+        .Padding(2).AlignCenter()
+        .Text(s).FontSize(9);
+                            }
+                            index++;
+                        }
+                    });
+                });
+            });
         }
         public void CreateBaseSetterTable(Game _game, WordprocessingDocument document)
         {
@@ -283,6 +299,263 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             body.Append(imageParagraph);
         }
 
+        #region Total file
+
+        public void CreateTotalStatisticsFilePDF(Game _game, string path)
+        {
+            QuestPDF.Fluent.Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    CreateBaseStatTablePDF(_game, container);
+                    foreach(Player p in _game.Team.Players)
+                    {
+                        GetFullPlayerStatistics(_game, p, container);
+                    }
+                });
+            })
+       .GeneratePdf(path);
+        }
+
+        private void GetFullPlayerStatistics(Game _game, Player p, IDocumentContainer container)
+        {
+            VolleyActionSequence playersActions = _game.getVolleyActionSequence().SelectActionsByCondition((act) => { return act.Player == p; });
+            int[] counts = playersActions.CountActionsByCondition((act) => { return act.ActionType == VolleyActionType.Serve; }, (act) => { return act.ActionType == VolleyActionType.Reception; }, (act) => { return act.ActionType == VolleyActionType.Attack; });
+            if (playersActions.Count == 0) return;
+            container.Page(page =>
+            {
+                page.Size(new QuestPDF.Helpers.PageSize(210, 297, Unit.Millimetre));
+                page.Margin(10);
+                page.Content().Column(column =>
+                {
+                    column.Item().Text($"Player #{p.Number} {p.Surname} {p.Name}").FontSize(70).Bold().AlignCenter();
+                    if (counts[0] > 0)
+                    {
+                        column.Item().Text($"Serve").FontSize(25).Bold().AlignCenter();
+                        CreatePlayerServeStats(_game.getVolleyActionSequence(), column, p);
+                    }
+                    if (counts[1] > 0)
+                    {
+                        column.Item().Text($"Reception").FontSize(25).Bold().AlignCenter();
+                        CreatePlayerReceptionStats(_game.getVolleyActionSequence(), column, p);
+                    }
+                    if (counts[2] > 0)
+                    {
+                        column.Item().Text($"Attack").FontSize(25).Bold().AlignCenter();
+                        CreatePlayerAttackStats(_game.getVolleyActionSequence(), column, p);
+                    }
+
+                });
+            });
+        }
+        #endregion
+
+        #region Attack
+        public void CreateBaseAttackTablePDF(Game _game, string path)
+        {
+            QuestPDF.Fluent.Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(new QuestPDF.Helpers.PageSize(210, 297, Unit.Millimetre));
+                    page.Margin(10);
+                    ReceptionStatTable tableCreator = new ReceptionStatTable();
+                    page.Content().Column(column =>
+                    {
+                        column.Item().Text("Attack").FontSize(60).Bold().AlignCenter();
+                        foreach (Player p in _game.Team.Players)
+                        {
+
+                            CreatePlayerAttackStats(_game.getVolleyActionSequence(), column, p);
+
+                        }
+
+
+                    });
+                });
+            })
+       .GeneratePdf(path);
+        }
+        private void CreatePlayerAttackStats(VolleyActionSequence sequence, ColumnDescriptor column, Player p)
+        {
+            ReceptionStatTable tableCreator = new ReceptionStatTable();
+            VolleyActionSequence seq = sequence.SelectActionsByCondition(pl => { return pl.AuthorType == ActionAuthorType.Player && ((PlayerAction)(pl)).Player == p && pl.ActionType == VolleyActionType.Attack; });
+            if (seq.Count == 0) return;
+            column.Item().Text($"Player #{p.Number} {p.Surname} {p.Name}").FontSize(25).Bold().AlignCenter();
+            for(int i = 1; i <=6; i++)
+            {
+                VolleyActionSequence positionSequence = seq.SelectActionsByCondition((act) => { return (int)act[act.MetricTypes[2]].Value == i; });
+                FullAttackStatsWithImagesByPosition(positionSequence, column, tableCreator, i);
+            }
+        }
+        private void FullAttackStatsWithImagesByPosition(VolleyActionSequence seq, ColumnDescriptor column, ReceptionStatTable tableCreator,int zoneNumber)
+        {
+            if (seq.Count == 0) return;
+            column.Item().Text($"Position {zoneNumber}").FontSize(20).Bold();
+            QualityStatTableWithImage(seq, column, tableCreator, $"Total position {zoneNumber} ");
+            MetricType blockersCount = null;
+            foreach(MetricType mt in seq[0].MetricTypes) if(mt.Name == "BlockersCount") { blockersCount = mt; break; }
+            foreach(object val in blockersCount.AcceptableValues)
+            {
+                VolleyActionSequence blockersCountSeq = seq.SelectActionsByCondition((act) => { return act[blockersCount].Value == val; });
+                FullAttackStatsWithImagesByPosition(blockersCountSeq, column, tableCreator, zoneNumber, blockersCount.AcceptableValuesNames[val]);
+            }
+        }
+        private void FullAttackStatsWithImagesByPosition(VolleyActionSequence seq, ColumnDescriptor column, ReceptionStatTable tableCreator, int zoneNumber, string blockersCount)
+        {
+            if (seq.Count == 0) return;
+            MetricType setQuality = null;
+            foreach (MetricType Type in seq[0].MetricTypes) if (Type.Name == "SetQuality") setQuality = Type;
+            column.Item().Text($" Zone #{zoneNumber} {blockersCount} blockers").FontSize(17).Bold();
+            foreach (object val in setQuality.AcceptableValuesNames.Keys)
+            {
+                VolleyActionSequence setQualitySeq = seq.SelectActionsByCondition((act) => { return act[setQuality].Value == val; });
+                QualityStatTableWithImage(setQualitySeq, column, tableCreator, $"Set quality: {setQuality.AcceptableValuesNames[val]}");
+            }
+        }
+
+
+        #endregion
+
+
+        #region Serve
+        public void CreateBaseServeTablePDF(Game _game, string path)
+        {
+            QuestPDF.Fluent.Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(new QuestPDF.Helpers.PageSize(210, 297, Unit.Millimetre));
+                    page.Margin(10);
+                    ReceptionStatTable tableCreator = new ReceptionStatTable();
+                    page.Content().Column(column =>
+                    {
+                        column.Item().Text("Serve").FontSize(60).Bold().AlignCenter();
+                        foreach (Player p in _game.Team.Players)
+                        {
+                            CreatePlayerServeStats(_game.getVolleyActionSequence(), column, p);
+                        }
+
+
+                    });
+                });
+            })
+       .GeneratePdf(path);
+        }
+        private void CreatePlayerServeStats(VolleyActionSequence sequence, ColumnDescriptor column, Player p)
+        {
+            ReceptionStatTable tableCreator = new ReceptionStatTable();
+            VolleyActionSequence seq = sequence.SelectActionsByCondition(pl => { return pl.AuthorType == ActionAuthorType.Player && ((PlayerAction)(pl)).Player == p && pl.ActionType == VolleyActionType.Serve; });
+            if (seq.Count == 0) return;
+            column.Item().Text($"Player #{p.Number} {p.Surname} {p.Name}").FontSize(25).Bold().AlignCenter();
+            MetricType serveType = seq[0]["ServeType"].MetricType;
+            foreach(object val in serveType.AcceptableValues)
+            {
+                VolleyActionSequence tmp = seq.SelectActionsByCondition(pl => { return pl[serveType].Value == val; });
+                FullServeStatsWithImages(tmp, column, tableCreator, serveType.AcceptableValuesNames[val]);
+            }
+          
+        }
+        private void FullServeStatsWithImages(VolleyActionSequence seq, ColumnDescriptor column, ReceptionStatTable tableCreator, string name)
+        {
+            if (seq.Count == 0) return;
+            column.Item().Text(name).FontSize(20).Bold();
+            QualityStatTableWithImage(seq, column, tableCreator, "Total " + name);
+            for (int i = 1; i <= 6; i++)
+            {
+                VolleyActionSequence directionSequence = seq.SelectActionsByCondition((act) => { return (int)act["Direction"].Value == i; });
+                if (directionSequence.Count == 0) continue;
+                column.Item().Text($"{name} Direction {i}").FontSize(10).Bold();
+                column.Item().Row(row => {
+                    tableCreator.QualityTable(directionSequence, row);
+                    int id = createImage(directionSequence);
+                    row.RelativeColumn()
+           .Image(System.IO.Path.Combine(basePath, $"image_{id}.jpeg"))
+           .FitArea();
+                });
+            }
+        }
+ 
+        #endregion
+
+        #region Reception
+        public void CreateBaseReceptionTablePDF(Game _game, string path)
+        {
+            QuestPDF.Fluent.Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(new QuestPDF.Helpers.PageSize(210, 297, Unit.Millimetre));
+                    page.Margin(10);
+                    ReceptionStatTable tableCreator = new ReceptionStatTable();
+                    page.Content().Column(column =>
+                    {
+                        column.Item().Text("Serve").FontSize(60).Bold().AlignCenter();
+                        foreach (Player p in _game.Team.Players)
+                        {
+
+                            CreatePlayerReceptionStats(_game.getVolleyActionSequence(), column, p);
+
+                        }
+
+
+                    });
+                });
+            })
+       .GeneratePdf(path);
+        }
+        private void CreatePlayerReceptionStats(VolleyActionSequence sequence, ColumnDescriptor column, Player p)
+        {
+            ReceptionStatTable tableCreator = new ReceptionStatTable();
+            VolleyActionSequence seq = sequence.SelectActionsByCondition(pl => { return pl.AuthorType == ActionAuthorType.Player && ((PlayerAction)(pl)).Player == p && pl.ActionType == VolleyActionType.Reception; });
+            if (seq.Count == 0) return;
+            column.Item().Text($"Player #{p.Number} {p.Surname} {p.Name}").FontSize(25).Bold().AlignCenter();
+            int[] counts = seq.CountActionsByCondition((pl => { return pl["ServeType"].getShortString() == "gldr"; }), (pl => { return pl["ServeType"].getShortString() == "jmp"; }));
+            VolleyActionSequence gliders = seq.SelectActionsByCondition(pl => { return pl["ServeType"].getShortString() == "gldr"; });
+            VolleyActionSequence jumps = seq.SelectActionsByCondition(pl => { return pl["ServeType"].getShortString() == "jmp"; });
+            FullStatsWithImages(gliders, column, tableCreator, "Glider");
+            FullStatsWithImages(jumps, column, tableCreator, "Jump");
+        }
+        private void FullStatsWithImages(VolleyActionSequence seq, ColumnDescriptor column, ReceptionStatTable tableCreator, string name)
+        {
+            if (seq.Count == 0) return;
+            column.Item().Text(name).FontSize(20).Bold();
+            QualityStatTableWithImage(seq, column, tableCreator, "Total " + name);
+            tableCreator.createServeTypeTable(seq, column);
+            for(int i = 1;i <= 6; i++)
+            {
+                VolleyActionSequence positionSequence = seq.SelectActionsByCondition((act) => { return (int)act[act.MetricTypes[2]].Value == i; });
+                FullStatsWithImagesByPosition(positionSequence, column, tableCreator, i, name);
+            }
+        }
+        private void FullStatsWithImagesByPosition(VolleyActionSequence seq, ColumnDescriptor column, ReceptionStatTable tableCreator, int zoneNumber, string preString)
+        {
+            if (seq.Count == 0) return;
+            MetricType receptionType = null;
+            foreach(MetricType Type in seq[0].MetricTypes) if(Type.Name == "ReceptionType") receptionType = Type;
+            column.Item().Text($"{preString} Zone #{zoneNumber}").FontSize(17).Bold();
+            foreach (object val in receptionType.AcceptableValuesNames.Keys)
+            {
+                VolleyActionSequence receptionTypeSeq = seq.SelectActionsByCondition((act) => { return act[receptionType].Value == val; });
+                QualityStatTableWithImage(receptionTypeSeq, column, tableCreator, receptionType.AcceptableValuesNames[val]);
+            }
+        }
+        private void QualityStatTableWithImage(VolleyActionSequence seq, ColumnDescriptor column, ReceptionStatTable tableCreator, string type)
+        {
+            if (seq.Count == 0) return;
+            column.Item().Text(type).FontSize(10).Bold();
+            column.Item().Row(row => {
+                tableCreator.QualityTable(seq, row);
+                int id = createImage(seq);
+                row.RelativeColumn()
+       .Image(System.IO.Path.Combine(basePath, $"image_{id}.jpeg"))
+       .FitArea();
+            });
+        }
+
+        #endregion
+
+
 
         private void DrawAction(Graphics graphics, PointF[] points, PlayerAction action)
         {
@@ -413,7 +686,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
                         DrawAction(graphics, convert(((PlayerAction)act).Points, width - 2 * borders , height - 2 * borders, borders), (PlayerAction)act);
                     }
                 }
-
+                bitmap.RotateFlip(RotateFlipType.Rotate90FlipNone);
 
                 bitmap.Save(System.IO.Path.Combine(basePath, $"image_{ImageID}.jpeg"), System.Drawing.Imaging.ImageFormat.Jpeg);
                 return ImageID++;
