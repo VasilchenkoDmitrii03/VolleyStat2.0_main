@@ -9,7 +9,9 @@ using ActionsLib;
 using System.ComponentModel.Design;
 using DocumentFormat.OpenXml.Office2013.Excel;
 using DocumentFormat.OpenXml.Drawing.Charts;
-
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
+using static QuestPDF.Helpers.Colors;
 
 namespace StatisticsCreatorModule.TableTextStatsModule
 {
@@ -19,17 +21,17 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         public abstract Table process(Team team, VolleyActionSequence seq);
         public abstract Table process(Team team, VolleyActionSegmentSequence seq);
 
-        protected string convertValuesToString(int value)
+        protected static string convertValuesToString(int value)
         {
             if (value == 0) return ".";
             return value.ToString();
         }
-        protected string convertValuesToPercentString(int value, int total)
+        protected static string convertValuesToPercentString(int value, int total)
         {
             if (total == 0) return ".";
             return $"{value * 100 / total}%";
         }
-        protected TableCell CreateCell(string text, bool hasRightBorder = false, bool hasBottomBorder = false, string width = "720")
+        protected static TableCell CreateCell(string text, bool hasRightBorder = false, bool hasBottomBorder = false, string width = "720")
         {
             var cell = new TableCell(new Paragraph(new Run(new Text(text))));
 
@@ -90,7 +92,24 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             table.Append(createTotalTableRow(seq, boldColumnsNumbers));
             return table;
         }
-        private TableRow createHeaderTableRow()
+
+        static public List<string> CreateTablePDF(Game _game)
+        {
+            int columnCount = 24;
+            List<string> res = new List<string>();
+            //header Row
+            string[] HeaderRow = getHeader();
+            res.AddRange(HeaderRow);
+            foreach (Player p in _game.Team.Players)
+                {
+                    res.AddRange(getPlayerStats(_game.getVolleyActionSequence(), p));
+                }
+                string[] total = getTotalStats(_game.getVolleyActionSequence());
+            res.AddRange(total);
+            return res;
+        }
+
+        static private TableRow createHeaderTableRow()
         {
             TableRow firstRow = new TableRow();
 
@@ -130,7 +149,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             firstRow.Append(cell7);
             return firstRow;
         }
-        private TableRow createPlayerTableRow(Player p, VolleyActionSequence seq, int[] boldColumnsNumbers)
+        static private TableRow createPlayerTableRow(Player p, VolleyActionSequence seq, int[] boldColumnsNumbers)
         {
             string[] strs = getPlayerStats(seq, p);
             TableRow row = new TableRow();
@@ -140,7 +159,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             }
             return row;
         }
-        private TableRow createTotalTableRow(VolleyActionSequence seq, int[] boldColumnsNumbers)
+        static private TableRow createTotalTableRow(VolleyActionSequence seq, int[] boldColumnsNumbers)
         {
             string[] strs = getTotalStats(seq);
             TableRow row = new TableRow();
@@ -151,19 +170,19 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             return row;
         }
 
-        private string[] getPlayerStats(VolleyActionSequence seq, Player p)
+        static private string[] getPlayerStats(VolleyActionSequence seq, Player p)
         {
             return getRowStats(seq.SelectActionsByCondition((pl) => { return pl.Player == p; }), $"#{p.Number} {p.Surname}");
         }
-        private string[] getTotalStats(VolleyActionSequence seq)
+        static private string[] getTotalStats(VolleyActionSequence seq)
         {
             return getRowStats(seq, "Total");
         }
-        private string[] getHeader()
+        static private string[] getHeader()
         {
             return new string[] { "", "Pts", "W-L", "Tot", "Err", "Eff%", "Ace", "Tot", "Err", "Neg%", "Pos%", "Per%", "Tot", "Err", "Bk", "Pts", "Eff%", "Pts%", "Err", "Neg%", "Pos%", "Pts", "Tot", "Pos%" };
         }
-        private string[] getRowStats(VolleyActionSequence seq, string rowName)
+        static private string[] getRowStats(VolleyActionSequence seq, string rowName)
         {
             List<string> result = new List<string>();
 
@@ -176,7 +195,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             }
             return result.ToArray();
         }
-        private List<string> getPtsStats(VolleyActionSequence seq)
+        static private List<string> getPtsStats(VolleyActionSequence seq)
         {
             List<string> res = new List<string>();
             int[] values = seq.CountActionsByCondition(wonAction, lostAction);
@@ -184,7 +203,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             res.Add((values[0] -values[1]).ToString());
             return res;
         }
-        private bool wonAction(PlayerAction pl)
+        static private bool wonAction(PlayerAction pl)
         {
             switch (pl.ActionType)
             {
@@ -195,7 +214,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             }
             return false;
         }
-        private bool lostAction(PlayerAction pl)
+        static private bool lostAction(PlayerAction pl)
         {
             switch (pl.ActionType)
             {
@@ -211,7 +230,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             }
             return false;
         }
-        private List<string> getServeStats(VolleyActionSequence seq)
+        static private List<string> getServeStats(VolleyActionSequence seq)
         {
             List<string> res = new List<string>();
             VolleyActionSequence serves = seq.SelectActionsByCondition((pl) => { return pl.ActionType == VolleyActionType.Serve; });
@@ -227,7 +246,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             res.Add(convertValuesToString(values[2]));
             return res;
         }
-        private List<string> getReceptionStats(VolleyActionSequence seq)
+        static private List<string> getReceptionStats(VolleyActionSequence seq)
         {
             List<string> res = new List<string>();
             VolleyActionSequence receptions = seq.SelectActionsByCondition((pl) => { return pl.ActionType == VolleyActionType.Reception; });
@@ -245,7 +264,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             res.Add(convertValuesToPercentString(values[3], count));
             return res;
         }
-        private List<string> getAttackStats(VolleyActionSequence seq)
+        static private List<string> getAttackStats(VolleyActionSequence seq)
         {
             List<string> res = new List<string>();
             VolleyActionSequence attacks = seq.SelectActionsByCondition((pl) => { return pl.ActionType == VolleyActionType.Attack && ( (int)pl["SetQuality"].Value >= 4 || pl.GetQuality() <= 2 || pl.GetQuality() >= 5); });
@@ -264,7 +283,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             res.Add(convertValuesToPercentString(values[2], count));
             return res;
         }
-        private List<string> getBlockStats(VolleyActionSequence seq)
+        static private List<string> getBlockStats(VolleyActionSequence seq)
         {
             List<string> res = new List<string>();
             VolleyActionSequence blocks = seq.SelectActionsByCondition((pl) => { return pl.ActionType == VolleyActionType.Block; });
@@ -281,7 +300,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             res.Add(convertValuesToString(values[3]));
             return res;
         }
-        private List<string> getDefenceStats(VolleyActionSequence seq)
+        static private List<string> getDefenceStats(VolleyActionSequence seq)
         {
             List<string> res = new List<string>();
             VolleyActionSequence defences = seq.SelectActionsByCondition((pl) => { return pl.ActionType == VolleyActionType.Defence; });

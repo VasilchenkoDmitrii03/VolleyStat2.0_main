@@ -19,6 +19,8 @@ using DocumentFormat.OpenXml.Office.Drawing;
 using DocumentFormat.OpenXml.Drawing.Wordprocessing;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml;
+using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
 
 namespace StatisticsCreatorModule.TableTextStatsModule
 {
@@ -28,6 +30,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         public static string basePath;
         static DocumentCreator()
         {
+            QuestPDF.Settings.License = LicenseType.Community;
             ImageID = 0;
             basePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ImageHolder");
             if (!Directory.Exists(basePath)) //createDirectory if not exists
@@ -47,7 +50,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         {
 
             MainDocumentPart mainPart = document.AddMainDocumentPart();
-            mainPart.Document = new Document();
+            mainPart.Document = new DocumentFormat.OpenXml.Wordprocessing.Document();
             Body body = new Body();
             SectionProperties sectionProperties = new SectionProperties();
             PageSize pageSize = new PageSize()
@@ -62,10 +65,77 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             body.Append(tableCreator.process(_game.Team, _game.getVolleyActionSequence()));
             mainPart.Document.Append(body);
         }
+        public void CreateBaseStatTablePDF(Game _game, string path)
+        {
+            QuestPDF.Fluent.Document.Create(container =>
+            {
+                container.Page(page =>
+                {
+                    page.Size(new QuestPDF.Helpers.PageSize(297, 210, Unit.Millimetre));
+                    page.Margin(20);
+
+                    page.Content().Column(column =>
+                    {
+                        column.Spacing(10);
+
+                        int columnCount = 24;
+                        // Добавляем длинную таблицу
+                        column.Item().Table(table =>
+                        {
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.ConstantColumn(35, Unit.Millimetre);
+                                for (int i = 1; i < columnCount; i++) columns.RelativeColumn();
+                            });
+                            string[] Headers = new string[] { "Player", "Points", "Serve", "Reception", "Attack", "Block", "Defence" };
+                            int[] boldColumnsNumbers = new int[] { 0, 2, 6, 11, 17, 21 };
+                            table.Cell().ColumnSpan(1).Text(Headers[0]).FontSize(15);
+                            table.Cell().ColumnSpan(2).Text(Headers[1]).FontSize(15);
+                            table.Cell().ColumnSpan(4).Text(Headers[2]).FontSize(15);
+                            table.Cell().ColumnSpan(5).Text(Headers[3]).FontSize(15);
+                            table.Cell().ColumnSpan(6).Text(Headers[4]).FontSize(15);
+                            table.Cell().ColumnSpan(4).Text(Headers[5]).FontSize(15);
+                            table.Cell().ColumnSpan(2).Text(Headers[6]).FontSize(15);
+                            List<string> lst = BaseStatTable.CreateTablePDF(_game);
+                            int index = 0;
+                            foreach (string s in lst)
+                            {
+                                if(index % 24 == 0){
+                            table.Cell().Border(1) // Устанавливаем границу толщиной 1 пиксель
+            .BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0))
+            .Background(QuestPDF.Infrastructure.Color.FromRGB(255, 255, 255))
+            .Padding(2)
+            .Text(s).FontSize(9);
+                                }
+                                else if(boldColumnsNumbers.Contains(index % 24))
+                                {
+                                    table.Cell().BorderRight(3).BorderBottom(1).BorderLeft(1).BorderTop(1) // Устанавливаем границу толщиной 1 пиксель
+            .BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0))
+            .Background(QuestPDF.Infrastructure.Color.FromRGB(255, 255, 255))
+            .Padding(2)
+            .Text(s).FontSize(9);
+                                }
+                                else
+                                {
+                                    table.Cell().Border(1) // Устанавливаем границу толщиной 1 пиксель
+           .BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0))
+           .Background(QuestPDF.Infrastructure.Color.FromRGB(255, 255, 255))
+           .Padding(2).AlignCenter()
+           .Text(s).FontSize(9);
+                                }
+
+                                index++;
+                            }
+                        });
+                    });
+                });
+            })
+       .GeneratePdf(path);
+        }
         public void CreateBaseSetterTable(Game _game, WordprocessingDocument document)
         {
             MainDocumentPart mainPart = document.AddMainDocumentPart();
-            mainPart.Document = new Document();
+            mainPart.Document = new DocumentFormat.OpenXml.Wordprocessing.Document();
             Body body = new Body();
             SetStatTable tableCreator = new SetStatTable();
 
@@ -86,7 +156,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         public void CreateBaseReceptionTable(Game _game, WordprocessingDocument document)
         {
             MainDocumentPart mainPart = document.AddMainDocumentPart();
-            mainPart.Document = new Document();
+            mainPart.Document = new DocumentFormat.OpenXml.Wordprocessing.Document();
             Body body = new Body();
             ReceptionStatTable tableCreator = new ReceptionStatTable();
             VolleyActionSequence seq = _game.getVolleyActionSequence();
@@ -109,6 +179,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         }
 
 
+
         public void ImageTestDocument(Game _game, WordprocessingDocument document)
         {
             VolleyActionSequence serves = _game.getVolleyActionSequence().SelectActionsByCondition((act) => { return act.VolleyActionType == VolleyActionType.Serve && act.Player.Number == 1; });
@@ -120,31 +191,50 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             createImage(attacks);
             createImage(reception);
         }
-        public void CreateFullReceptionStats(Game _game, WordprocessingDocument document)
+        public void CreateFullReceptionStats(Game _game, string path)
         {
-            MainDocumentPart mainPart = document.AddMainDocumentPart();
-            mainPart.Document = new Document(new Body());
 
-            // Добавляем изображение как часть ImagePart
-            ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Jpeg);
-            VolleyActionSequence attacks = _game.getVolleyActionSequence().SelectActionsByCondition((act) => { return act.VolleyActionType == VolleyActionType.Attack && act.Player.Number == 1; });
-            int id = createImage(attacks);
-            // Загружаем изображение в ImagePart
-            using (FileStream stream = new FileStream(System.IO.Path.Combine(basePath, $"image_{id}.jpeg"), FileMode.Open))
+            QuestPDF.Fluent.Document.Create(container =>
             {
-                imagePart.FeedData(stream);
-            }
+                container.Page(page =>
+                {
+                    //page.Size(PageSizes.A4.Landscape()); // Альбомная ориентация
+                    page.Size(new QuestPDF.Helpers.PageSize(210, 297, Unit.Millimetre));
+                    page.Margin(50);
+                    page.Content().Row(row =>
+                    {
+                        // Таблица слева
+                        row.RelativeItem().Table(table =>
+                        {
+                            // Определяем 3 столбца
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                                columns.RelativeColumn();
+                            });
 
-            // Получаем ID добавленной части изображения
-            string relationshipId = mainPart.GetIdOfPart(imagePart);
+                            // Добавляем строки
+                            for (int i = 0; i < 2; i++) // 2 строки
+                            {
+                                table.Cell().Text($"Row {i + 1}, Col 1");
+                                table.Cell().Text($"Row {i + 1}, Col 2");
+                                table.Cell().Text($"Row {i + 1}, Col 3");
+                            }
 
-            // Используем метод для добавления изображения в тело документа
-            AddImageToBody(mainPart, relationshipId);
+                            // Добавляем границы для таблицы
+                            table.Cell().Border(1).BorderColor(QuestPDF.Infrastructure.Color.FromRGB(100, 100, 100));
+                        });
+                        VolleyActionSequence attacks = _game.getVolleyActionSequence().SelectActionsByCondition((act) => { return act.VolleyActionType == VolleyActionType.Attack && act.Player.Number == 1; });
+                        int id = createImage(attacks);
+                        // Картинка справа
+                        row.ConstantItem(150).Image(System.IO.Path.Combine(basePath, $"image_{id}.jpeg"), ImageScaling.FitWidth);
 
-            // Сохраняем документ
-            mainPart.Document.Save();
+                    }); 
+                    });
+            })
+        .GeneratePdf(path);
 
-           
         }
         public static void AddImageToBody(MainDocumentPart mainPart, string relationshipId)
         {

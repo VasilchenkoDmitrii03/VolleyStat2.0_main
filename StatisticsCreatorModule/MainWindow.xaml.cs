@@ -236,13 +236,15 @@ namespace StatisticsCreatorModule
             SaveFileDialog sfd = new SaveFileDialog();
             if (sfd.ShowDialog() == true)
             {
-                using (WordprocessingDocument document = WordprocessingDocument.Create(sfd.FileName, WordprocessingDocumentType.Document))
+                /*using (WordprocessingDocument document = WordprocessingDocument.Create(sfd.FileName, WordprocessingDocumentType.Document))
                 {
                     DocumentCreator documentCreator = new DocumentCreator();
                     documentCreator.CreateBaseStatTable(_game, document);
                     documentCreator.ImageTestDocument(_game, document);
 
-                }
+                }*/
+                DocumentCreator docCreat = new DocumentCreator();
+                docCreat.CreateBaseStatTablePDF(_game, sfd.FileName);
             }
         }
         private void ImageTableClick(object sender, RoutedEventArgs e)
@@ -250,12 +252,8 @@ namespace StatisticsCreatorModule
             SaveFileDialog sfd = new SaveFileDialog();
             if (sfd.ShowDialog() == true)
             {
-                using (WordprocessingDocument document = WordprocessingDocument.Create(sfd.FileName, WordprocessingDocumentType.Document))
-                {
-                    DocumentCreator documentCreator = new DocumentCreator();
-                    documentCreator.CreateFullReceptionStats(_game, document);
-
-                }
+                DocumentCreator documentCreator = new DocumentCreator();
+                documentCreator.CreateFullReceptionStats(_game, sfd.FileName);
             }
         }
 
