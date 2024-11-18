@@ -67,8 +67,6 @@ C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\FIeldVisualisationControl.baml
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\ScoreDisplayer.g.cs
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\ScoreDisplayer.baml
-C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\Themes\LightTheme.baml
-C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\Themes\DarkTheme.baml
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\LiberoModeSetter\LiberoModeSetter.g.cs
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\LiberoModeSetter\LiberoModeSetter.baml
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\PlayerPositioning\Field.g.cs
@@ -81,7 +79,6 @@ C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\SettingsWindow\SettingsWindow.g.cs
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\SettingsWindow\LiberoSystemSettingsBlock.baml
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\SettingsWindow\SettingsWindow.baml
-C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\App.baml
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Core.xml
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.Wpf.xml
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\Microsoft.Web.WebView2.WinForms.xml
@@ -133,3 +130,6 @@ C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\runtimes\osx-x64\native\libQuestPdfSkia.dylib
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\runtimes\win-x64\native\QuestPdfSkia.dll
 C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\bin\Debug\net8.0-windows\runtimes\win-x86\native\QuestPdfSkia.dll
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\Themes\DarkTheme.baml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\Themes\LightTheme.baml
+C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\obj\Debug\net8.0-windows\App.baml

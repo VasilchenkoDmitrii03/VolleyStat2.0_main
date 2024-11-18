@@ -16,5 +16,5 @@ C:\Dmitrii\Programming\VolleyStat2.0_main\StatisticsCreatorModule\App.xaml
 2071306154226
 ActionTextRepresentationControl.xaml;ButtonControllerControl.xaml;FIeldVisualisationControl.xaml;Filters\ActionMetricTypeStatSelector.xaml;Filters\AllActionMetricsController.xaml;Filters\ComboCheckBox.xaml;Filters\MetricTypeStatSelector.xaml;Filters\StatisticsMetricsController.xaml;Filters\StatisticsPlayersFilters.xaml;LiberoModeSetter\LiberoModeSetter.xaml;MainWindow.xaml;PlayerPositioning\Field.xaml;PlayerPositioning\PlayerPositionController.xaml;PlayerPositioning\PlayerPositionWindow.xaml;ScoreDisplayer.xaml;SettingsWindow\LiberoSystemSettingsBlock.xaml;SettingsWindow\SettingsWindow.xaml;StatisticsTextModule\StatisticsTextControl.xaml;TextStatisticsModule.xaml;Themes\DarkTheme.xaml;Themes\LightTheme.xaml;VideoModule.xaml;
 
-True
+False
 

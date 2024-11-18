@@ -78,6 +78,7 @@ namespace StatisticsCreatorModule
             _actionMetricTypes = amt;
             UpdateURL(game.URL);
             InitializeModules();
+            GraphicsModule.UpdateTheme();
             updateStatisticsData(_game);
             BeginSet();
         }

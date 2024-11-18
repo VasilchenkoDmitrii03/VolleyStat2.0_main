@@ -1,5 +1,6 @@
 ﻿using ActionsLib;
 using ActionsLib.ActionTypes;
+using DocumentFormat.OpenXml.Office2013.Excel;
 using StatisticsCreatorModule.Arrangment;
 using StatisticsCreatorModule.Logic;
 using StatisticsCreatorModule.SettingsWindow;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Permissions;
 using System.Text;
@@ -112,28 +114,25 @@ namespace StatisticsCreatorModule
         }
         private bool isLiberoChangingSituation(int currentArrangement)
         {
-            int diference = PositionSettingsMode.LiberoArrangementDataContainer.ArrangementNumberForChange - PositionSettingsMode.CurrentArrangementIndex;
-            if (diference < 0) diference += 3;
-            int pos = (currentArrangement + diference) % 6;
-            if (pos== 0 || pos== 3)
+            int changingPos = PositionSettingsMode.LiberoArrangementDataContainer.ArrangementNumberForChange;
+            if (changingPos == currentArrangement || (changingPos + 3)%6 == currentArrangement)
             {
-                return true;
+                return CurrentSet.CurrentPhase == SegmentPhase.Break;
             }
             return false;
         }
         private Player CurrentBackRowLibero(int currentArrangement)
         {
-            int diference;
-            if(PositionSettingsMode == null) diference = 2;
-            else
-            {
-                diference = PositionSettingsMode.LiberoArrangementDataContainer.ArrangementNumberForChange - PositionSettingsMode.CurrentArrangementIndex;
-                if (diference < 0) diference += 3;
-            }
-            int pos1 = (currentArrangement  + diference) % 6;
-            int pos2 = (pos1 + 3) %6;
-            if (pos1 == 4 || pos1 == 5 || pos1 == 0) return _teamControl.CurrentArrangement[pos1];
-            else return _teamControl.CurrentArrangement[pos2];
+            //new version
+            int difference = 7 - PositionSettingsMode.LiberoArrangementDataContainer.ArrangementNumberForChange;
+            int first = (currentArrangement + difference) % 6;
+            int second =(currentArrangement + difference - 3)%6 ;
+            int index = -1;
+            if (first == 6 || first == 5 || first == 1) index = first;
+            if(second == 6 || second == 5 || second == 1) index = second; ;
+            if (first == 0 || second == 0) index = 6;
+            return _teamControl.CurrentArrangement[index - 1];
+
         }
 
         #region game order creator
@@ -288,6 +287,7 @@ namespace StatisticsCreatorModule
            phaseChanged(act);
            ProcessCoachActions(act);
             ProcessJudgeActions(act);
+            if (act.ActionType == VolleyActionType.Reception) LineRepresentationControl.setCurrentArrangementAndPhase(SegmentPhase.Recep, currentArrangementNumber);
            isRallyEnded = false;
            if(isNewSequence(_currentSegment, act))
             {
@@ -312,36 +312,42 @@ namespace StatisticsCreatorModule
                                     
                 }
 
-                if(PositionSettingsMode != null)
-                {
-                    Player currentPlayer = CurrentBackRowLibero(currentArrangementNumber);
-                    Player newPlayer = PositionSettingsMode.LiberoArrangementDataContainer.UpdatePlayer(currentArrangementNumber, _currentSet.CurrentPhase);
-                    if ((currentArrangementNumber == PositionSettingsMode.CurrentArrangementIndex || (currentArrangementNumber + 3) % 6 == PositionSettingsMode.CurrentArrangementIndex) && CurrentSet.CurrentPhase == SegmentPhase.Break)//случай когда выполняется подача центральным блокирующим
-                    {
-                        Player notLibero = _teamControl.GetNonLiberoFromFastChangePlayers();
-                        if (notLibero != null)
-                        {
-                            _teamControl.ChangeFastPlayer(currentPlayer, notLibero);
-                        }
-                    }
-                    else
-                    {
-                        if (newPlayer == null)
-                        {
-                            newPlayer = _teamControl.GetNonLiberoFromFastChangePlayers();
-                            if (newPlayer == null) newPlayer = currentPlayer;
-                        }
-                        if (currentPlayer.Number != newPlayer.Number)
-                        {
-                            _teamControl.ChangeFastPlayer(currentPlayer, newPlayer);
-                        }
-                    }
-                    
-                    ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
-                    LineRepresentationControl.setCurrentArrangementAndPhase(_currentSet.CurrentPhase, currentArrangementNumber);
-                    GamePhaseForGraphicsChanged(this, new PhaseEventArgs(_currentSet.CurrentPhase, currentArrangementNumber));
-                }
+                 if(PositionSettingsMode != null && !isLiberoChangingSituation(currentArrangementNumber))
+                 {
 
+                         Player currentPlayer = CurrentBackRowLibero(currentArrangementNumber);
+                         Player newPlayer = PositionSettingsMode.LiberoArrangementDataContainer.UpdatePlayer(currentArrangementNumber, _currentSet.CurrentPhase);
+                         if (_teamControl.isLiberoOnFirstLine() && (currentArrangementNumber == PositionSettingsMode.CurrentArrangementIndex || (currentArrangementNumber + 3) % 6 == PositionSettingsMode.CurrentArrangementIndex) && CurrentSet.CurrentPhase == SegmentPhase.Break)//случай когда выполняется подача центральным блокирующим
+                         {
+                             Player notLibero = _teamControl.GetNonLiberoFromFastChangePlayers();
+                             if (notLibero != null)
+                             {
+                                 _teamControl.ChangeFastPlayer(currentPlayer, notLibero);
+                             }
+                         }
+                         else
+                         {
+                             if (newPlayer == null)
+                             {
+                                 newPlayer = _teamControl.GetNonLiberoFromFastChangePlayers();
+                                 if (newPlayer == null) newPlayer = currentPlayer;
+                             }
+                             if (currentPlayer.Number != newPlayer.Number)
+                             {
+                                 _teamControl.ChangeFastPlayer(currentPlayer, newPlayer);
+                             }
+                         }
+
+
+
+                     ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
+                     LineRepresentationControl.setCurrentArrangementAndPhase(_currentSet.CurrentPhase, currentArrangementNumber);
+                     GamePhaseForGraphicsChanged(this, new PhaseEventArgs(_currentSet.CurrentPhase, currentArrangementNumber));
+                 }
+                
+                ArrangementChanged(this, new TeamControlEventArgs(_teamControl));
+                LineRepresentationControl.setCurrentArrangementAndPhase(_currentSet.CurrentPhase, currentArrangementNumber);
+                GamePhaseForGraphicsChanged(this, new PhaseEventArgs(_currentSet.CurrentPhase, currentArrangementNumber));
 
                 graphicsPhaseChanges(_currentRally);
                 _currentSegment = new VolleyActionSegment();

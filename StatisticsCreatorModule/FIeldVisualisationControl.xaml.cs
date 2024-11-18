@@ -253,16 +253,24 @@ namespace StatisticsCreatorModule
         {
             ResourceDictionary themeDict = new ResourceDictionary();
             // Определяем, какая тема загружена в приложении
-            if (Application.Current.Resources.MergedDictionaries[0].Source.ToString().Contains("LightTheme"))
+            try
             {
-                themeDict.Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative);
-            }
-            else
-            {
-                themeDict.Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative);
-            }
+                if (Application.Current.Resources.MergedDictionaries[0].Source.ToString().Contains("LightTheme"))
+                {
+                    themeDict.Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative);
+                }
+                else
+                {
+                    themeDict.Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative);
+                }
 
-            this.Resources.MergedDictionaries.Add(themeDict);
+                this.Resources.MergedDictionaries.Add(themeDict);
+            }
+            catch{
+                themeDict.Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative);
+                this.Resources.MergedDictionaries.Add(themeDict);
+            }
+            
         }
         public void UpdateTheme()
         {
