@@ -398,6 +398,11 @@ namespace ActionsLib
         {
             Segments.Add(seg);
         }
+        public void Add(VolleyActionSegmentSequence seq)
+        {
+            foreach(VolleyActionSegment seg in Segments)
+            Segments.Add(seg);
+        }
         public VolleyActionSegmentSequence ConvertToSegmentSequence()
         {
             VolleyActionSegmentSequence res = new VolleyActionSegmentSequence();
@@ -425,6 +430,13 @@ namespace ActionsLib
                     RallyResult = RallyResult.Disputable; break;
             }
 
+        }
+        public SegmentPhase GetRallyPhase()
+        {
+            Action act = Segments[0].Actions[0];
+            if (act.ActionType == VolleyActionType.Serve) return SegmentPhase.Break;
+            if (act.ActionType == VolleyActionType.Reception) return SegmentPhase.Recep_1;
+            return SegmentPhase.Recep;
         }
 
         public string Save()

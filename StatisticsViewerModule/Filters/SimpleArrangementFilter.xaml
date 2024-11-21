@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="StatisticsViewerModule.SimpleArrangementFilter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StatisticsViewerModule"
+             mc:Ignorable="d" d:DesignWidth="800" Height="40">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBox Name="P1_ComboBox" Grid.Column="0"></TextBox>
+        <TextBox Name="P2_ComboBox" Grid.Column="1"></TextBox>
+        <TextBox Name="P3_ComboBox" Grid.Column="2"></TextBox>
+        <TextBox Name="P4_ComboBox" Grid.Column="3"></TextBox>
+        <TextBox Name="P5_ComboBox" Grid.Column="4"></TextBox>
+        <TextBox Name="P6_ComboBox" Grid.Column="5"></TextBox>
+    </Grid>
+</UserControl>
