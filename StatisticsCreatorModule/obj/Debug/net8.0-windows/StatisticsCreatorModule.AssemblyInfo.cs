@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StatisticsCreatorModule")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8b8069f49d5c33adbfecba5e8d7c413d552ddd83")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+50baa56b72a3de4ca12db026d6ae509e85b401e1")]
 [assembly: System.Reflection.AssemblyProductAttribute("StatisticsCreatorModule")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StatisticsCreatorModule")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

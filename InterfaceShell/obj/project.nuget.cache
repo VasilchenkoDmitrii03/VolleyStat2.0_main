@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/bmiI+wZIL648iu0+znFSLSxJLCavbIfoxfgj25SHY0NynbCmniFLdpqbm9FV70+3us+69n7rx3rMZNhxcsL7Q==",
+  "dgSpecHash": "vlil4mW5tZvNmcLk5dY18PLM06/EA1hb96zY7IJhO9iylr9PYzBIcCbkTykoWP0PgQKoVux8Rky7nQFhbeu11w==",
   "success": true,
   "projectFilePath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\InterfaceShell\\InterfaceShell.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\User\\.nuget\\packages\\documentformat.openxml.framework\\3.1.1\\documentformat.openxml.framework.3.1.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\extended.wpf.toolkit\\4.6.1\\extended.wpf.toolkit.4.6.1.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.web.webview2\\1.0.2792.45\\microsoft.web.webview2.1.0.2792.45.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\questpdf\\2024.10.4\\questpdf.2024.10.4.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\system.io.packaging\\8.0.1\\system.io.packaging.8.0.1.nupkg.sha512"
   ],
   "logs": []

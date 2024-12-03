@@ -131,7 +131,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
@@ -144,8 +144,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABcBAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-09T15:14:59.774Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -166,14 +165,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\MainWindow.xaml",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\MainWindow.xaml",
-              "RelativeToolTip": "..\\StatisticsViewerModule\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T12:56:12.659Z",
+              "DocumentIndex": 0,
+              "Title": "SimpleArrangementFilter.xaml.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml.cs",
+              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml.cs",
+              "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml.cs",
+              "ViewState": "AQIAADUAAAAAAAAAAAAYwEsAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-21T14:01:12.016Z",
               "EditorCaption": ""
             },
             {
@@ -186,21 +186,18 @@
               "RelativeToolTip": "..\\StatisticsViewerModule\\MainWindow.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-21T12:56:12.458Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-21T12:56:12.458Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SimpleArrangementFilter.xaml.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml.cs",
-              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml.cs",
-              "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml.cs",
-              "ViewState": "AQIAADEAAAAAAAAAAAAAAEsAAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-21T14:01:12.016Z",
-              "EditorCaption": ""
+              "DocumentIndex": 2,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\MainWindow.xaml",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\MainWindow.xaml",
+              "RelativeToolTip": "..\\StatisticsViewerModule\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-11-21T12:56:12.659Z"
             },
             {
               "$type": "Document",
@@ -212,8 +209,7 @@
               "RelativeToolTip": "..\\StatisticsViewerModule\\VideoModule.xaml.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAKAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-21T13:12:39.649Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-21T13:12:39.649Z"
             },
             {
               "$type": "Document",
@@ -224,8 +220,7 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml",
               "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T13:58:44.857Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-21T13:58:44.857Z"
             },
             {
               "$type": "Document",
@@ -237,8 +232,7 @@
               "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\StatisticsPlayersFilters.xaml.cs",
               "ViewState": "AQIAAA8AAAAAAAAAAAAAACwAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-21T13:09:22.715Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-21T13:09:22.715Z"
             },
             {
               "$type": "Document",
@@ -250,8 +244,7 @@
               "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\FiltersHolder.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-21T13:05:39.596Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-21T13:05:39.596Z"
             },
             {
               "$type": "Document",

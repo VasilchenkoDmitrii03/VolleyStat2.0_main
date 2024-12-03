@@ -61,6 +61,10 @@
             "Microsoft.Web.WebView2": {
               "target": "Package",
               "version": "[1.0.2792.45, )"
+            },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2024.10.4, )"
             }
           },
           "imports": [
