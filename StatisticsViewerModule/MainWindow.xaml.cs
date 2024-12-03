@@ -1,5 +1,6 @@
 ﻿using ActionsLib;
 using Microsoft.Win32;
+using StatisticsCreatorModule.TableTextStatsModule;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -62,5 +63,20 @@ namespace StatisticsViewerModule
         {
             this.ArrangementFilterModule.Process(_game.Sets);
         }
+
+        #region pdf stats
+
+        private void FullMathStat_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            if (sfd.ShowDialog() == true)
+            {
+                DocumentCreator docCreat = new DocumentCreator();
+                docCreat.CreateTotalStatisticsFilePDF(_game, sfd.FileName);
+            }
+        }
+
+
+        #endregion
     }
 }

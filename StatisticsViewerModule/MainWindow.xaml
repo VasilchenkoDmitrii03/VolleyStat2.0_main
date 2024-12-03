@@ -14,12 +14,13 @@
                 <MenuItem Header="Exit" Click="MenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Settings">
-                <MenuItem Header="Player positioning">
-                </MenuItem>
                 <MenuItem Header="Theme">
                     <MenuItem Header="Light"/>
                     <MenuItem Header="Dark"/>
                 </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Statistics">
+                <MenuItem Header="Full match statistics" Click="FullMathStat_Click"></MenuItem>
             </MenuItem>
         </Menu>
         <Grid>
