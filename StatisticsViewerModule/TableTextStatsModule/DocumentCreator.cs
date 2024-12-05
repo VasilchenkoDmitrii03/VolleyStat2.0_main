@@ -25,6 +25,8 @@ using DocumentFormat.OpenXml.Office2013.Excel;
 using System.Windows.Media.Media3D;
 using System.Xml.Linq;
 using System.Diagnostics.PerformanceData;
+using System.Security.Policy;
+using System.Drawing.Imaging;
 namespace StatisticsCreatorModule.TableTextStatsModule
 {
     internal class DocumentCreator
@@ -452,10 +454,18 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             VolleyActionSegmentSequence seq = sequence.SelectByCondition(pl => { return pl.ContainsActionType(VolleyActionType.Set) && pl.ContainsActionType(VolleyActionType.Reception); });
             if (seq.Count == 0) return;
             column.Item().Text($"Player #{p.Number} {p.Surname} {p.Name}").FontSize(25).Bold().AlignCenter();
+            //blockers Distribution
             column.Item().Text($"Blockers count distribution").FontSize(20).Bold().AlignCenter();
             tableCreator.getBlockersDistibutionPDF(seq, game, column);
+            //arrangement distribution
             column.Item().Text($"Reception direction distribution").FontSize(20).Bold().AlignCenter();
             for (int i = 1; i <= 6; i++) CreateArrangementReceptionDistributionStatWithImage(seq, i, tableCreator, column);
+            //attackers distribution 
+            foreach(Player P in game.Team.Players)
+            {
+                CreateAttackersSetDistributionStatWithImage(sequence, P, tableCreator, column);
+            }
+
         }
         private void CreateArrangementReceptionDistributionStatWithImage(VolleyActionSegmentSequence seq,int zone, SetStatTable tableCreator,  ColumnDescriptor column)
         {
@@ -463,6 +473,20 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             column.Item().Row(row => {
                 tableCreator.createReceptionDistributionTable(seq, zone, row);
                 VolleyActionSequence setsSeq = seq.ConvertToActionSequence().SelectActionsByCondition((pl) => { return pl.ActionType == VolleyActionType.Set &&(int) pl[pl.MetricTypes[1]].Value == zone; });
+                int id = createImage(setsSeq);
+                row.RelativeColumn()
+           .Image(System.IO.Path.Combine(basePath, $"image_{id}.jpeg"))
+           .FitArea();
+            });
+        }
+        private void CreateAttackersSetDistributionStatWithImage(VolleyActionSegmentSequence seq, Player p, SetStatTable tableCreate, ColumnDescriptor column)
+        {
+            VolleyActionSegmentSequence sequence = seq.SelectByCondition((seg) => { return seg.ContainsActionType(VolleyActionType.Set) && seg.ContainsActionType(VolleyActionType.Attack) && seg.getByActionType(VolleyActionType.Attack).Player == p; });
+            if (sequence.Count == 0) return;
+            column.Item().Text($"Player #{p.Number}").FontSize(15).Bold().AlignCenter();
+            column.Item().Row(row => {
+                tableCreate.getPlayersSetDistributionTablePDF(sequence, p, row);
+                VolleyActionSequence setsSeq = sequence.ConvertToActionSequence().SelectActionsByCondition((pl) => { return pl.ActionType == VolleyActionType.Set; });
                 int id = createImage(setsSeq);
                 row.RelativeColumn()
            .Image(System.IO.Path.Combine(basePath, $"image_{id}.jpeg"))

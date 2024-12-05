@@ -632,6 +632,79 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             }
             return res;
         }
+
+        private void getPlayersSetDistributionTablePDF(VolleyActionSegmentSequence sequence, Team team, RowDescriptor row)
+        {
+            row.RelativeColumn().Table(table => {
+                List<string> strs = getPlayersDistribution(sequence, team);
+                table.ColumnsDefinition(columns => { for (int i = 0; i < 7; i++) columns.ConstantColumn(20, Unit.Millimetre); });
+                foreach (string str in strs)
+                {
+                    table.Cell().Border(1).BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0)).Text(str).AlignCenter();
+                }
+
+            });
+        }
+        public void getPlayersSetDistributionTablePDF(VolleyActionSegmentSequence sequence, Player p, RowDescriptor row)
+        {
+            row.RelativeColumn().Table(table => {
+                List<string> strs = getAttackerSetStatistics(sequence, p, true);
+                table.ColumnsDefinition(columns => { for (int i = 0; i < 7; i++) columns.ConstantColumn(10, Unit.Millimetre); });
+                foreach (string str in strs)
+                {
+                    table.Cell().Border(1).BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0)).Text(str).AlignCenter();
+                }
+
+            });
+        }
+        private List<string> getPlayersDistribution(VolleyActionSegmentSequence sequence, Team team)
+        {
+            List<string> res = new List<string>();
+            VolleyActionSegmentSequence volleyActionSegments = sequence.SelectByCondition((seg) => { return seg.ContainsActionType(VolleyActionType.Set); });
+            res.Add("Player");
+            res.Add("Count");
+            res.Add("#");
+            res.Add("+");
+            res.Add("!");
+            res.Add("/");
+            res.Add("-=");
+            foreach (Player p in team.Players)
+            {
+                List<string> strs = getAttackerSetStatistics(sequence, p);
+                if (strs == null) continue;
+                res.AddRange(strs);
+            }
+            return res;
+        }
+        private List<string> getAttackerSetStatistics(VolleyActionSegmentSequence sequence, Player p, bool singleRowTable = false){
+            VolleyActionSequence seq = sequence.SelectByCondition((seg) => { return seg.ContainsActionType(VolleyActionType.Attack) && seg.getByActionType(VolleyActionType.Attack).Player == p; }).ConvertToActionSequence().SelectActionsByCondition((pl)=> { return pl.ActionType == VolleyActionType.Set; }) ;
+            if (seq.Count == 0) return null;
+            int[] counts = seq.CountActionsByCondition(
+                (pl) => { return pl.GetQuality() == 6; },
+              (pl) => { return pl.GetQuality() == 5; },
+              (pl) => { return pl.GetQuality() == 4; },
+              (pl) => { return pl.GetQuality() == 3; },
+              (pl) => { return pl.GetQuality() <= 2; });
+            List<string> res = new List<string>();
+            if (singleRowTable) {
+                res.Add("Player");
+                res.Add("Count");
+                res.Add("#");
+                res.Add("+");
+                res.Add("!");
+                res.Add("/");
+                res.Add("-=");
+            }
+            res.Add($"#{p.Number} {p.Surname}");
+            res.Add($"{seq.Count}");
+            for(int i= 0;i < counts.Length; i++)
+            {
+                res.Add(convertValuesToPercentString(counts[i], seq.Count));
+            }
+            return res;
+            
+        } 
+    
     }
 
     public class ReceptionStatTable : TableStatsCreator
