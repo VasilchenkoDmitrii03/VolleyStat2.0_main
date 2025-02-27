@@ -69,8 +69,8 @@
             <TabItem Header="Statistics">
                 <Grid Name="StatisticsMainGrid">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="6*"></RowDefinition>
                         <RowDefinition Height="3*"></RowDefinition>
-                        <RowDefinition Height="2*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"></ColumnDefinition>
