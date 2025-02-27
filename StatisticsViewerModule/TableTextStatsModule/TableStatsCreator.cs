@@ -180,6 +180,21 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             res.AddRange(total);
             return res;
         }
+        static public List<string> CreateTablePDF(Game _game, VolleyActionSegmentSequence seq)
+        {
+            int columnCount = 24;
+            List<string> res = new List<string>();
+            //header Row
+            string[] HeaderRow = getHeader();
+            res.AddRange(HeaderRow);
+            foreach (Player p in _game.Team.Players)
+            {
+                res.AddRange(getPlayerStats(seq.ConvertToActionSequence(), p));
+            }
+            string[] total = getTotalStats(seq.ConvertToActionSequence());
+            res.AddRange(total);
+            return res;
+        }
 
         static private TableRow createHeaderTableRow()
         {
@@ -548,6 +563,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         public void getBlockersDistibutionPDF(VolleyActionSegmentSequence seg, Game game, ColumnDescriptor column)
         {
             List<string> strs = getBlockersDistibutionPDF(seg, game);
+            if (strs == null) return;
             column.Item().Table(table => {
                 table.ColumnsDefinition(columns =>
                 {
@@ -610,6 +626,7 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         {
             List<string> res = new List<string>();
             VolleyActionSequence sequence = seq.SelectActionsByCondition((act) => { return receptionQuality.Contains((int)((PlayerAction)act)["ReceptionQuality"].Value); });
+            if (sequence.Count == 0) return res;
             List<Func<PlayerAction, bool>> funcs = new List<Func<PlayerAction, bool>>();
             MetricType metricType = sequence[0]["BlockersCount"].MetricType;
             MetricType qual = sequence[0]["Quality"].MetricType;

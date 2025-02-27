@@ -26,6 +26,8 @@ namespace StatisticsViewerModule
             baseSetup();
         }
         Game _game = null;
+        VolleyActionSegmentSequence _actionSegmentSequence;
+        RallySequence _rallySequence;
         private void Open_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -35,8 +37,35 @@ namespace StatisticsViewerModule
                 {
                     Game game = Game.Load(sr);
                     updateGame(game);
+                    _actionSegmentSequence = null;
                 }
                 
+            }
+        }
+
+        private void OpenFiles_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog() { Multiselect = true };
+            if (ofd.ShowDialog() == true)
+            {
+                string[] selectedFiles = ofd.FileNames;
+                VolleyActionSegmentSequence sequence = new VolleyActionSegmentSequence();
+                RallySequence rallySequence = new RallySequence();
+                foreach (string file in selectedFiles)
+                {
+                    
+                    
+                    using (StreamReader sr = new StreamReader(file))
+                    {
+                        Game game = Game.Load(sr);
+                        sequence.Add(game.getVolleyActionSegmentSequence());
+                        rallySequence.Add(game.getRallySequence());
+                        _game = game;
+                    }
+                    
+                }
+                _actionSegmentSequence = sequence;
+                _rallySequence = rallySequence;
             }
         }
 
@@ -64,15 +93,46 @@ namespace StatisticsViewerModule
             this.ArrangementFilterModule.Process(_game.Sets);
         }
 
+        #region testFuncs
+
+        private void test(RallySequence seq, Team team)
+        {
+            Dictionary<int, int> dict = new Dictionary<int,  int>();
+            foreach(Player p in team.Players)
+            {
+                dict.Add(p.Number, 0);
+            }
+            foreach(Rally r in seq)
+            {
+                if(r.RallyTimeLength() >= 15)
+                {
+                    ActionsLib.Action act = r.ConvertToActionSequence().Last();
+                    if(act.AuthorType == ActionAuthorType.Player)
+                    {
+                        if (((PlayerAction)act).GetQuality() == 6) dict[((PlayerAction)act).Player.Number]++;
+                    }
+                }
+            }
+
+            int a = 0;
+        }
+        #endregion
+
         #region pdf stats
 
         private void FullMathStat_Click(object sender, RoutedEventArgs e)
         {
+            //test(_rallySequence, _game.Team);
+
+
             SaveFileDialog sfd = new SaveFileDialog();
             if (sfd.ShowDialog() == true)
             {
                 DocumentCreator docCreat = new DocumentCreator();
-                docCreat.CreateTotalStatisticsFilePDF(_game, sfd.FileName);
+                if(_actionSegmentSequence == null)
+                         docCreat.CreateTotalStatisticsFilePDF(_game, sfd.FileName);
+                else
+                    docCreat.CreateTotalStatisticsFilePDF(_game, _actionSegmentSequence,  sfd.FileName);
             }
         }
 

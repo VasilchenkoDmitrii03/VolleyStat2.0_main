@@ -431,12 +431,35 @@ namespace ActionsLib
             }
 
         }
+
+
         public SegmentPhase GetRallyPhase()
         {
             Action act = Segments[0].Actions[0];
             if (act.ActionType == VolleyActionType.Serve) return SegmentPhase.Break;
             if (act.ActionType == VolleyActionType.Reception) return SegmentPhase.Recep_1;
             return SegmentPhase.Recep;
+        }
+
+        public double RallyTimeLength()
+        {
+            double firstTimeCode = -1;
+            double lastTimeCode = -1;
+            foreach(VolleyActionSegment seg in Segments)
+            {
+                foreach(Action act in seg.Actions)
+                {
+                    if (act.AuthorType == ActionAuthorType.Player) 
+                    {
+                        if (firstTimeCode == -1) firstTimeCode = ((PlayerAction)act).TimeCode;
+                        lastTimeCode = ((PlayerAction)act).TimeCode;
+                    }
+
+                }
+            }
+
+
+            return (lastTimeCode - firstTimeCode);
         }
 
         public string Save()
@@ -897,6 +920,15 @@ namespace ActionsLib
             foreach(Set s in Sets)
             {
                 res.Add(s.ConvertToSegmentSequence());
+            }
+            return res;
+        }
+        public RallySequence getRallySequence()
+        {
+            RallySequence res= new RallySequence();
+            foreach(Set s in Sets)
+            {
+                res.Add(s.Rallies);
             }
             return res;
         }

@@ -10,6 +10,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File">
                 <MenuItem Header="Open" Click="Open_Click" />
+                <MenuItem Header="Open files" Click="OpenFiles_Click" />
                 <Separator/>
                 <MenuItem Header="Exit" Click="MenuItem_Click"/>
             </MenuItem>
