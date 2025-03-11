@@ -534,6 +534,30 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         }
 
         //PDF
+        public void createSetQualityByReceptionQualityDistributionTable(VolleyActionSegmentSequence seq, Game game,  ColumnDescriptor column)
+        {
+            column.Item().Table(table =>
+            {
+                List<string> strs = createSetDistributionByReceptionQualityTable(seq, game);
+                table.ColumnsDefinition(columns => { for (int i = 0; i < 7; i++) columns.ConstantColumn(20, Unit.Millimetre); });
+                foreach (string str in strs)
+                {
+                    table.Cell().Border(1).BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0)).Text(str).AlignCenter();
+                }
+            });
+        }
+        public void createSetQualityByDirectionDistributionTable(VolleyActionSegmentSequence seq, Game game, ColumnDescriptor column)
+        {
+            column.Item().Table(table =>
+            {
+                List<string> strs = createSetDistributionByDirectionTable(seq, game);
+                table.ColumnsDefinition(columns => { for (int i = 0; i < 7; i++) columns.ConstantColumn(20, Unit.Millimetre); });
+                foreach (string str in strs)
+                {
+                    table.Cell().Border(1).BorderColor(QuestPDF.Infrastructure.Color.FromRGB(0, 0, 0)).Text(str).AlignCenter();
+                }
+            });
+        }
 
         public void createReceptionDistributionTable(VolleyActionSegmentSequence seq, int zone, ColumnDescriptor column)
         {
@@ -576,6 +600,46 @@ namespace StatisticsCreatorModule.TableTextStatsModule
 
             });
         }
+        public List<string> createSetDistributionByDirectionTable(VolleyActionSegmentSequence seq, Game game)
+        {
+            List<string> result = new List<string>();
+            VolleyActionSegmentSequence recepSetSegments = seq.SelectByCondition((seg) => { return seg.ContainsActionType(VolleyActionType.Set); });
+            VolleyActionSequence sequence = recepSetSegments.ConvertToActionSequence().SelectActionsByCondition((act) => { return act.VolleyActionType == VolleyActionType.Set; });
+            MetricType mt = game.ActionsMetricTypes.getByName(VolleyActionType.Set, "Quality");
+            string[] names = mt.AcceptableValuesNames.Values.ToArray();
+            result.Add("direction/set.qual");
+            for (int i = 0; i < mt.AcceptableValues.Count; i++)
+            {
+                result.Add(names[i]);
+            }
+            result.AddRange(getQualityDistributionByDirectionPDF(sequence, 4));
+            result.AddRange(getQualityDistributionByDirectionPDF(sequence, 3));
+            result.AddRange(getQualityDistributionByDirectionPDF(sequence, 2));
+            result.AddRange(getQualityDistributionByDirectionPDF(sequence, 1));
+            result.AddRange(getQualityDistributionByDirectionPDF(sequence, 6));
+            result.AddRange(getQualityDistributionByDirectionPDF(sequence, 4,6));
+            result.AddRange(getQualityDistributionByDirectionPDF(sequence, 2,1));
+            return result;
+        }
+        public List<string> createSetDistributionByReceptionQualityTable(VolleyActionSegmentSequence seq, Game game)
+        {
+            List<string> result = new List<string>();
+            VolleyActionSegmentSequence recepSetSegments = seq.SelectByCondition((seg) => { return seg.ContainsActionType(VolleyActionType.Set); });
+            VolleyActionSequence sequence = recepSetSegments.ConvertToActionSequence().SelectActionsByCondition((act) => { return act.VolleyActionType == VolleyActionType.Set; });
+            MetricType mt = game.ActionsMetricTypes.getByName(VolleyActionType.Set, "Quality");
+            string[] names = mt.AcceptableValuesNames.Values.ToArray();
+            result.Add("rec.qual/set.qual");
+            for (int i = 0; i < mt.AcceptableValues.Count; i++)
+            {
+                result.Add(names[i]);
+            }
+            result.AddRange(getQualityDistributionByReceptionQualityPDF(sequence, 6));
+            result.AddRange(getQualityDistributionByReceptionQualityPDF(sequence, 5));
+            result.AddRange(getQualityDistributionByReceptionQualityPDF(sequence, 4));
+            result.AddRange(getQualityDistributionByReceptionQualityPDF(sequence, 6, 5, 4));
+            result.AddRange(getQualityDistributionByReceptionQualityPDF(sequence, 3, 2));
+            return result;
+        }
         public List<string> createReceptionDistributionTable(VolleyActionSegmentSequence sequence, int zone)
         {
             List<string> result = new List<string>();
@@ -615,14 +679,14 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             {
                 res.Add(names[i]);
             }
-            res.AddRange(getDistributionByReceptionQualityPDF(sequence, 6));
-            res.AddRange(getDistributionByReceptionQualityPDF(sequence, 5));
-            res.AddRange(getDistributionByReceptionQualityPDF(sequence, 4));
-            res.AddRange(getDistributionByReceptionQualityPDF(sequence, 6,5,4));
-            res.AddRange(getDistributionByReceptionQualityPDF(sequence, 3,2));
+            res.AddRange(getBlockersCountDistributionByReceptionQualityPDF(sequence, 6));
+            res.AddRange(getBlockersCountDistributionByReceptionQualityPDF(sequence, 5));
+            res.AddRange(getBlockersCountDistributionByReceptionQualityPDF(sequence, 4));
+            res.AddRange(getBlockersCountDistributionByReceptionQualityPDF(sequence, 6,5,4));
+            res.AddRange(getBlockersCountDistributionByReceptionQualityPDF(sequence, 3,2));
             return res;
         }
-        private List<string> getDistributionByReceptionQualityPDF(VolleyActionSequence seq, params int[] receptionQuality)
+        private List<string> getBlockersCountDistributionByReceptionQualityPDF(VolleyActionSequence seq, params int[] receptionQuality)
         {
             List<string> res = new List<string>();
             VolleyActionSequence sequence = seq.SelectActionsByCondition((act) => { return receptionQuality.Contains((int)((PlayerAction)act)["ReceptionQuality"].Value); });
@@ -639,6 +703,59 @@ namespace StatisticsCreatorModule.TableTextStatsModule
             foreach (int i in receptionQuality)
             {
                 first += qual.AcceptableValuesNames[i];
+            }
+            first += $"({sequence.Count})";
+            res.Add(first);
+            for (int i = 0; i < values.Length; i++)
+            {
+                res.Add($"{convertValuesToString(values[i])}({convertValuesToPercentString(values[i], sequence.Count)})");
+                //row.Append(CreateCell($"{convertValuesToString(values[i])}({convertValuesToPercentString(values[i], sequence.Count)})"));
+            }
+            return res;
+        }
+        private List<string> getQualityDistributionByReceptionQualityPDF(VolleyActionSequence seq, params int[] receptionQuality)
+        {
+            List<string> res = new List<string>();
+            VolleyActionSequence sequence = seq.SelectActionsByCondition((act) => { return receptionQuality.Contains((int)((PlayerAction)act)["ReceptionQuality"].Value); });
+            if (sequence.Count == 0) return res;
+            List<Func<PlayerAction, bool>> funcs = new List<Func<PlayerAction, bool>>();
+            MetricType metricType = sequence[0]["Quality"].MetricType;
+            foreach (int value in metricType.AcceptableValues)
+            {
+                funcs.Add((act) => { return (int)((PlayerAction)act)["Quality"].Value == value; });
+            }
+            int[] values = sequence.CountActionsByCondition(funcs.ToArray());
+            string first = "";
+            foreach (int i in receptionQuality)
+            {
+                first += metricType.AcceptableValuesNames[i] + " ";
+            }
+            first += $"({sequence.Count})";
+            res.Add(first);
+            for (int i = 0; i < values.Length; i++)
+            {
+                res.Add($"{convertValuesToString(values[i])}({convertValuesToPercentString(values[i], sequence.Count)})");
+                //row.Append(CreateCell($"{convertValuesToString(values[i])}({convertValuesToPercentString(values[i], sequence.Count)})"));
+            }
+            return res;
+        }
+        private List<string> getQualityDistributionByDirectionPDF(VolleyActionSequence seq, params int[] receptionQuality)
+        {
+            List<string> res = new List<string>();
+            VolleyActionSequence sequence = seq.SelectActionsByCondition((act) => { return receptionQuality.Contains((int)((PlayerAction)act)["Direction"].Value); });
+            if (sequence.Count == 0) return res;
+            List<Func<PlayerAction, bool>> funcs = new List<Func<PlayerAction, bool>>();
+            MetricType metricType = sequence[0]["Direction"].MetricType;
+            MetricType qual = sequence[0]["Quality"].MetricType;
+            foreach (int value in qual.AcceptableValues)
+            {
+                funcs.Add((act) => { return (int)((PlayerAction)act)["Quality"].Value == value; });
+            }
+            int[] values = sequence.CountActionsByCondition(funcs.ToArray());
+            string first = "";
+            foreach (int i in receptionQuality)
+            {
+                first += metricType.AcceptableValuesNames[i];
             }
             first += $"({sequence.Count})";
             res.Add(first);

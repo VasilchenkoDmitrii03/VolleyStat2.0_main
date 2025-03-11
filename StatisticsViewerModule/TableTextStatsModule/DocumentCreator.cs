@@ -574,10 +574,18 @@ namespace StatisticsCreatorModule.TableTextStatsModule
         {
             SetStatTable tableCreator = new SetStatTable();
             VolleyActionSegmentSequence seq = sequence.SelectByCondition(pl => { return pl.ContainsActionType(VolleyActionType.Set) && pl.getByActionType(VolleyActionType.Set).Player == p&& pl.ContainsActionType(VolleyActionType.Reception); });
+            VolleyActionSegmentSequence seq_without_reception = sequence.SelectByCondition(pl => { return pl.ContainsActionType(VolleyActionType.Set) && pl.getByActionType(VolleyActionType.Set).Player == p; });
             if (seq.Count == 0) return;
             column.Item().Text($"Player #{p.Number} {p.Surname} {p.Name}").FontSize(25).Bold().AlignCenter();
+            //quality Distribution
+            column.Item().Text($"Set quality distribution by reception quality").FontSize(20).Bold().AlignCenter();
+            tableCreator.createSetQualityByReceptionQualityDistributionTable(seq_without_reception, game, column);
+            //direction Distribution
+
+            column.Item().Text($"Set quality distribution by direction").FontSize(20).Bold().AlignCenter();
+            tableCreator.createSetQualityByDirectionDistributionTable(seq_without_reception, game, column);
             //blockers Distribution
-            column.Item().Text($"Blockers count distribution").FontSize(20).Bold().AlignCenter();
+            column.Item().Text($"Blockers count distribution by reception quality").FontSize(20).Bold().AlignCenter();
             tableCreator.getBlockersDistibutionPDF(seq, game, column);
             //arrangement distribution
             column.Item().Text($"Reception direction distribution").FontSize(20).Bold().AlignCenter();
@@ -600,6 +608,10 @@ namespace StatisticsCreatorModule.TableTextStatsModule
            .Image(System.IO.Path.Combine(basePath, $"image_{id}.jpeg"))
            .FitArea();
             });
+        }
+        private void CreateReceptionQualityDistribution(VolleyActionSegmentSequence seq, Game game,  SetStatTable tableCreator, ColumnDescriptor column)
+        {//////////////////////////////////////////////////////////////////////
+            tableCreator.createSetQualityByReceptionQualityDistributionTable(seq, game, column);
         }
         private void CreateAttackersSetDistributionStatWithImage(VolleyActionSegmentSequence seq, Player p, SetStatTable tableCreate, ColumnDescriptor column)
         {

@@ -3,6 +3,23 @@
   "WorkspaceRootPath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{32214D2F-273F-43A0-8C9B-13994B84BB40}|..\\StatisticsViewerModule\\StatisticsViewerModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticsviewermodule\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32214D2F-273F-43A0-8C9B-13994B84BB40}|..\\StatisticsViewerModule\\StatisticsViewerModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticsviewermodule\\tabletextstatsmodule\\documentcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{32214D2F-273F-43A0-8C9B-13994B84BB40}|..\\StatisticsViewerModule\\StatisticsViewerModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticsviewermodule\\tabletextstatsmodule\\tablestatscreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\tabletextstatsmodule\\documentcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:tabletextstatsmodule\\documentcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\tabletextstatsmodule\\tablestatscreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:tabletextstatsmodule\\tablestatscreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
@@ -15,17 +32,8 @@
       "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:textstatisticsmodule.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{32214D2F-273F-43A0-8C9B-13994B84BB40}|..\\StatisticsViewerModule\\StatisticsViewerModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticsviewermodule\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{32214D2F-273F-43A0-8C9B-13994B84BB40}|..\\StatisticsViewerModule\\StatisticsViewerModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticsviewermodule\\tabletextstatsmodule\\documentcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{32214D2F-273F-43A0-8C9B-13994B84BB40}|..\\StatisticsViewerModule\\StatisticsViewerModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticsviewermodule\\tabletextstatsmodule\\tablestatscreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{32214D2F-273F-43A0-8C9B-13994B84BB40}|..\\StatisticsViewerModule\\StatisticsViewerModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticsviewermodule\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
@@ -35,14 +43,6 @@
     },
     {
       "AbsoluteMoniker": "D:0:0:{32214D2F-273F-43A0-8C9B-13994B84BB40}|..\\StatisticsViewerModule\\StatisticsViewerModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticsviewermodule\\unversaltablecreator\\sequencefilters\\volleyactionsegmentsequencefilter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\tabletextstatsmodule\\documentcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:tabletextstatsmodule\\documentcreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticscreatormodule\\tabletextstatsmodule\\tablestatscreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F11E58DE-4FA3-4FB9-9174-187343EBF3C6}|StatisticsCreatorModule.csproj|solutionrelative:tabletextstatsmodule\\tablestatscreator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{32214D2F-273F-43A0-8C9B-13994B84BB40}|..\\StatisticsViewerModule\\StatisticsViewerModule.csproj|c:\\dmitrii\\programming\\volleystat2.0_main\\statisticsviewermodule\\filters\\simplearrangementfilter.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
@@ -140,11 +140,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "MainWindow.xaml.cs",
@@ -157,16 +157,17 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 3,
               "Title": "DocumentCreator.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TableTextStatsModule\\DocumentCreator.cs",
               "RelativeDocumentMoniker": "TableTextStatsModule\\DocumentCreator.cs",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TableTextStatsModule\\DocumentCreator.cs",
               "RelativeToolTip": "TableTextStatsModule\\DocumentCreator.cs",
-              "ViewState": "AQIAAFgAAAAAAAAAAAAAAG4AAAAYAAAA",
+              "ViewState": "AQIAACwCAAAAAAAAAAAAAG4AAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-14T13:38:51.453Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -175,6 +176,106 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "TableStatsCreator.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\TableTextStatsModule\\TableStatsCreator.cs",
+              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\TableTextStatsModule\\TableStatsCreator.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\TableTextStatsModule\\TableStatsCreator.cs",
+              "RelativeToolTip": "..\\StatisticsViewerModule\\TableTextStatsModule\\TableStatsCreator.cs",
+              "ViewState": "AQIAAHMCAAAAAAAAAAAMwO0CAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-19T13:03:12.383Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DocumentCreator.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\TableTextStatsModule\\DocumentCreator.cs",
+              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\TableTextStatsModule\\DocumentCreator.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\TableTextStatsModule\\DocumentCreator.cs",
+              "RelativeToolTip": "..\\StatisticsViewerModule\\TableTextStatsModule\\DocumentCreator.cs",
+              "ViewState": "AQIAAH0BAAAAAAAAAAAAAIoBAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-03T12:24:39.643Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "VolleyActionSegmentSequenceFilter.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\UnversalTableCreator\\SequenceFilters\\VolleyActionSegmentSequenceFilter.cs",
+              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\UnversalTableCreator\\SequenceFilters\\VolleyActionSegmentSequenceFilter.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\UnversalTableCreator\\SequenceFilters\\VolleyActionSegmentSequenceFilter.cs",
+              "RelativeToolTip": "..\\StatisticsViewerModule\\UnversalTableCreator\\SequenceFilters\\VolleyActionSegmentSequenceFilter.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC0AAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-06T14:56:02.925Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "StatisticsViewerModule.csproj",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\StatisticsViewerModule.csproj",
+              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\StatisticsViewerModule.csproj",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\StatisticsViewerModule.csproj",
+              "RelativeToolTip": "..\\StatisticsViewerModule\\StatisticsViewerModule.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-11-21T13:05:56.152Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TableStatsCreator.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TableTextStatsModule\\TableStatsCreator.cs",
+              "RelativeDocumentMoniker": "TableTextStatsModule\\TableStatsCreator.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TableTextStatsModule\\TableStatsCreator.cs",
+              "RelativeToolTip": "TableTextStatsModule\\TableStatsCreator.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAAGACAAArAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T14:03:32.367Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\MainWindow.xaml.cs",
+              "RelativeToolTip": "..\\StatisticsViewerModule\\MainWindow.xaml.cs",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAAAIYAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-21T12:56:12.458Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ActionTextRepresentationControl.xaml.cs",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\ActionTextRepresentationControl.xaml.cs",
+              "RelativeDocumentMoniker": "ActionTextRepresentationControl.xaml.cs",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\ActionTextRepresentationControl.xaml.cs",
+              "RelativeToolTip": "ActionTextRepresentationControl.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-18T20:55:38.991Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-11-14T23:20:04.9Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "TextStatisticsModule.xaml.cs",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TextStatisticsModule.xaml.cs",
               "RelativeDocumentMoniker": "TextStatisticsModule.xaml.cs",
@@ -187,110 +288,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\MainWindow.xaml",
-              "RelativeToolTip": "MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-14T23:20:04.9Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ActionTextRepresentationControl.xaml.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\ActionTextRepresentationControl.xaml.cs",
-              "RelativeDocumentMoniker": "ActionTextRepresentationControl.xaml.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\ActionTextRepresentationControl.xaml.cs",
-              "RelativeToolTip": "ActionTextRepresentationControl.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-18T20:55:38.991Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "TableStatsCreator.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\TableTextStatsModule\\TableStatsCreator.cs",
-              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\TableTextStatsModule\\TableStatsCreator.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\TableTextStatsModule\\TableStatsCreator.cs",
-              "RelativeToolTip": "..\\StatisticsViewerModule\\TableTextStatsModule\\TableStatsCreator.cs",
-              "ViewState": "AQIAAJQBAAAAAAAAAAAMwDQCAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-19T13:03:12.383Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DocumentCreator.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\TableTextStatsModule\\DocumentCreator.cs",
-              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\TableTextStatsModule\\DocumentCreator.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\TableTextStatsModule\\DocumentCreator.cs",
-              "RelativeToolTip": "..\\StatisticsViewerModule\\TableTextStatsModule\\DocumentCreator.cs",
-              "ViewState": "AQIAAGICAAAAAAAAAAAqwIUCAAAMAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-03T12:24:39.643Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "VolleyActionSegmentSequenceFilter.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\UnversalTableCreator\\SequenceFilters\\VolleyActionSegmentSequenceFilter.cs",
-              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\UnversalTableCreator\\SequenceFilters\\VolleyActionSegmentSequenceFilter.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\UnversalTableCreator\\SequenceFilters\\VolleyActionSegmentSequenceFilter.cs",
-              "RelativeToolTip": "..\\StatisticsViewerModule\\UnversalTableCreator\\SequenceFilters\\VolleyActionSegmentSequenceFilter.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAC0AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-06T14:56:02.925Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "StatisticsViewerModule.csproj",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\StatisticsViewerModule.csproj",
-              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\StatisticsViewerModule.csproj",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\StatisticsViewerModule.csproj",
-              "RelativeToolTip": "..\\StatisticsViewerModule\\StatisticsViewerModule.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACAAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-11-21T13:05:56.152Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "TableStatsCreator.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TableTextStatsModule\\TableStatsCreator.cs",
-              "RelativeDocumentMoniker": "TableTextStatsModule\\TableStatsCreator.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TableTextStatsModule\\TableStatsCreator.cs",
-              "RelativeToolTip": "TableTextStatsModule\\TableStatsCreator.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAGACAAArAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-14T14:03:32.367Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\MainWindow.xaml",
               "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\MainWindow.xaml",
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\MainWindow.xaml",
               "RelativeToolTip": "..\\StatisticsViewerModule\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T12:56:12.659Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "..\\StatisticsViewerModule\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\MainWindow.xaml.cs",
-              "RelativeToolTip": "..\\StatisticsViewerModule\\MainWindow.xaml.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAHwAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-21T12:56:12.458Z"
+              "WhenOpened": "2024-11-21T12:56:12.659Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -313,7 +319,8 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml",
               "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\SimpleArrangementFilter.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T13:58:44.857Z"
+              "WhenOpened": "2024-11-21T13:58:44.857Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -372,7 +379,8 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\ComboCheckBox.xaml",
               "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\ComboCheckBox.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T13:09:42.48Z"
+              "WhenOpened": "2024-11-21T13:09:42.48Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -395,7 +403,8 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\AllActionMetricsController.xaml",
               "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\AllActionMetricsController.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T13:09:50.454Z"
+              "WhenOpened": "2024-11-21T13:09:50.454Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -406,7 +415,8 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\VideoModule.xaml",
               "RelativeToolTip": "..\\StatisticsViewerModule\\VideoModule.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T13:06:42.983Z"
+              "WhenOpened": "2024-11-21T13:06:42.983Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -417,7 +427,8 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\MetricTypeStatSelector.xaml",
               "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\MetricTypeStatSelector.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T13:09:00.036Z"
+              "WhenOpened": "2024-11-21T13:09:00.036Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -440,7 +451,8 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\StatisticsPlayersFilters.xaml",
               "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\StatisticsPlayersFilters.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T13:09:30.302Z"
+              "WhenOpened": "2024-11-21T13:09:30.302Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -463,7 +475,8 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\StatisticsTextModule\\StatisticsTextControl.xaml",
               "RelativeToolTip": "..\\StatisticsViewerModule\\StatisticsTextModule\\StatisticsTextControl.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T13:04:36.781Z"
+              "WhenOpened": "2024-11-21T13:04:36.781Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -474,7 +487,8 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\ActionMetricTypeStatSelector.xaml",
               "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\ActionMetricTypeStatSelector.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T13:07:38.872Z"
+              "WhenOpened": "2024-11-21T13:07:38.872Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -497,7 +511,8 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\Filters\\StatisticsMetricsController.xaml",
               "RelativeToolTip": "..\\StatisticsViewerModule\\Filters\\StatisticsMetricsController.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-21T13:09:14.034Z"
+              "WhenOpened": "2024-11-21T13:09:14.034Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -567,8 +582,7 @@
               "ToolTip": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsCreatorModule\\TextStatisticsModule.xaml",
               "RelativeToolTip": "TextStatisticsModule.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-18T22:19:20.93Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-18T22:19:20.93Z"
             },
             {
               "$type": "Document",

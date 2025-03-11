@@ -1,16 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "wyYirvKh3o4=",
+  "dgSpecHash": "0sV2XEKOvuIM4hzHq0YQFhorMXD4Im6pQrKk5BBNxgICuHpimH6Z/kdngK8c4VBtfcJt7gN4/V1fVUId7Ds6ng==",
   "success": true,
   "projectFilePath": "C:\\Dmitrii\\Programming\\VolleyStat2.0_main\\StatisticsViewerModule\\StatisticsViewerModule.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\progr\\.nuget\\packages\\documentformat.openxml\\3.2.0\\documentformat.openxml.3.2.0.nupkg.sha512",
-    "C:\\Users\\progr\\.nuget\\packages\\documentformat.openxml.framework\\3.2.0\\documentformat.openxml.framework.3.2.0.nupkg.sha512",
-    "C:\\Users\\progr\\.nuget\\packages\\microsoft.web.webview2\\1.0.2903.40\\microsoft.web.webview2.1.0.2903.40.nupkg.sha512",
-    "C:\\Users\\progr\\.nuget\\packages\\microsoft.win32.systemevents\\9.0.0\\microsoft.win32.systemevents.9.0.0.nupkg.sha512",
-    "C:\\Users\\progr\\.nuget\\packages\\questpdf\\2024.10.4\\questpdf.2024.10.4.nupkg.sha512",
-    "C:\\Users\\progr\\.nuget\\packages\\system.drawing.common\\9.0.0\\system.drawing.common.9.0.0.nupkg.sha512",
-    "C:\\Users\\progr\\.nuget\\packages\\system.io.packaging\\8.0.1\\system.io.packaging.8.0.1.nupkg.sha512"
+    "C:\\Users\\User\\.nuget\\packages\\documentformat.openxml\\3.2.0\\documentformat.openxml.3.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\documentformat.openxml.framework\\3.2.0\\documentformat.openxml.framework.3.2.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.web.webview2\\1.0.2903.40\\microsoft.web.webview2.1.0.2903.40.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\microsoft.win32.systemevents\\9.0.0\\microsoft.win32.systemevents.9.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\questpdf\\2024.10.4\\questpdf.2024.10.4.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\system.drawing.common\\9.0.0\\system.drawing.common.9.0.0.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\system.io.packaging\\8.0.1\\system.io.packaging.8.0.1.nupkg.sha512"
   ],
   "logs": []
 }
