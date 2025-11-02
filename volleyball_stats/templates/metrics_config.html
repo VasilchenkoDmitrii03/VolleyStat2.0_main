@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройка метрик и правил - Volleyball Stats</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+        
+        .tab:hover {
+            color: #667eea;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .section {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: #764ba2;
+        }
+        
+        .btn-success {
+            background: #4CAF50;
+        }
+        
+        .btn-success:hover {
+            background: #45a049;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+        }
+        
+        .values-editor {
+            margin-top: 15px;
+        }
+        
+        .value-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: end;
+        }
+        
+        .list-container {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        
+        .list-item {
+            padding: 12px;
+            background: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .list-item:hover {
+            background: #f0f0ff;
+        }
+        
+        .list-item-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .list-item-desc {
+            color: #666;
+            font-size: 13px;
+        }
+        
+        .list-item-actions {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .btn-small {
+            padding: 5px 10px;
+            font-size: 12px;
+        }
+        
+        .config-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f0f0ff;
+            border-radius: 8px;
+        }
+        
+        .config-selector select {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .action-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .action-type-card {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-type-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 8px rgba(102, 126, 234, 0.2);
+        }
+        
+        .action-type-card.selected {
+            border-color: #667eea;
+            background: #f0f0ff;
+        }
+        
+        .action-type-card h4 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .action-type-card p {
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .metrics-selector {
+            margin-top: 15px;
+        }
+        
+        .metric-tag {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #667eea;
+            color: white;
+            border-radius: 15px;
+            margin: 5px;
+            font-size: 12px;
+        }
+        
+        .rule-builder {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #667eea;
+        }
+        
+        .rule-preview {
+            padding: 15px;
+            background: #f0f0ff;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-family: monospace;
+            color: #333;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⚙️ Настройка метрик и правил автозаполнения</h1>
+        <p class="subtitle">Создавайте и управляйте различными конфигурациями метрик для волейбольной статистики</p>
+        
+        <!-- Config Selector -->
+        <div class="config-selector">
+            <label for="config-select" style="font-weight: bold;">Текущая конфигурация:</label>
+            <select id="config-select" onchange="loadConfiguration()">
+                <option value="default">Стандартная конфигурация</option>
+            </select>
+            <button class="btn" onclick="createNewConfiguration()">+ Новая</button>
+            <button class="btn btn-secondary" onclick="duplicateConfiguration()">📋 Дублировать</button>
+            <button class="btn btn-success" onclick="saveConfiguration()">💾 Сохранить</button>
+            <button class="btn btn-danger" onclick="deleteConfiguration()">🗑️ Удалить</button>
+        </div>
+        
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('metrics')">📏 Типы метрик</button>
+            <button class="tab" onclick="showTab('action-metrics')">🎯 Метрики действий</button>
+            <button class="tab" onclick="showTab('in-action-rules')">🔄 Правила InAction</button>
+            <button class="tab" onclick="showTab('sequence-rules')">⚡ Правила Sequence</button>
+            <button class="tab" onclick="showTab('export')">📦 Экспорт/Импорт</button>
+        </div>
+        
+        <!-- Tab 1: Metric Types -->
+        <div id="metrics-content" class="tab-content active">
+            <div class="section">
+                <div class="section-title">✏️ Создание типа метрики</div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Название:</label>
+                        <input type="text" id="metric-name" placeholder="Quality">
+                    </div>
+                    <div class="form-group">
+                        <label>Короткое название:</label>
+                        <input type="text" id="metric-short-name" placeholder="qual">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Описание:</label>
+                        <textarea id="metric-description" placeholder="Качество выполнения действия"></textarea>
+                    </div>
+                </div>
+                
+                <div class="values-editor">
+                    <label style="font-weight: bold; display: block; margin-bottom: 10px;">Значения метрики:</label>
+                    <div id="metric-values-container">
+                        <!-- Values will be added here -->
+                    </div>
+                    <button class="btn btn-secondary" onclick="addMetricValue()">+ Добавить значение</button>
+                </div>
+                
+                <div style="margin-top: 20px; display: flex; gap: 10px;">
+                    <button class="btn btn-success" onclick="saveMetricType()">✅ Создать метрику</button>
+                    <button class="btn btn-secondary" onclick="clearMetricForm()">🔄 Очистить</button>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">📋 Существующие типы метрик</div>
+                <div class="list-container" id="metrics-list">
+                    <!-- Metrics will be listed here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 2: Action Metrics -->
+        <div id="action-metrics-content" class="tab-content">
+            <div class="section">
+                <div class="section-title">🎯 Назначение метрик для типов действий</div>
+                <p style="color: #666; margin-bottom: 15px;">Выберите тип действия и назначьте ему метрики</p>
+                
+                <div class="action-type-grid" id="action-types-grid">
+                    <!-- Action types will be listed here -->
+                </div>
+            </div>
+            
+            <div class="section" id="action-metrics-editor" style="display: none;">
+                <div class="section-title">Метрики для: <span id="selected-action-name"></span></div>
+                <div class="metrics-selector">
+                    <label style="font-weight: bold;">Доступные метрики:</label>
+                    <div id="available-metrics-list"></div>
+                </div>
+                <div class="metrics-selector" style="margin-top: 20px;">
+                    <label style="font-weight: bold;">Выбранные метрики:</label>
+                    <div id="selected-metrics-list"></div>
+                </div>
+                <button class="btn btn-success" onclick="saveActionMetrics()">💾 Сохранить для этого действия</button>
+            </div>
+        </div>
+        
+        <!-- Tab 3: InAction Rules -->
+        <div id="in-action-rules-content" class="tab-content">
+            <div class="section">
+                <div class="section-title">🔄 Правила автозаполнения InAction</div>
+                <p style="color: #666; margin-bottom: 15px;">Если метрика A имеет значение X, автоматически установить метрику B = Y</p>
+                
+                <div class="rule-builder">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Тип действия:</label>
+                            <select id="inaction-action-type" onchange="updateInActionMetrics()">
+                                <option value="">-- Выберите --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Левая метрика (условие):</label>
+                            <select id="inaction-left-metric" onchange="updateInActionLeftValues()">
+                                <option value="">-- Выберите --</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label>Значения левой метрики (триггеры):</label>
+                            <div id="inaction-left-values"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Правая метрика (результат):</label>
+                            <select id="inaction-right-metric" onchange="updateInActionRightValues()">
+                                <option value="">-- Выберите --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Значение правой метрики:</label>
+                            <select id="inaction-right-value">
+                                <option value="">-- Выберите --</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-preview" id="inaction-rule-preview">
+                        Настройте правило...
+                    </div>
+                    
+                    <button class="btn btn-success" onclick="addInActionRule()">✅ Добавить правило</button>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">📋 Существующие правила InAction</div>
+                <div class="list-container" id="inaction-rules-list">
+                    <!-- Rules will be listed here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 4: Sequence Rules -->
+        <div id="sequence-rules-content" class="tab-content">
+            <div class="section">
+                <div class="section-title">⚡ Правила автозаполнения Sequence</div>
+                <p style="color: #666; margin-bottom: 15px;">Если в предыдущем действии метрика A = X, то в текущем установить метрику B = Y</p>
+                
+                <div class="rule-builder">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Левое действие (условие):</label>
+                            <select id="sequence-left-action" onchange="updateSequenceLeftMetrics()">
+                                <option value="">-- Выберите --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Левая метрика:</label>
+                            <select id="sequence-left-metric" onchange="updateSequenceLeftValues()">
+                                <option value="">-- Выберите --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Правое действие (результат):</label>
+                            <select id="sequence-right-action" onchange="updateSequenceRightMetrics()">
+                                <option value="">-- Выберите --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Правая метрика:</label>
+                            <select id="sequence-right-metric" onchange="updateSequenceRightValues()">
+                                <option value="">-- Выберите --</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label>
+                            <input type="checkbox" id="sequence-copy-mode" onchange="toggleSequenceCopyMode()">
+                            Режим копирования (копировать значение напрямую)
+                        </label>
+                    </div>
+                    
+                    <div id="sequence-conditional-block">
+                        <div class="form-grid" style="margin-top: 15px;">
+                            <div class="form-group" style="grid-column: 1 / -1;">
+                                <label>Значения левой метрики (триггеры):</label>
+                                <div id="sequence-left-values"></div>
+                            </div>
+                            <div class="form-group">
+                                <label>Значение правой метрики:</label>
+                                <select id="sequence-right-value">
+                                    <option value="">-- Выберите --</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="rule-preview" id="sequence-rule-preview">
+                        Настройте правило...
+                    </div>
+                    
+                    <button class="btn btn-success" onclick="addSequenceRule()">✅ Добавить правило</button>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">📋 Существующие правила Sequence</div>
+                <div class="list-container" id="sequence-rules-list">
+                    <!-- Rules will be listed here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tab 5: Export/Import -->
+        <div id="export-content" class="tab-content">
+            <div class="section">
+                <div class="section-title">📤 Экспорт конфигурации</div>
+                <p style="color: #666; margin-bottom: 15px;">Сохраните текущую конфигурацию в JSON файл</p>
+                <button class="btn" onclick="exportConfiguration()">💾 Экспортировать в JSON</button>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">📥 Импорт конфигурации</div>
+                <p style="color: #666; margin-bottom: 15px;">Загрузите конфигурацию из JSON файла</p>
+                <input type="file" id="import-file" accept=".json" style="margin-bottom: 15px;">
+                <br>
+                <button class="btn" onclick="importConfiguration()">📂 Импортировать из JSON</button>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">📋 Предпросмотр текущей конфигурации</div>
+                <pre id="config-preview" style="background: #f0f0f0; padding: 15px; border-radius: 5px; overflow-x: auto; max-height: 400px;"></pre>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module">
+        import { KVADRATIKI_CONFIG } from '/static/js/default-config.js';
+        
+        // Global state
+        let currentConfig = {
+            name: 'default',
+            metricTypes: [],
+            actionMetrics: {},
+            inActionRules: [],
+            sequenceRules: []
+        };
+        
+        let actionTypes = [
+            'Serve', 'Reception', 'Set', 'Attack', 'Block', 'Defence', 'FreeBall', 'Transfer'
+        ];
+        
+        // Initialize
+        window.onload = function() {
+            loadDefaultConfiguration();
+            renderActionTypesGrid();
+            populateActionTypeSelects();
+        };
+        
+        // Make functions globally available
+        window.showTab = showTab;
+        window.createNewConfiguration = createNewConfiguration;
+        window.duplicateConfiguration = duplicateConfiguration;
+        window.saveConfiguration = saveConfiguration;
+        window.deleteConfiguration = deleteConfiguration;
+        window.addMetricValue = addMetricValue;
+        window.removeMetricValue = removeMetricValue;
+        window.saveMetricType = saveMetricType;
+        window.clearMetricForm = clearMetricForm;
+        window.editMetric = editMetric;
+        window.deleteMetric = deleteMetric;
+        window.selectActionType = selectActionType;
+        window.assignMetricToAction = assignMetricToAction;
+        window.unassignMetricFromAction = unassignMetricFromAction;
+        window.saveActionMetrics = saveActionMetrics;
+        window.updateInActionMetrics = updateInActionMetrics;
+        window.updateInActionLeftValues = updateInActionLeftValues;
+        window.updateInActionRightValues = updateInActionRightValues;
+        window.addInActionRule = addInActionRule;
+        window.deleteInActionRule = deleteInActionRule;
+        window.updateSequenceLeftMetrics = updateSequenceLeftMetrics;
+        window.updateSequenceRightMetrics = updateSequenceRightMetrics;
+        window.updateSequenceLeftValues = updateSequenceLeftValues;
+        window.updateSequenceRightValues = updateSequenceRightValues;
+        window.toggleSequenceCopyMode = toggleSequenceCopyMode;
+        window.addSequenceRule = addSequenceRule;
+        window.deleteSequenceRule = deleteSequenceRule;
+        window.exportConfiguration = exportConfiguration;
+        window.importConfiguration = importConfiguration;
+        window.loadConfiguration = loadConfiguration;
+        
+        // Tab management
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-content').classList.add('active');
+            
+            if (tabName === 'export') {
+                updateConfigPreview();
+            }
+        }
+        
+        // Configuration management
+        function createNewConfiguration() {
+            const name = prompt('Введите название новой конфигурации:');
+            if (name) {
+                currentConfig = {
+                    name: name,
+                    metricTypes: [],
+                    actionMetrics: {},
+                    inActionRules: [],
+                    sequenceRules: []
+                };
+                updateUI();
+                alert('Создана новая конфигурация: ' + name);
+            }
+        }
+        
+        function saveConfiguration() {
+            // TODO: Send to API
+            alert('Конфигурация сохранена: ' + currentConfig.name);
+            console.log('Saving config:', currentConfig);
+        }
+        
+        function loadDefaultConfiguration() {
+            // Load Kvadratiki configuration
+            currentConfig.name = KVADRATIKI_CONFIG.name;
+            currentConfig.metricTypes = KVADRATIKI_CONFIG.metricTypes.map(mt => ({
+                name: mt.name,
+                shortName: mt.shortName,
+                description: mt.description,
+                values: mt.values.map(v => ({
+                    value: String(v.value),
+                    name: v.display || v.shortName,
+                    shortName: v.shortName
+                }))
+            }));
+            
+            // Load action metrics assignments
+            currentConfig.actionMetrics = { ...KVADRATIKI_CONFIG.actionMetrics };
+            
+            // Load InAction rules (from automaticFillers)
+            currentConfig.inActionRules = [];
+            // 7 InAction правил - ErrorType = NoError для хороших Quality
+            ['Serve', 'Reception', 'Set', 'Attack', 'Block', 'Defence', 'FreeBall'].forEach(actionType => {
+                currentConfig.inActionRules.push({
+                    actionType: actionType,
+                    leftMetric: 'Quality',
+                    leftValues: ['-', '/', '!', '+', '#'],
+                    rightMetric: 'ErrorType',
+                    rightValue: 'NoError'
+                });
+            });
+            
+            // Load Sequence rules (from automaticFillers)
+            currentConfig.sequenceRules = [
+                {
+                    leftAction: 'Reception',
+                    leftMetric: 'Quality',
+                    rightAction: 'Set',
+                    rightMetric: 'ReceptionQuality',
+                    copyMode: true
+                },
+                {
+                    leftAction: 'Set',
+                    leftMetric: 'Quality',
+                    rightAction: 'Attack',
+                    rightMetric: 'SetQuality',
+                    copyMode: true
+                },
+                {
+                    leftAction: 'Set',
+                    leftMetric: 'Direction',
+                    rightAction: 'Attack',
+                    rightMetric: 'position',
+                    copyMode: true
+                },
+                {
+                    leftAction: 'Set',
+                    leftMetric: 'Combination',
+                    rightAction: 'Attack',
+                    rightMetric: 'Combination',
+                    copyMode: true
+                },
+                {
+                    leftAction: 'Set',
+                    leftMetric: 'BlockersCount',
+                    rightAction: 'Attack',
+                    rightMetric: 'BlockersCount',
+                    copyMode: true
+                },
+                {
+                    leftAction: 'Attack',
+                    leftMetric: 'Combination',
+                    rightAction: 'Block',
+                    rightMetric: 'Combination',
+                    copyMode: true
+                },
+                {
+                    leftAction: 'Attack',
+                    leftMetric: 'AttackType',
+                    rightAction: 'Block',
+                    rightMetric: 'AttackType',
+                    copyMode: true
+                },
+                {
+                    leftAction: 'Attack',
+                    leftMetric: 'BlockersCount',
+                    rightAction: 'Block',
+                    rightMetric: 'BlockersCount',
+                    copyMode: true
+                },
+                {
+                    leftAction: 'Attack',
+                    leftMetric: 'position',
+                    rightAction: 'Defence',
+                    rightMetric: 'Direction',
+                    copyMode: true
+                }
+            ];
+            
+            updateUI();
+        }
+        
+        function loadConfiguration() {
+            // Placeholder for future multi-config support
+            loadDefaultConfiguration();
+        }
+        
+        function updateUI() {
+            renderMetricsList();
+            renderInActionRulesList();
+            renderSequenceRulesList();
+        }
+        
+        // Metric Types Management
+        let metricValueCounter = 0;
+        
+        function addMetricValue() {
+            const container = document.getElementById('metric-values-container');
+            const row = document.createElement('div');
+            row.className = 'value-row';
+            row.id = 'value-row-' + metricValueCounter;
+            
+            row.innerHTML = `
+                <div class="form-group">
+                    <label>Значение:</label>
+                    <input type="text" placeholder="1" data-field="value">
+                </div>
+                <div class="form-group">
+                    <label>Название:</label>
+                    <input type="text" placeholder="Ошибка" data-field="name">
+                </div>
+                <div class="form-group">
+                    <label>Короткое:</label>
+                    <input type="text" placeholder="=" data-field="shortName">
+                </div>
+                <button class="btn btn-danger btn-small" onclick="removeMetricValue(${metricValueCounter})" style="align-self: end;">✕</button>
+            `;
+            
+            container.appendChild(row);
+            metricValueCounter++;
+        }
+        
+        function removeMetricValue(id) {
+            const row = document.getElementById('value-row-' + id);
+            if (row) row.remove();
+        }
+        
+        function saveMetricType() {
+            const name = document.getElementById('metric-name').value;
+            const shortName = document.getElementById('metric-short-name').value;
+            const description = document.getElementById('metric-description').value;
+            
+            if (!name || !shortName) {
+                alert('Заполните название и короткое название');
+                return;
+            }
+            
+            const values = [];
+            const valueRows = document.querySelectorAll('#metric-values-container .value-row');
+            
+            valueRows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                values.push({
+                    value: inputs[0].value,
+                    name: inputs[1].value,
+                    shortName: inputs[2].value
+                });
+            });
+            
+            if (values.length === 0) {
+                alert('Добавьте хотя бы одно значение');
+                return;
+            }
+            
+            currentConfig.metricTypes.push({
+                name, shortName, description, values
+            });
+            
+            renderMetricsList();
+            clearMetricForm();
+            alert('Метрика создана: ' + name);
+        }
+        
+        function clearMetricForm() {
+            document.getElementById('metric-name').value = '';
+            document.getElementById('metric-short-name').value = '';
+            document.getElementById('metric-description').value = '';
+            document.getElementById('metric-values-container').innerHTML = '';
+            metricValueCounter = 0;
+        }
+        
+        function renderMetricsList() {
+            const list = document.getElementById('metrics-list');
+            list.innerHTML = '';
+            
+            if (currentConfig.metricTypes.length === 0) {
+                list.innerHTML = '<p style="color: #999;">Нет созданных метрик</p>';
+                return;
+            }
+            
+            currentConfig.metricTypes.forEach((metric, index) => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+                item.innerHTML = `
+                    <div>
+                        <div class="list-item-title">${metric.name} (${metric.shortName})</div>
+                        <div class="list-item-desc">${metric.description}</div>
+                        <div class="list-item-desc">Значений: ${metric.values.length}</div>
+                    </div>
+                    <div class="list-item-actions">
+                        <button class="btn btn-small" onclick="editMetric(${index})">✏️</button>
+                        <button class="btn btn-danger btn-small" onclick="deleteMetric(${index})">🗑️</button>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+        
+        function deleteMetric(index) {
+            if (confirm('Удалить метрику?')) {
+                currentConfig.metricTypes.splice(index, 1);
+                renderMetricsList();
+            }
+        }
+        
+        function editMetric(index) {
+            alert('Редактирование метрики (функция в разработке)');
+            // TODO: Implement metric editing
+        }
+        
+        function duplicateConfiguration() {
+            const name = prompt('Введите название копии конфигурации:', currentConfig.name + ' (копия)');
+            if (name) {
+                // Create a deep copy
+                const newConfig = JSON.parse(JSON.stringify(currentConfig));
+                newConfig.name = name;
+                currentConfig = newConfig;
+                alert('Конфигурация скопирована: ' + name);
+            }
+        }
+        
+        function deleteConfiguration() {
+            if (confirm('Удалить текущую конфигурацию?')) {
+                alert('Удаление конфигурации (функция в разработке)');
+                // TODO: Implement config deletion
+            }
+        }
+        
+        // Action Metrics
+        function renderActionTypesGrid() {
+            const grid = document.getElementById('action-types-grid');
+            grid.innerHTML = '';
+            
+            actionTypes.forEach(at => {
+                const card = document.createElement('div');
+                card.className = 'action-type-card';
+                card.onclick = () => selectActionType(at);
+                
+                const metricsCount = currentConfig.actionMetrics[at] ? currentConfig.actionMetrics[at].length : 0;
+                
+                card.innerHTML = `
+                    <h4>${at}</h4>
+                    <p>${metricsCount} метрик назначено</p>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+        
+        let selectedActionType = null;
+        
+        function selectActionType(actionType) {
+            selectedActionType = actionType;
+            document.querySelectorAll('.action-type-card').forEach(c => c.classList.remove('selected'));
+            event.target.closest('.action-type-card').classList.add('selected');
+            
+            document.getElementById('selected-action-name').textContent = actionType;
+            document.getElementById('action-metrics-editor').style.display = 'block';
+            
+            renderAvailableMetrics();
+            renderSelectedMetrics();
+        }
+        
+        function renderAvailableMetrics() {
+            const container = document.getElementById('available-metrics-list');
+            container.innerHTML = '';
+            
+            const assigned = currentConfig.actionMetrics[selectedActionType] || [];
+            
+            currentConfig.metricTypes.forEach(mt => {
+                if (!assigned.includes(mt.name)) {
+                    const tag = document.createElement('span');
+                    tag.className = 'metric-tag';
+                    tag.textContent = mt.name;
+                    tag.style.cursor = 'pointer';
+                    tag.style.background = '#95a5a6';
+                    tag.onclick = () => assignMetricToAction(mt.name);
+                    container.appendChild(tag);
+                }
+            });
+            
+            if (container.children.length === 0) {
+                container.innerHTML = '<p style="color: #999;">Все метрики назначены</p>';
+            }
+        }
+        
+        function renderSelectedMetrics() {
+            const container = document.getElementById('selected-metrics-list');
+            container.innerHTML = '';
+            
+            const assigned = currentConfig.actionMetrics[selectedActionType] || [];
+            
+            assigned.forEach(metricName => {
+                const tag = document.createElement('span');
+                tag.className = 'metric-tag';
+                tag.textContent = metricName + ' ✕';
+                tag.style.cursor = 'pointer';
+                tag.onclick = () => unassignMetricFromAction(metricName);
+                container.appendChild(tag);
+            });
+            
+            if (container.children.length === 0) {
+                container.innerHTML = '<p style="color: #999;">Нет назначенных метрик</p>';
+            }
+        }
+        
+        function assignMetricToAction(metricName) {
+            if (!currentConfig.actionMetrics[selectedActionType]) {
+                currentConfig.actionMetrics[selectedActionType] = [];
+            }
+            currentConfig.actionMetrics[selectedActionType].push(metricName);
+            renderAvailableMetrics();
+            renderSelectedMetrics();
+        }
+        
+        function unassignMetricFromAction(metricName) {
+            const idx = currentConfig.actionMetrics[selectedActionType].indexOf(metricName);
+            if (idx > -1) {
+                currentConfig.actionMetrics[selectedActionType].splice(idx, 1);
+            }
+            renderAvailableMetrics();
+            renderSelectedMetrics();
+        }
+        
+        function saveActionMetrics() {
+            alert('Метрики для ' + selectedActionType + ' сохранены');
+            renderActionTypesGrid();
+        }
+        
+        // InAction Rules
+        function populateActionTypeSelects() {
+            ['inaction-action-type', 'sequence-left-action', 'sequence-right-action'].forEach(id => {
+                const select = document.getElementById(id);
+                select.innerHTML = '<option value="">-- Выберите --</option>';
+                actionTypes.forEach(at => {
+                    const opt = document.createElement('option');
+                    opt.value = at;
+                    opt.textContent = at;
+                    select.appendChild(opt);
+                });
+            });
+        }
+        
+        function updateInActionMetrics() {
+            const actionType = document.getElementById('inaction-action-type').value;
+            if (!actionType) return;
+            
+            const metrics = currentConfig.actionMetrics[actionType] || [];
+            
+            ['inaction-left-metric', 'inaction-right-metric'].forEach(id => {
+                const select = document.getElementById(id);
+                select.innerHTML = '<option value="">-- Выберите --</option>';
+                metrics.forEach(m => {
+                    const opt = document.createElement('option');
+                    opt.value = m;
+                    opt.textContent = m;
+                    select.appendChild(opt);
+                });
+            });
+        }
+        
+        function updateInActionLeftValues() {
+            const metricName = document.getElementById('inaction-left-metric').value;
+            const metric = currentConfig.metricTypes.find(m => m.name === metricName);
+            
+            const container = document.getElementById('inaction-left-values');
+            container.innerHTML = '';
+            
+            if (metric) {
+                metric.values.forEach(v => {
+                    const label = document.createElement('label');
+                    label.innerHTML = `
+                        <input type="checkbox" value="${v.name}" style="margin-right: 5px;">
+                        ${v.name}
+                    `;
+                    label.style.display = 'inline-block';
+                    label.style.marginRight = '15px';
+                    container.appendChild(label);
+                });
+            }
+            
+            updateInActionPreview();
+        }
+        
+        function updateInActionRightValues() {
+            const metricName = document.getElementById('inaction-right-metric').value;
+            const metric = currentConfig.metricTypes.find(m => m.name === metricName);
+            
+            const select = document.getElementById('inaction-right-value');
+            select.innerHTML = '<option value="">-- Выберите --</option>';
+            
+            if (metric) {
+                metric.values.forEach(v => {
+                    const opt = document.createElement('option');
+                    opt.value = v.name;
+                    opt.textContent = v.name;
+                    select.appendChild(opt);
+                });
+            }
+            
+            updateInActionPreview();
+        }
+        
+        function updateInActionPreview() {
+            const actionType = document.getElementById('inaction-action-type').value;
+            const leftMetric = document.getElementById('inaction-left-metric').value;
+            const rightMetric = document.getElementById('inaction-right-metric').value;
+            const rightValue = document.getElementById('inaction-right-value').value;
+            
+            const leftValues = Array.from(document.querySelectorAll('#inaction-left-values input:checked')).map(cb => cb.value);
+            
+            if (actionType && leftMetric && leftValues.length > 0 && rightMetric && rightValue) {
+                document.getElementById('inaction-rule-preview').textContent = 
+                    `${actionType}: ${leftMetric} (${leftValues.join(', ')}) ==> ${rightMetric}(${rightValue})`;
+            }
+        }
+        
+        function addInActionRule() {
+            const actionType = document.getElementById('inaction-action-type').value;
+            const leftMetric = document.getElementById('inaction-left-metric').value;
+            const rightMetric = document.getElementById('inaction-right-metric').value;
+            const rightValue = document.getElementById('inaction-right-value').value;
+            const leftValues = Array.from(document.querySelectorAll('#inaction-left-values input:checked')).map(cb => cb.value);
+            
+            if (!actionType || !leftMetric || !rightMetric || !rightValue || leftValues.length === 0) {
+                alert('Заполните все поля');
+                return;
+            }
+            
+            currentConfig.inActionRules.push({
+                actionType, leftMetric, leftValues, rightMetric, rightValue
+            });
+            
+            renderInActionRulesList();
+            alert('Правило InAction добавлено');
+        }
+        
+        function renderInActionRulesList() {
+            const list = document.getElementById('inaction-rules-list');
+            list.innerHTML = '';
+            
+            if (currentConfig.inActionRules.length === 0) {
+                list.innerHTML = '<p style="color: #999;">Нет правил</p>';
+                return;
+            }
+            
+            currentConfig.inActionRules.forEach((rule, index) => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+                item.innerHTML = `
+                    <div>
+                        <div class="list-item-title">${rule.actionType}</div>
+                        <div class="list-item-desc">${rule.leftMetric} (${rule.leftValues.join(', ')}) ==> ${rule.rightMetric}(${rule.rightValue})</div>
+                    </div>
+                    <button class="btn btn-danger btn-small" onclick="deleteInActionRule(${index})">🗑️</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+        
+        function deleteInActionRule(index) {
+            if (confirm('Удалить правило?')) {
+                currentConfig.inActionRules.splice(index, 1);
+                renderInActionRulesList();
+            }
+        }
+        
+        // Sequence Rules
+        function updateSequenceLeftMetrics() {
+            const actionType = document.getElementById('sequence-left-action').value;
+            if (!actionType) return;
+            
+            const metrics = currentConfig.actionMetrics[actionType] || [];
+            const select = document.getElementById('sequence-left-metric');
+            select.innerHTML = '<option value="">-- Выберите --</option>';
+            metrics.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m;
+                select.appendChild(opt);
+            });
+        }
+        
+        function updateSequenceRightMetrics() {
+            const actionType = document.getElementById('sequence-right-action').value;
+            if (!actionType) return;
+            
+            const metrics = currentConfig.actionMetrics[actionType] || [];
+            const select = document.getElementById('sequence-right-metric');
+            select.innerHTML = '<option value="">-- Выберите --</option>';
+            metrics.forEach(m => {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m;
+                select.appendChild(opt);
+            });
+        }
+        
+        function updateSequenceLeftValues() {
+            const metricName = document.getElementById('sequence-left-metric').value;
+            const metric = currentConfig.metricTypes.find(m => m.name === metricName);
+            
+            const container = document.getElementById('sequence-left-values');
+            container.innerHTML = '';
+            
+            if (metric) {
+                metric.values.forEach(v => {
+                    const label = document.createElement('label');
+                    label.innerHTML = `
+                        <input type="checkbox" value="${v.name}" style="margin-right: 5px;">
+                        ${v.name}
+                    `;
+                    label.style.display = 'inline-block';
+                    label.style.marginRight = '15px';
+                    container.appendChild(label);
+                });
+            }
+            
+            updateSequencePreview();
+        }
+        
+        function updateSequenceRightValues() {
+            const metricName = document.getElementById('sequence-right-metric').value;
+            const metric = currentConfig.metricTypes.find(m => m.name === metricName);
+            
+            const select = document.getElementById('sequence-right-value');
+            select.innerHTML = '<option value="">-- Выберите --</option>';
+            
+            if (metric) {
+                metric.values.forEach(v => {
+                    const opt = document.createElement('option');
+                    opt.value = v.name;
+                    opt.textContent = v.name;
+                    select.appendChild(opt);
+                });
+            }
+            
+            updateSequencePreview();
+        }
+        
+        function toggleSequenceCopyMode() {
+            const copyMode = document.getElementById('sequence-copy-mode').checked;
+            document.getElementById('sequence-conditional-block').style.display = copyMode ? 'none' : 'block';
+            updateSequencePreview();
+        }
+        
+        function updateSequencePreview() {
+            const leftAction = document.getElementById('sequence-left-action').value;
+            const leftMetric = document.getElementById('sequence-left-metric').value;
+            const rightAction = document.getElementById('sequence-right-action').value;
+            const rightMetric = document.getElementById('sequence-right-metric').value;
+            const copyMode = document.getElementById('sequence-copy-mode').checked;
+            
+            if (leftAction && leftMetric && rightAction && rightMetric) {
+                if (copyMode) {
+                    document.getElementById('sequence-rule-preview').textContent = 
+                        `${leftAction}: ${leftMetric} ==> ${rightAction}: ${rightMetric} (COPY)`;
+                } else {
+                    const leftValues = Array.from(document.querySelectorAll('#sequence-left-values input:checked')).map(cb => cb.value);
+                    const rightValue = document.getElementById('sequence-right-value').value;
+                    
+                    if (leftValues.length > 0 && rightValue) {
+                        document.getElementById('sequence-rule-preview').textContent = 
+                            `${leftAction}: ${leftMetric} (${leftValues.join(', ')}) ==> ${rightAction}: ${rightMetric}(${rightValue})`;
+                    }
+                }
+            }
+        }
+        
+        function addSequenceRule() {
+            const leftAction = document.getElementById('sequence-left-action').value;
+            const leftMetric = document.getElementById('sequence-left-metric').value;
+            const rightAction = document.getElementById('sequence-right-action').value;
+            const rightMetric = document.getElementById('sequence-right-metric').value;
+            const copyMode = document.getElementById('sequence-copy-mode').checked;
+            
+            if (!leftAction || !leftMetric || !rightAction || !rightMetric) {
+                alert('Заполните обязательные поля');
+                return;
+            }
+            
+            const rule = {
+                leftAction, leftMetric, rightAction, rightMetric, copyMode
+            };
+            
+            if (!copyMode) {
+                const leftValues = Array.from(document.querySelectorAll('#sequence-left-values input:checked')).map(cb => cb.value);
+                const rightValue = document.getElementById('sequence-right-value').value;
+                
+                if (leftValues.length === 0 || !rightValue) {
+                    alert('Заполните значения для условного режима');
+                    return;
+                }
+                
+                rule.leftValues = leftValues;
+                rule.rightValue = rightValue;
+            }
+            
+            currentConfig.sequenceRules.push(rule);
+            renderSequenceRulesList();
+            alert('Правило Sequence добавлено');
+        }
+        
+        function renderSequenceRulesList() {
+            const list = document.getElementById('sequence-rules-list');
+            list.innerHTML = '';
+            
+            if (currentConfig.sequenceRules.length === 0) {
+                list.innerHTML = '<p style="color: #999;">Нет правил</p>';
+                return;
+            }
+            
+            currentConfig.sequenceRules.forEach((rule, index) => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+                
+                let desc = '';
+                if (rule.copyMode) {
+                    desc = `${rule.leftAction}: ${rule.leftMetric} ==> ${rule.rightAction}: ${rule.rightMetric} (COPY)`;
+                } else {
+                    desc = `${rule.leftAction}: ${rule.leftMetric} (${rule.leftValues.join(', ')}) ==> ${rule.rightAction}: ${rule.rightMetric}(${rule.rightValue})`;
+                }
+                
+                item.innerHTML = `
+                    <div>
+                        <div class="list-item-desc">${desc}</div>
+                    </div>
+                    <button class="btn btn-danger btn-small" onclick="deleteSequenceRule(${index})">🗑️</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+        
+        function deleteSequenceRule(index) {
+            if (confirm('Удалить правило?')) {
+                currentConfig.sequenceRules.splice(index, 1);
+                renderSequenceRulesList();
+            }
+        }
+        
+        // Export/Import
+        function exportConfiguration() {
+            const json = JSON.stringify(currentConfig, null, 2);
+            const blob = new Blob([json], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = currentConfig.name + '_config.json';
+            a.click();
+        }
+        
+        function importConfiguration() {
+            const file = document.getElementById('import-file').files[0];
+            if (!file) {
+                alert('Выберите файл');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    currentConfig = JSON.parse(e.target.result);
+                    updateUI();
+                    renderActionTypesGrid();
+                    alert('Конфигурация загружена: ' + currentConfig.name);
+                } catch (err) {
+                    alert('Ошибка чтения файла: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        function updateConfigPreview() {
+            document.getElementById('config-preview').textContent = JSON.stringify(currentConfig, null, 2);
+        }
+        
+        // Listen for changes
+        ['inaction-action-type', 'inaction-left-metric', 'inaction-right-metric', 'inaction-right-value'].forEach(id => {
+            document.getElementById(id)?.addEventListener('change', updateInActionPreview);
+        });
+        
+        ['sequence-left-action', 'sequence-left-metric', 'sequence-right-action', 'sequence-right-metric', 'sequence-right-value'].forEach(id => {
+            document.getElementById(id)?.addEventListener('change', updateSequencePreview);
+        });
+    </script>
+</body>
+</html>

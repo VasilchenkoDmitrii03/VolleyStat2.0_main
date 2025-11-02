@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>API Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success { color: green; }
+        .error { color: red; }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Volleyball Stats API Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Load Teams</h2>
+        <button onclick="testLoadTeams()">Test /api/teams/</button>
+        <div id="teams-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: LocalStorage Configs</h2>
+        <button onclick="testLoadConfigs()">Check localStorage</button>
+        <button onclick="createDefaultConfig()">Create Default Config</button>
+        <button onclick="clearConfigs()">Clear Configs</button>
+        <div id="configs-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Game Setup Page</h2>
+        <button onclick="window.location.href='/game-setup'">Go to Game Setup</button>
+    </div>
+    
+    <script>
+        async function testLoadTeams() {
+            const resultDiv = document.getElementById('teams-result');
+            resultDiv.innerHTML = '<p>Loading...</p>';
+            
+            try {
+                console.log('Fetching /api/teams/');
+                const response = await fetch('/api/teams/');
+                console.log('Response:', response);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const teams = await response.json();
+                console.log('Teams:', teams);
+                
+                resultDiv.innerHTML = `
+                    <p class="success">✓ Success! Found ${teams.length} teams</p>
+                    <pre>${JSON.stringify(teams, null, 2)}</pre>
+                `;
+            } catch (error) {
+                console.error('Error:', error);
+                resultDiv.innerHTML = `
+                    <p class="error">✗ Error: ${error.message}</p>
+                    <pre>${error.stack}</pre>
+                `;
+            }
+        }
+        
+        function testLoadConfigs() {
+            const resultDiv = document.getElementById('configs-result');
+            
+            try {
+                const savedConfigs = localStorage.getItem('metricsConfigurations');
+                
+                if (savedConfigs) {
+                    const configs = JSON.parse(savedConfigs);
+                    resultDiv.innerHTML = `
+                        <p class="success">✓ Found ${configs.length} configs in localStorage</p>
+                        <pre>${JSON.stringify(configs, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <p>No configs found in localStorage</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">✗ Error: ${error.message}</p>
+                `;
+            }
+        }
+        
+        function createDefaultConfig() {
+            const defaultConfig = {
+                name: "Базовая конфигурация",
+                metricTypes: [
+                    {
+                        name: "Quality",
+                        shortName: "Q",
+                        description: "Качество выполнения действия",
+                        values: [
+                            { value: 1, shortName: "=" },
+                            { value: 2, shortName: "-" },
+                            { value: 3, shortName: "/" },
+                            { value: 4, shortName: "!" },
+                            { value: 5, shortName: "+" },
+                            { value: 6, shortName: "#" }
+                        ]
+                    },
+                    {
+                        name: "Result",
+                        shortName: "R",
+                        description: "Результат действия",
+                        values: [
+                            { value: "Win", shortName: "В" },
+                            { value: "Loss", shortName: "П" },
+                            { value: "Continue", shortName: "П" }
+                        ]
+                    }
+                ],
+                actionMetrics: {
+                    "Serve": ["Quality", "Result"],
+                    "Reception": ["Quality"],
+                    "Set": ["Quality"],
+                    "Attack": ["Quality", "Result"],
+                    "Block": ["Quality", "Result"],
+                    "Defence": ["Quality"],
+                    "FreeBall": ["Quality"],
+                    "Transfer": ["Quality"]
+                },
+                inActionRules: [
+                    {
+                        actionType: "Serve",
+                        leftMetric: "Quality",
+                        leftValues: [1],
+                        rightMetric: "Result",
+                        rightValue: "Loss"
+                    },
+                    {
+                        actionType: "Serve",
+                        leftMetric: "Quality",
+                        leftValues: [5, 6],
+                        rightMetric: "Result",
+                        rightValue: "Win"
+                    }
+                ],
+                sequenceRules: []
+            };
+            
+            const configs = [defaultConfig];
+            localStorage.setItem('metricsConfigurations', JSON.stringify(configs));
+            
+            alert('Default config created!');
+            testLoadConfigs();
+        }
+        
+        function clearConfigs() {
+            localStorage.removeItem('metricsConfigurations');
+            alert('Configs cleared!');
+            testLoadConfigs();
+        }
+        
+        // Auto-run tests on load
+        window.addEventListener('DOMContentLoaded', () => {
+            testLoadTeams();
+            testLoadConfigs();
+        });
+    </script>
+</body>
+</html>

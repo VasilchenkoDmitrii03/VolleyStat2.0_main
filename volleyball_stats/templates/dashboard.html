@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Volleyball Statistics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .content {
+            display: none;
+        }
+        
+        .content.active {
+            display: block;
+        }
+        
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #764ba2;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .list-item {
+            padding: 15px;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .list-item:hover {
+            background: #f9f9f9;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            overflow: auto;
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .player-card {
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9ff;
+        }
+        
+        .player-info {
+            flex: 1;
+        }
+        
+        .player-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            margin-right: 15px;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .amplua-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: #667eea;
+            color: white;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏐 Volleyball Statistics Dashboard</h1>
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('teams')">Команды</button>
+                <button class="tab" onclick="showTab('games')">Игры</button>
+                <button class="tab" onclick="showTab('statistics')">Статистика</button>
+            </div>
+        </header>
+        
+        <!-- Teams Tab -->
+        <div id="teams-content" class="content active">
+            <div class="card">
+                <h2>Управление командами</h2>
+                <button class="btn" onclick="showCreateTeamForm()">+ Создать команду</button>
+                
+                <div id="create-team-form" style="display: none; margin-top: 20px;">
+                    <h3>Новая команда</h3>
+                    <div class="form-group">
+                        <label>Название:</label>
+                        <input type="text" id="team-name" placeholder="Название команды">
+                    </div>
+                    <div class="form-group">
+                        <label>Описание:</label>
+                        <textarea id="team-description" rows="3" placeholder="Описание команды"></textarea>
+                    </div>
+                    <button class="btn" onclick="createTeam()">Сохранить</button>
+                    <button class="btn" onclick="hideCreateTeamForm()">Отмена</button>
+                </div>
+                
+                <div id="teams-list" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+        
+        <!-- Team Detail Modal -->
+        <div id="team-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeTeamModal()">&times;</span>
+                <h2 id="modal-team-name"></h2>
+                <p id="modal-team-description"></p>
+                
+                <hr style="margin: 20px 0;">
+                
+                <h3>Игроки команды</h3>
+                <button class="btn" onclick="showAddPlayerForm()">+ Добавить игрока</button>
+                
+                <div id="add-player-form" style="display: none; margin: 20px 0; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+                    <h4>Новый игрок</h4>
+                    <div class="form-group">
+                        <label>Имя:</label>
+                        <input type="text" id="player-name" placeholder="Имя">
+                    </div>
+                    <div class="form-group">
+                        <label>Фамилия:</label>
+                        <input type="text" id="player-surname" placeholder="Фамилия">
+                    </div>
+                    <div class="form-group">
+                        <label>Рост (см):</label>
+                        <input type="number" id="player-height" placeholder="180">
+                    </div>
+                    <div class="form-group">
+                        <label>Номер:</label>
+                        <input type="number" id="player-number" placeholder="7">
+                    </div>
+                    <div class="form-group">
+                        <label>Амплуа:</label>
+                        <select id="player-amplua">
+                            <option value="0">Либеро</option>
+                            <option value="1">Пасующий</option>
+                            <option value="2">Доигровщик</option>
+                            <option value="3">Центральный блокирующий</option>
+                            <option value="4">Диагональный</option>
+                            <option value="-1">Не определено</option>
+                        </select>
+                    </div>
+                    <button class="btn" onclick="addPlayerToTeam()">Добавить</button>
+                    <button class="btn btn-danger" onclick="hideAddPlayerForm()">Отмена</button>
+                </div>
+                
+                <div id="modal-players-list"></div>
+            </div>
+        </div>
+        
+        <!-- Games Tab -->
+        <div id="games-content" class="content">
+            <div class="card">
+                <h2>Игры</h2>
+                <button class="btn" onclick="alert('Функция создания игры в разработке')">+ Создать игру</button>
+                <div id="games-list" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+        
+        <!-- Statistics Tab -->
+        <div id="statistics-content" class="content">
+            <div class="card">
+                <h2>Статистика</h2>
+                <p>Выберите игру для просмотра статистики</p>
+                <div id="statistics-view"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Navigation
+        function showTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-content').classList.add('active');
+            
+            if (tabName === 'teams') loadTeams();
+            if (tabName === 'games') loadGames();
+        }
+        
+        // Teams
+        function showCreateTeamForm() {
+            document.getElementById('create-team-form').style.display = 'block';
+        }
+        
+        function hideCreateTeamForm() {
+            document.getElementById('create-team-form').style.display = 'none';
+        }
+        
+        async function createTeam() {
+            const name = document.getElementById('team-name').value;
+            const description = document.getElementById('team-description').value;
+            
+            if (!name) {
+                alert('Введите название команды');
+                return;
+            }
+            
+            const team = {
+                name: name,
+                description: description,
+                main_color: [0, 128, 0],
+                libero_color: [255, 165, 0],
+                players: []
+            };
+            
+            try {
+                const response = await fetch('/api/teams/', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(team)
+                });
+                
+                if (response.ok) {
+                    alert('Команда создана!');
+                    hideCreateTeamForm();
+                    loadTeams();
+                    document.getElementById('team-name').value = '';
+                    document.getElementById('team-description').value = '';
+                } else {
+                    alert('Ошибка создания команды');
+                }
+            } catch (error) {
+                alert('Ошибка: ' + error);
+            }
+        }
+        
+        async function loadTeams() {
+            try {
+                const response = await fetch('/api/teams/');
+                const teams = await response.json();
+                
+                const listHtml = teams.map((team, index) => `
+                    <div class="list-item">
+                        <div>
+                            <strong>${team.name}</strong><br>
+                            <small>${team.description || 'Нет описания'}</small><br>
+                            <small>Игроков: ${team.players.length}</small>
+                        </div>
+                        <button class="btn" onclick='showTeamDetails(${JSON.stringify(team).replace(/'/g, "\\'")})'>Подробнее</button>
+                    </div>
+                `).join('');
+                
+                document.getElementById('teams-list').innerHTML = listHtml || '<p>Команд пока нет</p>';
+                
+                // Store teams globally for reference by ID
+                window.currentTeams = {};
+                teams.forEach(team => {
+                    window.currentTeams[team.id] = team;
+                });
+            } catch (error) {
+                console.error('Error loading teams:', error);
+            }
+        }
+        
+        // Team detail modal
+        let currentTeamId = null;
+        
+        function showTeamDetails(team) {
+            currentTeamId = team.id;
+            document.getElementById('modal-team-name').textContent = team.name;
+            document.getElementById('modal-team-description').textContent = team.description || 'Нет описания';
+            
+            renderPlayersList(team.players);
+            document.getElementById('team-modal').style.display = 'block';
+        }
+        
+        function closeTeamModal() {
+            document.getElementById('team-modal').style.display = 'none';
+            hideAddPlayerForm();
+        }
+        
+        function renderPlayersList(players) {
+            const ampluaNames = {
+                0: 'Либеро',
+                1: 'Пасующий',
+                2: 'Доигровщик',
+                3: 'Центральный блокирующий',
+                4: 'Диагональный',
+                '-1': 'Не определено'
+            };
+            
+            if (!players || players.length === 0) {
+                document.getElementById('modal-players-list').innerHTML = '<p style="color: #999; margin-top: 20px;">Игроки еще не добавлены</p>';
+                return;
+            }
+            
+            const playersHtml = players.map((player, idx) => `
+                <div class="player-card">
+                    <div style="display: flex; align-items: center;">
+                        <span class="player-number">#${player.number}</span>
+                        <div class="player-info">
+                            <strong>${player.name} ${player.surname}</strong>
+                            <span class="amplua-badge">${ampluaNames[player.amplua]}</span>
+                            <br>
+                            <small>Рост: ${player.height} см</small>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger" onclick="removePlayer(${idx})">Удалить</button>
+                </div>
+            `).join('');
+            
+            document.getElementById('modal-players-list').innerHTML = playersHtml;
+        }
+        
+        // Player management
+        function showAddPlayerForm() {
+            document.getElementById('add-player-form').style.display = 'block';
+        }
+        
+        function hideAddPlayerForm() {
+            document.getElementById('add-player-form').style.display = 'none';
+            // Clear form
+            document.getElementById('player-name').value = '';
+            document.getElementById('player-surname').value = '';
+            document.getElementById('player-height').value = '';
+            document.getElementById('player-number').value = '';
+            document.getElementById('player-amplua').value = '-1';
+        }
+        
+        async function addPlayerToTeam() {
+            const name = document.getElementById('player-name').value;
+            const surname = document.getElementById('player-surname').value;
+            const height = parseInt(document.getElementById('player-height').value);
+            const number = parseInt(document.getElementById('player-number').value);
+            const amplua = parseInt(document.getElementById('player-amplua').value);
+            
+            if (!name || !surname || !height || !number) {
+                alert('Заполните все поля');
+                return;
+            }
+            
+            const player = { name, surname, height, number, amplua };
+            
+            try {
+                const response = await fetch(`/api/teams/${currentTeamId}/players`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify(player)
+                });
+                
+                if (response.ok) {
+                    const updatedTeam = await response.json();
+                    window.currentTeams[currentTeamId] = updatedTeam;
+                    renderPlayersList(updatedTeam.players);
+                    hideAddPlayerForm();
+                    loadTeams(); // Refresh teams list
+                } else {
+                    const error = await response.json();
+                    alert('Ошибка добавления игрока: ' + (error.detail || response.statusText));
+                }
+            } catch (error) {
+                alert('Ошибка: ' + error);
+            }
+        }
+        
+        async function removePlayer(playerIndex) {
+            if (!confirm('Удалить игрока?')) return;
+            
+            const team = window.currentTeams[currentTeamId];
+            const playerNumber = team.players[playerIndex].number;
+            
+            try {
+                const response = await fetch(`/api/teams/${currentTeamId}/players/${playerNumber}`, {
+                    method: 'DELETE',
+                    headers: {'Content-Type': 'application/json'}
+                });
+                
+                if (response.ok) {
+                    const updatedTeam = await response.json();
+                    window.currentTeams[currentTeamId] = updatedTeam;
+                    renderPlayersList(updatedTeam.players);
+                    loadTeams(); // Refresh teams list
+                } else {
+                    alert('Ошибка удаления игрока');
+                }
+            } catch (error) {
+                alert('Ошибка: ' + error);
+            }
+        }
+        
+        async function loadGames() {
+            try {
+                const response = await fetch('/api/games/');
+                const games = await response.json();
+                
+                const listHtml = games.map(game => `
+                    <div class="list-item">
+                        <div>
+                            <strong>${game.team_name || 'Игра'}</strong><br>
+                            <small>Результат: ${game.result}</small>
+                        </div>
+                        <button class="btn">Подробнее</button>
+                    </div>
+                `).join('');
+                
+                document.getElementById('games-list').innerHTML = listHtml || '<p>Игр пока нет</p>';
+            } catch (error) {
+                console.error('Error loading games:', error);
+            }
+        }
+        
+        // Load initial data
+        loadTeams();
+    </script>
+</body>
+</html>

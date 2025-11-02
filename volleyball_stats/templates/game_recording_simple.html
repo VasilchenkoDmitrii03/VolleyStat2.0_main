@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ведение статистики - Простая версия</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .score-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .form-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .actions-list {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .action-item {
+            background: white;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            border-radius: 4px;
+        }
+        
+        .debug-info {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 20px;
+            font-size: 12px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏐 Ведение статистики матча</h1>
+        
+        <div class="score-display">
+            <span id="scoreLeft">0</span> : <span id="scoreRight">0</span>
+            <div style="font-size: 16px; margin-top: 10px;">
+                Set <span id="setNumber">1</span> | <span id="phaseText">Начало игры</span>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2>Добавить действие</h2>
+            
+            <div class="form-group">
+                <label>Автор действия:</label>
+                <select id="authorCombo" onchange="onAuthorChanged()">
+                    <option value="">-- Выберите автора --</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Тип действия:</label>
+                <select id="actionTypeCombo" onchange="onActionTypeChanged()">
+                    <option value="">-- Сначала выберите автора --</option>
+                </select>
+            </div>
+            
+            <div id="metricsContainer" class="metrics-grid">
+                <!-- Метрики будут добавлены динамически -->
+            </div>
+            
+            <button id="addActionBtn" class="btn" onclick="addAction()" disabled>
+                ➕ Добавить действие
+            </button>
+        </div>
+        
+        <div class="form-section">
+            <h2>История действий</h2>
+            <div id="actionsList" class="actions-list">
+                <p style="text-align: center; color: #999;">Действий пока нет</p>
+            </div>
+        </div>
+        
+        <div class="debug-info">
+            <strong>Debug Info:</strong>
+            <div id="debugInfo">Загрузка...</div>
+        </div>
+    </div>
+    
+    <script>
+        // Game state
+        let gameSetup = null;
+        let config = null;
+        let actions = [];
+        let score = { left: 0, right: 0 };
+        let currentSet = 1;
+        let phase = 'Break'; // Break, Recep_1, Recep
+        
+        // Available actions by author
+        const authorActions = {
+            'Coach': ['StartArrangement', 'SetStartParams', 'Change', 'TimeOut'],
+            'Judge': ['CardGift', 'CardPenalty', 'DisputableBall'],
+            'OpponentTeam': ['OpponentError', 'OpponentPoint'],
+            'Player': ['Serve', 'Reception', 'Set', 'Attack', 'Block', 'Defence', 'FreeBall', 'Transfer']
+        };
+        
+        // Russian translations
+        const actionTranslations = {
+            'StartArrangement': 'Начальная расстановка',
+            'SetStartParams': 'Установить параметры сета',
+            'Change': 'Замена',
+            'TimeOut': 'Тайм-аут',
+            'CardGift': 'Карточка в нашу пользу',
+            'CardPenalty': 'Карточка против нас',
+            'DisputableBall': 'Спорный мяч',
+            'OpponentError': 'Ошибка соперника',
+            'OpponentPoint': 'Очко соперника',
+            'Serve': 'Подача',
+            'Reception': 'Приём',
+            'Set': 'Передача',
+            'Attack': 'Атака',
+            'Block': 'Блок',
+            'Defence': 'Защита',
+            'FreeBall': 'Свободный мяч',
+            'Transfer': 'Доигровка'
+        };
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadGameSetup();
+            updateDebugInfo();
+        });
+        
+        function loadGameSetup() {
+            // Load from sessionStorage
+            const setupStr = sessionStorage.getItem('currentGameSetup');
+            if (setupStr) {
+                gameSetup = JSON.parse(setupStr);
+                config = gameSetup.config;
+                
+                updateDebugInfo();
+                initializeAuthors();
+            } else {
+                // Create default config for testing
+                config = {
+                    metricTypes: [
+                        {
+                            name: "Quality",
+                            shortName: "Q",
+                            values: [
+                                { value: 1, shortName: "=" },
+                                { value: 2, shortName: "-" },
+                                { value: 3, shortName: "/" },
+                                { value: 4, shortName: "!" },
+                                { value: 5, shortName: "+" },
+                                { value: 6, shortName: "#" }
+                            ]
+                        },
+                        {
+                            name: "Result",
+                            shortName: "R",
+                            values: [
+                                { value: "Win", shortName: "В" },
+                                { value: "Loss", shortName: "П" },
+                                { value: "Continue", shortName: "Пр" }
+                            ]
+                        }
+                    ],
+                    actionMetrics: {
+                        "Serve": ["Quality", "Result"],
+                        "Reception": ["Quality"],
+                        "Set": ["Quality"],
+                        "Attack": ["Quality", "Result"],
+                        "Block": ["Quality", "Result"],
+                        "Defence": ["Quality"]
+                    }
+                };
+                
+                updateDebugInfo();
+                initializeAuthors();
+            }
+        }
+        
+        function initializeAuthors() {
+            const authorCombo = document.getElementById('authorCombo');
+            authorCombo.innerHTML = '<option value="">-- Выберите автора --</option>';
+            
+            // At game start, only Coach is available
+            if (actions.length === 0) {
+                authorCombo.innerHTML += '<option value="Coach">Тренер</option>';
+            } else {
+                // Add all authors
+                for (const author in authorActions) {
+                    const russianName = {
+                        'Coach': 'Тренер',
+                        'Judge': 'Судья',
+                        'OpponentTeam': 'Команда соперника',
+                        'Player': 'Игрок'
+                    }[author];
+                    authorCombo.innerHTML += `<option value="${author}">${russianName}</option>`;
+                }
+            }
+        }
+        
+        function onAuthorChanged() {
+            const author = document.getElementById('authorCombo').value;
+            const actionTypeCombo = document.getElementById('actionTypeCombo');
+            
+            if (!author) {
+                actionTypeCombo.innerHTML = '<option value="">-- Сначала выберите автора --</option>';
+                clearMetrics();
+                return;
+            }
+            
+            // Update available actions
+            const availableActions = authorActions[author] || [];
+            actionTypeCombo.innerHTML = '<option value="">-- Выберите действие --</option>';
+            
+            availableActions.forEach(actionType => {
+                const translation = actionTranslations[actionType] || actionType;
+                actionTypeCombo.innerHTML += `<option value="${actionType}">${translation}</option>`;
+            });
+            
+            clearMetrics();
+            updateDebugInfo();
+        }
+        
+        function onActionTypeChanged() {
+            const actionType = document.getElementById('actionTypeCombo').value;
+            
+            if (!actionType) {
+                clearMetrics();
+                return;
+            }
+            
+            // Show metrics for this action
+            showMetricsForAction(actionType);
+            updateDebugInfo();
+        }
+        
+        function showMetricsForAction(actionType) {
+            const container = document.getElementById('metricsContainer');
+            container.innerHTML = '';
+            
+            if (!config || !config.actionMetrics) {
+                container.innerHTML = '<p>Метрики не настроены</p>';
+                return;
+            }
+            
+            const metricsForAction = config.actionMetrics[actionType] || [];
+            
+            if (metricsForAction.length === 0) {
+                container.innerHTML = '<p>Для этого действия метрики не требуются</p>';
+                document.getElementById('addActionBtn').disabled = false;
+                return;
+            }
+            
+            metricsForAction.forEach(metricName => {
+                const metricType = config.metricTypes.find(m => m.name === metricName);
+                if (!metricType) return;
+                
+                const group = document.createElement('div');
+                group.className = 'form-group';
+                
+                const label = document.createElement('label');
+                label.textContent = metricType.name + ':';
+                group.appendChild(label);
+                
+                const select = document.createElement('select');
+                select.id = `metric_${metricName}`;
+                select.onchange = checkFormComplete;
+                
+                select.innerHTML = '<option value="">-- Выберите --</option>';
+                metricType.values.forEach(v => {
+                    select.innerHTML += `<option value="${v.value}">${v.shortName} (${v.value})</option>`;
+                });
+                
+                group.appendChild(select);
+                container.appendChild(group);
+            });
+            
+            checkFormComplete();
+        }
+        
+        function clearMetrics() {
+            document.getElementById('metricsContainer').innerHTML = '';
+            document.getElementById('addActionBtn').disabled = true;
+        }
+        
+        function checkFormComplete() {
+            const author = document.getElementById('authorCombo').value;
+            const actionType = document.getElementById('actionTypeCombo').value;
+            
+            if (!author || !actionType) {
+                document.getElementById('addActionBtn').disabled = true;
+                return;
+            }
+            
+            // Check all metrics are filled
+            const metricsForAction = config?.actionMetrics?.[actionType] || [];
+            let allFilled = true;
+            
+            metricsForAction.forEach(metricName => {
+                const select = document.getElementById(`metric_${metricName}`);
+                if (select && !select.value) {
+                    allFilled = false;
+                }
+            });
+            
+            document.getElementById('addActionBtn').disabled = !allFilled;
+        }
+        
+        function addAction() {
+            const author = document.getElementById('authorCombo').value;
+            const actionType = document.getElementById('actionTypeCombo').value;
+            
+            if (!author || !actionType) return;
+            
+            // Collect metrics
+            const metrics = {};
+            const metricsForAction = config?.actionMetrics?.[actionType] || [];
+            
+            metricsForAction.forEach(metricName => {
+                const select = document.getElementById(`metric_${metricName}`);
+                if (select) {
+                    const value = select.value;
+                    const metricType = config.metricTypes.find(m => m.name === metricName);
+                    const valueDef = metricType.values.find(v => v.value == value);
+                    
+                    metrics[metricName] = {
+                        value: value,
+                        shortName: valueDef ? valueDef.shortName : value
+                    };
+                }
+            });
+            
+            // Create action object
+            const action = {
+                author: author,
+                actionType: actionType,
+                metrics: metrics,
+                timestamp: new Date().toLocaleTimeString()
+            };
+            
+            actions.push(action);
+            
+            // Update display
+            updateActionsList();
+            updateScore(action);
+            
+            // Reset form
+            document.getElementById('authorCombo').value = '';
+            document.getElementById('actionTypeCombo').innerHTML = '<option value="">-- Сначала выберите автора --</option>';
+            clearMetrics();
+            
+            // Re-initialize authors based on game state
+            initializeAuthors();
+            updateDebugInfo();
+        }
+        
+        function updateScore(action) {
+            // Simple score logic
+            if (action.metrics.Result) {
+                if (action.metrics.Result.value === 'Win') {
+                    score.left++;
+                } else if (action.metrics.Result.value === 'Loss') {
+                    score.right++;
+                }
+            }
+            
+            if (action.actionType === 'OpponentError') {
+                score.left++;
+            } else if (action.actionType === 'OpponentPoint') {
+                score.right++;
+            }
+            
+            document.getElementById('scoreLeft').textContent = score.left;
+            document.getElementById('scoreRight').textContent = score.right;
+        }
+        
+        function updateActionsList() {
+            const list = document.getElementById('actionsList');
+            
+            if (actions.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #999;">Действий пока нет</p>';
+                return;
+            }
+            
+            list.innerHTML = '';
+            
+            actions.forEach((action, index) => {
+                const item = document.createElement('div');
+                item.className = 'action-item';
+                
+                const authorName = {
+                    'Coach': 'Тренер',
+                    'Judge': 'Судья',
+                    'OpponentTeam': 'Соперник',
+                    'Player': 'Игрок'
+                }[action.author];
+                
+                const actionName = actionTranslations[action.actionType] || action.actionType;
+                
+                let metricsText = '';
+                for (const metricName in action.metrics) {
+                    metricsText += ` ${metricName}: ${action.metrics[metricName].shortName}`;
+                }
+                
+                item.innerHTML = `
+                    <strong>#${index + 1}</strong> | 
+                    ${authorName} → ${actionName}
+                    ${metricsText}
+                    <small style="color: #999; float: right;">${action.timestamp}</small>
+                `;
+                
+                list.appendChild(item);
+            });
+        }
+        
+        function updateDebugInfo() {
+            const info = document.getElementById('debugInfo');
+            info.innerHTML = `
+                Config loaded: ${config ? 'YES' : 'NO'}<br>
+                Metric types: ${config?.metricTypes?.length || 0}<br>
+                Actions recorded: ${actions.length}<br>
+                Current author: ${document.getElementById('authorCombo').value || 'none'}<br>
+                Current action type: ${document.getElementById('actionTypeCombo').value || 'none'}
+            `;
+        }
+    </script>
+</body>
+</html>
