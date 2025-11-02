@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ведение статистики игры - Enhanced Version</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 28px;
+        }
+        
+        /* Header with Score */
+        .score-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 30px;
+        }
+        
+        .score-display {
+            font-size: 48px;
+            font-weight: bold;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .set-info {
+            font-size: 18px;
+            text-align: right;
+        }
+        
+        /* Main Layout */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 400px 1fr 400px;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        /* Form Section */
+        .form-section {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .form-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .form-row {
+            margin-bottom: 20px;
+        }
+        
+        .form-row label {
+            display: block;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        
+        .form-row select,
+        .form-row input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            background: white;
+        }
+        
+        .form-row select:focus,
+        .form-row input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        /* Players Selection (динамические поля для действий тренера) */
+        .players-selection {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 2px dashed #667eea;
+        }
+        
+        .players-selection h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .player-select-row {
+            margin-bottom: 12px;
+        }
+        
+        .player-select-row label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 6px;
+        }
+        
+        .player-select-row select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        
+        /* Metrics Container */
+        .metrics-container {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .metric-row {
+            margin-bottom: 15px;
+        }
+        
+        .metric-row label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 6px;
+        }
+        
+        .metric-row select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        
+        /* Action Button */
+        .add-action-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .add-action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .add-action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* Button Grid for Authors and Actions */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .action-button {
+            padding: 12px 8px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        
+        .action-button:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        .action-button.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+        }
+        
+        .action-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        /* Action History */
+        .history-section {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 10px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .history-section h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .action-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .action-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .action-type {
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+        
+        .action-time {
+            font-size: 12px;
+            color: #999;
+        }
+        
+        .action-details {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Phase Indicator */
+        .phase-indicator {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .phase-beginning { background: #fff3e0; color: #f57c00; }
+        .phase-between { background: #e3f2fd; color: #1976d2; }
+        .phase-rally { background: #ffebee; color: #c62828; }
+        .phase-arrangement { background: #f3e5f5; color: #7b1fa2; }
+        
+        /* Debug Panel */
+        .debug-panel {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .debug-panel h4 {
+            color: #80cbc4;
+            margin-bottom: 10px;
+        }
+        
+        .debug-item {
+            margin-bottom: 5px;
+        }
+        
+        /* Messages */
+        .message {
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .message-info { background: #e3f2fd; color: #1976d2; border-left: 4px solid #1976d2; }
+        .message-success { background: #e8f5e9; color: #2e7d32; border-left: 4px solid #2e7d32; }
+        .message-error { background: #ffebee; color: #c62828; border-left: 4px solid #c62828; }
+        
+        .hidden { display: none; }
+        
+        /* Edit Modal */
+        .edit-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .edit-modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { 
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to { 
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .edit-modal-header {
+            padding: 20px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .edit-modal-header h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+        
+        .close-modal-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .close-modal-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+        
+        .edit-modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            flex: 1;
+        }
+        
+        .edit-modal-body p {
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        .edit-metrics-section {
+            margin-top: 20px;
+        }
+        
+        .edit-metrics-section h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .edit-metric-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .edit-metric-row label {
+            font-weight: 600;
+            color: #555;
+            min-width: 150px;
+            font-size: 14px;
+        }
+        
+        .edit-metric-select {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            transition: all 0.3s;
+        }
+        
+        .edit-metric-select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .edit-modal-footer {
+            padding: 20px 25px;
+            background: #f9f9f9;
+            border-radius: 0 0 15px 15px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+        
+        .btn-save, .btn-cancel {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn-save {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn-cancel {
+            background: #e0e0e0;
+            color: #555;
+        }
+        
+        .btn-cancel:hover {
+            background: #d0d0d0;
+        }
+        
+        /* Action Edit Button */
+        .action-edit-btn {
+            padding: 6px 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .action-edit-btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏐 Ведение статистики игры</h1>
+        
+        <!-- Score Header -->
+        <div class="score-header">
+            <div>
+                <div class="score-display">
+                    <span id="scoreLeft">0</span>
+                    <span>:</span>
+                    <span id="scoreRight">0</span>
+                </div>
+                <div id="teamNames" style="font-size: 14px; margin-top: 8px; opacity: 0.9;">
+                    <!-- Team names will be shown here -->
+                </div>
+            </div>
+            <div class="set-info">
+                <div id="setInfo">Сет 1</div>
+                <div id="phaseInfo" style="margin-top: 8px;">
+                    Фаза: <span class="phase-indicator phase-beginning" id="phaseIndicator">Начало игры</span>
+                </div>
+                <div id="rallyInfo" style="margin-top: 8px; font-size: 14px;">
+                    Розыгрыш #1
+                </div>
+            </div>
+        </div>
+        
+        <!-- Messages -->
+        <div id="messageContainer"></div>
+        
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Left: Action Input Form (ComboBoxes) -->
+            <div class="form-section">
+                <h3>📝 Ввод через ComboBox</h3>
+                
+                <!-- Author Selection -->
+                <div class="form-row">
+                    <label for="authorSelect">Автор действия:</label>
+                    <select id="authorSelect">
+                        <option value="">-- Выберите автора --</option>
+                    </select>
+                </div>
+                
+                <!-- Action Type Selection -->
+                <div class="form-row">
+                    <label for="actionTypeSelect">Тип действия:</label>
+                    <select id="actionTypeSelect" disabled>
+                        <option value="">-- Сначала выберите автора --</option>
+                    </select>
+                </div>
+                
+                <!-- Player Selection (for Player author) -->
+                <div id="playerSelectContainer" class="form-row hidden">
+                    <label for="playerSelect">Игрок:</label>
+                    <select id="playerSelect">
+                        <option value="">-- Выберите игрока --</option>
+                    </select>
+                </div>
+                
+                <!-- Coach Action Players (динамическое количество) -->
+                <div id="coachPlayersContainer" class="players-selection hidden">
+                    <h4>Выбор игроков:</h4>
+                    <div id="coachPlayersFields">
+                        <!-- Динамически создаваемые поля для игроков -->
+                    </div>
+                </div>
+                
+                <!-- Metrics Container -->
+                <div id="metricsContainer" class="metrics-container hidden">
+                    <h4 style="color: #667eea; margin-bottom: 12px; font-size: 14px;">Метрики действия:</h4>
+                    <div id="metricsFields">
+                        <!-- Динамически создаваемые поля метрик -->
+                    </div>
+                </div>
+                
+                <!-- Add Action Button -->
+                <button id="addActionBtn" class="add-action-btn" disabled>
+                    ➕ Добавить действие
+                </button>
+            </div>
+            
+            <!-- Center: Quick Input Buttons (Static Panel) -->
+            <div class="form-section">
+                <h3>⚡ Быстрый ввод (кнопки)</h3>
+                
+                <!-- Single Dynamic Button Panel -->
+                <div class="form-row">
+                    <label id="quickInputLabel">Выберите...</label>
+                    <div id="quickInputButtons" class="button-grid">
+                        <!-- Динамически заменяемые кнопки -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right: Action History -->
+            <div class="history-section">
+                <h3>📋 История действий</h3>
+                <div id="actionsHistory">
+                    <p style="color: #999; text-align: center; padding: 40px 0;">
+                        Действия появятся здесь после добавления
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Debug Panel -->
+        <div class="debug-panel">
+            <h4>🐛 Debug Info</h4>
+            <div id="debugInfo">
+                <div class="debug-item">Game Phase: <span id="debugPhase">Unknown</span></div>
+                <div class="debug-item">Available Authors: <span id="debugAuthors">-</span></div>
+                <div class="debug-item">Selected Author: <span id="debugAuthor">-</span></div>
+                <div class="debug-item">Available Actions: <span id="debugActions">-</span></div>
+                <div class="debug-item">Last Action: <span id="debugLastAction">-</span></div>
+                <div class="debug-item">Config Loaded: <span id="debugConfig">-</span></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Load JS Modules -->
+    <script type="module">
+        // Import новых модулей
+        import { VolleyActionSegmentRules } from '/static/js/segment-rules.js';
+        import { AvailableActionTypes, ACTION_TRANSLATIONS, AUTHOR_TRANSLATIONS } from '/static/js/available-actions.js';
+        import { createKvadratikiFillers } from '/static/js/automatic-fillers.js';
+        
+        // ===== GAME STATE =====
+        let gameState = {
+            phase: 'beginning', // beginning, arrangement_set, between_rallies, in_rally
+            currentSet: 1,
+            score: { left: 0, right: 0 },
+            currentRally: 1,
+            lastAction: null,
+            lastActionQuality: null,
+            actions: [],
+            team: null,
+            opponentTeam: null,
+            config: null,
+            currentSegment: [] // текущий сегмент розыгрыша
+        };
+        
+        // ===== MODULES =====
+        const segmentRules = new VolleyActionSegmentRules();
+        const availableActions = new AvailableActionTypes();
+        const automaticFillers = createKvadratikiFillers();  // Автоматические связи
+        
+        // ===== AUTOMATIC FILLING HELPERS =====
+        // Применить Sequence fillers для нового действия (копировать из предыдущих действий)
+        function applySequenceAutoFill(actionType) {
+            if (gameState.currentSegment.length === 0) return;
+            
+            const fillers = automaticFillers.sequenceFillers.filter(f => f.rightActionType === actionType);
+            
+            fillers.forEach(filler => {
+                // Ищем предыдущее действие нужного типа в сегменте
+                const previousAction = gameState.currentSegment.find(a => a.actionType === filler.leftActionType);
+                if (!previousAction || !previousAction.metrics) return;
+                
+                const leftValue = previousAction.metrics[filler.leftMetric];
+                if (leftValue === undefined) return;
+                
+                // Копируем значение в комбобокс текущей метрики
+                const metricSelect = metricsFields.querySelector(`[data-metric-name="${filler.rightMetric}"]`);
+                if (metricSelect && !metricSelect.value) {
+                    metricSelect.value = leftValue;
+                    // Визуально подсветим что это автозаполнение
+                    metricSelect.style.background = '#e8f5e9';
+                }
+            });
+        }
+        
+        // Применить InAction fillers при изменении метрики (автозаполнить зависимые метрики)
+        function applyInActionAutoFill(changedMetricName, changedMetricValue, actionType) {
+            const fillers = automaticFillers.inActionFillers.filter(f => 
+                f.actionType === actionType && f.leftMetric === changedMetricName
+            );
+            
+            fillers.forEach(filler => {
+                // Получаем читаемое значение метрики
+                const metricType = gameState.config.metricTypes.find(m => m.name === changedMetricName);
+                if (!metricType) return;
+                
+                const valueObj = metricType.values.find(v => v.value == changedMetricValue);
+                if (!valueObj) return;
+                
+                const displayValue = valueObj.display || valueObj.shortName;
+                
+                // Проверяем, триггерится ли правило
+                if (filler.leftValues.includes(displayValue)) {
+                    // Ищем правую метрику
+                    const rightMetricType = gameState.config.metricTypes.find(m => m.name === filler.rightMetric);
+                    if (!rightMetricType) return;
+                    
+                    // Находим значение для заполнения
+                    const rightValueObj = rightMetricType.values.find(v => 
+                        (v.display || v.shortName) === filler.rightValue
+                    );
+                    if (!rightValueObj) return;
+                    
+                    // Заполняем комбобокс
+                    const rightMetricSelect = metricsFields.querySelector(`[data-metric-name="${filler.rightMetric}"]`);
+                    if (rightMetricSelect && !rightMetricSelect.value) {
+                        rightMetricSelect.value = rightValueObj.value;
+                        // Визуально подсветим что это автозаполнение
+                        rightMetricSelect.style.background = '#fff3e0';
+                    }
+                }
+            });
+        }
+        
+        // Обновить отображение кнопок после автозаполнения
+        function updateButtonsAfterAutoFill() {
+            showQuickInputButtons('metric');
+        }
+        
+        // ===== DOM ELEMENTS =====
+        const authorSelect = document.getElementById('authorSelect');
+        const actionTypeSelect = document.getElementById('actionTypeSelect');
+        const playerSelect = document.getElementById('playerSelect');
+        const playerSelectContainer = document.getElementById('playerSelectContainer');
+        const coachPlayersContainer = document.getElementById('coachPlayersContainer');
+        const coachPlayersFields = document.getElementById('coachPlayersFields');
+        const metricsContainer = document.getElementById('metricsContainer');
+        const metricsFields = document.getElementById('metricsFields');
+        const addActionBtn = document.getElementById('addActionBtn');
+        const actionsHistory = document.getElementById('actionsHistory');
+        const messageContainer = document.getElementById('messageContainer');
+        
+        // ===== INITIALIZATION =====
+        async function init() {
+            // Try to load Kvadratiki config, create if doesn't exist
+            await loadKvadratikiConfig();
+            
+            // Load game setup from sessionStorage
+            const setupData = sessionStorage.getItem('gameSetup');
+            
+            if (!setupData) {
+                showMessage('❌ Данные игры не найдены. Перенаправление на страницу настройки...', 'error');
+                setTimeout(() => {
+                    window.location.href = '/game-setup';
+                }, 2000);
+                return;
+            }
+            
+            const setup = JSON.parse(setupData);
+            console.log('📋 Game setup loaded from sessionStorage:', setup);
+            
+            // Проверяем что есть команда
+            if (!setup.team) {
+                showMessage('❌ Команда не найдена. Перенаправление на страницу настройки...', 'error');
+                setTimeout(() => {
+                    window.location.href = '/game-setup';
+                }, 2000);
+                return;
+            }
+            
+            // Проверяем что есть игроки
+            if (!setup.team.players || setup.team.players.length === 0) {
+                showMessage('❌ В команде нет игроков. Добавьте игроков в Dashboard.', 'error');
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 2000);
+                return;
+            }
+            
+            // Используем команду напрямую из sessionStorage
+            gameState.team = setup.team;
+            gameState.opponentTeam = { name: setup.opponent, players: [] };
+            
+            document.getElementById('teamNames').textContent = 
+                `${setup.team.name} vs ${setup.opponent}`;
+            
+            console.log('✅ Team loaded with players:', setup.team.players.map(p => `#${p.number}`).join(', '));
+            showMessage(`✅ Загружена команда: ${setup.team.name} (игроки: ${setup.team.players.map(p => '#'+p.number).join(', ')})`, 'success');
+            
+            // Initialize game phase
+            setGamePhase('beginning');
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            updateDebugInfo();
+        }
+        
+        async function loadKvadratikiConfig() {
+            try {
+                // Load Kvadratiki config from module
+                const module = await import('/static/js/default-config.js');
+                
+                // Check if config already exists in localStorage
+                let configs = JSON.parse(localStorage.getItem('metricsConfigs') || '[]');
+                
+                if (configs.length === 0) {
+                    // No configs - add Kvadratiki
+                    configs.push(module.KVADRATIKI_CONFIG);
+                    localStorage.setItem('metricsConfigs', JSON.stringify(configs));
+                    console.log('✅ Kvadratiki config created');
+                    showMessage('✅ Загружена конфигурация Kvadratiki из оригинального проекта', 'success');
+                }
+                
+                // Use first config (should be Kvadratiki)
+                gameState.config = configs[0];
+                console.log('Config loaded:', gameState.config.name);
+                
+            } catch (error) {
+                console.error('Failed to load Kvadratiki config:', error);
+                showMessage('⚠️ Ошибка загрузки конфигурации: ' + error.message, 'error');
+            }
+        }
+        
+        // ===== GAME PHASE MANAGEMENT =====
+        function setGamePhase(phase) {
+            gameState.phase = phase;
+            
+            // Update available actions based on phase
+            switch (phase) {
+                case 'beginning':
+                    availableActions.gameBeginning();
+                    updatePhaseDisplay('Начало игры', 'phase-beginning');
+                    break;
+                    
+                case 'arrangement_set':
+                    availableActions.arrangementSet();
+                    updatePhaseDisplay('Установка параметров', 'phase-arrangement');
+                    break;
+                    
+                case 'between_rallies':
+                    const startActions = segmentRules.getSetStartPlayersActions();
+                    availableActions.betweenRallies(startActions);
+                    updatePhaseDisplay('Между розыгрышами', 'phase-between');
+                    break;
+                    
+                case 'in_rally':
+                    // Определить доступные действия на основе последнего действия
+                    let possibleActions = [];
+                    if (gameState.lastAction && gameState.lastActionQuality) {
+                        possibleActions = segmentRules.getPossibleActions(
+                            gameState.lastAction, 
+                            gameState.lastActionQuality
+                        );
+                    }
+                    availableActions.inRally(possibleActions);
+                    updatePhaseDisplay('Розыгрыш', 'phase-rally');
+                    break;
+            }
+            
+            // Update UI
+            updateAuthorSelect();
+            updateDebugInfo();
+        }
+        
+        function updatePhaseDisplay(text, className) {
+            const indicator = document.getElementById('phaseIndicator');
+            indicator.textContent = text;
+            indicator.className = 'phase-indicator ' + className;
+        }
+        
+        // ===== UI UPDATES =====
+        function updateAuthorSelect() {
+            // Заполняем SELECT
+            authorSelect.innerHTML = '<option value="">-- Выберите автора --</option>';
+            
+            const authors = availableActions.getAuthors();
+            
+            // Добавляем опции в SELECT для игроков
+            if (authors.includes('Player') && gameState.team && gameState.team.players) {
+                gameState.team.players.forEach(player => {
+                    const option = document.createElement('option');
+                    option.value = `Player:${player.number}`;
+                    option.textContent = `#${player.number}`;
+                    authorSelect.appendChild(option);
+                });
+            }
+            
+            // Добавляем опции в SELECT для других авторов
+            authors.forEach(author => {
+                if (author === 'Player') return;
+                
+                const translation = AUTHOR_TRANSLATIONS[author] || author;
+                const option = document.createElement('option');
+                option.value = author;
+                option.textContent = translation;
+                authorSelect.appendChild(option);
+            });
+            
+            // Показываем кнопки автора в статичной панели
+            showQuickInputButtons('author');
+            
+            // Reset dependent fields
+            actionTypeSelect.disabled = true;
+            actionTypeSelect.innerHTML = '<option value="">-- Сначала выберите автора --</option>';
+            hideAllDynamicFields();
+        }
+        
+        // Статичная панель кнопок - показывает кнопки для текущего этапа
+        function showQuickInputButtons(stage) {
+            const container = document.getElementById('quickInputButtons');
+            const label = document.getElementById('quickInputLabel');
+            container.innerHTML = '';
+            
+            if (stage === 'author') {
+                label.textContent = 'Автор действия:';
+                
+                // Кнопки из authorSelect
+                const options = Array.from(authorSelect.options).slice(1);
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'action-button';
+                    button.textContent = option.textContent;
+                    button.onclick = () => {
+                        authorSelect.value = option.value;
+                        authorSelect.dispatchEvent(new Event('change'));
+                    };
+                    container.appendChild(button);
+                });
+                
+            } else if (stage === 'action') {
+                label.textContent = 'Тип действия:';
+                
+                // Кнопки из actionTypeSelect
+                const options = Array.from(actionTypeSelect.options).slice(1);
+                options.forEach(option => {
+                    const button = document.createElement('button');
+                    button.className = 'action-button';
+                    button.textContent = option.textContent;
+                    button.onclick = () => {
+                        actionTypeSelect.value = option.value;
+                        actionTypeSelect.dispatchEvent(new Event('change'));
+                    };
+                    container.appendChild(button);
+                });
+                
+            } else if (stage === 'metric') {
+                // Показываем кнопки для первой незаполненной метрики
+                const metricSelects = metricsFields.querySelectorAll('.metric-select');
+                for (let select of metricSelects) {
+                    if (!select.value) {
+                        const metricName = select.dataset.metricName;
+                        const metricType = gameState.config.metricTypes.find(m => m.name === metricName);
+                        
+                        label.textContent = metricType.name + ':';
+                        
+                        metricType.values.forEach(val => {
+                            const button = document.createElement('button');
+                            button.className = 'action-button';
+                            button.textContent = val.shortName;
+                            button.title = `${val.shortName} (${val.value})`;
+                            button.onclick = () => {
+                                select.value = val.value;
+                                select.dispatchEvent(new Event('change'));
+                                
+                                // Проверяем, есть ли ещё незаполненные метрики
+                                setTimeout(() => checkAndProceedToNextMetric(), 100);
+                            };
+                            container.appendChild(button);
+                        });
+                        break;
+                    }
+                }
+                
+            } else if (stage === 'coachPlayer') {
+                // Показываем кнопки для первого незаполненного игрока тренера
+                const playerSelects = coachPlayersFields.querySelectorAll('.coach-player-select');
+                for (let select of playerSelects) {
+                    if (!select.value) {
+                        const index = parseInt(select.dataset.index);
+                        const labels = {
+                            'Change': ['Выходящий игрок:', 'Входящий игрок:'],
+                            'StartArrangement': ['Позиция 1:', 'Позиция 2:', 'Позиция 3:', 'Позиция 4:', 'Позиция 5:', 'Позиция 6:'],
+                            'SetStartParams': ['Либеро:']
+                        };
+                        const actionType = actionTypeSelect.value;
+                        const fieldLabels = labels[actionType] || [];
+                        
+                        label.textContent = fieldLabels[index] || `Игрок ${index + 1}:`;
+                        
+                        if (gameState.team && gameState.team.players) {
+                            gameState.team.players.forEach(player => {
+                                const button = document.createElement('button');
+                                button.className = 'action-button';
+                                button.textContent = `#${player.number}`;
+                                button.onclick = () => {
+                                    select.value = player.number;
+                                    select.dispatchEvent(new Event('change'));
+                                    
+                                    // Проверяем, есть ли ещё незаполненные игроки
+                                    setTimeout(() => checkAndProceedToNextCoachPlayer(), 100);
+                                };
+                                container.appendChild(button);
+                            });
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        
+        function checkAndProceedToNextMetric() {
+            const metricSelects = metricsFields.querySelectorAll('.metric-select');
+            let allFilled = true;
+            
+            for (let select of metricSelects) {
+                if (!select.value) {
+                    allFilled = false;
+                    showQuickInputButtons('metric');
+                    break;
+                }
+            }
+            
+            if (allFilled) {
+                // Все метрики заполнены - автоматически добавляем действие!
+                console.log('✅ Все поля заполнены - автоматически добавляем действие');
+                addAction();
+            }
+        }
+        
+        function checkAndProceedToNextCoachPlayer() {
+            const playerSelects = coachPlayersFields.querySelectorAll('.coach-player-select');
+            let allFilled = true;
+            
+            for (let select of playerSelects) {
+                if (!select.value) {
+                    allFilled = false;
+                    showQuickInputButtons('coachPlayer');
+                    break;
+                }
+            }
+            
+            if (allFilled) {
+                // Все игроки выбраны - автоматически добавляем действие!
+                console.log('✅ Все игроки выбраны - автоматически добавляем действие');
+                addAction();
+            }
+        }
+        
+        function updateActionTypeSelect(authorValue) {
+            // Заполняем SELECT
+            actionTypeSelect.innerHTML = '<option value="">-- Выберите действие --</option>';
+            
+            // Парсим автора
+            let author = authorValue;
+            if (authorValue.startsWith('Player:')) {
+                author = 'Player';
+            }
+            
+            const actions = availableActions.getActionsForAuthor(author);
+            
+            // Добавляем опции в SELECT
+            actions.forEach(action => {
+                const translation = ACTION_TRANSLATIONS[action] || action;
+                const option = document.createElement('option');
+                option.value = action;
+                option.textContent = translation;
+                actionTypeSelect.appendChild(option);
+            });
+            
+            actionTypeSelect.disabled = actions.length === 0;
+        }
+        
+        function hideAllDynamicFields() {
+            playerSelectContainer.classList.add('hidden');
+            coachPlayersContainer.classList.add('hidden');
+            metricsContainer.classList.add('hidden');
+            coachPlayersFields.innerHTML = '';
+            metricsFields.innerHTML = '';
+            
+            addActionBtn.disabled = true;
+        }
+        
+        
+        function createCoachPlayersFields(actionType) {
+            const playerCount = AvailableActionTypes.getCoachActionPlayerCount(actionType);
+            
+            if (playerCount === 0) {
+                coachPlayersContainer.classList.add('hidden');
+                document.getElementById('coachPlayersButtonsContainer').classList.add('hidden');
+                return;
+            }
+            
+            coachPlayersContainer.classList.remove('hidden');
+            coachPlayersFields.innerHTML = '';
+            
+            const labels = {
+                'Change': ['Выходящий игрок:', 'Входящий игрок:'],
+                'StartArrangement': ['Позиция 1:', 'Позиция 2:', 'Позиция 3:', 'Позиция 4:', 'Позиция 5:', 'Позиция 6:'],
+                'SetStartParams': ['Либеро:']
+            };
+            
+            const fieldLabels = labels[actionType] || Array(playerCount).fill('Игрок:');
+            
+            for (let i = 0; i < playerCount; i++) {
+                // === COMBOBOX (слева) ===
+                const div = document.createElement('div');
+                div.className = 'player-select-row';
+                
+                const label = document.createElement('label');
+                label.textContent = fieldLabels[i] || `Игрок ${i + 1}:`;
+                
+                const select = document.createElement('select');
+                select.className = 'coach-player-select';
+                select.dataset.index = i;
+                
+                select.innerHTML = '<option value="">-- Выберите игрока --</option>';
+                if (gameState.team && gameState.team.players) {
+                    gameState.team.players.forEach(player => {
+                        const option = document.createElement('option');
+                        option.value = player.number;
+                        option.textContent = `#${player.number}`;
+                        select.appendChild(option);
+                    });
+                }
+                
+                // Add change event listener for auto-progression
+                select.addEventListener('change', () => {
+                    checkAndProceedToNextCoachPlayer();
+                });
+                
+                div.appendChild(label);
+                div.appendChild(select);
+                coachPlayersFields.appendChild(div);
+            }
+        }
+        
+
+        
+        function createMetricsFields(actionType) {
+            if (!gameState.config || !gameState.config.actionMetrics) {
+                return;
+            }
+            
+            const metricTypes = gameState.config.actionMetrics[actionType];
+            if (!metricTypes || metricTypes.length === 0) {
+                metricsContainer.classList.add('hidden');
+                document.getElementById('metricsButtonsContainer').classList.add('hidden');
+                return;
+            }
+            
+            metricsContainer.classList.remove('hidden');
+            metricsFields.innerHTML = '';
+            
+            metricTypes.forEach(metricName => {
+                const metricType = gameState.config.metricTypes.find(m => m.name === metricName);
+                if (!metricType) return;
+                
+                // === COMBOBOX (слева) ===
+                const div = document.createElement('div');
+                div.className = 'metric-row';
+                
+                const label = document.createElement('label');
+                label.textContent = `${metricType.name}:`;
+                
+                const select = document.createElement('select');
+                select.className = 'metric-select';
+                select.dataset.metricName = metricName;
+                
+                select.innerHTML = '<option value="">-- Выберите значение --</option>';
+                metricType.values.forEach(val => {
+                    const option = document.createElement('option');
+                    option.value = val.value;
+                    option.textContent = `${val.shortName} (${val.value})`;
+                    select.appendChild(option);
+                });
+                
+                // Add change event listener for auto-progression and auto-fill
+                select.addEventListener('change', (e) => {
+                    const metricName = e.target.dataset.metricName;
+                    const metricValue = e.target.value;
+                    const actionType = actionTypeSelect.value;
+                    
+                    // Применяем InAction автозаполнение (заполняем зависимые метрики)
+                    applyInActionAutoFill(metricName, metricValue, actionType);
+                    
+                    // Обновляем кнопки после автозаполнения
+                    updateButtonsAfterAutoFill();
+                    
+                    // Проверяем переход к следующей метрике
+                    checkAndProceedToNextMetric();
+                });
+                
+                div.appendChild(label);
+                div.appendChild(select);
+                metricsFields.appendChild(div);
+            });
+        }
+        
+
+        
+        // ===== EVENT LISTENERS =====
+        function setupEventListeners() {
+            // Author selection
+            authorSelect.addEventListener('change', (e) => {
+                const authorValue = e.target.value;
+                updateDebugInfo();
+                
+                if (!authorValue) {
+                    hideAllDynamicFields();
+                    return;
+                }
+                
+                updateActionTypeSelect(authorValue);
+                
+                // Показываем кнопки действий
+                showQuickInputButtons('action');
+                
+                // Для игроков больше не нужен отдельный select - номер уже выбран
+                playerSelectContainer.classList.add('hidden');
+                coachPlayersContainer.classList.add('hidden');
+                metricsContainer.classList.add('hidden');
+            });
+            
+            // Action type selection
+            actionTypeSelect.addEventListener('change', (e) => {
+                const actionType = e.target.value;
+                const authorValue = authorSelect.value;
+                
+                // Парсим автора
+                let author = authorValue;
+                if (authorValue.startsWith('Player:')) {
+                    author = 'Player';
+                }
+                
+                updateDebugInfo();
+                
+                if (!actionType) {
+                    coachPlayersContainer.classList.add('hidden');
+                    metricsContainer.classList.add('hidden');
+                    addActionBtn.disabled = true;
+                    return;
+                }
+                
+                // Handle Coach actions with player selection
+                if (author === 'Coach') {
+                    createCoachPlayersFields(actionType);
+                    
+                    // Для действий тренера обычно нет метрик
+                    metricsContainer.classList.add('hidden');
+                    
+                    // Enable add button if no players required
+                    const playerCount = AvailableActionTypes.getCoachActionPlayerCount(actionType);
+                    if (playerCount === 0) {
+                        addActionBtn.disabled = false;
+                        // Auto-submit если нет игроков для выбора
+                        setTimeout(() => addAction(), 100);
+                    } else {
+                        // Показываем кнопки первого игрока
+                        showQuickInputButtons('coachPlayer');
+                    }
+                } else {
+                    // For other authors, show metrics
+                    coachPlayersContainer.classList.add('hidden');
+                    createMetricsFields(actionType);
+                    
+                    // Применяем автозаполнение из предыдущих действий (Sequence fillers)
+                    applySequenceAutoFill(actionType);
+                    
+                    // Показываем кнопки первой незаполненной метрики
+                    showQuickInputButtons('metric');
+                }
+                
+                // Check if we can enable add button
+                checkAddButtonState();
+            });
+            
+            // Metrics change
+            metricsFields.addEventListener('change', () => {
+                checkAddButtonState();
+            });
+            
+            // Coach players change
+            coachPlayersFields.addEventListener('change', () => {
+                checkAddButtonState();
+            });
+            
+            // Add action button
+            addActionBtn.addEventListener('click', () => {
+                addAction();
+            });
+        }
+        
+        function checkAddButtonState() {
+            const authorValue = authorSelect.value;
+            const actionType = actionTypeSelect.value;
+            
+            if (!authorValue || !actionType) {
+                addActionBtn.disabled = true;
+                return;
+            }
+            
+            // Парсим автора
+            let author = authorValue;
+            if (authorValue.startsWith('Player:')) {
+                author = 'Player';
+            }
+            
+            // Check Coach players
+            if (author === 'Coach') {
+                const playerSelects = coachPlayersFields.querySelectorAll('.coach-player-select');
+                for (let select of playerSelects) {
+                    if (!select.value) {
+                        addActionBtn.disabled = true;
+                        return;
+                    }
+                }
+            }
+            
+            // Check metrics (for Player actions)
+            if (author === 'Player') {
+                const metricSelects = metricsFields.querySelectorAll('.metric-select');
+                for (let select of metricSelects) {
+                    if (!select.value) {
+                        addActionBtn.disabled = true;
+                        return;
+                    }
+                }
+            }
+            
+            addActionBtn.disabled = false;
+        }
+        
+        // ===== ACTION HANDLING =====
+        function addAction() {
+            const authorValue = authorSelect.value;
+            const actionType = actionTypeSelect.value;
+            
+            // Парсим автора и номер игрока
+            let author = authorValue;
+            let playerNumber = null;
+            
+            if (authorValue.startsWith('Player:')) {
+                const parts = authorValue.split(':');
+                author = 'Player';
+                playerNumber = parseInt(parts[1]);
+            }
+            
+            const action = {
+                author: author,
+                actionType: actionType,
+                timestamp: new Date().toISOString(),
+                metrics: {},
+                players: []
+            };
+            
+            // Collect player data
+            if (author === 'Player') {
+                action.playerNumber = playerNumber;
+                const player = gameState.team.players.find(p => p.number == playerNumber);
+                action.playerName = player ? `${player.name} ${player.surname}` : '';
+            } else if (author === 'Coach') {
+                const playerSelects = coachPlayersFields.querySelectorAll('.coach-player-select');
+                playerSelects.forEach(select => {
+                    action.players.push(select.value);
+                });
+            }
+            
+            // Collect metrics
+            const metricSelects = metricsFields.querySelectorAll('.metric-select');
+            metricSelects.forEach(select => {
+                const metricName = select.dataset.metricName;
+                action.metrics[metricName] = parseInt(select.value);
+                
+                // Save quality for determining next actions
+                if (metricName === 'Quality' && author === 'Player') {
+                    gameState.lastActionQuality = parseInt(select.value);
+                }
+            });
+            
+            // Apply automatic filling rules (автоматические связи между действиями)
+            automaticFillers.applyInActionFillers(action);
+            automaticFillers.applySequenceFillers(action, gameState.currentSegment);
+            
+            // Add to history
+            gameState.actions.push(action);
+            gameState.lastAction = actionType;
+            
+            // Update game state based on action
+            processAction(action);
+            
+            // Update UI
+            displayAction(action);
+            updateScore(action);
+            updateGamePhase(action);
+            
+            // Clear form
+            clearForm();
+            
+            // Update debug
+            updateDebugInfo();
+            
+            showMessage(`Действие добавлено: ${ACTION_TRANSLATIONS[actionType]}`, 'success');
+        }
+        
+        function processAction(action) {
+            const { author, actionType } = action;
+            
+            // Обработка специальных действий
+            if (actionType === 'StartArrangement') {
+                // Начальная расстановка установлена
+                setGamePhase('arrangement_set');
+            } else if (actionType === 'SetStartParams') {
+                // Параметры сета установлены, можно начинать розыгрыш
+                setGamePhase('between_rallies');
+            } else if (author === 'OpponentTeam' || (author === 'Player' && action.metrics.Quality)) {
+                // Определить результат сегмента
+                const result = getActionResult(action);
+                
+                if (result === 1) { // Won
+                    gameState.score.left++;
+                    gameState.currentRally++;
+                    gameState.currentSegment = [];
+                    setGamePhase('between_rallies');
+                } else if (result === 2) { // Lost
+                    gameState.score.right++;
+                    gameState.currentRally++;
+                    gameState.currentSegment = [];
+                    setGamePhase('between_rallies');
+                } else { // NotEnded
+                    gameState.currentSegment.push(action);
+                    setGamePhase('in_rally');
+                }
+            }
+        }
+        
+        function getActionResult(action) {
+            const { author, actionType, metrics } = action;
+            
+            if (author === 'OpponentTeam') {
+                return segmentRules.getActionResultForOpponent(actionType);
+            } else if (author === 'Judge') {
+                return segmentRules.getActionResultForJudge(actionType);
+            } else if (author === 'Player' && metrics.Quality) {
+                return segmentRules.getActionResult(actionType, metrics.Quality);
+            }
+            
+            return 0; // NotEnded
+        }
+        
+        function updateGamePhase(action) {
+            // Логика обновления фазы игры уже в processAction
+        }
+        
+        function updateScore(action) {
+            document.getElementById('scoreLeft').textContent = gameState.score.left;
+            document.getElementById('scoreRight').textContent = gameState.score.right;
+            document.getElementById('rallyInfo').textContent = `Розыгрыш #${gameState.currentRally}`;
+        }
+        
+        function displayAction(action) {
+            if (actionsHistory.querySelector('p')) {
+                actionsHistory.innerHTML = '';
+            }
+            
+            const div = document.createElement('div');
+            div.className = 'action-item';
+            div.dataset.actionIndex = gameState.actions.indexOf(action);
+            
+            const header = document.createElement('div');
+            header.className = 'action-item-header';
+            
+            const typeSpan = document.createElement('span');
+            typeSpan.className = 'action-type';
+            typeSpan.textContent = `${AUTHOR_TRANSLATIONS[action.author]}: ${ACTION_TRANSLATIONS[action.actionType]}`;
+            
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'action-time';
+            const time = new Date(action.timestamp);
+            timeSpan.textContent = time.toLocaleTimeString();
+            
+            // Кнопка редактировать
+            const editBtn = document.createElement('button');
+            editBtn.className = 'action-edit-btn';
+            editBtn.textContent = '✏️ Редактировать';
+            editBtn.onclick = () => editAction(action);
+            
+            header.appendChild(typeSpan);
+            header.appendChild(timeSpan);
+            header.appendChild(editBtn);
+            
+            const details = document.createElement('div');
+            details.className = 'action-details';
+            
+            let detailsText = [];
+            if (action.playerName) {
+                detailsText.push(`Игрок: #${action.playerNumber} ${action.playerName}`);
+            }
+            if (action.players && action.players.length > 0) {
+                detailsText.push(`Игроки: #${action.players.join(', #')}`);
+            }
+            if (Object.keys(action.metrics).length > 0) {
+                const metricsStr = Object.entries(action.metrics)
+                    .map(([metricName, metricValue]) => {
+                        const displayValue = getMetricDisplayValue(metricName, metricValue);
+                        return `${metricName}: ${displayValue}`;
+                    })
+                    .join(', ');
+                detailsText.push(`Метрики: ${metricsStr}`);
+            }
+            
+            details.textContent = detailsText.join(' | ');
+            
+            div.appendChild(header);
+            if (detailsText.length > 0) {
+                div.appendChild(details);
+            }
+            
+            actionsHistory.insertBefore(div, actionsHistory.firstChild);
+        }
+        
+        // Получить читаемое значение метрики
+        function getMetricDisplayValue(metricName, metricValue) {
+            if (!gameState.config || !gameState.config.metricTypes) {
+                return metricValue; // Fallback to raw value
+            }
+            
+            const metricType = gameState.config.metricTypes.find(m => m.name === metricName);
+            if (!metricType) {
+                return metricValue;
+            }
+            
+            const valueObj = metricType.values.find(v => v.value === metricValue);
+            if (!valueObj) {
+                return metricValue;
+            }
+            
+            // Используем display если есть, иначе shortName
+            return valueObj.display || valueObj.shortName || metricValue;
+        }
+        
+        // Редактирование действия
+        function editAction(action) {
+            const actionIndex = gameState.actions.indexOf(action);
+            if (actionIndex === -1) {
+                showMessage('Действие не найдено', 'error');
+                return;
+            }
+            
+            // Создаем модальное окно для редактирования
+            const modal = document.createElement('div');
+            modal.className = 'edit-modal';
+            modal.innerHTML = `
+                <div class="edit-modal-content">
+                    <div class="edit-modal-header">
+                        <h3>Редактирование действия: ${ACTION_TRANSLATIONS[action.actionType]}</h3>
+                        <button class="close-modal-btn" onclick="this.closest('.edit-modal').remove()">✖</button>
+                    </div>
+                    <div class="edit-modal-body" id="editModalBody">
+                        <p><strong>Автор:</strong> ${AUTHOR_TRANSLATIONS[action.author]}</p>
+                        ${action.playerName ? `<p><strong>Игрок:</strong> #${action.playerNumber} ${action.playerName}</p>` : ''}
+                        <div class="edit-metrics-section">
+                            <h4>Метрики:</h4>
+                            <div id="editMetricsContainer"></div>
+                        </div>
+                    </div>
+                    <div class="edit-modal-footer">
+                        <button class="btn-save" onclick="saveActionEdit(${actionIndex})">💾 Сохранить</button>
+                        <button class="btn-cancel" onclick="this.closest('.edit-modal').remove()">❌ Отмена</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Заполняем метрики
+            const editMetricsContainer = document.getElementById('editMetricsContainer');
+            const actionMetrics = gameState.config.actionMetrics[action.actionType] || [];
+            
+            actionMetrics.forEach(metricName => {
+                const metricType = gameState.config.metricTypes.find(m => m.name === metricName);
+                if (!metricType) return;
+                
+                const metricDiv = document.createElement('div');
+                metricDiv.className = 'edit-metric-row';
+                
+                const label = document.createElement('label');
+                label.textContent = metricName + ':';
+                
+                const select = document.createElement('select');
+                select.className = 'edit-metric-select';
+                select.dataset.metricName = metricName;
+                
+                // Добавляем пустой вариант
+                const emptyOption = document.createElement('option');
+                emptyOption.value = '';
+                emptyOption.textContent = '-- Не выбрано --';
+                select.appendChild(emptyOption);
+                
+                // Добавляем все возможные значения
+                metricType.values.forEach(valueObj => {
+                    const option = document.createElement('option');
+                    option.value = valueObj.value;
+                    option.textContent = valueObj.display || valueObj.shortName;
+                    
+                    // Выбираем текущее значение
+                    if (action.metrics[metricName] === valueObj.value) {
+                        option.selected = true;
+                    }
+                    
+                    select.appendChild(option);
+                });
+                
+                metricDiv.appendChild(label);
+                metricDiv.appendChild(select);
+                editMetricsContainer.appendChild(metricDiv);
+            });
+        }
+        
+        // Сохранение отредактированного действия
+        window.saveActionEdit = function(actionIndex) {
+            const action = gameState.actions[actionIndex];
+            if (!action) {
+                showMessage('Действие не найдено', 'error');
+                return;
+            }
+            
+            // Собираем новые значения метрик
+            const editSelects = document.querySelectorAll('.edit-metric-select');
+            const newMetrics = {};
+            
+            editSelects.forEach(select => {
+                const metricName = select.dataset.metricName;
+                if (select.value !== '') {
+                    newMetrics[metricName] = parseInt(select.value);
+                }
+            });
+            
+            // Обновляем действие
+            action.metrics = newMetrics;
+            
+            // Перерисовываем историю
+            refreshActionsHistory();
+            
+            // Закрываем модальное окно
+            document.querySelector('.edit-modal').remove();
+            
+            showMessage('Действие обновлено', 'success');
+        };
+        
+        // Обновить всю историю действий
+        function refreshActionsHistory() {
+            actionsHistory.innerHTML = '';
+            
+            // Отображаем действия в обратном порядке (последние сверху)
+            const actionsToDisplay = [...gameState.actions].reverse();
+            actionsToDisplay.forEach(action => {
+                displayAction(action);
+            });
+        }
+        
+        function clearForm() {
+            authorSelect.value = '';
+            actionTypeSelect.value = '';
+            actionTypeSelect.disabled = true;
+            actionTypeSelect.innerHTML = '<option value="">-- Сначала выберите автора --</option>';
+            hideAllDynamicFields();
+            
+            // Снова показываем кнопки автора
+            updateAuthorSelect();
+        }
+        
+        // ===== UTILITY FUNCTIONS =====
+        function showMessage(text, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `message message-${type}`;
+            div.textContent = text;
+            
+            messageContainer.appendChild(div);
+            
+            setTimeout(() => {
+                div.remove();
+            }, 5000);
+        }
+        
+        function updateDebugInfo() {
+            document.getElementById('debugPhase').textContent = gameState.phase;
+            document.getElementById('debugAuthors').textContent = availableActions.getAuthors().join(', ') || '-';
+            document.getElementById('debugAuthor').textContent = authorSelect.value || '-';
+            
+            const authorValue = authorSelect.value;
+            if (authorValue) {
+                // Парсим автора
+                let author = authorValue;
+                if (authorValue.startsWith('Player:')) {
+                    author = 'Player';
+                }
+                const actions = availableActions.getActionsForAuthor(author);
+                document.getElementById('debugActions').textContent = actions.join(', ') || '-';
+            } else {
+                document.getElementById('debugActions').textContent = '-';
+            }
+            
+            document.getElementById('debugLastAction').textContent = gameState.lastAction || '-';
+            document.getElementById('debugConfig').textContent = gameState.config ? 'Yes' : 'No';
+        }
+        
+        // ===== START APPLICATION =====
+        init();
+    </script>
+</body>
+</html>

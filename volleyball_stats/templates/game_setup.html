@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Настройка игры - Volleyball Statistics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+            padding-bottom: 35px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title .icon {
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .team-select-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f9f9f9;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .team-select-card:hover {
+            border-color: #667eea;
+            background: #f0f4ff;
+            transform: translateY(-2px);
+        }
+
+        .team-select-card.selected {
+            border-color: #667eea;
+            background: #e8edff;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .team-select-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .team-select-card p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .team-select-card .players-count {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .create-team-btn {
+            width: 100%;
+            padding: 15px;
+            background: white;
+            border: 2px dashed #667eea;
+            border-radius: 8px;
+            color: #667eea;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 15px;
+        }
+
+        .create-team-btn:hover {
+            background: #f0f4ff;
+            border-style: solid;
+        }
+
+        .config-select-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .config-select-card:hover {
+            border-color: #764ba2;
+            background: #faf7ff;
+        }
+
+        .config-select-card.selected {
+            border-color: #764ba2;
+            background: #f3ebff;
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.2);
+        }
+
+        .config-select-card h4 {
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .config-select-card p {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .create-config-btn {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 2px dashed #764ba2;
+            border-radius: 8px;
+            color: #764ba2;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .create-config-btn:hover {
+            background: #faf7ff;
+            border-style: solid;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #f0f4ff;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .info-box {
+            background: #e8f4fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .info-box p {
+            color: #1976D2;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .teams-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏐 Настройка новой игры</h1>
+            <p>Выберите команду, конфигурацию метрик и заполните информацию об игре</p>
+        </div>
+
+        <div class="content">
+            <div class="error-message" id="errorMessage"></div>
+
+            <!-- Section 1: Team Selection -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">👥</span>
+                    <span>1. Выберите команду</span>
+                </div>
+                
+                <div id="teamsLoading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Загрузка команд...</p>
+                </div>
+
+                <div id="teamsGrid" class="teams-grid" style="display: none;"></div>
+                
+                <button class="create-team-btn" onclick="window.open('/dashboard', '_blank')">
+                    ➕ Создать новую команду
+                </button>
+            </div>
+
+            <!-- Section 2: Metrics Configuration -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">⚙️</span>
+                    <span>2. Выберите конфигурацию метрик</span>
+                </div>
+
+                <div id="configsLoading" class="loading">
+                    <div class="spinner"></div>
+                    <p>Загрузка конфигураций...</p>
+                </div>
+
+                <div id="configsList" style="display: none;"></div>
+
+                <button class="create-config-btn" onclick="window.open('/metrics-config', '_blank')">
+                    ➕ Создать новую конфигурацию
+                </button>
+            </div>
+
+            <!-- Section 3: Game Information -->
+            <div class="section">
+                <div class="section-title">
+                    <span class="icon">🎮</span>
+                    <span>3. Информация об игре</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="opponentName">Команда соперника *</label>
+                    <input type="text" id="opponentName" placeholder="Название команды соперника" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="gameDate">Дата игры *</label>
+                        <input type="date" id="gameDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gameTime">Время игры</label>
+                        <input type="time" id="gameTime">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Место проведения</label>
+                    <input type="text" id="location" placeholder="Название спортзала">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="setLength">Длина сета *</label>
+                        <select id="setLength">
+                            <option value="25" selected>25 очков (стандарт)</option>
+                            <option value="15">15 очков (тай-брейк)</option>
+                            <option value="21">21 очко</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="maxSets">Количество сетов *</label>
+                        <select id="maxSets">
+                            <option value="3">До 2 побед (из 3)</option>
+                            <option value="5" selected>До 3 побед (из 5)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="videoUrl">YouTube URL видео</label>
+                    <input type="url" id="videoUrl" placeholder="https://www.youtube.com/watch?v=...">
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Заметки</label>
+                    <textarea id="notes" placeholder="Дополнительная информация об игре..."></textarea>
+                </div>
+
+                <div class="info-box">
+                    <p><strong>Совет:</strong> Все обязательные поля отмечены звёздочкой (*). После создания игры вы сможете начать ведение статистики.</p>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="/" class="btn btn-secondary">
+                    ← Назад
+                </a>
+                <button id="startGameBtn" class="btn btn-primary" disabled onclick="startGame()">
+                    Начать ведение статистики →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedTeam = null;
+        let selectedConfig = null;
+        let teams = [];
+        let configs = [];
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTeams();
+            loadConfigs();
+            setDefaultDate();
+            
+            // Add validation listeners
+            ['opponentName', 'gameDate', 'setLength', 'maxSets'].forEach(id => {
+                document.getElementById(id).addEventListener('change', validateForm);
+                document.getElementById(id).addEventListener('input', validateForm);
+            });
+        });
+
+        function setDefaultDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('gameDate').value = today;
+        }
+
+        async function loadTeams() {
+            try {
+                console.log('Loading teams from /api/teams/');
+                const response = await fetch('/api/teams/');
+                console.log('Response status:', response.status);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                teams = await response.json();
+                console.log('Teams loaded:', teams);
+                
+                document.getElementById('teamsLoading').style.display = 'none';
+                document.getElementById('teamsGrid').style.display = 'grid';
+                
+                const teamsGrid = document.getElementById('teamsGrid');
+                teamsGrid.innerHTML = '';
+                
+                if (teams.length === 0) {
+                    teamsGrid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999;">Команды не найдены. Создайте новую команду через Dashboard.</p>';
+                    return;
+                }
+                
+                teams.forEach(team => {
+                    const card = createTeamCard(team);
+                    teamsGrid.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Error loading teams:', error);
+                const errorMsg = 'Ошибка загрузки команд: ' + error.message;
+                showError(errorMsg);
+                document.getElementById('teamsLoading').style.display = 'none';
+                document.getElementById('teamsGrid').style.display = 'grid';
+                document.getElementById('teamsGrid').innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #f44336;">${errorMsg}<br><br>Проверьте что сервер запущен и попробуйте обновить страницу.</p>`;
+            }
+        }
+
+        function createTeamCard(team) {
+            const card = document.createElement('div');
+            card.className = 'team-select-card';
+            card.onclick = (e) => selectTeam(team, e.currentTarget);
+            
+            const playersCount = team.players ? team.players.length : 0;
+            
+            card.innerHTML = `
+                <h3>${team.name}</h3>
+                <p>${team.description || 'Нет описания'}</p>
+                <div class="players-count">${playersCount} игроков</div>
+            `;
+            
+            return card;
+        }
+
+        function selectTeam(team, cardElement) {
+            selectedTeam = team;
+            
+            // Update UI
+            document.querySelectorAll('.team-select-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            if (cardElement) {
+                cardElement.classList.add('selected');
+            }
+            
+            validateForm();
+        }
+
+        async function loadKvadratikiConfig() {
+            // Load Kvadratiki config from default-config.js
+            try {
+                const module = await import('/static/js/default-config.js');
+                const kvadratiki = module.KVADRATIKI_CONFIG;
+                console.log('✅ Loaded Kvadratiki configuration from module');
+                return kvadratiki;
+            } catch (error) {
+                console.error('Failed to load Kvadratiki config:', error);
+                // Fallback to simple config
+                return {
+                    name: "Базовая конфигурация",
+                    metricTypes: [
+                        {
+                            name: "Quality",
+                            shortName: "qual",
+                            description: "Качество выполнения действия",
+                            values: [
+                                { value: 1, shortName: "=" },
+                                { value: 2, shortName: "-" },
+                                { value: 3, shortName: "/" },
+                                { value: 4, shortName: "!" },
+                                { value: 5, shortName: "+" },
+                                { value: 6, shortName: "#" }
+                            ]
+                        }
+                    ],
+                    actionMetrics: {
+                        "Serve": ["Quality"],
+                        "Reception": ["Quality"],
+                        "Set": ["Quality"],
+                        "Attack": ["Quality"],
+                        "Block": ["Quality"],
+                        "Defence": ["Quality"],
+                        "FreeBall": ["Quality"],
+                        "Transfer": ["Quality"]
+                    }
+                };
+            }
+        }
+
+        async function loadConfigs() {
+            try {
+                console.log('Loading configs from localStorage');
+                
+                // ПРАВИЛЬНЫЙ ключ: metricsConfigs (без "urations")
+                const savedConfigs = localStorage.getItem('metricsConfigs');
+                if (savedConfigs) {
+                    configs = JSON.parse(savedConfigs);
+                }
+                
+                // If no configs, create Kvadratiki default
+                if (configs.length === 0) {
+                    console.log('No configs found, loading Kvadratiki default');
+                    const kvadratikiConfig = await loadKvadratikiConfig();
+                    configs = [kvadratikiConfig];
+                    localStorage.setItem('metricsConfigs', JSON.stringify(configs));
+                }
+                
+                console.log('Configs loaded:', configs);
+                
+                document.getElementById('configsLoading').style.display = 'none';
+                document.getElementById('configsList').style.display = 'block';
+                
+                const configsList = document.getElementById('configsList');
+                configsList.innerHTML = '';
+                
+                configs.forEach(config => {
+                    const card = createConfigCard(config);
+                    configsList.appendChild(card);
+                });
+                
+                // Auto-select first config
+                if (configs.length > 0) {
+                    selectConfig(configs[0], configsList.firstChild);
+                }
+            } catch (error) {
+                console.error('Error loading configs:', error);
+                showError('Ошибка загрузки конфигураций: ' + error.message);
+                document.getElementById('configsLoading').style.display = 'none';
+            }
+        }
+
+        function createConfigCard(config) {
+            const card = document.createElement('div');
+            card.className = 'config-select-card';
+            card.onclick = (e) => selectConfig(config, e.currentTarget);
+            
+            const metricsCount = config.metricTypes ? config.metricTypes.length : 0;
+            const rulesCount = (config.inActionRules?.length || 0) + (config.sequenceRules?.length || 0);
+            
+            card.innerHTML = `
+                <h4>${config.name}</h4>
+                <p>${metricsCount} метрик, ${rulesCount} правил автозаполнения</p>
+            `;
+            
+            return card;
+        }
+
+        function selectConfig(config, cardElement) {
+            selectedConfig = config;
+            
+            // Update UI
+            document.querySelectorAll('.config-select-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            if (cardElement) {
+                cardElement.classList.add('selected');
+            }
+            
+            validateForm();
+        }
+
+        function validateForm() {
+            const opponentName = document.getElementById('opponentName').value.trim();
+            const gameDate = document.getElementById('gameDate').value;
+            const setLength = document.getElementById('setLength').value;
+            const maxSets = document.getElementById('maxSets').value;
+            
+            const isValid = selectedTeam && selectedConfig && opponentName && gameDate && setLength && maxSets;
+            
+            document.getElementById('startGameBtn').disabled = !isValid;
+            
+            return isValid;
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                errorDiv.style.display = 'none';
+            }, 5000);
+        }
+
+        async function startGame() {
+            if (!validateForm()) {
+                showError('Пожалуйста, заполните все обязательные поля');
+                return;
+            }
+            
+            // Сохраняем ВСЮ команду целиком (нахуй API, sessionStorage надёжнее)
+            console.log('✅ Saving full team to sessionStorage:', selectedTeam);
+            
+            const gameData = {
+                team: selectedTeam,  // ВСЯ КОМАНДА!
+                config: selectedConfig,
+                opponent: document.getElementById('opponentName').value.trim(),
+                date: document.getElementById('gameDate').value,
+                time: document.getElementById('gameTime').value || null,
+                location: document.getElementById('location').value.trim() || null,
+                setLength: parseInt(document.getElementById('setLength').value),
+                maxSets: parseInt(document.getElementById('maxSets').value),
+                videoUrl: document.getElementById('videoUrl').value.trim() || null,
+                notes: document.getElementById('notes').value.trim() || null
+            };
+            
+            console.log('📦 Full gameData:', gameData);
+            console.log('👥 Players count:', selectedTeam.players?.length);
+            
+            // Save to sessionStorage for the game recording page
+            sessionStorage.setItem('gameSetup', JSON.stringify(gameData));
+            
+            // Redirect to game recording page
+            window.location.href = '/game-recording-v3';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ведение статистики игры - Volleyball Stats</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            overflow: hidden;
+        }
+        
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 10px;
+            height: 100vh;
+            padding: 10px;
+        }
+        
+        /* Header */
+        .header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .score-display {
+            font-size: 32px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .set-info { font-size: 16px; opacity: 0.9; }
+        .phase-info { font-size: 14px; opacity: 0.9; }
+        
+        .game-controls button {
+            padding: 10px 20px;
+            margin-left: 10px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .game-controls button:hover { background: #f0f0f0; transform: translateY(-2px); }
+        
+        /* Panels */
+        .panel {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            overflow-y: auto;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .panel-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        /* Left Panel - Arrangement & Court */
+        .court-arrangement {
+            margin-bottom: 20px;
+        }
+        
+        .court-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+        
+        .player-cell {
+            background: #f9f9f9;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            font-size: 12px;
+        }
+        
+        .player-cell.libero { background: #ffebee; border-color: #ef5350; }
+        .player-cell.setter { background: #e8f5e9; border-color: #66bb6a; }
+        
+        .player-number { font-weight: bold; font-size: 16px; color: #333; }
+        .player-name { font-size: 11px; color: #666; margin-top: 4px; }
+        .position-label { font-size: 10px; color: #999; margin-top: 2px; }
+        
+        .volleyball-court {
+            width: 100%;
+            aspect-ratio: 9/18;
+            background: #e8f5e9;
+            border: 3px solid #333;
+            border-radius: 8px;
+            cursor: crosshair;
+            position: relative;
+        }
+        
+        /* Center Panel - Text Interface */
+        .text-interface {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .input-row {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .input-label {
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        select, input {
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        
+        .metric-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .metric-field label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .metric-combo {
+            padding: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        .action-history {
+            max-height: 300px;
+            overflow-y: auto;
+            background: #f9f9f9;
+            border-radius: 6px;
+            padding: 10px;
+        }
+        
+        .action-item {
+            padding: 8px;
+            background: white;
+            border-left: 3px solid #667eea;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+        
+        /* Right Panel - Button Controller */
+        .button-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .action-button {
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .action-button:active { transform: translateY(0); }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .stat-item span { font-size: 12px; color: #666; }
+        .stat-item strong { font-size: 18px; color: #667eea; }
+        
+        /* Messages */
+        .message-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+        
+        .message {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .message-info { background: #e3f2fd; color: #1976d2; }
+        .message-success { background: #e8f5e9; color: #2e7d32; }
+        .message-error { background: #ffebee; color: #c62828; }
+    </style>
+</head>
+<body>
+    <!-- Messages -->
+    <div id="messageContainer" class="message-container"></div>
+    
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <div id="scoreDisplay" class="score-display">
+                    <span id="scoreLeft">0</span>
+                    <span>:</span>
+                    <span id="scoreRight">0</span>
+                </div>
+                <div class="set-info">
+                    <span id="setNumber">Set 1</span> | 
+                    <span id="phaseIndicator">🏐 Подача</span> | 
+                    <span id="rallyInfo">Rally #1</span>
+                </div>
+            </div>
+            
+            <div class="game-controls">
+                <button id="saveGameBtn">💾 Save</button>
+                <button id="exportGameBtn">📥 Export</button>
+                <button id="undoBtn">↩️ Undo</button>
+            </div>
+        </div>
+        
+        <!-- Left Panel -->
+        <div class="panel left-panel">
+            <div class="panel-title">Arrangement & Court</div>
+            
+            <!-- Player Arrangement -->
+            <div id="arrangementDisplay" class="court-arrangement">
+                <!-- Will be filled by JS -->
+            </div>
+            
+            <!-- Volleyball Court -->
+            <div>
+                <canvas id="courtCanvas" class="volleyball-court" width="270" height="540"></canvas>
+            </div>
+        </div>
+        
+        <!-- Center Panel -->
+        <div class="panel center-panel">
+            <div class="panel-title">Action Input</div>
+            
+            <div class="text-interface">
+                <!-- Author Selection -->
+                <div class="input-row">
+                    <div class="input-label">Author:</div>
+                    <select id="authorCombo">
+                        <option value="">Select author...</option>
+                    </select>
+                </div>
+                
+                <!-- Action Type Selection -->
+                <div class="input-row">
+                    <div class="input-label">Action Type:</div>
+                    <select id="actionTypeCombo">
+                        <option value="">Select action...</option>
+                    </select>
+                </div>
+                
+                <!-- Metrics -->
+                <div id="metricContainer" class="metrics-container">
+                    <!-- Will be filled dynamically -->
+                </div>
+                
+                <!-- Add Action Button -->
+                <button id="addActionBtn" class="action-button" style="grid-column: 1/-1;">
+                    ➕ Add Action
+                </button>
+            </div>
+            
+            <div class="panel-title" style="margin-top: 20px;">Action History</div>
+            <div id="actionHistory" class="action-history">
+                <!-- Actions will be added here -->
+            </div>
+        </div>
+        
+        <!-- Right Panel -->
+        <div class="panel right-panel">
+            <div class="panel-title">Button Controller</div>
+            
+            <div id="buttonLabel" class="button-label">Select author</div>
+            <div id="buttonContainer" class="button-container">
+                <!-- Buttons will be added dynamically -->
+            </div>
+            
+            <div class="panel-title" style="margin-top: 20px;">Statistics</div>
+            <div id="statsSummary">
+                <!-- Stats will be added here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Load JS Modules -->
+    <script src="/static/js/game-state.js"></script>
+    <script src="/static/js/action-processor.js"></script>
+    <script src="/static/js/sync-controller.js"></script>
+    <script src="/static/js/ui-updater.js"></script>
+    <script src="/static/js/game-controller.js"></script>
+</body>
+</html>
